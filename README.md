@@ -2,9 +2,13 @@
 
 
 ## Commit message format
+After cloning the project run the below command to change the default commit message template
+
+    git config --local commit.template './.gitmessage'
+    
 Please use the following command to commit your code (without `-m` flag)
 
-    `git commit`
+    git commit
 
 Types of prefixes for the commit messages
 
