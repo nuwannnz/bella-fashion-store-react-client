@@ -7,6 +7,7 @@ Please use the following command to commit your code (without `-m` flag)
     `git commit`
 
 Types of prefixes for the commit messages
+
     - FEAT  : A new feature
     - FIX   : A bug fix
     - DOCS  : Documentation only chage
