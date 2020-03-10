@@ -1,7 +1,14 @@
 # Front end for the Bella Fashion Store
 
 
-## Commit message format
+### How to setup after cloning
+Run the below commands after cloning the project
+
+    cd ./bella-fashion-store-frontent
+    npm install 
+
+
+### Commit message format
 After cloning the project run the below command to change the default commit message template
 
     git config --local commit.template './.gitmessage'
