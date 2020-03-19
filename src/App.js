@@ -6,6 +6,7 @@ import NewArrivals from "./pages/NewArrivals.js";
 import Categories from "./pages/Categories.js";
 import SubCatgories from "./pages/SubCatgories.js";
 import Error from "./pages/ErrorPage.js";
+import './App.css';
 
 import {Route, Switch} from 'react-router-dom'
 

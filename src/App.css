@@ -1,0 +1,140 @@
+.navbar {
+    margin: 0;
+    padding: 0;
+    width: 250px;
+    background-color: blue;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+  }
+  
+  .navbar a {
+    display: block;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+  }
+   
+  .navbar a.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .navbar a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+  }
+  .navbar img{
+      width: 200px;
+      height: 100px;
+  }
+  
+  div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px;
+  }
+  
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+    .sidebar a {float: left;}
+    div.content {margin-left: 0;}
+  }
+  
+  @media screen and (max-width: 400px) {
+    .sidebar a {
+      text-align: center;
+      float: none;
+    }
+  }
+
+  /* HOME PAGE */
+  .defaultHero, .categoriesHero, .newArrivalsHero{
+    min-height: calc(100vh - 66px);
+    background:  url("./images/home-background-3.jpg") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .newArrivalsHero{
+    min-height: 60vh;
+    background:  url("./images/home-background-2.jpg") center/cover no-repeat;
+
+  }
+
+  .banner{
+    display: inline-block;
+    background: rgb(3, 31, 65);
+    color:  var(--mainWhite);
+    padding: 2rem 1rem;
+    text-align: center;
+    text-transform: capitalize;
+   
+  }
+
+  .banner h1{
+    color: #111; 
+    font-family: 'Helvetica Neue', sans-serif; 
+    font-size: 45px; 
+    font-weight: bold; 
+    letter-spacing: -1px; 
+    line-height: 1; 
+    text-align: center;
+  }
+  
+
+  .banner div{
+    width: 10rem;
+    height: 5px;
+    background: var(--primaryColor);
+    margin: 1.7rem auto;
+  }
+
+  .banner p{
+    color: #5a5635; font-family: 'Trocchi', serif; font-size: 45px; font-weight: normal; line-height: 48px; margin: 0;
+    margin-bottom: 1.2rem;
+  }
+  .btn-primary{
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+  }
+  
+  .btn-primary span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .btn-primary span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .btn-primary:hover span {
+    padding-right: 25px;
+  }
+  
+  .btn-primary:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
