@@ -1,0 +1,11 @@
+.header-wrap{
+    height: 100px;
+    width: 100%;    
+    background-color: white;
+    
+}
+
+.header-wrap .title{
+    font-family: 'La Belle Aurore', cursive;
+    font-size: 38px;
+}
