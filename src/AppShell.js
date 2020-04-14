@@ -1,37 +1,31 @@
-import React from 'react';
-import { Header } from "./components/Header";
+import React from "react";
 import "./styles/AppShell.css";
-
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import { adminPanelStore, customerStore } from "./redux/store";
+import { ROUTE_PATHS } from "./Constants";
+import AdminPanelShell from "./AdminPanelShell";
+import CustomerShell from "./CustomerShell";
 
 function AppShell() {
   return (
-    <div className="app-wrap flex flex-r">
+    <Router>
+      <div className="app-wrap flex flex-r">
+        <Switch>
+          <Route path={ROUTE_PATHS.ADMIN_SHELL}>
+            <Provider store={adminPanelStore}>
+              <AdminPanelShell />
+            </Provider>
+          </Route>
 
-      {/* Category bar, this is not always visible */}
-      <div className="category-wrap" >
-
+          <Route path={ROUTE_PATHS.CUSTOMER_SHELL}>
+            <Provider store={customerStore}>
+              <CustomerShell />
+            </Provider>
+          </Route>
+        </Switch>
       </div>
-
-      {/* Main content wrap */}
-      <div className="content-wrap flex flex-c">
-
-        {/* Header */}
-        <Header />
-
-        {/* Page content */}
-        <div className="page-content-wrap">
-
-          <div className="page">
-
-          </div>
-
-          {/* Footer */}
-          <div className="footer-wrap">
-
-          </div>
-        </div>
-      </div>
-    </div>
+    </Router>
   );
 }
 

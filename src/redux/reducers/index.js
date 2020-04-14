@@ -1,7 +1,8 @@
 import { combineReducers } from "redux";
 import { cart } from "./cart.reducer";
 
-export default combineReducers({
-    cart
-})
+export const customerReducer = combineReducers({
+  cart,
+});
 
+export const adminPanelReducer = combineReducers({});

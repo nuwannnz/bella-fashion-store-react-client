@@ -1,4 +1,6 @@
 import { createStore } from "redux";
-import rootReducer from '../reducers';
+import { customerReducer, adminPanelReducer } from "../reducers";
 
-export const store = createStore(rootReducer);
+export const customerStore = createStore(customerReducer);
+
+export const adminPanelStore = createStore(adminPanelReducer);
