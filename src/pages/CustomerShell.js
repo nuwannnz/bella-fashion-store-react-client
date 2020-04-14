@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Header } from "./components/Header";
-import "./styles/CustomerShell.css";
+import { Header } from "../components/Header";
+import "../styles/CustomerShell.css";
 
 export default class CustomerShell extends Component {
   render() {

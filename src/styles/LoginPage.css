@@ -1,0 +1,9 @@
+.login-page-wrap .logo {
+  width: 400px;
+  height: 400px;
+}
+
+.login-page-wrap .logo img {
+  width: 100%;
+  height: 100%;
+}

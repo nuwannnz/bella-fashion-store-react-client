@@ -1,13 +1,9 @@
-import dotEnv from "dotenv";
 import React from "react";
 import ReactDOM from "react-dom";
 import AppShell from "./AppShell";
 import * as serviceWorker from "./serviceWorker";
 import "./styles/index.css";
 import "./styles/common.css";
-
-// load env file
-dotEnv.config();
 
 ReactDOM.render(
   <AppShell />,

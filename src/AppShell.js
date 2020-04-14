@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { adminPanelStore, customerStore } from "./redux/store";
 import { ROUTE_PATHS } from "./Constants";
-import AdminPanelShell from "./AdminPanelShell";
-import CustomerShell from "./CustomerShell";
+import AdminPanelShell from "./pages/admin-panel/AdminPanelShell";
+import CustomerShell from "./pages/CustomerShell";
 
 function AppShell() {
   return (
