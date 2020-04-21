@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useHistory, Switch, Route, useRouteMatch } from "react-router-dom";
+import { useHistory, Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import * as staffService from "../../services/admin/staff.service";
 import { ROUTE_PATHS } from "../../Constants";
@@ -9,10 +9,10 @@ import {
   userLoaded,
 } from "../../redux/actions/admin-panel/staff.actions";
 import LoginPage from "./staff/LoginPage";
+import "../../styles/AdminPanelShell.css";
 
 export default function AdminPanelShell() {
   const history = useHistory();
-  const { path } = useRouteMatch();
   const dispatch = useDispatch();
 
   const userToken = useSelector((state) => state.staff.token);
@@ -54,17 +54,19 @@ export default function AdminPanelShell() {
   });
 
   return (
-    <Switch>
-      <Route path={`${ROUTE_PATHS.ADMIN_LOGIN}`}>
-        <LoginPage />
-      </Route>
-      <Route path={ROUTE_PATHS.ADMIN_SIGNUP}></Route>
+    <div className="admin-panel-wrap">
+      <Switch>
+        <Route path={`${ROUTE_PATHS.ADMIN_LOGIN}`}>
+          <LoginPage />
+        </Route>
+        <Route path={ROUTE_PATHS.ADMIN_SIGNUP}></Route>
 
-      <Route path={ROUTE_PATHS.ADMIN_UPDATE_TEMP_PWD}></Route>
+        <Route path={ROUTE_PATHS.ADMIN_UPDATE_TEMP_PWD}></Route>
 
-      <Route path={ROUTE_PATHS.ADMIN_DASHBOARD}>
-        <div>Admin dashboard</div>
-      </Route>
-    </Switch>
+        <Route path={ROUTE_PATHS.ADMIN_DASHBOARD}>
+          <div>Admin dashboard</div>
+        </Route>
+      </Switch>
+    </div>
   );
 }

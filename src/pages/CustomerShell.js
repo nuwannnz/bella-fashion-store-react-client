@@ -5,7 +5,7 @@ import "../styles/CustomerShell.css";
 export default class CustomerShell extends Component {
   render() {
     return (
-      <div className="app-wrap flex flex-r">
+      <div className="customer-shell flex flex-r">
         {/* Category bar, this is not always visible */}
         <div className="category-wrap"></div>
 

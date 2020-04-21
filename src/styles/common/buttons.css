@@ -1,0 +1,20 @@
+
+.bella-btn, .bella-accent-btn{
+    border: 1px solid ;
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-size: 15px;
+    cursor: pointer;
+    outline: none;
+    width: 100%;
+}
+
+.bella-accent-btn{
+    border-color: var(--accent-color);
+    background-color: var(--accent-color);
+    color: var(--accent-font-color);
+}
+
+.bella-accent-btn:hover{
+    background-color: var(--accent-color-hover);
+}

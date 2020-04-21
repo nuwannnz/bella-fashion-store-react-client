@@ -3,7 +3,10 @@ import ReactDOM from "react-dom";
 import AppShell from "./AppShell";
 import * as serviceWorker from "./serviceWorker";
 import "./styles/index.css";
-import "./styles/common.css";
+import "./styles/common/common.css";
+import "./styles/common/buttons.css";
+import "./styles/common/common-forms.css";
+
 
 ReactDOM.render(
   <AppShell />,

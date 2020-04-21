@@ -6,6 +6,7 @@ import { adminPanelStore, customerStore } from "./redux/store";
 import { ROUTE_PATHS } from "./Constants";
 import AdminPanelShell from "./pages/admin-panel/AdminPanelShell";
 import CustomerShell from "./pages/CustomerShell";
+import LoadingAnimation from "./components/common/LoadingAnimation";
 
 function AppShell() {
   return (
@@ -24,6 +25,8 @@ function AppShell() {
             </Provider>
           </Route>
         </Switch>
+
+        {/* <LoadingAnimation /> */}
       </div>
     </Router>
   );

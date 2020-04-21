@@ -1,0 +1,56 @@
+/* common variables */
+
+:root {
+  --main-bg-color: #fff;
+  --main-font-color: #333;
+  --accent-color: #8C52FF;
+  --accent-color-hover: #7834ff;
+  --accent-font-color:#fff;
+}
+
+/* end of common variables */
+
+/* Global styles */
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0px;
+  padding: 0px;
+}
+
+h1, h2, h3, h4, h5{
+  margin-bottom: 0px;
+}
+
+/* common classes */
+
+.flex,
+.flex-center {
+  display: flex;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.align-center{
+  align-items: center;
+}
+
+.justify-center{
+  justify-content: center;
+}
+
+.flex-c {
+  flex-direction: column;
+}
+
+.flex-r {
+  flex-direction: row;
+}
+
+
+/* end of common classes */
