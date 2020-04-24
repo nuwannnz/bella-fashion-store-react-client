@@ -7,7 +7,6 @@ import "./styles/common/common.css";
 import "./styles/common/buttons.css";
 import "./styles/common/common-forms.css";
 
-
 ReactDOM.render(
   <AppShell />,
 

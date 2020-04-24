@@ -2,9 +2,13 @@ import { STAFF_ACTION_TYPES } from "../../actions/admin-panel/staff.actions";
 
 const initialState = {
   hasLogginError: false,
+  signUpErrorMsg: "",
   token: null,
   userInfo: null,
   updatedTempPassword: false,
+  isLoading: false,
+  adminSignUpSuccess: false,
+  hasAdmin: true
 };
 
 export const staff = (state = initialState, action) => {
@@ -46,6 +50,24 @@ export const staff = (state = initialState, action) => {
         ...state,
         updatedTempPassword: true,
       };
+
+    case STAFF_ACTION_TYPES.SIGNUP_ERROR_MSG:
+      return {
+        ...state,
+        signUpErrorMsg: action.payload
+      }
+
+    case STAFF_ACTION_TYPES.IS_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload
+      }
+
+    case STAFF_ACTION_TYPES.HAS_ADMIN:
+      return {
+        ...state,
+        hasAdmin: action.payload
+      }
     default:
       return state;
   }

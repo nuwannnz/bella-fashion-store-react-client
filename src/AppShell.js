@@ -8,6 +8,7 @@ import AdminPanelShell from "./pages/admin-panel/AdminPanelShell";
 import CustomerShell from "./pages/customer/CustomerShell";
 import LoadingAnimation from "./components/common/LoadingAnimation";
 
+
 function AppShell() {
   return (
     <Router>
@@ -16,6 +17,7 @@ function AppShell() {
           <Route path={ROUTE_PATHS.ADMIN_SHELL}>
             <Provider store={adminPanelStore}>
               <AdminPanelShell />
+              <LoadingAnimation />
             </Provider>
           </Route>
 
@@ -26,7 +28,6 @@ function AppShell() {
           </Route>
         </Switch>
 
-        {/* <LoadingAnimation /> */}
       </div>
     </Router>
   );

@@ -1,6 +1,6 @@
 .rotate-center {
-  -webkit-animation: rotate-center 0.8s ease-in-out infinite both;
-  animation: rotate-center 0.8s ease-in-out infinite both;
+  -webkit-animation: rotate-center 0.6s ease-in-out infinite both;
+  animation: rotate-center 0.6s ease-in-out infinite both;
 }
 
 /* ----------------------------------------------
@@ -37,6 +37,7 @@
 }
 
 .loading-anim-wrap {
+  z-index: 999999;
   width: 100%;
   height: 100%;
   position: fixed;
@@ -48,7 +49,20 @@
   backdrop-filter: blur(10px);
 }
 
-.loading-anim-wrap .rotate-center {
+.loading-anim-wrap div{
+  position: relative;
+}
+
+.loading-anim-wrap .rotate-center{
+width: 370px;
+  height: 370px;
+}
+
+.loading-anim-wrap .logo-text {
   width: 370px;
   height: 370px;
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

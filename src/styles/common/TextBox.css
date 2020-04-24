@@ -1,0 +1,41 @@
+
+.form-element-wrapper{
+    padding: 5px 0px;
+    margin: 5px 0px;
+}
+
+.form-element-wrapper label{
+    display: block;
+    color: #333;
+    margin-bottom: 5px;
+
+}
+
+.form-element-wrapper .textual-form-element{
+    outline: none;
+    border: 1.5px solid #ddd;
+    border-radius: 5px;
+    padding: 8px 10px;
+    font-size: 15px;
+    width: 100%;
+    z-index: 100;
+    position: relative;
+}
+
+.form-element-wrapper .textual-form-element:focus{
+    border-color: var(--accent-color);
+}
+
+.form-element-wrapper .animate-label {
+    z-index: 99;
+    transition: 150ms transform ease-out;
+    transform: translateY(25px);
+}
+
+.form-element-wrapper:focus-within .animate-label{
+    transform: translateY(0px);
+}
+ 
+.textual-form-element:placeholder-shown ~ .animate-label{
+    transform: translateY(0) !important;
+}

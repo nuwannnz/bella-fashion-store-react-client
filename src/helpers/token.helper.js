@@ -9,6 +9,10 @@ export const saveAdminTokenToStorage = (token) => {
   localStorage.setItem(ADMIN_TOKEN_KEY, token);
 };
 
+export const deleteAdminTokenFromStorage = () => {
+  localStorage.removeItem(ADMIN_TOKEN_KEY);
+}
+
 export const loadCustomerTokenFromStorage = () => {
   return localStorage.getItem(CUSTOMER_TOKEN_KEY);
 };
@@ -17,8 +21,15 @@ export const saveCustomerTokenToStorage = (token) => {
   localStorage.setItem(CUSTOMER_TOKEN_KEY, token);
 };
 
+export const deleteCustomerTokenFromStorage = () => {
+  localStorage.removeItem(CUSTOMER_TOKEN_KEY);
+}
+
 export const getAuthHeader = (token) => {
   return {
-    Authorization: `Bearer ${token}`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+
+    }
   };
 };

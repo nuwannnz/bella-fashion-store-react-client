@@ -8,7 +8,8 @@ import "../../../styles/LoginPage.css";
 export default function LoginPage() {
   const dispatch = useDispatch();
   const hasLoginError = useSelector(state => state.staff.hasLogginError);
-
+  const isLoading = useSelector(state => state.staff.isLoading);
+  console.log('isLoading', isLoading)
   return (
     <div className="page login-page-wrap flex align-center flex-c">
       <div className="logo">
@@ -18,6 +19,7 @@ export default function LoginPage() {
       <LoginForm
         forgotPwdUrl={"#"}
         hasError={hasLoginError}
+        isLoading={isLoading}
         onLoginClick={(email, password) =>
           dispatch(loginAsync(email, password))
         }
