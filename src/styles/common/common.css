@@ -52,5 +52,13 @@ h1, h2, h3, h4, h5{
   flex-direction: row;
 }
 
+.w-100{
+  width: 100%;
+}
+
+.h-100{
+  height: 100%;
+}
+
 
 /* end of common classes */

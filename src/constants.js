@@ -1,5 +1,6 @@
 export const ROUTE_PATHS = {
   CUSTOMER_SHELL: "/",
+  CUSTOMER_LOGIN: "/login",
   ADMIN_SHELL: "/admin",
   ADMIN_DASHBOARD: "/admin/d",
   ADMIN_LOGIN: "/admin/login",

@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { adminPanelStore, customerStore } from "./redux/store";
 import { ROUTE_PATHS } from "./Constants";
 import AdminPanelShell from "./pages/admin-panel/AdminPanelShell";
-import CustomerShell from "./pages/CustomerShell";
+import CustomerShell from "./pages/customer/CustomerShell";
 import LoadingAnimation from "./components/common/LoadingAnimation";
 
 function AppShell() {
