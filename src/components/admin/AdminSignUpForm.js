@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import ErrorMessage from "../common/ErrorMessage";
 import { isEmpty, isValidEmail } from "../../helpers/input-validation.helper";
+import TextBox from '../common/TextBox';
+import AccentButton from '../common/AccentButton';
 
-export default function AdminSignUpForm({ onSignUpClick, errorMsg }) {
+export default function AdminSignUpForm({ onSignUpClick, errorMsg = "" }) {
     const [email, setEmail] = useState("");
     const [fName, setFName] = useState("");
     const [lName, setLName] = useState("");
@@ -30,43 +32,28 @@ export default function AdminSignUpForm({ onSignUpClick, errorMsg }) {
 
     return (
         <div className="login-form-wrapper">
-            <div className="form-element-wrapper ">
-                <label className="animate-label">Email</label>
-                <input
-                    className="textual-form-element"
-                    type="text"
-                    name="email"
-                    placeholder="Enter email here"
-                    onChange={(e) => {
-                        setEmail(e.target.value);
-                    }}
-                />
-            </div>
-            <div className="form-element-wrapper">
-                <label className="animate-label"> First name</label>
-                <input
-                    className="textual-form-element"
-                    type="text"
-                    name="firstName"
-                    placeholder="Enter first name here"
-                    onChange={(e) => {
-                        setFName(e.target.value);
-                    }}
-                />
-            </div>
 
-            <div className="form-element-wrapper">
-                <label className="animate-label"> Last name</label>
-                <input
-                    className="textual-form-element"
-                    type="text"
-                    name="lastName"
-                    placeholder="Enter last name here"
-                    onChange={(e) => {
-                        setLName(e.target.value);
-                    }}
-                />
-            </div>
+
+            <TextBox
+                name="email"
+                placeholder="Enter email here"
+                label="Email"
+                onTextChange={text => setEmail(text)} />
+
+
+            <TextBox
+                name="fname"
+                placeholder="Enter first name here"
+                label="First name"
+                onTextChange={text => setFName(text)} />
+
+
+
+            <TextBox
+                name="lname"
+                placeholder="Enter last name here"
+                label="Last name"
+                onTextChange={text => setLName(text)} />
 
             {
                 invalidInput !== null && invalidInput.length > 0 ?
@@ -80,12 +67,8 @@ export default function AdminSignUpForm({ onSignUpClick, errorMsg }) {
             }
 
 
-            <button
-                className="bella-accent-btn"
-                onClick={submitForm}
-            >
-                Sign up
-      </button>
+            <AccentButton onButtonClick={submitForm} text="Sign up" />
+
         </div>
     );
 }

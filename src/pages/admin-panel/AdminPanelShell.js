@@ -21,8 +21,8 @@ export default function AdminPanelShell() {
 
   const userLoggedIn = useUserLoggedIn();
 
-  const userInfo = useSelector((state) => state.staff.userInfo);
-  const hasAdmin = useSelector((state) => state.staff.hasAdmin);
+  const userInfo = useSelector((state) => { console.log(state); return state.staffLogin.auth.userInfo; });
+  const hasAdmin = useSelector((state) => state.staffLogin.ui.hasAdmin);
 
   // these are just like variables
   const checkedHasAdmin = useRef(false);

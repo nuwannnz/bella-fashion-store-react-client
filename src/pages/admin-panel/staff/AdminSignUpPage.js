@@ -4,10 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { signUpAdminAsync } from "../../../redux/actions/admin-panel/staff.actions";
 import { getAssetUrl } from "../../../helpers/assets.helper";
 import "../../../styles/LoginPage.css";
+import { useHistory } from "react-router-dom";
 
 export default function AdminSignUpPage() {
     const dispatch = useDispatch();
-    const errorMsg = useSelector(state => state.staff.signUpErrorMsg);
+    const history = useHistory();
+
+    const errorMsg = useSelector(state => state.staffLogin.ui.errorMsg);
+    const isLoading = useSelector(state => state.staffLogin.ui.isLoading);
 
     return (
         <div className="page login-page-wrap flex align-center flex-c">
@@ -18,7 +22,7 @@ export default function AdminSignUpPage() {
             <AdminSignUpForm
                 errorMsg={errorMsg}
                 onSignUpClick={(email, fName, lName) =>
-                    dispatch(signUpAdminAsync(email, fName, lName))
+                    dispatch(signUpAdminAsync(email, fName, lName, history))
                 }
             />
         </div>

@@ -1,6 +1,5 @@
-.error-msg-wrapper{
-    background-color: #ffacac;
-    color: maroon;
+.msg-wrapper{
+    
     padding: 10px 20px;
     border-radius: 5px;
     width: 100%;
@@ -10,6 +9,16 @@
     font-size: 14px;
 }
 
-.error-msg-wrapper span{
+.msg-wrapper span{
     display: inline-block;
+}
+
+.msg-wrapper.error{
+background-color: #ffacac;
+    color: maroon;
+}
+
+.msg-wrapper.success{
+    background-color: lightgreen;
+    color: green;
 }
