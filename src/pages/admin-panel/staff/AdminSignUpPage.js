@@ -1,5 +1,5 @@
 import React from "react";
-import AdminSignUpForm from "../../../components/admin/AdminSignUpForm";
+import AdminSignUpForm from "../../../components/admin/forms/AdminSignUpForm";
 import { useDispatch, useSelector } from "react-redux";
 import { signUpAdminAsync } from "../../../redux/actions/admin-panel/staff.actions";
 import { getAssetUrl } from "../../../helpers/assets.helper";

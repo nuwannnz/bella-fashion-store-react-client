@@ -57,7 +57,7 @@ export const updateTempPassword = async (token, updatedPassword) => {
   const result = new APIResult();
 
   try {
-    const response = await axios.post(path, data, config);
+    const response = await axios.put(path, data, config);
 
     result.data = response.data;
     return result;

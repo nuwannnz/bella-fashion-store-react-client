@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import ErrorMessage from "../common/ErrorMessage";
-import { isEmpty, isValidEmail } from "../../helpers/input-validation.helper";
-import TextBox from '../common/TextBox';
-import AccentButton from '../common/AccentButton';
+import ErrorMessage from "../../common/ErrorMessage";
+import { isEmpty, isValidEmail } from "../../../helpers/input-validation.helper";
+import TextBox from '../../common/TextBox';
+import AccentButton from '../../common/AccentButton';
 
 export default function LoginForm({ onLoginClick, forgotPwdUrl, errorMsg = "", isLoading }) {
   const [email, setEmail] = useState("");

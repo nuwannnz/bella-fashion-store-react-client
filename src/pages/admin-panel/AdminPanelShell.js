@@ -10,6 +10,7 @@ import {
 } from "../../redux/actions/admin-panel/staff.actions";
 import LoginPage from "./staff/LoginPage";
 import AdminSignUpPage from "./staff/AdminSignUpPage";
+import UpdateTemporaryPasswordPage from "./staff/UpdateTemporaryPasswordPage";
 import "../../styles/AdminPanelShell.css";
 import { useUserLoggedIn } from "../../hooks/admin-panel/Auth.hooks";
 import { uiIsLoading } from "../../redux/actions/ui.actions";
@@ -96,7 +97,7 @@ export default function AdminPanelShell() {
         </Route>
 
         <Route path={ROUTE_PATHS.ADMIN_UPDATE_TEMP_PWD}>
-          <button onClick={() => dispatch(logoutAsync())} >Logout</button>
+          <UpdateTemporaryPasswordPage />
         </Route>
 
         <Route path={ROUTE_PATHS.ADMIN_DASHBOARD}>

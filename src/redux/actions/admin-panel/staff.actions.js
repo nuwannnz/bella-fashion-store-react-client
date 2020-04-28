@@ -177,17 +177,20 @@ export function checkHasAdminAsync() {
   }
 }
 
-export function updateTempPassword(newPassword) {
+export function updateTempPasswordAsync(newPassword) {
   return async (dispatch, getState) => {
+
+    dispatch(isLoading(true));
+
     // get state from the state
-    const { token } = getState().staff;
+    const { token } = getState().staffLogin.auth;
     if (!token) {
       return;
     }
 
     const result = await staffService.updateTempPassword(token, newPassword);
 
-    if (result !== null && result.success) {
+    if (result.isResultOk() && result.data.success) {
       // fetch user again again
       // dispatch(loggedOut());
       // dispatch(updatedTempPassword());

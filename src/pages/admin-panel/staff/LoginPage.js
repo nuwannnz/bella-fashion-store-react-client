@@ -1,5 +1,5 @@
 import React from "react";
-import LoginForm from "../../../components/admin/LoginForm";
+import LoginForm from "../../../components/admin/forms/LoginForm";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAsync } from "../../../redux/actions/admin-panel/staff.actions";
 import { getAssetUrl } from "../../../helpers/assets.helper";
