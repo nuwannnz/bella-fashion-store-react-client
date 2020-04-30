@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 import { ROUTE_PATHS } from "../../constants";
 import Homepage from './Homepage';
+import CustomerLoginPage from "./CustomerLoginPage";
 
 
 export default class CustomerShell extends Component {
@@ -11,8 +12,7 @@ export default class CustomerShell extends Component {
         <Switch>
 
           <Route path={ROUTE_PATHS.CUSTOMER_LOGIN} >
-            {/* Put login component here  */}
-            <div>Login</div>
+            <CustomerLoginPage />
           </Route>
 
           <Route path={ROUTE_PATHS.CUSTOMER_SHELL}>

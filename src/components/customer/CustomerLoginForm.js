@@ -5,9 +5,9 @@ import { getAssetUrl } from "../../helpers/assets.helper";
 
 // import ErrorMessage from "../common/ErrorMessage";
 // import { isEmpty, isValidEmail } from "../../helpers/input-validation.helper";
-// import TextBox from "../common/TextBox";
 
-export default function LoginForm() {
+
+export default function CustomerLoginForm() {
 //     const [email, setEmail] = useState("");
 //     const [password, setPassword] = useState("");
 //     const [invalidInput, setInvalidInput] = useState("");
@@ -25,8 +25,10 @@ export default function LoginForm() {
     // }
 
     return (
-        <div className="login-wrapper">
-            <div className="center">
+        // <div className="login-wrapper">
+        //     <div className="center">
+        <div>
+
                 <div className="customer-login-form-wrapper"> 
                     <h1 className="sign-in-text">Sign in to Bella Fashion Store</h1>
                     <img src={getAssetUrl("logo/logo.png")} alt="Bella logo"/>
@@ -43,10 +45,9 @@ export default function LoginForm() {
                             <button className="sign-in-btn">SIGN IN</button>
                         </div>
                     </div>
-                 
-                   
                 </div>
-                <div className="sign-up-right-wrapper"> 
+                
+                {/* <div className="sign-up-right-wrapper"> 
                     <div className="sign-up-content">
                         <h2>Hi, There!</h2>
                         <p>Enter your personal details 
@@ -56,9 +57,9 @@ export default function LoginForm() {
                             <button className="sign-up-btn">SIGN UP</button>
                         </div>
                     </div>
-                </div> 
+                </div>  */}
             </div>                
-        </div>
+        // </div>
     );
 
 }
