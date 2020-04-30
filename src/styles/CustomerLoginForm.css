@@ -26,7 +26,7 @@
   
 }
 
-img {
+.customer-login-form-wrapper img {
     width: 30%;
     margin: 10px;
     position: absolute;
@@ -112,7 +112,7 @@ img {
     padding-left: 35px;
 }
 
-a {
+.forgot-pwd a {
     color: #646464;
     text-decoration: underline;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
