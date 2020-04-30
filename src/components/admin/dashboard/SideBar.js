@@ -1,12 +1,16 @@
 import React from 'react'
 import '../../../styles/admin/SideBar.css';
+import { FaEnvelope, FaLock } from "react-icons/fa";
 
-function SideBarMenuButton({ text, icon, onClickHandler }) {
+function SideBarMenuButton({ text, Icon, onClickHandler }) {
     return (
         <div className="side-bar-menu-btn">
-            <span>
-
-            </span>
+            <div className="icon-wrapper flex-center">
+                <Icon color="#fff" />
+            </div>
+            <div className="tex-wrapper flex-center">
+                {text}
+            </div>
         </div>
     )
 }

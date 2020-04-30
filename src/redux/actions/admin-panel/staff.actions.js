@@ -2,7 +2,7 @@ import * as staffService from "../../../services/admin/staff.service";
 import { displayTimeoutNotificationAsync } from "./notification.actions";
 import { buildNotification } from "../../../services/admin/notification.service";
 import { MESSAGE_STRINGS } from "../../../resources/Strings";
-import { ROUTE_PATHS } from "../../../Constants";
+import { ROUTE_PATHS } from "../../../constants";
 import { saveAdminTokenToStorage, deleteAdminTokenFromStorage } from "../../../helpers/token.helper";
 
 

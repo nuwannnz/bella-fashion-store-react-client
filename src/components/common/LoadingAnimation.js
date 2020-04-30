@@ -12,7 +12,6 @@ export default function LoadingAnimation() {
     isLoading ?
       (<div className="loading-anim-wrap flex-center flex-c">
         <div>
-
           <img
             className="rotate-center"
             src={getAssetUrl("logo/logo-bg.png")}

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useHistory, Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { ROUTE_PATHS } from "../../Constants";
+import { ROUTE_PATHS } from "../../constants";
 import { useDispatch } from "react-redux";
 import {
   verifyStoredTokenAsync,

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
-import { ROUTE_PATHS } from "../../Constants";
+import { ROUTE_PATHS } from "../../constants";
 import Homepage from './Homepage';
 
 

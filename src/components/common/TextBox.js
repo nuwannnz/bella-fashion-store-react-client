@@ -7,7 +7,7 @@ export default function TextBox({ onTextInput = null, onTextChange = null, label
     return (
 
         <div className="form-element-wrapper "
-            style={{ margin: !doSpacing ? '0px' : '5px', padding: !doSpacing ? '0px' : '5px' }}
+            style={{ margin: !doSpacing ? '0px' : '5px 0px', padding: !doSpacing ? '0px' : '5px 0px' }}
         >
             <label className={animateTitle && text.length === 0 ? 'animate-label' : ''}>{label}</label>
             <input
