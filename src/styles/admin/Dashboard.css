@@ -1,0 +1,23 @@
+.dashboard-root{
+    width:100vw;
+    height: 100vh;
+}
+
+.dashboard-root .side-bar-wrap{
+    width: 20%;
+}
+
+ .main-content-wrapper .header-wrapper{
+    height: 8%;
+    
+}
+
+.main-content-wrapper .content-wrapper{
+    height: 100%;
+    overflow: auto;
+    background-color: grey;
+}
+
+.content-wrapper .content{
+    height: 150%;
+}

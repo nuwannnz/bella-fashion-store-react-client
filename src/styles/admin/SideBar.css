@@ -1,0 +1,8 @@
+.side-bar{
+    padding: 8px;    
+}
+
+.side-bar .content{   
+    background: var(--accent-color);
+    justify-content: space-between;
+}
