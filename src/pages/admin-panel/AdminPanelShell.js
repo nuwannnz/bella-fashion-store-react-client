@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useHistory, Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { ROUTE_PATHS } from "../../Constants";
+import { ROUTE_PATHS } from "../../constants";
 import { useDispatch } from "react-redux";
 import {
   verifyStoredTokenAsync,
@@ -88,9 +88,11 @@ export default function AdminPanelShell() {
     <div className="admin-panel-wrap">
 
       <Switch>
+        
         <Route path={`${ROUTE_PATHS.ADMIN_LOGIN}`}>
           <LoginPage />
         </Route>
+
         <Route path={ROUTE_PATHS.ADMIN_SIGNUP}>
           <AdminSignUpPage />
         </Route>
@@ -103,6 +105,7 @@ export default function AdminPanelShell() {
           <div>Admin dashboard</div>
           <button onClick={() => dispatch(logoutAsync())} >Logout</button>
         </Route>
+
       </Switch>
 
 

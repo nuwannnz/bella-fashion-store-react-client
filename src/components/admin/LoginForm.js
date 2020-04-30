@@ -21,8 +21,6 @@ export default function LoginForm({ onLoginClick, forgotPwdUrl, hasError, isLoad
       setInvalidInput("");
       onLoginClick(email, password);
     }
-
-
   }
 
   return (
@@ -50,9 +48,10 @@ export default function LoginForm({ onLoginClick, forgotPwdUrl, hasError, isLoad
           : null
       }
 
-      {hasError ?
-        <ErrorMessage msg={"Invalid email and password combination"} />
-        : null
+      {
+        hasError ?
+          <ErrorMessage msg={"Invalid email and password combination"} />
+          : null
       }
 
       <div className="form-misc-wrapper">

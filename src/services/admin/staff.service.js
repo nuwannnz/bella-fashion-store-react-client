@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_HOST } from "../../Constants";
+import { API_HOST } from "../../constants";
 import logger from "../../helpers/logger.helper";
 import {
   getAuthHeader,

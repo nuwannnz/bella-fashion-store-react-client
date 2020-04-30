@@ -19,13 +19,10 @@ export default function AdminSignUpForm({ onSignUpClick, errorMsg }) {
             setInvalidInput("First name is required");
         } else if (isEmpty(lName)) {
             setInvalidInput("Last name is required");
-
         } else {
             setInvalidInput("");
             onSignUpClick(email, fName, lName);
         }
-
-
     }
 
     return (
@@ -74,9 +71,10 @@ export default function AdminSignUpForm({ onSignUpClick, errorMsg }) {
                     : null
             }
 
-            {errorMsg.length > 0 ?
-                <ErrorMessage msg={errorMsg} />
-                : null
+            {
+                errorMsg.length > 0 ?
+                    <ErrorMessage msg={errorMsg} />
+                    : null
             }
 
 
@@ -85,7 +83,7 @@ export default function AdminSignUpForm({ onSignUpClick, errorMsg }) {
                 onClick={submitForm}
             >
                 Sign up
-      </button>
+            </button>
         </div>
     );
 }
