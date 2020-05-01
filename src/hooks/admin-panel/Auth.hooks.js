@@ -6,3 +6,8 @@ export function useUserLoggedIn() {
 
     return userToken !== null;
 }
+
+export function useUserRole() {
+    const userRole = useSelector(state => state.staffLogin.auth.userInfo.user.role);
+    return userRole;
+}
