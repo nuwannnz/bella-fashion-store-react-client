@@ -10,12 +10,14 @@ import {
 } from "../../redux/actions/admin-panel/staff.actions";
 import LoginPage from "./staff/LoginPage";
 import AdminSignUpPage from "./staff/AdminSignUpPage";
+import CategoriesAdmin from "./staff/CategoriesAdmin";
 import "../../styles/AdminPanelShell.css";
 import { useUserLoggedIn } from "../../hooks/admin-panel/Auth.hooks";
 import { uiIsLoading } from "../../redux/actions/ui.actions";
 
 
 export default function AdminPanelShell() {
+  
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -27,7 +29,7 @@ export default function AdminPanelShell() {
   // these are just like variables
   const checkedHasAdmin = useRef(false);
   const checkedToken = useRef(false);
-
+/*
   useEffect(() => {
 
     // set ui to loading
@@ -82,7 +84,7 @@ export default function AdminPanelShell() {
 
   }, [userLoggedIn, userInfo, hasAdmin, history, dispatch]);
 
-
+*/
 
   return (
     <div className="admin-panel-wrap">
@@ -94,6 +96,11 @@ export default function AdminPanelShell() {
         <Route path={ROUTE_PATHS.ADMIN_SIGNUP}>
           <AdminSignUpPage />
         </Route>
+        <Route path={ROUTE_PATHS.ADMIN_CATEGORY_ADD}>
+          <CategoriesAdmin/>
+        </Route>
+        
+          
 
         <Route path={ROUTE_PATHS.ADMIN_UPDATE_TEMP_PWD}>
           <button onClick={() => dispatch(logoutAsync())} >Logout</button>
