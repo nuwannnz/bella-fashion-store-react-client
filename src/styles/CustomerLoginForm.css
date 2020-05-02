@@ -1,6 +1,6 @@
 .customer-login-form-wrapper {
     width: 545px;
-    height: 485px;
+    height: 530px;
     background-color: rgb(255, 255, 255);
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
@@ -36,7 +36,7 @@
 
 .sign-up-right-wrapper {
     width: 340px;
-    height: 485px;
+    height: 530px;
     position: relative;
     background-color: #8C52FF;
     border-top-right-radius: 25px;
@@ -94,7 +94,6 @@
 }
 
 .input-box-wrap {
-    display: grid;
     margin: 30px;
     position: absolute;
     top: 68%;
@@ -102,7 +101,7 @@
     transform: translate(-50%, -50%);
 }
 
-.input-box-wrap input {
+/* .input-box-wrap input {
     margin: 10px;
     width: 345px;
     height: 45px;
@@ -110,7 +109,8 @@
     border: 1px solid #8c52ff;
     background-color: #ffffff;
     padding-left: 35px;
-}
+    position: relative;
+} */
 
 .forgot-pwd a {
     color: #646464;
@@ -140,7 +140,9 @@
 
 .email-icon {
     position: absolute;
-    transform: translate(145%, 107%); 
+    z-index: 99999;
+    top: 7%;
+    left: 3%;
 }
 
 ::placeholder {
@@ -149,8 +151,10 @@
 }
 
 .password-icon {
-    position: absolute;
-    transform: translate(145%, 410%); 
+    position: relative;
+    z-index: 99999;
+    top: 32px;
+    left: 3%;
 }
 
 .forgot-pwd {
