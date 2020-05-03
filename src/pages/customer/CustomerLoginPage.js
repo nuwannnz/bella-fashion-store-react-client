@@ -12,18 +12,15 @@ export default function CustomerLoginPage() {
 
   return (
 
-    <div className="login-wrapper">
-        <div className="center">
-            <CustomerLoginForm 
-              forgotPwdUrl={"#"}
-              hasError={hasLoginError}
-              onLoginClick={(email, password) => {
-                dispatch(loginAsync(email, password))
-              }}
-            />
-            <CustomerSignUpMsg />
-            
-        </div>
+    <div className="login-container">
+        <CustomerLoginForm 
+          forgotPwdUrl={"#"}
+          hasError={hasLoginError}
+          onLoginClick={(email, password) => {
+            dispatch(loginAsync(email, password))
+          }}
+        />
+        <CustomerSignUpMsg />
     </div>
   );
 }

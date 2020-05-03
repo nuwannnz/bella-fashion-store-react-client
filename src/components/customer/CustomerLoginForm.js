@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../styles/CustomerLoginForm.css";
+import "../../styles/CustomerLoginPage.css";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { getAssetUrl } from "../../helpers/assets.helper";
 import InputBox from '../common/InputBox';
@@ -26,62 +26,39 @@ export default function CustomerLoginForm({onLoginClick, forgotPwdUrl, hasError}
     const onButtonClick = submitForm;
 
     return (
-        <div>
-            <div className="customer-login-form-wrapper"> 
-                <h1 className="sign-in-text">Sign in to Bella Fashion Store</h1>
-                <img src={getAssetUrl("logo/logo.png")} alt="Bella logo"/>
+        <div className="customer-login-form-wrapper">
+            <div className="login-form">
+                <h1>Sign in to Bella Fashion Store</h1>
+                <div className="login-page-logo">
+                    <img src={getAssetUrl("logo/logo.png")} alt="Bella logo"/>
+                </div>
                 
-                <div className="input-box-wrap">
-                    <div className="email-icon">
-                        <FaEnvelope color="#8c52ff" />
-                    </div>  
-
-                    <InputBox 
-                        placeholder="Email" 
-                        type="email"
-                        name="email"
-                        onTextChange={text => setEmail(text)}
-                    />
-
-                    <div className="password-icon">
-                        <FaLock color="#8c52ff" />
-                    </div>  
-                    
-                    <InputBox 
-                        placeholder="Password" 
-                        type="password"
-                        name="password"
-                        onTextChange={text => setPassword(text)}
-                    />
-
-                    {
-                         invalidInput.length > 0 ?
-                            <ErrorMessage msg={invalidInput} />
-                         : null
-                    }
-
-                    {
-                        hasError ?
-                        <ErrorMessage msg={"Invalid email and password combination"} />
-                        : null
-                    }
-                                        
-                    <div className="forgot-pwd">
-                        <a href={forgotPwdUrl}>Forgot your Password?</a>
+                <div className="login-form-wrap">
+                    <div className="login-email">
+                        <div><FaEnvelope color="#8c52ff" /></div>
+                        <input 
+                            type="email" 
+                            placeholder="Email"
+                            onChange={(e) => {
+                                
+                            }}
+                            />
                     </div>
 
-                    <div className="sign-in-wrap">
-                        <button 
-                            className="sign-in-btn"
-                            onClick={() => {
-                                if(onButtonClick !== null) {
-                                    onButtonClick();
-                                }
-                            }}>SIGN IN</button>
-                        
-                        
+                    <div className="login-password">
+                        <div><FaLock color="#8c52ff" /></div>
+                        <input type="password" placeholder="Password"/>
+                    </div>
+
+                    <div className="forgot-pwd">
+                        <a href>Forgot password?</a>
+                    </div>
+
+                    <div className="login-signup-btn">
+                        <button>SIGN UP</button>
                     </div>
                 </div>
+                
             </div>
         </div>                
     );

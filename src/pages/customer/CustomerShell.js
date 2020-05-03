@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import { ROUTE_PATHS } from "../../constants";
 import Homepage from './Homepage';
 import CustomerLoginPage from "./CustomerLoginPage";
+import CustomerSignUpPage from "./CustomerSignUpPage";
 
 
 export default class CustomerShell extends Component {
@@ -13,6 +14,10 @@ export default class CustomerShell extends Component {
 
           <Route path={ROUTE_PATHS.CUSTOMER_LOGIN} >
             <CustomerLoginPage />
+          </Route>
+
+          <Route path={ROUTE_PATHS.CUSTOMER_SIGNUP}>
+            <CustomerSignUpPage />
           </Route>
 
           <Route path={ROUTE_PATHS.CUSTOMER_SHELL}>
