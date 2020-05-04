@@ -52,7 +52,7 @@ export const clearLogginError = () => ({
 
 // async actions
 
-export function loginAsync(email, password) {
+export function loginAsync(email, password, history) {
     return async(dispatch, getState) => {
         // get result from API
         const result = await customerService.login(email, password);
@@ -64,6 +64,8 @@ export function loginAsync(email, password) {
             dispatch(loggedIn(result.data.token));
             // set user info
             dispatch(customerLoaded(result.data.customer));
+
+            history.push(ROUTE_PATHS.CUSTOMER_SHELL);
 
             // save token in local storage
             saveCustomerTokenToStorage(result.data.token);

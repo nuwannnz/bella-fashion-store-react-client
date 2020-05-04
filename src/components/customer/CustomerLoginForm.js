@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../../styles/CustomerLoginPage.css";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { getAssetUrl } from "../../helpers/assets.helper";
-import InputBox from '../common/InputBox';
 import ErrorMessage from "../common/ErrorMessage";
 import { isEmpty, isValidEmail } from "../../helpers/input-validation.helper";
 
@@ -11,6 +10,7 @@ export default function CustomerLoginForm({onLoginClick, forgotPwdUrl, hasError}
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [invalidInput, setInvalidInput] = useState("");
+    
 
     const submitForm = () => {
         if(!isValidEmail(email)) {
@@ -23,7 +23,14 @@ export default function CustomerLoginForm({onLoginClick, forgotPwdUrl, hasError}
         }
     }
 
-    const onButtonClick = submitForm;
+    const onEmailChange = e => {
+        setEmail(e.target.value);
+    };
+
+    const onPwdChange = e => {
+        setPassword(e.target.value);
+    };
+
 
     return (
         <div className="customer-login-form-wrapper">
@@ -39,25 +46,43 @@ export default function CustomerLoginForm({onLoginClick, forgotPwdUrl, hasError}
                         <input 
                             type="email" 
                             placeholder="Email"
-                            onChange={(e) => {
-                                
-                            }}
+                            onChange={onEmailChange}
                             />
                     </div>
 
                     <div className="login-password">
                         <div><FaLock color="#8c52ff" /></div>
-                        <input type="password" placeholder="Password"/>
+                        <input 
+                            type="password" 
+                            placeholder="Password"
+                            onChange={onPwdChange}
+                            />
                     </div>
 
                     <div className="forgot-pwd">
-                        <a href>Forgot password?</a>
+                        <a href={forgotPwdUrl}>Forgot password?</a>
                     </div>
+                {
+                    invalidInput.length > 0 ?
+                        <ErrorMessage msg={invalidInput} />
+                        : null
+                }
+
+                {
+                    hasError ?
+                        <ErrorMessage msg={"Invalid email and password combination"} />
+                        : null
+                }
 
                     <div className="login-signup-btn">
-                        <button>SIGN UP</button>
+                        <button onClick={() => {
+                            if(submitForm !== null) {
+                                submitForm();
+                            }
+                        }}>SIGN IN</button>
                     </div>
                 </div>
+
                 
             </div>
         </div>                
