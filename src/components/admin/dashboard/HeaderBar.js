@@ -22,7 +22,7 @@ function SearchBar({ onSearchClick }) {
 
 export default function HeaderBar() {
 
-    const user = useSelector(state => state.staffLogin.auth.userInfo.user);
+    const user = useSelector(state => state.staffLogin.auth.userInfo?.user);
 
     return (
         <div className="header-bar w-100 h-100">

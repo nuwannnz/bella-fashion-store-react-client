@@ -43,9 +43,9 @@ export default function SideBar({ menuItems }) {
                         <div className="side-bar-section middle-section">
 
                             {
-                                menuItems.map(menuItem => (
+                                menuItems.map((menuItem, i, a) => (
 
-                                    <NavLink to={menuItem.link} title={menuItem.title} activeClassName="active">
+                                    <NavLink key={i} to={menuItem.link} title={menuItem.title} activeClassName="active">
                                         <SideBarButton text={menuItem.label} icon={menuItem.icon} />
                                     </NavLink>
 

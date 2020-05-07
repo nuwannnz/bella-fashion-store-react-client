@@ -4,6 +4,8 @@ import { buildNotification } from "../../../services/admin/notification.service"
 import { MESSAGE_STRINGS } from "../../../resources/Strings";
 import { ROUTE_PATHS } from "../../../constants";
 import { saveAdminTokenToStorage, deleteAdminTokenFromStorage } from "../../../helpers/token.helper";
+import { history } from "../../../helpers/navigation.helper";
+
 
 
 export const STAFF_ACTION_TYPES = {
@@ -15,7 +17,9 @@ export const STAFF_ACTION_TYPES = {
   CLEAR_LOGIN_UI_SUCCESS_MSG: "CLEAR_LOGIN_UI_SUCCESS_MSG",
   USER_INFO_LOADED: "USER_INFO_LOADED",
   LOGIN_UI_IS_LOADING: 'LOGIN_UI_IS_LOADING',
-  HAS_ADMIN_CHANGED: "HAS_ADMIN_CHANGED"
+  HAS_ADMIN_CHANGED: "HAS_ADMIN_CHANGED",
+  TOKEN_VERIFICATION_COMPLETED: "TOKEN_VERIFICATION_COMPLETED",
+  HAS_ADMIN_CHECK_COMPLETED: "HAS_ADMIN_CHECK_COMPLETED",
 };
 
 // action creators
@@ -65,6 +69,14 @@ export const hasAdminChanged = (val) => ({
   payload: val
 })
 
+const hasAdminChecked = () => ({
+  type: STAFF_ACTION_TYPES.HAS_ADMIN_CHECK_COMPLETED
+});
+
+const tokenVerificationCompleted = () => ({
+  type: STAFF_ACTION_TYPES.TOKEN_VERIFICATION_COMPLETED
+})
+
 
 
 
@@ -86,13 +98,15 @@ export function loginAsync(email, password) {
     if (result.isResultOk() && result.data.isAuth) {
       // login success
 
-      // set token
-      dispatch(loggedIn(result.data.token));
       // set user info
       dispatch(userLoaded(result.data.user));
+      // set token
+      dispatch(loggedIn(result.data.token));
 
       // save token in local storage
       saveAdminTokenToStorage(result.data.token);
+
+      history.push(ROUTE_PATHS.ADMIN_DASHBOARD);
 
     } else {
       // login failed
@@ -160,10 +174,12 @@ export function verifyStoredTokenAsync() {
     //
     const result = await staffService.verifyStoredToken();
     if (result !== null) {
-      // stored token is verified
+      // stored token is verified      
       dispatch(userLoaded(result.userInfo));
       dispatch(loggedIn(result.token));
     }
+
+    dispatch(tokenVerificationCompleted());
   }
 }
 
@@ -174,6 +190,8 @@ export function checkHasAdminAsync() {
     if (!hasAdmin) {
       dispatch(hasAdminChanged(false));
     }
+
+    dispatch(hasAdminChecked());
   }
 }
 

@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles/AppShell.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { adminPanelStore, customerStore } from "./redux/store";
 import { ROUTE_PATHS } from "./constants";
@@ -8,6 +8,7 @@ import AdminPanelShell from "./pages/admin-panel/AdminPanelShell";
 import CustomerShell from "./pages/customer/CustomerShell";
 import LoadingAnimation from "./components/common/LoadingAnimation";
 import LoginForm from "./components/customer/LoginForm";
+import { history } from "./helpers/navigation.helper";
 
 
 
@@ -16,7 +17,7 @@ function AppShell() {
 
 
     <div className="app-wrap flex flex-r">
-      <Router>
+      <Router history={history} >
         <Switch>
           <Route path={ROUTE_PATHS.ADMIN_SHELL}>
             <Provider store={adminPanelStore}>
