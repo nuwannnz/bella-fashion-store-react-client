@@ -79,7 +79,8 @@ export default function CustomerLoginForm({onLoginClick, forgotPwdUrl, hasError,
                             if(submitForm !== null) {
                                 submitForm();
                             }
-                        }}>SIGN IN</button>
+                        }} 
+                        disabled={isLoading}>SIGN IN</button>
                     </div>
                 </div>
 

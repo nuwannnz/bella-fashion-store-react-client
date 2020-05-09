@@ -13,6 +13,7 @@ export default function CustomerLoginPage() {
   const hasLoginError = useSelector(state => state.customer.hasLoginError);
   const history = useHistory();
   const token = useSelector(state => state.customer.token);
+  const isLoading = useSelector(state => state.customer.isLoading);
   
   return (
     token !== null  ? (
