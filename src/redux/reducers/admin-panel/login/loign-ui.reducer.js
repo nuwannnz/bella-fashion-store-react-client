@@ -4,7 +4,8 @@ const initialState = {
     errorMsg: '',
     successMsg: '',
     isLoading: false,
-    hasAdmin: true
+    hasAdmin: true,
+    checkedHasAdmin: false
 };
 
 export const loginUi = (state = initialState, action) => {
@@ -45,6 +46,12 @@ export const loginUi = (state = initialState, action) => {
             return {
                 ...state,
                 hasAdmin: action.payload
+            }
+
+        case STAFF_ACTION_TYPES.HAS_ADMIN_CHECK_COMPLETED:
+            return {
+                ...state,
+                checkedHasAdmin: true
             }
         default:
             return state;

@@ -97,7 +97,7 @@ export const verifyStoredToken = async () => {
     if (result.data) {
       return {
         token: storedToken,
-        userInfo: result.data,
+        userInfo: result.data.user,
       };
     }
     return null;

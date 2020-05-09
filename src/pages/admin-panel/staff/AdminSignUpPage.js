@@ -11,7 +11,6 @@ export default function AdminSignUpPage() {
     const history = useHistory();
 
     const errorMsg = useSelector(state => state.staffLogin.ui.errorMsg);
-    const isLoading = useSelector(state => state.staffLogin.ui.isLoading);
 
     return (
         <div className="page login-page-wrap flex align-center flex-c">
