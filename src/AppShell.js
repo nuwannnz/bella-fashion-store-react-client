@@ -7,6 +7,9 @@ import { ROUTE_PATHS } from "./Constants";
 import AdminPanelShell from "./pages/admin-panel/AdminPanelShell";
 import CustomerShell from "./pages/customer/CustomerShell";
 import LoadingAnimation from "./components/common/LoadingAnimation";
+import AdminProductPage from "./pages/admin-panel/product/AdminProductPage";
+import ProductPage from "./pages/customer/ProductPage";
+import AdminAddProductsForm from "./components/admin/forms/AdminAddProductsForm";
 
 
 
@@ -17,7 +20,7 @@ function AppShell() {
         <Switch>
           <Route path={ROUTE_PATHS.ADMIN_SHELL}>
             <Provider store={adminPanelStore}>
-              <AdminPanelShell />
+              <AdminProductPage />
               <LoadingAnimation />
             </Provider>
           </Route>
@@ -27,6 +30,7 @@ function AppShell() {
               <CustomerShell />
             </Provider>
           </Route>
+        
         </Switch>
 
       </div>

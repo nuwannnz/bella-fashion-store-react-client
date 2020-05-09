@@ -14,6 +14,7 @@ import UpdateTemporaryPasswordPage from "./staff/UpdateTemporaryPasswordPage";
 import "../../styles/AdminPanelShell.css";
 import { useUserLoggedIn } from "../../hooks/admin-panel/Auth.hooks";
 import { uiIsLoading } from "../../redux/actions/ui.actions";
+import AdminProductPage from "./product/AdminProductPage";
 
 
 export default function AdminPanelShell() {
@@ -98,6 +99,10 @@ export default function AdminPanelShell() {
 
         <Route path={ROUTE_PATHS.ADMIN_UPDATE_TEMP_PWD}>
           <UpdateTemporaryPasswordPage />
+        </Route>
+
+        <Route path={ROUTE_PATHS.ADMIN_PRODUCTS}>
+          <AdminProductPage />
         </Route>
 
         <Route path={ROUTE_PATHS.ADMIN_DASHBOARD}>

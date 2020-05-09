@@ -1,0 +1,152 @@
+import * as productService from "../../../services/admin/product.service";
+import { MESSAGE_STRINGS } from "../../../resources/Strings";
+import { ROUTE_PATHS } from "../../../Constants";
+import { saveAdminTokenToStorage, deleteAdminTokenFromStorage } from "../../../helpers/token.helper";
+import ProductList from "../../../components/admin/ProductList";
+
+
+export const PRODUCT_ACTION_TYPES = {
+    
+    PRODUCT_INFO_LOADED: "PRODUCT_INFO_LOADED",
+    PRODUCT_LOADED_BY_ID: "PRODUCT_LOADED_BY_ID"
+    
+  };
+
+  export const productsLoaded = (productList) => ({
+    type:PRODUCT_ACTION_TYPES.PRODUCT_INFO_LOADED,
+    payload: productList
+  })
+
+  export const productLoadedByID = (product) => ({
+    type:PRODUCT_ACTION_TYPES.PRODUCT_LOADED_BY_ID,
+    payload: product
+  })
+
+  export function addProductAsync(
+    product_name,
+    product_size_qty,
+    product_brand,
+    product_category,
+    product_sub_category,
+    product_price,
+    product_discount,
+    product_colors,
+    product_tags,
+    product_description
+    ) {
+      return async (dispatch, getState) => {
+        const result = await productService.addProduct(
+            product_name,
+            product_size_qty,
+            product_brand,
+            product_category,
+            product_sub_category,
+            product_price,
+            product_discount,
+            product_colors,
+            product_tags,
+            product_description);
+      }
+  }
+
+  export function productsLoadedAsync() {
+    return(dispatch, getState)=> {
+      fetch('http://localhost:5000/api/v1/products').then(response => response.json())
+      .then(json => {
+          dispatch(productsLoaded(json));
+      })
+    }
+  }
+
+  export function productLoadedByIDAsync(id) {
+    return async (dispatch, getState)=> {
+      fetch('http://localhost:5000/api/v1/products/'+id).then(response => response.json())
+      .then(json => {
+          dispatch(productLoadedByID(json));
+          
+      })
+      // const result = await productService.getProductById(id);
+      // dispatch(productLoadedByID(result));
+      // console.log(result)
+    }
+  }
+
+  export function productDeletedByIDAsync(id) {
+    return async (dispatch, getState) => {
+      const result = await productService.deleteProducts(id)
+
+      if (result.isResultOk() && result.data.success) {
+        // fetch user again again
+        // dispatch(loggedOut());
+        // dispatch(updatedTempPassword());
+        console.log(result);
+      } else {
+        // display error notification
+        console.log("error");
+        return;
+      }
+    };
+  }
+  
+
+
+  export function updateProductAsync( 
+    _id,
+    product_name,
+    product_size_qty,
+    product_brand,
+    product_category,
+    product_sub_category,
+    product_price,
+    product_discount,
+    product_colors,
+    product_tags,
+    product_description) {
+    return async (dispatch, getState) => {
+  
+      console.log( _id,
+        product_name,
+        product_size_qty,
+        product_brand,
+        product_category,
+        product_sub_category,
+        product_price,
+        product_discount,
+        product_colors,
+        product_tags,
+        product_description)
+  
+      // get state from the state
+      const { token } = getState().staffLogin.auth;
+      // if (!token) {
+      //   console.log('no token')
+      //   return;
+      // }
+  
+      const result = await productService.updateProduct(
+        _id,
+        product_name,
+        product_size_qty,
+        product_brand,
+        product_category,
+        product_sub_category,
+        product_price,
+        product_discount,
+        product_colors,
+        product_tags,
+        product_description);
+  
+      if (result.isResultOk() && result.data.success) {
+        // fetch user again again
+        // dispatch(loggedOut());
+        // dispatch(updatedTempPassword());
+        console.log(result);
+      } else {
+        // display error notification
+        console.log("error");
+        return;
+      }
+    };
+  }
+  
+
