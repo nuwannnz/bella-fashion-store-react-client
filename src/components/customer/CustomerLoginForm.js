@@ -6,7 +6,7 @@ import ErrorMessage from "../common/ErrorMessage";
 import { isEmpty, isValidEmail } from "../../helpers/input-validation.helper";
 
 
-export default function CustomerLoginForm({onLoginClick, forgotPwdUrl, hasError}) {
+export default function CustomerLoginForm({onLoginClick, forgotPwdUrl, hasError, isLoading = false}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [invalidInput, setInvalidInput] = useState("");

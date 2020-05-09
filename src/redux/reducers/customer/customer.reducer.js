@@ -6,7 +6,8 @@ const initialState = {
   token: null,
   customerInfo: null,
   customerSignUpSuccess: false,
-  hasCustomer: true
+  hasCustomer: true,
+  isLoading: false,
 };
 
 export const customer = (state = initialState, action) => {

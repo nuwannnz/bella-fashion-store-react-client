@@ -13,7 +13,8 @@ export const CUSTOMER_ACTION_TYPES = {
     CLEAR_LOGIN_ERROR: "CLEAR_LOGIN_ERROR",
     CUSTOMER_INFO_LOADED: "CUSTOMER_INFO_LOADED",
     CUSTOMER_SIGN_UP_SUCCEDED: 'CUSTOMER_SIGN_UP_SUCCEDED',
-    HAS_CUSTOMER: "HAS_CUSTOMER"
+    HAS_CUSTOMER: "HAS_CUSTOMER",
+    IS_LOADING: 'IS_LOADING',
 };
 
 // action creators
@@ -50,10 +51,18 @@ export const clearLogginError = () => ({
     type: CUSTOMER_ACTION_TYPES.CLEAR_LOGIN_ERROR,
 });
 
+export const isLoading = (val) => ({
+  type: CUSTOMER_ACTION_TYPES.IS_LOADING,
+  payload:val
+})
+
 // async actions
 
 export function loginAsync(email, password, history) {
     return async(dispatch, getState) => {
+        // set isLoading to true
+        dispatch(isLoading(true));
+
         // get result from API
         const result = await customerService.login(email, password);
 
@@ -75,21 +84,30 @@ export function loginAsync(email, password, history) {
             // set login error 
             dispatch(loginError());
         }
+
+        // set isLoading to false
+        dispatch(isLoading(false));
     }
 };
 
-export function logoutAsync() {
+export function logoutAsync(history) {
     return async (dispatch, getState) => {
+      
       // delete token from storage
       deleteCustomerTokenFromStorage();
   
       // delete token from state
       dispatch(loggedOut());
+
+      history.push(ROUTE_PATHS.CUSTOMER_LOGIN);
     }
 };
 
   export function signUpCustomerAsync(fullName, email, password) {
     return async (dispatch, getState) => {
+        // set isLoading to true
+        dispatch(isLoading(true));
+
         // clear error messages
         dispatch(setSignUpErrorMsg(""));
 
@@ -111,6 +129,8 @@ export function logoutAsync() {
                 buildNotification(MSG_STRINGS.CUSTOMER_SIGNUP_FAILED)
             );
         }
+        // set isLoading to false
+        dispatch(isLoading(false));
     }
 };
 

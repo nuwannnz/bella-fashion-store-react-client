@@ -2,10 +2,29 @@
     height: 100px;
     width: 100%;    
     background-color: white;
+    position: relative;
     
 }
 
 .header-wrap .title{
     font-family: 'La Belle Aurore', cursive;
     font-size: 38px;
+}
+
+.log-out-wrap {
+    position: absolute;
+    top: 50%;
+    left: 95%;
+    transform: translate(-50%, -50%);
+}
+
+.log-out-wrap button {
+    background: #8c52ff;
+    border: none;
+    width: 90px;
+    border-radius: 20px;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
 }
