@@ -20,8 +20,7 @@ function AppShell() {
         <Switch>
           <Route path={ROUTE_PATHS.ADMIN_SHELL}>
             <Provider store={adminPanelStore}>
-              <AdminProductPage />
-              <LoadingAnimation />
+              <AdminPanelShell />
             </Provider>
           </Route>
 
