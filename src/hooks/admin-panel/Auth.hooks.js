@@ -14,6 +14,6 @@ export function useUserRole() {
 }
 
 export function useAuthUser() {
-    const user = useSelector(state => state.staffLogin.auth.userInfo?.user);
+    const user = useSelector(state => state.staffLogin.auth.userInfo);
     return user;
 }
