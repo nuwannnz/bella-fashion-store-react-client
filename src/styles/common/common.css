@@ -60,5 +60,13 @@ h1, h2, h3, h4, h5{
   height: 100%;
 }
 
+.w-75{
+  width: 75%;
+}
+
+.h-75{
+  height: 75%;
+}
+
 
 /* end of common classes */

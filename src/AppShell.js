@@ -9,11 +9,12 @@ import CustomerShell from "./pages/customer/CustomerShell";
 import LoadingAnimation from "./components/common/LoadingAnimation";
 
 
+
 function AppShell() {
   return (
-   
-      <div>
-      {/* <div className="app-wrap flex flex-r"> */}
+
+
+    <div className="app-wrap flex flex-r">
       <Router>
         <Switch>
           <Route path={ROUTE_PATHS.ADMIN_SHELL}>
@@ -30,8 +31,8 @@ function AppShell() {
             </Provider>
           </Route>
         </Switch>
-        </Router>
-      </div>
+      </Router>
+    </div>
   );
 }
 

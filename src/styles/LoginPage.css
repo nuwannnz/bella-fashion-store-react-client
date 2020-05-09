@@ -4,11 +4,12 @@
 
 .login-page-wrap h2{
   color: var(--main-font-color);
+  text-align: center;
 }
 
 .login-page-wrap .logo {
-  width: 220px;
-  height: 220px;
+  width: 150px;
+  height: 150px;
 }
 
 .login-page-wrap .logo img {
