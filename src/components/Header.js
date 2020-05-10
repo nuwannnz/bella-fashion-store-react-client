@@ -47,7 +47,8 @@ const CustomerAvatar = () => {
       if (
         e.target &&
         e.target.classList &&
-        !e.target.classList.contains("customer-menu-item")
+        !e.target.classList.contains("customer-menu-item") &&
+        !e.target.classList.contains("customer-menu-item-text")
       ) {
         setMenuExpanded(false);
       }
@@ -81,10 +82,10 @@ const CustomerAvatar = () => {
               className="customer-menu-item"
               onClick={handleDashboardBtnClicked}
             >
-              <span>Dashboard</span>
+              <span className="customer-menu-item-text">Dashboard</span>
             </div>
             <div className="customer-menu-item" onClick={handleLogoutClicked}>
-              <span>Logout</span>
+              <span className="customer-menu-item-text">Logout</span>
             </div>
           </div>
         </div>

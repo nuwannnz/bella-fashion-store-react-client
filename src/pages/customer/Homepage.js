@@ -53,6 +53,9 @@ export default function Homepage() {
           <div className="page-content-wrap">
             <div className="page">
               <Switch>
+                <PrivateRoute path={ROUTE_PATHS.CUSTOMER_DASHBOARD_ORDER}>
+                  <div>Orders</div>
+                </PrivateRoute>
                 <PrivateRoute path={ROUTE_PATHS.CUSTOMER_DASHBOARD}>
                   <CustomerDashboardPage />
                 </PrivateRoute>
