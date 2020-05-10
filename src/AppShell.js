@@ -29,6 +29,7 @@ function AppShell() {
           <Route path={ROUTE_PATHS.CUSTOMER_SHELL}>
             <Provider store={customerStore}>
               <CustomerShell />
+              <LoadingAnimation />
             </Provider>
           </Route>
         </Switch>

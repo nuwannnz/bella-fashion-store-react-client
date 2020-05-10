@@ -93,7 +93,7 @@ export const verifyStoredToken = async () => {
         if(result.data) {
             return {
                 token: storedToken,
-                customerInfo: result.data
+                customerInfo: result.data.customer
             };
         }
         return null;

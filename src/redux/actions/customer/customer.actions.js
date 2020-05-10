@@ -4,6 +4,7 @@ import { buildNotification } from "../../../services/customer/notification.servi
 import { MSG_STRINGS } from "../../../resources/Strings";
 import { ROUTE_PATHS } from "../../../constants";
 import { saveCustomerTokenToStorage, deleteCustomerTokenFromStorage } from "../../../helpers/token.helper";
+import { uiIsLoading } from "../ui.actions";
 
 export const CUSTOMER_ACTION_TYPES = {
     LOGGED_IN: "LOGGED_IN",
@@ -15,6 +16,8 @@ export const CUSTOMER_ACTION_TYPES = {
     CUSTOMER_SIGN_UP_SUCCEDED: 'CUSTOMER_SIGN_UP_SUCCEDED',
     HAS_CUSTOMER: "HAS_CUSTOMER",
     IS_LOADING: 'IS_LOADING',
+    TOKEN_VERIFICATION_COMPLETED: "TOKEN_VERIFICATION_COMPLETED",
+    HAS_CUSTOMER_CHECK_COMPLETED: "HAS_CUSTOMER_CHECK_COMPLETED"
 };
 
 // action creators
@@ -54,14 +57,23 @@ export const clearLogginError = () => ({
 export const isLoading = (val) => ({
   type: CUSTOMER_ACTION_TYPES.IS_LOADING,
   payload:val
-})
+});
+
+const tokenVerificationCompleted = () => ({
+  type: CUSTOMER_ACTION_TYPES.TOKEN_VERIFICATION_COMPLETED
+});
+
+const hasCustomerChecked = () => ({
+  type: CUSTOMER_ACTION_TYPES.HAS_CUSTOMER_CHECK_COMPLETED
+});
+
 
 // async actions
 
 export function loginAsync(email, password, history) {
     return async(dispatch, getState) => {
         // set isLoading to true
-        dispatch(isLoading(true));
+        dispatch(uiIsLoading(true));
 
         // get result from API
         const result = await customerService.login(email, password);
@@ -74,7 +86,7 @@ export function loginAsync(email, password, history) {
             // set user info
             dispatch(customerLoaded(result.data.customer));
 
-            history.push(ROUTE_PATHS.CUSTOMER_SHELL);
+            history.push(ROUTE_PATHS.CUSTOMER_DASHBOARD);
 
             // save token in local storage
             saveCustomerTokenToStorage(result.data.token);
@@ -86,7 +98,7 @@ export function loginAsync(email, password, history) {
         }
 
         // set isLoading to false
-        dispatch(isLoading(false));
+        dispatch(uiIsLoading(false));
     }
 };
 
@@ -106,7 +118,7 @@ export function logoutAsync(history) {
   export function signUpCustomerAsync(fullName, email, password) {
     return async (dispatch, getState) => {
         // set isLoading to true
-        dispatch(isLoading(true));
+        dispatch(uiIsLoading(true));
 
         // clear error messages
         dispatch(setSignUpErrorMsg(""));
@@ -130,7 +142,7 @@ export function logoutAsync(history) {
             );
         }
         // set isLoading to false
-        dispatch(isLoading(false));
+        dispatch(uiIsLoading(false));
     }
 };
 
@@ -144,6 +156,7 @@ export function verifyStoredTokenAsync() {
         dispatch(customerLoaded(result.customerInfo));
         dispatch(loggedIn(result.token));
       }
+      dispatch(tokenVerificationCompleted());
     }
 };
 
@@ -154,5 +167,7 @@ export function checkHasCustomerAsync() {
       if (!hasCustomer) {
         dispatch(hasCustomerAction(false));
       }
+
+      dispatch(hasCustomerChecked());
     }
 };

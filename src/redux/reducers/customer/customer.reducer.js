@@ -4,10 +4,12 @@ const initialState = {
   hasLogginError: false,
   signUpErrorMsg: "",
   token: null,
+  tokenVerified: false,
   customerInfo: null,
   customerSignUpSuccess: false,
-  hasCustomer: true,
   isLoading: false,
+  hasCustomer: true,
+  checkedHasCustomer: false
 };
 
 export const customer = (state = initialState, action) => {
@@ -54,7 +56,26 @@ export const customer = (state = initialState, action) => {
           ...state,
           hasCustomer: action.payload
         }
+
+      case CUSTOMER_ACTION_TYPES.IS_LOADING:
+        return {
+          ...state,
+          isLoading: action.payload
+        }  
+
+      case CUSTOMER_ACTION_TYPES.TOKEN_VERIFICATION_COMPLETED:
+        return {
+          ...state,
+          tokenVerified: true
+        }  
+
+      case CUSTOMER_ACTION_TYPES.HAS_CUSTOMER_CHECK_COMPLETED:
+        return {
+          ...state,
+          checkedHasCustomer: true
+        }  
       default:
         return state;
     }
+
   };
