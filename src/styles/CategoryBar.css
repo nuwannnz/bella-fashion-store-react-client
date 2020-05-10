@@ -68,6 +68,7 @@
   .category-btn {
     font-size: 12px;
     max-height: 34px;
+    padding: 10px;
   }
 }
 
@@ -75,5 +76,7 @@
 @media only screen and (min-width: 1200px) {
   .category-btn {
     font-size: 14px;
+    max-height: 50px;
+    padding: 15px;
   }
 }

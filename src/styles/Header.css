@@ -2,9 +2,103 @@
   height: 10%;
   width: 100%;
   background-color: white;
+  padding: 10px 10px 0px 10px;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header-wrap .title {
   font-family: "La Belle Aurore", cursive;
   font-size: 38px;
+}
+
+.logo-wrap {
+  width: 11%;
+  padding-top: 40px;
+}
+.logo {
+  width: 100px;
+  height: 100px;
+}
+.logo img {
+  width: 100%;
+}
+
+.search-box-wrap {
+  width: 60%;
+  position: relative;
+  margin-top: 15px;
+}
+
+.search-box-wrap .search-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 16px;
+  color: #777;
+}
+
+.search-box {
+  width: 100%;
+  border: 1px solid transparent;
+  background-color: #efefef;
+  border-radius: 9px;
+  padding: 14px;
+  padding-right: 43px;
+  font-size: 14px;
+  outline: none;
+}
+
+.search-box:focus {
+  border-color: #8c52ff;
+}
+
+.header-btn-group {
+  align-items: center;
+  margin-top: 15px;
+  padding-right: 15px;
+}
+
+.header-btn {
+  border: none;
+  background: transparent;
+  padding: 10px;
+  font-size: 20px;
+  color: #555;
+  margin: 0px 5px;
+  outline: none;
+  cursor: pointer;
+}
+
+.header-btn:hover {
+  color: #333;
+}
+
+.header-btn.nav-drawer-btn {
+  color: #8c52ff !important;
+  margin-top: 15px;
+}
+
+@media only screen and (min-width: 600px) {
+  #m-nav-drawer-btn {
+    display: none;
+  }
+  #m-search-btn {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #search-box {
+    display: none;
+  }
+
+  .logo-wrap {
+    width: 20%;
+  }
+
+  .logo {
+    width: 80px;
+    height: 80px;
+  }
 }
