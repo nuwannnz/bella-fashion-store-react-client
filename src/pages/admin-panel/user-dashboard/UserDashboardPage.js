@@ -1,5 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TabHeader from "../../../components/common/TabHeader";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUsersAsync } from "../../../redux/actions/admin-panel/user-dashboard/user.actions";
+import { getAllRolesAsync } from "../../../redux/actions/admin-panel/user-dashboard/role.actions";
+import UserSection from "./UserSection";
+import RoleSection from "./RoleSection";
 
 const tabHeaders = ["Users", "Roles"];
 
@@ -17,20 +22,9 @@ export default function UserDashboardPage() {
           }}
         />
 
-        {selectedTabIndex === 0 && (
-          <div className="tab-page">
-            <div className="card card-inline">
-              <h4>Nuwan Karunarathna</h4>
-              <span>Admin</span>
-            </div>
-          </div>
-        )}
+        {selectedTabIndex === 0 && <UserSection />}
 
-        {selectedTabIndex === 1 && (
-          <div className="tab-page">
-            <h3>Roles</h3>
-          </div>
-        )}
+        {selectedTabIndex === 1 && <RoleSection />}
       </div>
     </div>
   );
