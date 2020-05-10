@@ -79,6 +79,62 @@
   margin-top: 15px;
 }
 
+.customer-avatar-wrap {
+  position: relative;
+}
+
+.customer-avatar-wrap .customer-info {
+  background-color: #efefef;
+  padding: 13px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #333;
+  font-weight: 500;
+  transition: width 1s ease-in;
+}
+
+.customer-info:hover {
+  background-color: #ddd;
+  box-shadow: 0px 0px 5px #eee;
+}
+
+.customer-expand-menu {
+  position: absolute;
+  top: 110%;
+  right: 0px;
+  z-index: 99999;
+}
+
+.customer-expand-menu .customer-menu {
+  background-color: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.customer-menu .customer-menu-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.customer-menu .customer-menu-item:hover {
+  background-color: #ddd;
+}
+
+.customer-menu .customer-menu-item:first-of-type {
+  border-bottom: 1px solid #ddd;
+}
+
+.customer-menu a {
+  text-decoration: none;
+}
+
+.customer-menu .customer-menu-login-btn {
+  padding: 15px;
+  background-color: #efefef;
+  border-radius: 10px;
+  color: #555;
+}
+
 @media only screen and (min-width: 600px) {
   #m-nav-drawer-btn {
     display: none;
