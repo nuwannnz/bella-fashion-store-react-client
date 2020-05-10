@@ -12,15 +12,15 @@
   font-size: 38px;
 }
 
-.logo-wrap {
+.header-wrap .logo-wrap {
   width: 11%;
   padding-top: 40px;
 }
-.logo {
+.header-wrap .logo {
   width: 100px;
   height: 100px;
 }
-.logo img {
+.header-wrap .logo img {
   width: 100%;
 }
 
@@ -101,4 +101,22 @@
     width: 80px;
     height: 80px;
   }
+}
+
+.log-out-wrap {
+  position: absolute;
+  top: 50%;
+  left: 95%;
+  transform: translate(-50%, -50%);
+}
+
+.log-out-wrap button {
+  background: #8c52ff;
+  border: none;
+  width: 90px;
+  border-radius: 20px;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
 }
