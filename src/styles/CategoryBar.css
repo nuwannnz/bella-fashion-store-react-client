@@ -1,0 +1,79 @@
+.category-bar {
+  height: 100%;
+  padding: 20px 10px;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sub-category-list {
+  padding-top: 10px;
+  text-align: center;
+  max-height: 0px;
+
+  transition: max-height 0.7s ease-in;
+}
+
+.category-btn {
+  background-color: #efefef;
+  border: 1px solid #efefef;
+  padding: 15px;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 10px 0px;
+  overflow: hidden;
+  max-height: 50px;
+}
+
+.category-btn.selected {
+  color: #8c52ff;
+  max-height: 100vh;
+}
+
+.category-btn.selected .sub-category-list {
+  max-height: 100vh;
+}
+
+.sub-category-btn {
+  font-weight: 400;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 5px 0px;
+  color: #333;
+}
+
+.sub-category-btn.selected {
+  background-color: #ddd;
+  color: #8c52ff;
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .category-btn {
+    padding: 8px;
+    max-height: 32px;
+    font-size: 12px;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .category-btn {
+    font-size: 12px;
+    max-height: 34px;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .category-btn {
+    font-size: 14px;
+  }
+}

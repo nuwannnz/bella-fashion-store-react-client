@@ -10,14 +10,10 @@ import LoadingAnimation from "./components/common/LoadingAnimation";
 import LoginForm from "./components/customer/LoginForm";
 import { history } from "./helpers/navigation.helper";
 
-
-
 function AppShell() {
   return (
-
-
     <div className="app-wrap flex flex-r">
-      <Router history={history} >
+      <Router history={history}>
         <Switch>
           <Route path={ROUTE_PATHS.ADMIN_SHELL}>
             <Provider store={adminPanelStore}>
@@ -26,8 +22,7 @@ function AppShell() {
             </Provider>
           </Route>
 
-
-          <LoginForm />
+          {/* <LoginForm /> */}
 
           <Route path={ROUTE_PATHS.CUSTOMER_SHELL}>
             <Provider store={customerStore}>
