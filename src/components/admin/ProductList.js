@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { updateProductAsync, productDeletedByIDAsync,productsLoadedAsync } from "../../redux/actions/admin-panel/product.actions";
@@ -26,7 +26,11 @@ export default function ProductList(){
         setOpen(false);
       };
     
-    dispatch(productsLoadedAsync())
+    useEffect(()=>{
+        dispatch(productsLoadedAsync())
+    },[])
+          
+       
 
     
   
@@ -61,11 +65,11 @@ export default function ProductList(){
                                     <td>{product._id}</td>
                                    <td>{product.product_name}</td>
                                    <td>
-                                   {product.product_size_qty.map(sizes => (
+                                   {product.product_size_qty && product.product_size_qty.map(sizes => (
                                       <p> {sizes.size}</p>
                                    ))}</td>
                                    <td>
-                                   {product.product_size_qty.map(sizes => (
+                                   {product.product_size_qty && product.product_size_qty.map(sizes => (
                                         <p>{sizes.qty}</p>
                                     ))}</td>
                                    <td>{product.product_brand}</td>

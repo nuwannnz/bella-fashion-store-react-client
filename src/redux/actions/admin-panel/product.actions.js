@@ -1,6 +1,6 @@
 import * as productService from "../../../services/admin/product.service";
 import { MESSAGE_STRINGS } from "../../../resources/Strings";
-import { ROUTE_PATHS } from "../../../Constants";
+import { ROUTE_PATHS } from "../../../constants";
 import { saveAdminTokenToStorage, deleteAdminTokenFromStorage } from "../../../helpers/token.helper";
 import ProductList from "../../../components/admin/ProductList";
 
@@ -8,7 +8,10 @@ import ProductList from "../../../components/admin/ProductList";
 export const PRODUCT_ACTION_TYPES = {
     
     PRODUCT_INFO_LOADED: "PRODUCT_INFO_LOADED",
-    PRODUCT_LOADED_BY_ID: "PRODUCT_LOADED_BY_ID"
+    PRODUCT_LOADED_BY_ID: "PRODUCT_LOADED_BY_ID",
+    PRODUCT_ADDED: "PRODUCT_ADDED",
+    PRODUCT_DELETED: "PRODUCT_DELETED"
+
     
   };
 
@@ -17,8 +20,18 @@ export const PRODUCT_ACTION_TYPES = {
     payload: productList
   })
 
+  export const productsAdded = (product) => ({
+    type:PRODUCT_ACTION_TYPES.PRODUCT_ADDED,
+    payload: product
+  })
+
   export const productLoadedByID = (product) => ({
     type:PRODUCT_ACTION_TYPES.PRODUCT_LOADED_BY_ID,
+    payload: product
+  })
+
+  export const productDeleted = (product) => ({
+    type:PRODUCT_ACTION_TYPES.PRODUCT_DELETED,
     payload: product
   })
 
@@ -46,6 +59,15 @@ export const PRODUCT_ACTION_TYPES = {
             product_colors,
             product_tags,
             product_description);
+
+            if(result.isResultOk() && result.data.success) {
+              dispatch(productsAdded(result.data))
+            } else {
+              // display error notification
+              console.log("error");
+              return;
+            }
+          
       }
   }
 

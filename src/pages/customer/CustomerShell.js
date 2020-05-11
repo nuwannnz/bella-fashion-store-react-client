@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
-import { ROUTE_PATHS } from "../../Constants";
+import { ROUTE_PATHS } from "../../constants";
 import Homepage from './Homepage';
 import ProductPage from "./ProductPage";
+import AboutUs from "./AboutUs";
 
 
 export default class CustomerShell extends Component {
@@ -21,6 +22,9 @@ export default class CustomerShell extends Component {
           </Route>
           <Route path={ROUTE_PATHS.CUSTOMER_PRODUCT}>
             <ProductPage />
+          </Route>
+          <Route path={ROUTE_PATHS.CUSTOMER_ABOUTUS}>
+            <AboutUs />
           </Route>
         </Switch>
       </div>

@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import ErrorMessage from "../../common/ErrorMessage";
 import { isEmpty } from "../../../helpers/input-validation.helper";
 import TextBox from '../../common/TextBox';
 import AccentButton from '../../common/AccentButton';
+import { brandsLoadedAsync } from '../../../redux/actions/admin-panel/brand.actions';
+import '../../../styles/common/IconButton.css'
 
 
-export default function AdminAddProductsForm({onAddProductClick, errorMsg = ""}) {
+export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick, errorMsg = ""}) {
 
+    const dispatch = useDispatch();
+    const brands = useSelector(state => state.brand.brands);
    
     const [product_name, setName] = useState("");
     const [product_qty_small, setQtyS] = useState("");
@@ -21,15 +26,37 @@ export default function AdminAddProductsForm({onAddProductClick, errorMsg = ""})
     const [product_tags, setTags] = useState("");
     const [product_description, setDescription] = useState("");
 
+    const [brand_name, setBrandname] = useState("");
+
     const product_size_qty = [
        {size: "S", qty: product_qty_small},
         {size: "M", qty: product_qty_medium},
         {size: "L", qty: product_qty_large}
     ];
 
-    console.log(product_size_qty)
+
 
     const [invalidInput, setInvalidInput] = useState("");
+
+    const submitBrand =() => {
+        if(isEmpty(brand_name)) {
+            setInvalidInput("brand name is required");
+        } else {
+            setInvalidInput("");
+            onAddBrandClick(brand_name);
+        }
+
+        
+    }
+    useEffect(() => {
+        dispatch(brandsLoadedAsync());
+        return () => {
+            
+        }
+    },[])
+    
+
+
 
     const submitForm = () => {
 
@@ -134,13 +161,33 @@ export default function AdminAddProductsForm({onAddProductClick, errorMsg = ""})
                 </div>
                 </div>
                 <div className="row">
-                <div className="col-md-12">  
+                <div className="col-md-6">  
+                    <label>Brands :</label>
+
+                        <div className="select">
+
+                        <select id="leave" onChange={e => {setBrand(e.target.value); console.log(e.target.value)}}>
+                            {brands && brands.map(brand => (
+                                <option value={brand.brand_name}>{brand.brand_name}</option>
+                            ))}   
+                        </select>
+                        </div>
+                </div>
+                <div className="col-md-6">
+                    <div className="row">
+                    <div className="col-md-9"  >
                     <TextBox 
                     name="product_brand"
-                    placeholder="Enter Product brand here"
+                    placeholder="You can add a brand here"
                     label="Prodcut brand"
-                    onTextChange={text => setBrand(text)} />
+                    onTextChange={text => setBrandname(text)} />
+                    </div>
+                    <div className="col-md-3">
+                    <button class="iconBtn" onClick={submitBrand}><i class="fa fa-plus"></i></button>
+                    </div>
+                    </div>
                 </div>
+                
             </div>
             <div className="row">
                 <div className="col-md-6"> 
@@ -176,6 +223,7 @@ export default function AdminAddProductsForm({onAddProductClick, errorMsg = ""})
                     placeholder="Enter Product price here"
                     label="Prodcut price"
                     type="number"
+                    pattern = "^\$\d{1,3}(,\d{3})*(\.\d+)?$"
                     onTextChange={text => setPrice(text)} />
                 </div>
                 <div className="col-md-6"> 

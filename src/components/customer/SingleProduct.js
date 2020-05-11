@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import '../../styles/product.css'
 import { productLoadedByIDAsync } from '../../redux/actions/admin-panel/product.actions'
+import CurrencyFormat from 'react-currency-format';
 
 export default function SingleProduct() {
 
@@ -12,6 +13,28 @@ export default function SingleProduct() {
 	const product = useSelector(state => state.product.singleProduct);
 
 	dispatch(productLoadedByIDAsync("5eb52be16177293bb4c683ba"));
+
+	const checkOffer = (offer) => {
+		if(offer > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	const checkNew = (date) => {
+		const msDiff = new Date().getTime() - new Date(date).getTime() ;   //Future date - current date
+		const difference = Math.floor(msDiff / (1000 * 60 * 60 * 24));
+		
+		if(difference > 7) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	const totalPrice =(discount, price) => {
+		return price - discount;
+	}
 	
         return (
             <div class="container">
@@ -23,7 +46,7 @@ export default function SingleProduct() {
                 <div class="row">
 					
 						<div class="col-md-5">
-					
+						
 						<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 						  <div class="carousel-inner">
 							<div class="carousel-item active">
@@ -47,13 +70,17 @@ export default function SingleProduct() {
 						</div>
 					</div>
 					<div class="col-md-7">
-					<p class="newarrival text-center">NEW</p>
+					{checkNew(product.product_added_date) ? <p class="newarrival text-center">NEW</p> : '' }
+					
 					<h2>{product.product_name}</h2>
 					<p>product code: {product._id}</p>
 					<p>{product.product_description}</p>
 					
 					<img src={require('../../assets/stars.png')} class="stars" />
-					<p class="price">LKR  Rs.{product.product_price}</p>
+					
+		{checkOffer(product.product_discount) ? <CurrencyFormat value={product.product_price} displayType={'text'} thousandSeparator={true} prefix={''} renderText={value =><p class="price">LKR. <s>{value}</s> {totalPrice(product.product_discount, product.product_price)}</p>} /> :
+					<CurrencyFormat value={product.product_price} displayType={'text'} thousandSeparator={true} prefix={''} renderText={value =><p class="price">LKR. {value} </p> }/>}
+					
 					<label>Select Size</label>
                     <div className="select">
                     <select id="leave" onChange={e => {setSize(e.target.value); console.log(e.target.value)}}>
@@ -69,7 +96,7 @@ export default function SingleProduct() {
 					<p><b>Availability : </b>{product.product_qty} In Stock</p>
 					<p><b>Condition : </b>New</p>
 					<p><b>Brand : </b>{product.product_brand}</p>
-					<label>Quantitiy :</label>
+					<label><b>Quantitiy : </b> </label> 
 					<input type="text" value="1" />
 					<button type="button" class="btn btn-default cart">Add to Cart</button>
 					</div>

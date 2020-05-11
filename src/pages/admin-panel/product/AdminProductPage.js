@@ -10,8 +10,9 @@ import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import '../../../styles/common/AccentButton.css';
 import OffersSlider from '../../../components/customer/OffersSlider';
+import { addBrandAsync } from '../../../redux/actions/admin-panel/brand.actions';
 
-export default function AdminProductPage() {
+export default function ProductDashboardPage() {
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -63,7 +64,11 @@ export default function AdminProductPage() {
                                 product_colors,
                                 product_tags,
                                 product_description, history
-                            ))} /></div>
+
+                                
+                            ))}
+                            
+                            onAddBrandClick = {(brand_name) => dispatch(addBrandAsync(brand_name,history)) }/></div>
                     </Modal>
                     <hr />
                     <br />

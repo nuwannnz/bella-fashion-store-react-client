@@ -8,7 +8,6 @@ const logger = createLogger({
         colorize(),
         prettyPrint()
     ),
-
 });
 
 if (process.env.NODE_ENV !== 'production') {

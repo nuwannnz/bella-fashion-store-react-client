@@ -21,8 +21,6 @@ export default function LoginForm({ onLoginClick, forgotPwdUrl, errorMsg = "", i
       setInvalidInput("");
       onLoginClick(email, password);
     }
-
-
   }
 
   return (

@@ -1,29 +1,34 @@
 import React from "react";
 import "./styles/AppShell.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { adminPanelStore, customerStore } from "./redux/store";
-import { ROUTE_PATHS } from "./Constants";
-import AdminPanelShell from "./pages/admin-panel/AdminPanelShell";
+import { ROUTE_PATHS } from "./constants";
 import CustomerShell from "./pages/customer/CustomerShell";
 import LoadingAnimation from "./components/common/LoadingAnimation";
-import AdminProductPage from "./pages/admin-panel/product/AdminProductPage";
-import ProductPage from "./pages/customer/ProductPage";
-import AdminAddProductsForm from "./components/admin/forms/AdminAddProductsForm";
+import LoginForm from "./components/customer/LoginForm";
+import { history } from "./helpers/navigation.helper";
+import AdminPanelShell from "./pages/admin-panel/AdminPanelShell";
+
 
 
 
 function AppShell() {
   return (
-    <Router>
-      <div className="app-wrap flex flex-r">
+
+
+    <div className="app-wrap flex flex-r">
+      <Router history={history} >
         <Switch>
           <Route path={ROUTE_PATHS.ADMIN_SHELL}>
             <Provider store={adminPanelStore}>
-              <AdminProductPage />
+              <AdminPanelShell />
               <LoadingAnimation />
             </Provider>
           </Route>
+
+
+          <LoginForm />
 
           <Route path={ROUTE_PATHS.CUSTOMER_SHELL}>
             <Provider store={customerStore}>
@@ -32,9 +37,8 @@ function AppShell() {
           </Route>
         
         </Switch>
-
-      </div>
-    </Router>
+      </Router>
+    </div>
   );
 }
 

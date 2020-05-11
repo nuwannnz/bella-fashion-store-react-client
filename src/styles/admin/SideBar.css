@@ -1,0 +1,75 @@
+.side-bar{
+    padding: 8px;    
+}
+
+.side-bar a{
+    text-decoration: none !important;
+}
+
+.side-bar .content{   
+    background: var(--accent-color);
+    justify-content: space-between;
+    border-radius: 8px;
+    padding-bottom: 30px;
+}
+
+.side-bar .side-bar-section{
+    padding: 10px 5px;
+}
+
+.side-bar-btn{
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    text-decoration: none !important;    
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.side-bar-btn .tooltip{
+    position: absolute;
+    right: -20px;
+    background-color: #fff;
+    padding: 5px;
+}
+
+.middle-section .side-bar-btn{
+    margin: 6px 0px;
+}
+
+.active .side-bar-btn{
+    background-color: var(--accent-color-hover);
+}
+
+.side-bar-btn:hover{
+    background-color: var(--accent-color-hover);
+}
+
+.side-bar-btn .icon-wrapper{
+     font-size: 27px;
+        width: 80%;
+        color: #fff;
+}
+
+.side-bar-btn .text-wrapper{
+    width: 100%;    
+    color: #fff;
+    /* display: none; */
+    justify-content: center;
+    font-size: 12px;
+    padding-top: 3px;
+}
+
+@media only screen and (max-width: 800px) {
+    .side-bar-btn{
+        justify-content: center;
+    }
+    .side-bar-btn .icon-wrapper{
+        font-size: 30px;
+        width: 80%;
+    }
+  .side-bar-btn .text-wrapper{
+      display: none;
+  }
+}

@@ -17,6 +17,17 @@ export const product = (state = initialState, action) => {
                     ...state,
                     singleProduct: action.payload
                 }
+
+                case PRODUCT_ACTION_TYPES.PRODUCT_ADDED:
+                    return{
+                        ...state,
+                        products:[ action.payload, ...state.products]
+                    }
+                case PRODUCT_ACTION_TYPES.PRODUCT_DELETED:
+                    return{
+                        ...state,
+                        products:state.products.filter(p => p._id  !== action.payload)
+                    }
         default:
             return state;
     }

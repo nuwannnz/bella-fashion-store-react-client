@@ -43,6 +43,10 @@ const seeOffers = (offer) => {
     return false;
 
 }
+
+const totalPrice = (discount, price) => {
+  return price - discount;
+}
   
   
   return (
@@ -64,7 +68,8 @@ const seeOffers = (offer) => {
             <div>
               
         <PrdouctCard name = {product.product_name}
-           price = {product.product_price}/> 
+           price = {product.product_price}
+           totalPrice = {totalPrice(product.product_discount, product.product_price)}/> 
               
            </div>
             ))

@@ -1,0 +1,21 @@
+.header-bar{
+    padding: 8px;
+}
+
+.header-bar-content{
+    
+    justify-content: space-between;
+}
+
+.user-info-wrapper{
+    background-color: #fff;
+    padding: 5px 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-left: 10px;
+}
+
+.user-info-wrapper span{
+    line-height: 1;
+    font-weight: 600;
+}
