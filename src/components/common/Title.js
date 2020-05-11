@@ -7,7 +7,7 @@ export default function Title({title,subtitle}) {
         <div className="section-title">
             <h1>{title}</h1>
             <div></div><br/>
-            <h6>{subtitle}</h6>
+            <h5>{subtitle}</h5>
         </div>
     )
 }

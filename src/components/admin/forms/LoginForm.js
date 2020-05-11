@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import ErrorMessage from "../common/ErrorMessage";
-import { isEmpty, isValidEmail } from "../../helpers/input-validation.helper";
-import TextBox from '../common/TextBox';
-import AccentButton from '../common/AccentButton';
+import ErrorMessage from "../../common/ErrorMessage";
+import { isEmpty, isValidEmail } from "../../../helpers/input-validation.helper";
+import TextBox from '../../common/TextBox';
+import AccentButton from '../../common/AccentButton';
 
-export default function LoginForm({ onLoginClick, forgotPwdUrl, hasError, isLoading }) {
+export default function LoginForm({ onLoginClick, forgotPwdUrl, errorMsg = "", isLoading }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [invalidInput, setInvalidInput] = useState("");
@@ -21,8 +21,6 @@ export default function LoginForm({ onLoginClick, forgotPwdUrl, hasError, isLoad
       setInvalidInput("");
       onLoginClick(email, password);
     }
-
-
   }
 
   return (
@@ -50,8 +48,8 @@ export default function LoginForm({ onLoginClick, forgotPwdUrl, hasError, isLoad
           : null
       }
 
-      {hasError ?
-        <ErrorMessage msg={"Invalid email and password combination"} />
+      {errorMsg && errorMsg.length > 0 ?
+        <ErrorMessage msg={errorMsg} />
         : null
       }
 

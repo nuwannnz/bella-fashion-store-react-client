@@ -2,20 +2,20 @@ import * as staffService from "../../../services/admin/staff.service";
 import { displayTimeoutNotificationAsync } from "./notification.actions";
 import { buildNotification } from "../../../services/admin/notification.service";
 import { MESSAGE_STRINGS } from "../../../resources/Strings";
-import { ROUTE_PATHS } from "../../../Constants";
+import { ROUTE_PATHS } from "../../../constants";
 import { saveAdminTokenToStorage, deleteAdminTokenFromStorage } from "../../../helpers/token.helper";
+
 
 export const STAFF_ACTION_TYPES = {
   LOGGED_IN: "LOGGED_IN",
-  LOGIN_ERROR: "LOGGIN_ERROR",
-  SIGNUP_ERROR_MSG: "SIGNUP_ERROR_MSG",
   LOGGED_OUT: "LOGGED_OUT",
-  CLEAR_LOGIN_ERROR: "CLEAR_LOGIN_ERROR",
+  LOGIN_UI_ERROR_MSG: "LOGIN_UI_ERROR_MSG",
+  CLEAR_LOGIN_UI_ERROR_MSG: "CLEAR_LOGIN_ERROR",
+  LOGIN_UI_SUCCESS_MSG: "LOGIN_UI_SUCCESS_MSG",
+  CLEAR_LOGIN_UI_SUCCESS_MSG: "CLEAR_LOGIN_UI_SUCCESS_MSG",
   USER_INFO_LOADED: "USER_INFO_LOADED",
-  UPDATED_TEMP_PASSWORD: "UPDATED_TEMP_PASSWORD",
-  ADMIN_SIGN_UP_SUCCEDED: 'ADMIN_SIGN_UP_SUCCEDED',
-  IS_LOADING: 'IS_LOADING',
-  HAS_ADMIN: "HAS_ADMIN"
+  LOGIN_UI_IS_LOADING: 'LOGIN_UI_IS_LOADING',
+  HAS_ADMIN_CHANGED: "HAS_ADMIN_CHANGED"
 };
 
 // action creators
@@ -25,14 +25,30 @@ export const loggedIn = (token) => ({
   payload: token,
 });
 
-const loginError = () => ({
-  type: STAFF_ACTION_TYPES.LOGIN_ERROR,
+
+export const loggedOut = () => ({
+  type: STAFF_ACTION_TYPES.LOGGED_OUT,
 });
 
-const setSignupErrorMsg = (msg) => ({
-  type: STAFF_ACTION_TYPES.SIGNUP_ERROR_MSG,
+
+const loginUiErrorMsg = (msg) => ({
+  type: STAFF_ACTION_TYPES.LOGIN_UI_ERROR_MSG,
+  payload: msg
+});
+
+export const clearLogginUiErrorMsg = () => ({
+  type: STAFF_ACTION_TYPES.CLEAR_LOGIN_UI_ERROR_MSG,
+});
+
+export const loginUiSuccessMsg = (msg) => ({
+  type: STAFF_ACTION_TYPES.LOGIN_UI_SUCCESS_MSG,
   payload: msg
 })
+
+export const clearLoginUiSuccessMessage = () => ({
+  type: STAFF_ACTION_TYPES.CLEAR_LOGIN_UI_SUCCESS_MSG
+})
+
 
 export const userLoaded = (user) => ({
   type: STAFF_ACTION_TYPES.USER_INFO_LOADED,
@@ -40,27 +56,17 @@ export const userLoaded = (user) => ({
 });
 
 export const isLoading = (val) => ({
-  type: STAFF_ACTION_TYPES.IS_LOADING,
+  type: STAFF_ACTION_TYPES.LOGIN_UI_IS_LOADING,
   payload: val
 })
 
-export const hasAdminAction = (val) => ({
-  type: STAFF_ACTION_TYPES.HAS_ADMIN,
+export const hasAdminChanged = (val) => ({
+  type: STAFF_ACTION_TYPES.HAS_ADMIN_CHANGED,
   payload: val
 })
 
-const updatedTempPassword = () => ({
-  type: STAFF_ACTION_TYPES.UPDATED_TEMP_PASSWORD,
-});
 
 
-export const loggedOut = () => ({
-  type: STAFF_ACTION_TYPES.LOGGED_OUT,
-});
-
-export const clearLogginError = () => ({
-  type: STAFF_ACTION_TYPES.CLEAR_LOGIN_ERROR,
-});
 
 // async actions
 
@@ -69,6 +75,10 @@ export function loginAsync(email, password) {
 
     // set isLoading to true
     dispatch(isLoading(true));
+
+    // clear error/success messages, if there any
+    dispatch(clearLogginUiErrorMsg());
+
 
     // get result from API
     const result = await staffService.login(email, password);
@@ -88,9 +98,11 @@ export function loginAsync(email, password) {
       // login failed
 
       // set login error 
-      dispatch(loginError());
+      dispatch(loginUiErrorMsg("Invalid email and password combination. Please try again."));
 
     }
+
+    dispatch(clearLoginUiSuccessMessage());
     // set isLoading to false
     dispatch(isLoading(false));
   };
@@ -106,13 +118,14 @@ export function logoutAsync() {
   }
 }
 
-export function signUpAdminAsync(email, fName, lName) {
+export function signUpAdminAsync(email, fName, lName, history) {
   return async (dispatch, getState) => {
     // set isLoading to true
     dispatch(isLoading(true));
+    dispatch(loginUiErrorMsg());
 
     // clear error messages
-    dispatch(setSignupErrorMsg(""));
+    dispatch(clearLogginUiErrorMsg());
 
     // get result from API
     const result = await staffService.signUpAdmin(email, fName, lName);
@@ -120,13 +133,16 @@ export function signUpAdminAsync(email, fName, lName) {
     if (result.isResultOk()) {
       // signup success
       // send user to the login page
-      document.location.pathname = ROUTE_PATHS.ADMIN_LOGIN;
+      dispatch(loginUiSuccessMsg(`A temporary password has been sent to ${email}. Please use it login.`));
+
+      history.push(ROUTE_PATHS.ADMIN_LOGIN);
+      dispatch(hasAdminChanged(true));
 
     } else {
       // error
 
       // set error message
-      dispatch(setSignupErrorMsg(result.errorMessage));
+      dispatch(loginUiErrorMsg(result.errorMessage));
 
       // display an error notification
       displayTimeoutNotificationAsync(
@@ -156,24 +172,29 @@ export function checkHasAdminAsync() {
     //
     const hasAdmin = await staffService.getHasAdmin();
     if (!hasAdmin) {
-      dispatch(hasAdminAction(false));
+      dispatch(hasAdminChanged(false));
     }
   }
 }
 
-export function updateTempPassword(newPassword) {
+export function updateTempPasswordAsync(newPassword) {
   return async (dispatch, getState) => {
+
+    dispatch(isLoading(true));
+
     // get state from the state
-    const { token } = getState().staff;
+    const { token } = getState().staffLogin.auth;
     if (!token) {
       return;
     }
 
     const result = await staffService.updateTempPassword(token, newPassword);
-    if (result !== null && result.success) {
-      // logout and make user login again
-      dispatch(loggedOut());
-      dispatch(updatedTempPassword());
+
+    if (result.isResultOk() && result.data.success) {
+      // fetch user again again
+      // dispatch(loggedOut());
+      // dispatch(updatedTempPassword());
+      dispatch(verifyStoredTokenAsync());
     } else {
       // display error notification
       displayTimeoutNotificationAsync(

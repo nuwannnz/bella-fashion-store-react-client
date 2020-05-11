@@ -1,9 +1,12 @@
   
   .contactUsHero{
-    min-height: 65vh;
+    min-height: 50%;
     background:  url("../images/ContactHero.png") center/cover no-repeat;
   }
 
+  contact-top{
+    margin-left: 10%;
+  }
 
 
   .contact-details{

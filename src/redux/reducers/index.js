@@ -1,9 +1,10 @@
 import { combineReducers } from "redux";
 import { cart } from "./cart.reducer";
-import { staff } from "./admin-panel/staff.reducer";
+import { staffLogin } from "./admin-panel/login/staff.reducer";
 import { notification } from "./admin-panel/notification.reducer";
 import { ui } from "./ui.reducer";
 import {category} from "./admin-panel/category.reducer"
+
 
 export const customerReducer = combineReducers({
   cart,
@@ -11,12 +12,9 @@ export const customerReducer = combineReducers({
 });
 
 export const adminPanelReducer = combineReducers({
-  staff,
+  staffLogin,
   notification,
+  category,
   ui
 });
 
-export const categoryAdminReducer = combineReducers ({
-    ui: ui,
-    category: category
-})

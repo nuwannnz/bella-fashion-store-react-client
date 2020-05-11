@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_HOST } from "../../Constants";
+import { API_HOST } from "../../constants";
 import logger from "../../helpers/logger.helper";
 import {
   getAuthHeader,
@@ -57,7 +57,7 @@ export const updateTempPassword = async (token, updatedPassword) => {
   const result = new APIResult();
 
   try {
-    const response = await axios.post(path, data, config);
+    const response = await axios.put(path, data, config);
 
     result.data = response.data;
     return result;

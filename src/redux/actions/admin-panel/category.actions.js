@@ -1,6 +1,6 @@
 import * as categoryService from "../../../services/admin/category.service";
 import * as staffService from "../../../services/admin/staff.service";
-import { ROUTE_PATHS } from "../../../Constants";
+import { ROUTE_PATHS } from "../../../constants";
 
 export const CATEGORY_ACTION_TYPES = {
     IS_LOADING: 'IS_LOADING',
@@ -75,19 +75,19 @@ export const loggedIn = (token) => ({
 });
 
 
-export function categoriesAsync(categoryID,categoryName) {
+export function categoriesAsync() {
     return async (dispatch, getState) => {
 
             // set isLoading to true
     dispatch(isLoading(true));
 
     // get result from API
-    const result = await categoryService.Categories(categoryID,categoryName);
+    const result = await categoryService.getCategory();
     
     if (result.isResultOk()) {
 
         // set user info
-        dispatch(categoriesLoaded(result.data.Categories));
+        dispatch(categoriesLoaded(result.data.categories));
   
   
       } else {

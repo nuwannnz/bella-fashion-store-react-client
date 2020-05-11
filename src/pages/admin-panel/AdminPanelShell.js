@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useHistory, Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { ROUTE_PATHS } from "../../Constants";
+import { ROUTE_PATHS } from "../../constants";
 import { useDispatch } from "react-redux";
 import {
   verifyStoredTokenAsync,
@@ -10,10 +10,16 @@ import {
 } from "../../redux/actions/admin-panel/staff.actions";
 import LoginPage from "./staff/LoginPage";
 import AdminSignUpPage from "./staff/AdminSignUpPage";
+import UpdateTemporaryPasswordPage from "./staff/UpdateTemporaryPasswordPage";
 import CategoriesAdmin from "./staff/CategoriesAdmin";
-import "../../styles/AdminPanelShell.css";
+import "../../styles/admin/AdminPanelShell.css";
+
 import { useUserLoggedIn } from "../../hooks/admin-panel/Auth.hooks";
+
 import { uiIsLoading } from "../../redux/actions/ui.actions";
+
+import Dashboard from "./Dashboard";
+
 
 
 export default function AdminPanelShell() {
@@ -23,14 +29,17 @@ export default function AdminPanelShell() {
 
   const userLoggedIn = useUserLoggedIn();
 
-  const userInfo = useSelector((state) => state.staff.userInfo);
-  const hasAdmin = useSelector((state) => state.staff.hasAdmin);
+  const userInfo = useSelector((state) => { console.log(state); return state.staffLogin.auth.userInfo; });
+  const hasAdmin = useSelector((state) => state.staffLogin.ui.hasAdmin);
 
   // these are just like variables
   const checkedHasAdmin = useRef(false);
   const checkedToken = useRef(false);
-/*
-  useEffect(() => {
+
+
+  const [initCompleted, setInitCompleted] = useState(false);
+
+  /*useEffect(() => {
 
     // set ui to loading
     dispatch(uiIsLoading(true))
@@ -47,7 +56,7 @@ export default function AdminPanelShell() {
       checkedToken.current = true;
     }
 
-    let navigateTo = ROUTE_PATHS.ADMIN_DASHBOARD;
+    let navigateTo = null;
 
     if (userLoggedIn && userInfo !== null) {
       // we are logged in
@@ -75,12 +84,19 @@ export default function AdminPanelShell() {
     }
 
     // set isloading to false
-    setTimeout(() => {
-      dispatch(uiIsLoading(false));
-    }, 500);
+
 
     // navigate 
-    history.push(navigateTo);
+    if (navigateTo !== null) {
+      history.push(navigateTo);
+      setInitCompleted(true);
+
+      setTimeout(() => {
+
+        dispatch(uiIsLoading(false));
+      }, 500);
+
+    }
 
   }, [userLoggedIn, userInfo, hasAdmin, history, dispatch]);
 
@@ -89,31 +105,39 @@ export default function AdminPanelShell() {
   return (
     <div className="admin-panel-wrap">
 
-      <Switch>
-        <Route path={`${ROUTE_PATHS.ADMIN_LOGIN}`}>
-          <LoginPage />
-        </Route>
-        <Route path={ROUTE_PATHS.ADMIN_SIGNUP}>
-          <AdminSignUpPage />
-        </Route>
-        <Route path={ROUTE_PATHS.ADMIN_CATEGORY_ADD}>
-          <CategoriesAdmin/>
-        </Route>
+      
         
           
+      {
 
-        <Route path={ROUTE_PATHS.ADMIN_UPDATE_TEMP_PWD}>
-          <button onClick={() => dispatch(logoutAsync())} >Logout</button>
+          (<Switch>
+            <Route path={`${ROUTE_PATHS.ADMIN_LOGIN}`}>
+              <LoginPage />
+            </Route>
+            <Route path={ROUTE_PATHS.ADMIN_SIGNUP}>
+              <AdminSignUpPage />
+            </Route>
+
+            <Route path={ROUTE_PATHS.ADMIN_UPDATE_TEMP_PWD}>
+              <UpdateTemporaryPasswordPage />
+            </Route>
+
+            <Route path={ROUTE_PATHS.ADMIN_DASHBOARD}>
+              <Dashboard />
+            </Route>
+
+            <Route path={ROUTE_PATHS.ADMIN_CATEGORY_ADD}>
+          <CategoriesAdmin/>
         </Route>
 
-        <Route path={ROUTE_PATHS.ADMIN_DASHBOARD}>
-          <div>Admin dashboard</div>
-          <button onClick={() => dispatch(logoutAsync())} >Logout</button>
-        </Route>
-      </Switch>
 
+          </Switch>)
 
+        
 
-    </div>
+      }
+</div>
+
+    
   );
 }

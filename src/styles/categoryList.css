@@ -1,0 +1,39 @@
+
+  .dressesHero{
+    min-height: 65vh;
+    background:  url("../images/Dresses\ Hero.png") center/cover no-repeat;
+  }
+
+.category-container{
+    display:flex;
+    flex-wrap:wrap
+}
+.category-card{
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 10px;
+    order:interger;
+}
+.category-card img{
+    height: 350px;
+}
+
+.category-card img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+    opacity: 0.7;
+  }
+
+  h5,h6{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  
+  h5{
+      text-align: center;
+  }
+
+  h6{
+    text-align: right;
+    color: red;
+  }

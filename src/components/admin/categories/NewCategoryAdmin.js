@@ -40,7 +40,7 @@ export default function NewCategoryAdmin({title,subtitle}) {
             </div> 
 
             <Button bsStyle="primary" bsSize="large" onClick={() => setShow(true)}>
-          Add New category
+          Add New Sub-Category
         </Button>
 
         <Modal show={show} onHide={() => setShow(false)}>
@@ -49,7 +49,7 @@ export default function NewCategoryAdmin({title,subtitle}) {
                 </Modal.Header>
                 <Modal.Body>
                 <Form>
-                <Form.Group controlId="formBasicEmail">
+                <Form.Group>
                 <Form.Control type="text" placeholder="Enter New Category" />
                 </Form.Group>
                 </Form>
