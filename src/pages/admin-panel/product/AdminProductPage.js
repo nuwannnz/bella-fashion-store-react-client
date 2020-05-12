@@ -42,33 +42,33 @@ export default function ProductDashboardPage() {
                     <div><AdminAddProductsForm
                         errorMsg={errorMsg}
                          onAddProductClick={( 
-                            product_name,
-                            product_size_qty,
-                            product_brand,
-                            product_category,
-                            product_sub_category,
-                            product_price,
-                            product_discount,
-                            product_colors,
-                            product_tags,
-                            product_description
+                            name,
+                            sizeQty,
+                            brand,
+                            category,
+                            subCategory,
+                            price,
+                            discount,
+                            colors,
+                            tags,
+                            description
                         ) =>
                             dispatch(addProductAsync(
-                                product_name,
-                                product_size_qty,
-                                product_brand,
-                                product_category,
-                                product_sub_category,
-                                product_price,
-                                product_discount,
-                                product_colors,
-                                product_tags,
-                                product_description, history
+                                name,
+                                sizeQty,
+                                brand,
+                                category,
+                                subCategory,
+                                price,
+                                discount,
+                                colors,
+                                tags,
+                                description, history
 
                                 
                             ))}
                             
-                            onAddBrandClick = {(brand_name) => dispatch(addBrandAsync(brand_name,history)) }/></div>
+                            onAddBrandClick = {(bname) => dispatch(addBrandAsync(bname,history)) }/></div>
                     </Modal>
                     <hr />
                     <br />

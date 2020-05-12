@@ -36,29 +36,29 @@ export const PRODUCT_ACTION_TYPES = {
   })
 
   export function addProductAsync(
-    product_name,
-    product_size_qty,
-    product_brand,
-    product_category,
-    product_sub_category,
-    product_price,
-    product_discount,
-    product_colors,
-    product_tags,
-    product_description
+    name,
+    sizeQty,
+    brand,
+    category,
+    subCategory,
+    price,
+    discount,
+    colors,
+    tags,
+    description
     ) {
       return async (dispatch, getState) => {
         const result = await productService.addProduct(
-            product_name,
-            product_size_qty,
-            product_brand,
-            product_category,
-            product_sub_category,
-            product_price,
-            product_discount,
-            product_colors,
-            product_tags,
-            product_description);
+            name,
+            sizeQty,
+            brand,
+            category,
+            subCategory,
+            price,
+            discount,
+            colors,
+            tags,
+            description);
 
             if(result.isResultOk() && result.data.success) {
               dispatch(productsAdded(result.data))
@@ -72,12 +72,14 @@ export const PRODUCT_ACTION_TYPES = {
   }
 
   export function productsLoadedAsync() {
-    return(dispatch, getState)=> {
+    return async (dispatch, getState)=> {
       fetch('http://localhost:5000/api/v1/products').then(response => response.json())
       .then(json => {
-          dispatch(productsLoaded(json));
+        dispatch(productsLoaded(json))
+         return json;
       })
-    }
+
+      }
   }
 
   export function productLoadedByIDAsync(id) {
@@ -114,29 +116,29 @@ export const PRODUCT_ACTION_TYPES = {
 
   export function updateProductAsync( 
     _id,
-    product_name,
-    product_size_qty,
-    product_brand,
-    product_category,
-    product_sub_category,
-    product_price,
-    product_discount,
-    product_colors,
-    product_tags,
-    product_description) {
+    name,
+    sizeQty,
+    brand,
+    category,
+    subCategory,
+    price,
+    discount,
+    colors,
+    tags,
+    description) {
     return async (dispatch, getState) => {
   
       console.log( _id,
-        product_name,
-        product_size_qty,
-        product_brand,
-        product_category,
-        product_sub_category,
-        product_price,
-        product_discount,
-        product_colors,
-        product_tags,
-        product_description)
+        name,
+        sizeQty,
+        brand,
+        category,
+        subCategory,
+        price,
+        discount,
+        colors,
+        tags,
+        description)
   
       // get state from the state
       const { token } = getState().staffLogin.auth;
@@ -147,17 +149,17 @@ export const PRODUCT_ACTION_TYPES = {
   
       const result = await productService.updateProduct(
         _id,
-        product_name,
-        product_size_qty,
-        product_brand,
-        product_category,
-        product_sub_category,
-        product_price,
-        product_discount,
-        product_colors,
-        product_tags,
-        product_description);
-  
+        name,
+        sizeQty,
+        brand,
+        category,
+        subCategory,
+        price,
+        discount,
+        colors,
+        tags,
+        description);
+
       if (result.isResultOk() && result.data.success) {
         // fetch user again again
         // dispatch(loggedOut());

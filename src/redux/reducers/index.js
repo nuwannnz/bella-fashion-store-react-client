@@ -5,10 +5,11 @@ import { notification } from "./admin-panel/notification.reducer";
 import { product } from "./admin-panel/product.reducer";
 import { ui } from "./ui.reducer";
 import { brand } from "./admin-panel/brand.reducer";
+import { customer } from "./customer/customer.reducer";
 
 
 export const customerReducer = combineReducers({
-  product,
+  customer,
   cart,
   ui,
   brand

@@ -7,9 +7,9 @@ import {
 } from "../../helpers/token.helper";
 import { APIResult } from "../APIResult";
 
-export const addBrand = async (brand_name) => {
+export const addBrand = async (name) => {
     const path = `${API_HOST}/brands`;
-    const data = {brand_name}
+    const data = {name}
     const result = new APIResult();
     try {
       const response = await axios.post(path, data);

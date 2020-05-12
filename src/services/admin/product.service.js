@@ -8,29 +8,29 @@ import {
 import { APIResult } from "../APIResult";
 
 export const addProduct = async (    
-    product_name,
-    product_size_qty,
-    product_brand,
-    product_category,
-    product_sub_category,
-    product_price,
-    product_discount,
-    product_colors,
-    product_tags,
-    product_description
+    name,
+    sizeQty,
+    brand,
+    category,
+    subCategory,
+    price,
+    discount,
+    colors,
+    tags,
+    description
     ) => {
     const path = `${API_HOST}/products`;
     const data = {
-        product_name,
-        product_size_qty,
-        product_brand,
-        product_category,
-        product_sub_category,
-        product_price,
-        product_discount,
-        product_colors,
-        product_tags,
-        product_description
+        name,
+        sizeQty,
+        brand,
+        category,
+        subCategory,
+        price,
+        discount,
+        colors,
+        tags,
+        description
     }
     const result = new APIResult();
     try {
@@ -44,6 +44,17 @@ export const addProduct = async (
       result.setError(error);
       return result;
     }
+  }
+
+  export const getProducts = async () => {
+  let result = null;
+    fetch(API_HOST +'/products').then(response => response.json())
+      .then(json => {
+        console.log(json)
+         return json;
+      })
+
+    
   }
 
   export const getProductById = async (id) => {
@@ -69,41 +80,41 @@ export const addProduct = async (
 
   export const updateProduct = async ( 
     _id,
-    product_name,
-    product_size_qty,
-    product_brand,
-    product_category,
-    product_sub_category,
-    product_price,
-    product_discount,
-    product_colors,
-    product_tags,
-    product_description) => {
+    name,
+    sizeQty,
+    brand,
+    category,
+    subCategory,
+    price,
+    discount,
+    colors,
+    tags,
+    description) => {
       
       console.log(_id,
-        product_name,
-        product_size_qty,
-        product_brand,
-        product_category,
-        product_sub_category,
-        product_price,
-        product_discount,
-        product_colors,
-        product_tags,
-        product_description)
+        name,
+        sizeQty,
+        brand,
+        category,
+        subCategory,
+        price,
+        discount,
+        colors,
+        tags,
+        description)
 
     const path = `${API_HOST}/products`;
     const data = { _id,
-      product_name,
-      product_size_qty,
-      product_brand,
-      product_category,
-      product_sub_category,
-      product_price,
-      product_discount,
-      product_colors,
-      product_tags,
-      product_description };
+      name,
+      sizeQty,
+      brand,
+      category,
+      subCategory,
+      price,
+      discount,
+      colors,
+      tags,
+      description };
     //const config = getAuthHeader(token);
       console.log(data)
     const result = new APIResult();

@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import AdminUpdateProductForm from './forms/AdminUpdateProductForm';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
+import { addBrandAsync } from '../../redux/actions/admin-panel/brand.actions';
 
 export default function ProductList(){
 
@@ -53,6 +54,7 @@ export default function ProductList(){
                         <td>Tags</td>
                         <td>Description</td>
                         <td>Added date</td>
+                        <td>Last updated date</td>
                         <td>Action</td>
 
                      </tr>
@@ -63,24 +65,25 @@ export default function ProductList(){
                            products.map(product => (
                                 <tr>
                                     <td>{product._id}</td>
-                                   <td>{product.product_name}</td>
+                                   <td>{product.name}</td>
                                    <td>
-                                   {product.product_size_qty && product.product_size_qty.map(sizes => (
+                                   {product.sizeQty && product.sizeQty.map(sizes => (
                                       <p> {sizes.size}</p>
                                    ))}</td>
                                    <td>
-                                   {product.product_size_qty && product.product_size_qty.map(sizes => (
+                                   {product.sizeQty && product.sizeQty.map(sizes => (
                                         <p>{sizes.qty}</p>
                                     ))}</td>
-                                   <td>{product.product_brand}</td>
-                                   <td>{product.product_category}</td>
-                                   <td>{product.product_sub_category}</td>
-                                   <td>{product.product_price}</td>
-                                   <td>{product.product_discount}</td>
-                                   <td>{product.product_colors}</td>
-                                   <td>{product.product_tags}</td>
-                                   <td>{product.product_description}</td>
-                                   <td>{product.product_added_date}</td>
+                                   <td>{product.brand}</td>
+                                   <td>{product.category}</td>
+                                   <td>{product.subCategory}</td>
+                                   <td>{product.price}</td>
+                                   <td>{product.discount}</td>
+                                   <td>{product.colors}</td>
+                                   <td>{product.tags}</td>
+                                   <td>{product.description}</td>
+                                   <td>{product.addedDate}</td>
+                                   <td>{product.updatedDate}</td>
                                    <td>
                                    <button className="button buttonEdit" onClick={onOpenModal}>EDIT</button>
                 <Modal open={open} onClose={onCloseModal} center>
@@ -88,44 +91,46 @@ export default function ProductList(){
                     <div><AdminUpdateProductForm errorMsg={errorMsg}
                                     onUpdateProductClick={( 
                                         _id,
-                                        product_name,
-                                        product_size_qty,
-                                        product_brand,
-                                        product_category,
-                                        product_sub_category,
-                                        product_price,
-                                        product_discount,
-                                        product_colors,
-                                        product_tags,
-                                        product_description
+                                        name,
+                                        sizeQty,
+                                        brand,
+                                        category,
+                                        subCategory,
+                                        price,
+                                        discount,
+                                        colors,
+                                        tags,
+                                        description
                                     ) =>
                                     dispatch(updateProductAsync(
                                         _id,
-                                        product_name,
-                                        product_size_qty,
-                                        product_brand,
-                                        product_category,
-                                        product_sub_category,
-                                        product_price,
-                                        product_discount,
-                                        product_colors,
-                                        product_tags,
-                                        product_description, history
-                                    ))}
+                                        name,
+                                        sizeQty,
+                                        brand,
+                                        category,
+                                        subCategory,
+                                        price,
+                                        discount,
+                                        colors,
+                                        tags,
+                                        description, history
+                                    ))
+                                
+                                }
                                     id = {product._id} 
-                                    name= {product.product_name}
-                                    size = {product.product_size_qty}
-                                    brand = {product.product_brand}
-                                    category = {product.product_category}
-                                    sub_category = {product.product_sub_category}
-                                    price = {product.product_price}
-                                    discount = {product.product_discount}
-                                    colors = {product.product_colors}
-                                    tags = {product.product_tags}
-                                    description = {product.product_description}
+                                    name= {product.name}
+                                    size = {product.sizeQty}
+                                    brand = {product.brand}
+                                    category = {product.category}
+                                    sub_category = {product.subCategory}
+                                    price = {product.price}
+                                    discount = {product.discount}
+                                    colors = {product.colors}
+                                    tags = {product.tags}
+                                    description = {product.description}
 
 
-                                     /></div>
+                                    onAddBrandClick = {(bname) => dispatch(addBrandAsync(bname,history)) }/></div>
                                     </Modal>
 
                                         <button class="button buttonDelete" onClick={() => {dispatch(productDeletedByIDAsync(product._id))}} >Delete</button>   

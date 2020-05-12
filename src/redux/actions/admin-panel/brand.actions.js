@@ -21,9 +21,9 @@ export const BRAND_ACTION_TYPES = {
 
 
 
-  export function addBrandAsync(brand_name) {
+  export function addBrandAsync(name) {
       return async (dispatch, getState) => {
-        const result = await brandService.addBrand(brand_name);
+        const result = await brandService.addBrand(name);
 
         
         if(result.isResultOk() && result.data.success) {

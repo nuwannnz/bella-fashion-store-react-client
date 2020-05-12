@@ -13,25 +13,25 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick,
     const dispatch = useDispatch();
     const brands = useSelector(state => state.brand.brands);
    
-    const [product_name, setName] = useState("");
-    const [product_qty_small, setQtyS] = useState("");
-    const [product_qty_medium, setQtyM] = useState("");
-    const [product_qty_large, setQtyL] = useState("");
-    const [product_brand, setBrand] = useState("");
-    const [product_category, setCategory] = useState("");
-    const [product_sub_category, setSubCategory] = useState("");
-    const [product_price, setPrice] = useState("");
-    const [product_discount, setDiscount] = useState("");
-    const [product_colors, setColors] = useState("");
-    const [product_tags, setTags] = useState("");
-    const [product_description, setDescription] = useState("");
+    const [name, setName] = useState("");
+    const [qty_small, setQtyS] = useState("");
+    const [qty_medium, setQtyM] = useState("");
+    const [qty_large, setQtyL] = useState("");
+    const [brand, setBrand] = useState("");
+    const [category, setCategory] = useState("");
+    const [subCategory, setSubCategory] = useState("");
+    const [price, setPrice] = useState("");
+    const [discount, setDiscount] = useState("");
+    const [colors, setColors] = useState("");
+    const [tags, setTags] = useState("");
+    const [description, setDescription] = useState("");
 
-    const [brand_name, setBrandname] = useState("");
+    const [bname, setBrandname] = useState("");
 
-    const product_size_qty = [
-       {size: "S", qty: product_qty_small},
-        {size: "M", qty: product_qty_medium},
-        {size: "L", qty: product_qty_large}
+    const sizeQty = [
+       {size: "S", qty: qty_small},
+        {size: "M", qty: qty_medium},
+        {size: "L", qty: qty_large}
     ];
 
 
@@ -39,11 +39,11 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick,
     const [invalidInput, setInvalidInput] = useState("");
 
     const submitBrand =() => {
-        if(isEmpty(brand_name)) {
+        if(isEmpty(bname)) {
             setInvalidInput("brand name is required");
         } else {
             setInvalidInput("");
-            onAddBrandClick(brand_name);
+            onAddBrandClick(bname);
         }
 
         
@@ -60,40 +60,41 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick,
 
     const submitForm = () => {
 
-        if (isEmpty(product_name)) {
+        if (isEmpty(name)) {
             setInvalidInput("product name is required");
-        } else if (isEmpty(product_size_qty)) {
+
+        } else if (isEmpty(sizeQty)) {
             setInvalidInput("product sizes and qtys is required");
     
 
-        }else if (isEmpty(product_brand)) {
+        }else if (isEmpty(brand)) {
             setInvalidInput("product brand is required");
 
-        } else if (isEmpty(product_category)) {
+        } else if (isEmpty(category)) {
             setInvalidInput("product category is required");
 
-        }else if (isEmpty(product_sub_category)) {
+        }else if (isEmpty(subCategory)) {
             setInvalidInput("product category is required");
 
-        } else if (isEmpty(product_price)) {
+        } else if (isEmpty(price)) {
             setInvalidInput("product price is required");
 
-        }else if (product_price < 0) {
+        }else if (price < 0) {
             setInvalidInput("product price shouldn't be less than 0");
 
-        }  else if (isEmpty(product_discount)) {
+        }  else if (isEmpty(discount)) {
             setInvalidInput("product discount is required");
 
-        } else if (product_discount < 0) {
+        } else if (discount < 0) {
             setInvalidInput("product discount shouldn't be less than 0");
 
-        } else if (isEmpty(product_colors)) {
+        } else if (isEmpty(colors)) {
             setInvalidInput("product colors is required");
 
-        } else if (isEmpty(product_tags)) {
+        } else if (isEmpty(tags)) {
             setInvalidInput("product tags is required");
 
-        } else if (isEmpty(product_description)) {
+        } else if (isEmpty(description)) {
             setInvalidInput("product description is required");
 
         }
@@ -101,16 +102,16 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick,
            
             setInvalidInput("");
             onAddProductClick(
-                product_name,
-                product_size_qty,
-                product_brand,
-                product_category,
-                product_sub_category,
-                product_price,
-                product_discount,
-                product_colors,
-                product_tags,
-                product_description
+                name,
+                sizeQty,
+                brand,
+                category,
+                subCategory,
+                price,
+                discount,
+                colors,
+                tags,
+                description
                 
             );
         }
@@ -168,7 +169,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick,
 
                         <select id="leave" onChange={e => {setBrand(e.target.value); console.log(e.target.value)}}>
                             {brands && brands.map(brand => (
-                                <option value={brand.brand_name}>{brand.brand_name}</option>
+                                <option value={brand.name}>{brand.name}</option>
                             ))}   
                         </select>
                         </div>
