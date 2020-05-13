@@ -18,7 +18,7 @@ export default function OffersSlider() {
   useEffect(() => {
     
     dispatch(productsLoadedAsync());
-  });
+  }, []);
 
   const products = useSelector(state => state.product.products);
 

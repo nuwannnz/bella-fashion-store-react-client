@@ -9,7 +9,6 @@ import LoadingAnimation from "./components/common/LoadingAnimation";
 import { history } from "./helpers/navigation.helper";
 import AdminPanelShell from "./pages/admin-panel/AdminPanelShell";
 
-
 function AppShell() {
   return (
     <div className="app-wrap flex flex-r">
@@ -18,10 +17,6 @@ function AppShell() {
           <Route path={ROUTE_PATHS.ADMIN_SHELL}>
             <Provider store={adminPanelStore}>
               <AdminPanelShell />
-<<<<<<< HEAD
-              <LoadingAnimation />
-=======
->>>>>>> 71eacb8f2c487885a4ce8e7e48cacff8da134fe5
             </Provider>
           </Route>
 
