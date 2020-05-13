@@ -63,7 +63,11 @@ export const updateProductOfCart = async (token, productId, size, qty) => {
 
 export const removeProductFromCart = async (token, productId, size) => {
   const path = `${API_HOST}/carts/products/${productId}`;
+  const data = { size };
   const config = getAuthHeader(token);
+
+  //only for delte requests
+  config.data = data;
 
   const result = new APIResult();
 

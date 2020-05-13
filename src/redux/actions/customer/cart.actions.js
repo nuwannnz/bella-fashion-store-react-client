@@ -64,7 +64,7 @@ export function addProductToCartAsync(productId, size, qty) {
     const result = await addProductToCart(token, productId, size, qty);
 
     if (result.isResultOk()) {
-      dispatch(success(result.data));
+      dispatch(success(result.data.addedEntry));
     } else {
       dispatch(failure(result.errorMessage));
     }
@@ -120,7 +120,7 @@ export function removeProductFromCartAsync(productId, size) {
     const result = await removeProductFromCart(token, productId, size);
 
     if (result.isResultOk()) {
-      dispatch(success(result.data));
+      dispatch(success(productId));
     } else {
       dispatch(failure(result.errorMessage));
     }

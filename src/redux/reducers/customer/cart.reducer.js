@@ -80,7 +80,7 @@ export const cart = (state = initialState, action) => {
     case CART_ACTION_TYPES.DELETE_ITEM_FROM_CART_SUCCESS:
       return {
         products: state.products.filter(
-          (product) => product.id !== action.payload
+          (productEntry) => productEntry.product._id !== action.payload
         ),
       };
 

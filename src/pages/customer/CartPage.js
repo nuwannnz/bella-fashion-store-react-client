@@ -1,14 +1,25 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { removeProductFromCartAsync } from "../../redux/actions/customer/cart.actions";
 
 const CartItem = ({ product, size, qty }) => {
+  const dispatch = useDispatch();
+
+  const handleRemoveClick = () => {
+    dispatch(removeProductFromCartAsync(product._id, size));
+  };
+
   return (
-    <div className="flex">
-      <div>{product.name}</div>
+    <div className=" card flex">
+      <div>Product: {product.name}</div>
 
-      <div>{size}</div>
+      <div>Size: {size}</div>
 
-      <div>{qty}</div>
+      <div>Quantity: {qty}</div>
+
+      <div>
+        <button onClick={handleRemoveClick}>remove</button>
+      </div>
     </div>
   );
 };

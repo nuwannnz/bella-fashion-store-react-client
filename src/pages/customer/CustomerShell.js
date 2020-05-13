@@ -4,6 +4,8 @@ import { ROUTE_PATHS } from "../../constants";
 import Homepage from "./Homepage";
 import CustomerLoginPage from "./CustomerLoginPage";
 import CustomerSignUpPage from "./CustomerSignUpPage";
+import ProductPage from "./ProductPage";
+import AboutUs from "./AboutUs";
 import { useDispatch, useSelector } from "react-redux";
 import {
   verifyStoredTokenAsync,
@@ -51,6 +53,10 @@ export default function CustomerShell() {
 
         <Route path={ROUTE_PATHS.CUSTOMER_SIGNUP}>
           <CustomerSignUpPage />
+        </Route>
+
+        <Route path={ROUTE_PATHS.CUSTOMER_ABOUTUS}>
+          <AboutUs />
         </Route>
 
         <Route path={ROUTE_PATHS.CUSTOMER_SHELL}>
