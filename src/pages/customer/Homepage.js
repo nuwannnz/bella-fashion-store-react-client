@@ -8,6 +8,7 @@ import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import { ROUTE_PATHS } from "../../constants";
 import CustomerDashboardPage from "./CustomerDashboardPage";
 import CustomerDashboardSideBar from "../../components/customer/CustomerDashboardSideBar";
+import CartPage from "./CartPage";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.customer.token);
@@ -58,6 +59,10 @@ export default function Homepage() {
                 </PrivateRoute>
                 <PrivateRoute path={ROUTE_PATHS.CUSTOMER_DASHBOARD}>
                   <CustomerDashboardPage />
+                </PrivateRoute>
+
+                <PrivateRoute path={ROUTE_PATHS.CUSTOMER_CART}>
+                  <CartPage />
                 </PrivateRoute>
               </Switch>
             </div>

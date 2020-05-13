@@ -114,6 +114,21 @@ const CustomerMenu = () => {
   );
 };
 
+const CartButton = () => {
+  const productsOfCart = useSelector((state) => state.cart.products);
+
+  return (
+    <Link to={ROUTE_PATHS.CUSTOMER_CART}>
+      <button className="header-btn badge-btn" style={{ marginRight: "25px" }}>
+        <i className="fas fa-shopping-basket"></i>
+        {productsOfCart && (
+          <span className="product-count-badge">{productsOfCart.length}</span>
+        )}
+      </button>
+    </Link>
+  );
+};
+
 const HeaderButtonGroup = () => {
   return (
     <div className="header-btn-group flex">
@@ -123,9 +138,7 @@ const HeaderButtonGroup = () => {
       <button className="header-btn">
         <i className="far fa-heart"></i>
       </button>
-      <button className="header-btn">
-        <i className="fas fa-shopping-basket"></i>
-      </button>
+      <CartButton />
       <CustomerMenu />
     </div>
   );
