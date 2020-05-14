@@ -102,3 +102,57 @@ export const verifyStoredToken = async () => {
         return null;
     }
 };
+
+export const addAddress = async (token, customerDto) => {
+    const path = `${API_HOST}/address`;
+    const data = { ...customerDto };
+    const config = getAuthHeader(token);
+
+    const result = new APIResult();
+
+    try {
+        const response = await axios.post(path, data, config);
+
+        result.data = response.data;
+        return result;
+    } catch(error) {
+        logger.error(`Error in API call => ${path}`);
+        result.setError(error);
+        return result;
+    }
+};
+
+export const updateCustomerAddress = async (token, addressId, addressDto) => {
+    const path = `${API_HOST}/address/${addressId}`;
+    const config = getAuthHeader(token);
+    const data = { ...addressDto };
+    const result = new APIResult();
+
+    try {
+        const response = await axios.put(path, data, config);
+
+        result.data = response.data;
+        return result;
+    } catch(error) {
+        logger.error(`Error in API call => ${path}`);
+        result.setError(error);
+        return result;
+    }
+};
+
+export const deleteCustomerAddress = async (token, addressId) => {
+    const path = `${API_HOST}/address/${addressId}`;
+    const config = getAuthHeader(token);
+    const result = new APIResult();
+
+    try {
+        const response = await axios.delete(path, config);
+
+        result.data = response.data;
+        return result;
+    } catch (error) {
+        logger.error(`Error in API call => ${path}`);
+        result.setError(error);
+        return result;
+      }
+};

@@ -153,12 +153,12 @@
 .customer-order-dashboard-card-wrapper .order-card-btn {
     position: absolute;
     top: 70%;
-    left: 84%;
+    left: 80%;
     transform: translate(-10%, -50%);
 }
 
 .customer-order-dashboard-card-wrapper .order-card-btn button {
-    padding: 8px 15px;
+    padding: 8px 16px;
     border: none;
     background-color: blueviolet;
     color: white;

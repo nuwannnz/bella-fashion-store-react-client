@@ -12,8 +12,8 @@ export default function CustomerDashboardAddressPage() {
                 <h1>Addresses</h1>
             </div>
             {/* <CustomerDashboardAddress /> */}
-            {/* <CustomerDashboardAddressForm /> */}
-            <CustomerDashboardAddresses />
+            <CustomerDashboardAddressForm />
+            {/* <CustomerDashboardAddresses /> */}
         </div>
     );
 }

@@ -73,7 +73,7 @@ export const PRODUCT_ACTION_TYPES = {
 
   export function productsLoadedAsync() {
     return async (dispatch, getState)=> {
-      fetch('http://localhost:5000/api/v1/products').then(response => response.json())
+      fetch('http://localhost:4200/api/v1/products').then(response => response.json())
       .then(json => {
         dispatch(productsLoaded(json))
          return json;

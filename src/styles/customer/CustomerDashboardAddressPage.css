@@ -53,7 +53,7 @@
     cursor: pointer;
 }
 
-.customer-address-dashboard .add-address-btn button:hover, button:focus {
+.customer-address-dashboard .add-address-btn button:hover, .customer-address-dashboard .add-address-btn button:focus {
     background-color: rgb(152, 90, 209);
     box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
     transform: translateY(-0.25em);
