@@ -25,7 +25,8 @@ export const users = (state = initialState, action) => {
 
     case USER_DASHBOAR_ACTION_TYPES.ADD_REQUEST:
       return {
-        loading: true,
+        ...state,
+        addingItem: true,
       };
 
     case USER_DASHBOAR_ACTION_TYPES.ADD_SUCCESS:

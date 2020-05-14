@@ -25,7 +25,8 @@ export const roles = (state = initialState, action) => {
 
     case ROLE_ACTION_TYPES.ADD_REQUEST:
       return {
-        items: [{ ...action.payload, adding: true }, ...state.items],
+        ...state,
+        loading: true,
       };
 
     case ROLE_ACTION_TYPES.ADD_SUCCESS:

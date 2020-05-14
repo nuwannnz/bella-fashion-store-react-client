@@ -104,6 +104,25 @@ export const verifyStoredToken = async () => {
   }
 };
 
+export const addUser = async (token, userDto) => {
+  const path = `${API_HOST}/staff/`;
+  const data = { ...userDto };
+  const config = getAuthHeader(token);
+
+  const result = new APIResult();
+
+  try {
+    const response = await axios.post(path, data, config);
+
+    result.data = response.data;
+    return result;
+  } catch (error) {
+    logger.error(`Error in API call => ${path}`);
+    result.setError(error);
+    return result;
+  }
+};
+
 export const getAllUsers = async (token) => {
   const path = `${API_HOST}/staff/`;
   const config = getAuthHeader(token);

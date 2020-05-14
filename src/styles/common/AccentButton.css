@@ -45,6 +45,16 @@
   width: 100%;
 }
 
+.bella-accent-btn:disabled {
+  color: #aaa;
+  background-color: #9865ff;
+}
+
+.bella-btn::first-letter,
+.bella-accent-btn::first-letter {
+  text-transform: capitalize;
+}
+
 .bella-accent-btn {
   border-color: var(--accent-color);
   background-color: var(--accent-color);
@@ -59,4 +69,8 @@
   border-color: #ddd;
   background-color: #ddd;
   color: #333;
+}
+
+.bella-accent-btn.secondary:hover {
+  background-color: #aaa;
 }

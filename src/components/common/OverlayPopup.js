@@ -3,15 +3,9 @@ import AccentButton from "./AccentButton";
 
 const styles = {
   wrapper: {
-    position: "absolute",
-
     backgroundColor: "#fff",
     minWidth: "300px",
     borderRadius: "8px",
-    padding: "20px",
-    top: "0px",
-    bottom: "0px",
-    right: "0px",
     boxShadow: "-7px 1px 16px 6px #ddd",
     display: "flex",
     flexDirection: "column",
@@ -22,10 +16,25 @@ const styles = {
     left: "50%",
     transform: "translate(-50%, -50%)",
   },
-  title: {
-    marginTop: "0px",
-    marginBottom: "20px",
+  header: {
+    padding: "10px",
+    borderBottom: "1px solid #ddd",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
+  title: {
+    margin: "0px",
+  },
+  closeBtn: {
+    color: "#777",
+    cursor: "pointer",
+    padding: "5px",
+  },
+  formWrapper: {
+    padding: "10px",
+  },
+
   overlayPanel: {
     position: "fixed",
     top: "0px",
@@ -33,10 +42,14 @@ const styles = {
     bottom: "0px",
     right: "0px",
     backgroundColor: "rgba(99, 82, 82, 0.13)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   actionWrapper: {
     display: "flex",
+    padding: "10px",
   },
   action: {},
 };
@@ -46,24 +59,45 @@ export default function OverlayPopup({
   primaryActionText = "submit",
   secondaryActionText = "cancel",
   title = "Dialog",
+  isSubmitting = false,
   onClosing = null,
   onSubmit = null,
 }) {
+  const closeClickHandler = () => {
+    if (onClosing) {
+      onClosing();
+    }
+  };
+
+  const submitClickHandler = () => {
+    if (onSubmit) {
+      onSubmit();
+    }
+  };
+
   return (
     <div className="overlay-panel" style={styles.overlayPanel}>
       <div className="overlay-popup " style={styles.wrapper}>
-        <div className="header">
+        <div className="header" style={styles.header}>
           <h2 style={styles.title}>{title}</h2>
-          <span></span>
+          <span style={styles.closeBtn} onClick={closeClickHandler}>
+            <i class="fas fa-times"></i>
+          </span>
         </div>
-        <div className="form-wrapper">{children}</div>
+        <div className="form-wrapper" style={styles.formWrapper}>
+          {children}
+        </div>
 
         <div className="action-wrapper" style={styles.actionWrapper}>
           <div style={{ marginRight: "5px" }}>
             <AccentButton text={secondaryActionText} isSecondary={true} />
           </div>
           <div>
-            <AccentButton text={primaryActionText} />
+            <AccentButton
+              text={primaryActionText}
+              onButtonClick={submitClickHandler}
+              isLoading={isSubmitting}
+            />
           </div>
         </div>
       </div>

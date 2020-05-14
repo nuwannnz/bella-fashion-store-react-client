@@ -17,14 +17,6 @@ export default function AccentButton({
       }}
       disabled={isLoading}
     >
-      {/* {isLoading === true ?
-                <span>
-
-                    {text}
-                </span>
-                : (<div class="lds-ring"><div></div><div></div><div></div><div></div></div>)
-            } */}
-
       <span>{text}</span>
     </button>
   );

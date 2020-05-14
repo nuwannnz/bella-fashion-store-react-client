@@ -1,4 +1,4 @@
-import { getAllUsers } from "../../../../services/admin/staff.service";
+import { getAllUsers, addUser } from "../../../../services/admin/staff.service";
 
 export const USER_DASHBOAR_ACTION_TYPES = {
   GETALL_REQUEST: "USERS_GETALL_REQUEST",
@@ -41,6 +41,34 @@ export function getAllUsersAsync() {
   function failiure(errorMsg) {
     return {
       type: USER_DASHBOAR_ACTION_TYPES.GETALL_FAILURE,
+      payload: errorMsg,
+    };
+  }
+}
+
+export function addUserAsync(userDto) {
+  return async (dispatch, getState) => {
+    dispatch(request());
+    const { token } = getState().staffLogin.auth;
+
+    const result = await addUser(token, userDto);
+
+    if (result.isResultOk()) {
+      dispatch(success(result.data));
+    } else {
+      failiure(result.errorMessage);
+    }
+  };
+
+  function request() {
+    return { type: USER_DASHBOAR_ACTION_TYPES.ADD_REQUEST };
+  }
+  function success(payload) {
+    return { type: USER_DASHBOAR_ACTION_TYPES.ADD_SUCCESS, payload };
+  }
+  function failiure(errorMsg) {
+    return {
+      type: USER_DASHBOAR_ACTION_TYPES.ADD_FAILURE,
       payload: errorMsg,
     };
   }
