@@ -1,4 +1,9 @@
-import { getAllUsers, addUser } from "../../../../services/admin/staff.service";
+import {
+  getAllUsers,
+  addUser,
+  deleteUser,
+  updateUser,
+} from "../../../../services/admin/staff.service";
 
 export const USER_DASHBOAR_ACTION_TYPES = {
   GETALL_REQUEST: "USERS_GETALL_REQUEST",
@@ -69,6 +74,62 @@ export function addUserAsync(userDto) {
   function failiure(errorMsg) {
     return {
       type: USER_DASHBOAR_ACTION_TYPES.ADD_FAILURE,
+      payload: errorMsg,
+    };
+  }
+}
+
+export function deleteUserAsync(userId) {
+  return async (dispatch, getState) => {
+    dispatch(request({ id: userId }));
+    const { token } = getState().staffLogin.auth;
+
+    const result = await deleteUser(token, userId);
+
+    if (result.isResultOk()) {
+      dispatch(success({ id: userId }));
+    } else {
+      dispatch(failiure(result.errorMessage));
+    }
+  };
+
+  function request(payload) {
+    return { type: USER_DASHBOAR_ACTION_TYPES.DELETE_REQUEST, payload };
+  }
+  function success(payload) {
+    return { type: USER_DASHBOAR_ACTION_TYPES.DELETE_SUCCESS, payload };
+  }
+  function failiure(errorMsg) {
+    return {
+      type: USER_DASHBOAR_ACTION_TYPES.DELETE_FAILURE,
+      payload: errorMsg,
+    };
+  }
+}
+
+export function updateUserAsync(userDto) {
+  return async (dispatch, getState) => {
+    dispatch(request());
+    const { token } = getState().staffLogin.auth;
+
+    const result = await updateUser(token, userDto);
+
+    if (result.isResultOk()) {
+      dispatch(success(result.data));
+    } else {
+      dispatch(failiure(result.errorMessage));
+    }
+  };
+
+  function request() {
+    return { type: USER_DASHBOAR_ACTION_TYPES.UPDATE_REQUEST };
+  }
+  function success(payload) {
+    return { type: USER_DASHBOAR_ACTION_TYPES.UPDATE_SUCCESS, payload };
+  }
+  function failiure(errorMsg) {
+    return {
+      type: USER_DASHBOAR_ACTION_TYPES.UPDATE_FAILURE,
       payload: errorMsg,
     };
   }

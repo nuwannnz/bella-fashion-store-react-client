@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../styles/common/SelectBox.css";
 import { capitalizeString } from "../../helpers/string.helper";
 
@@ -7,7 +7,10 @@ export default function SelectBox({
   optionValues,
   onItemSelected,
   placeholder = "Select an item",
+  selectedItem = "default",
 }) {
+  const [selected, setSelected] = useState(selectedItem);
+
   const handleItemSelected = (e) => {
     if (parseInt(e.target.value) === -1) {
       return;

@@ -4,16 +4,19 @@ import TextBox from "../../../components/common/TextBox";
 import SelectBox from "../../../components/common/SelectBox";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllRolesAsync } from "../../../redux/actions/admin-panel/user-dashboard/role.actions";
-import { addUserAsync } from "../../../redux/actions/admin-panel/user-dashboard/user.actions";
+import {
+  addUserAsync,
+  updateUserAsync,
+} from "../../../redux/actions/admin-panel/user-dashboard/user.actions";
 import ErrorMessage from "../../../components/common/ErrorMessage";
 
-export default function UserForm({ closeFormClickHandler }) {
+export default function UserForm({ closeFormClickHandler, userToUpdate }) {
   const roles = useSelector((state) => state.userDashboard.roles);
   const users = useSelector((state) => state.userDashboard.users);
   const dispatch = useDispatch();
 
   const [user, setUser] = useState({
-    email: "",
+    email: userToUpdate ? userToUpdate.email : "",
     fName: "",
     lName: "",
     roleId: "",
@@ -23,11 +26,23 @@ export default function UserForm({ closeFormClickHandler }) {
     dispatch(getAllRolesAsync());
   }, []);
 
+  //   useEffect(() => {
+  //     if (userToUpdate !== null) {
+  //       setUser({
+  //         email: userToUpdate.email,
+  //         fName: userToUpdate.fName,
+  //         lName: userToUpdate.lName,
+  //         roleId: userToUpdate.roleId,
+  //       });
+  //     }
+  //   }, [userToUpdate]);
+
   useEffect(() => {
     if (users.closePopups) {
       closeFormClickHandler();
     }
   }, [users]);
+
   const handleRoleSelected = (roleName) => {
     const selectedRole = roles.items.find((role) => role.name === roleName);
     if (!selectedRole) {
@@ -53,15 +68,21 @@ export default function UserForm({ closeFormClickHandler }) {
   };
 
   const handleFormSubmit = () => {
-    dispatch(addUserAsync(user));
+    if (userToUpdate) {
+      // add user
+      dispatch(addUserAsync(user));
+    } else {
+      // update user
+      dispatch(updateUserAsync(user));
+    }
   };
 
   return (
     <OverlayPopup
-      title="Add new user"
+      title={userToUpdate ? "Update user" : "Add new user"}
       onClosing={closeFormClickHandler}
       onSubmit={handleFormSubmit}
-      primaryActionText="Add user"
+      primaryActionText={userToUpdate ? "Update user" : "Add user"}
       isSubmitting={users.addingItem}
     >
       <div>
@@ -69,17 +90,20 @@ export default function UserForm({ closeFormClickHandler }) {
           label="Email"
           animateTitle={false}
           placeholder="Enter the email here"
+          value={user.email}
           onTextChange={handleEmailChanged}
         />
         <TextBox
           label="First name"
           animateTitle={false}
+          value={user.fName}
           placeholder="Enter the first name here"
           onTextChange={handleFnameChanged}
         />
         <TextBox
           label="Last name"
           animateTitle={false}
+          value={user.lName}
           placeholder="Enter the last name here"
           onTextChange={handleLNameChanged}
         />
