@@ -1,24 +1,29 @@
 import React from "react";
 import "../../styles/customer/CustomerDashboardPage.css";
-// import { FaHourglassHalf, FaRegCheckCircle } from "react-icons/fa";
+import { FaHourglassHalf, FaRegCheckCircle } from "react-icons/fa";
 
 export default function CustomerDashboardFilterCards() {
     return (
         <div className="dashboard-filter-cards">
             <div className="filer-card-wrap">
                 <div className="pending-card">
-                    {/* <div className="pending-icon"><FaHourglassHalf color="#fffff" size="2em"/></div> */}
                     <div className="pending">
-                        <h1>4</h1>
-                        <p>Pending</p>
+                        <span>
+                            <FaHourglassHalf color="#fffff" size="1em"/>
+                        </span>
+                        <p>Pending:</p>
+                        <h4>4</h4>
                     </div>
                 </div>
 
                 <div className="completed-card">
-                    {/* <div className="completed-icon"><FaRegCheckCircle color="#fffff" size="2em"/></div> */}
+                    {/* <div className="completed-icon"></div> */}
                     <div className="completed">
-                        <h1>5</h1>
-                        <p>Completed</p>
+                        <span>
+                            <FaRegCheckCircle color="#fffff" size="1em"/>
+                        </span>
+                        <p>Completed:</p>
+                        <h4>5</h4>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,77 @@
+.customer-address-dashboard-wrapper .title {
+    position: relative;
+    top: 15%;
+    left: 20%;
+    transform: translate(-14%, -15%);
+    margin-bottom: 20px;
+}
+
+.empty-address-card {
+    width: 93%;
+    height: 20vh;
+    background-color: #efefef;
+    border: none;
+    box-shadow: 5px 5px 5px #666;
+    border-radius: 10px;
+    position: relative;
+}
+
+.customer-address-dashboard {
+    position: relative;
+    left: 6%;
+}
+
+.empty-address-card .msg p {
+    margin: 0px;
+    font-size: 22px;
+    margin-left: 15px;
+}
+
+.empty-address-card .msg {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    display: flex;
+}
+
+.empty-address-card .add-address-btn {
+    position: absolute;
+    top: 50%;
+    right: 3%;
+    transform: translate(-3%, -50%);
+}
+
+.empty-address-card .add-address-btn button {
+    border: none;
+    background-color: #8C52FF;
+    color: #ffffff;
+    padding: 10px 30px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.customer-address-dashboard .add-address-btn button:hover, button:focus {
+    background-color: rgb(152, 90, 209);
+    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+    transform: translateY(-0.25em);
+}
+
+.customer-address-dashboard-form-wrapper {
+   
+}
+
+.customer-address-dashboard-form-wrapper .customer-address-dashboard-form {
+    width: 175vh;
+}
+
+.customer-address-dashboard-form-wrapper .customer-address-dashboard-form input {
+    width: 320px;
+    height: 45px;
+    padding-left: 10px;
+    border-radius: 20px;
+    border: 1px solid blueviolet;
+}
+

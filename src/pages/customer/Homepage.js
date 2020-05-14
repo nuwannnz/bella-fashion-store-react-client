@@ -8,6 +8,8 @@ import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import { ROUTE_PATHS } from "../../constants";
 import CustomerDashboardPage from "./CustomerDashboardPage";
 import CustomerDashboardSideBar from "../../components/customer/CustomerDashboardSideBar";
+import CustomerOrderDashboardPage from "./CustomerOrderDashboardPage";
+import CustomerDashboardAddressPage from "./CustomerDashboardAddressPage";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.customer.token);
@@ -53,12 +55,17 @@ export default function Homepage() {
           <div className="page-content-wrap">
             <div className="page">
               <Switch>
+                <PrivateRoute path={ROUTE_PATHS.CUSTOMER_DASHBOARD_ADDRESS}>
+                  <CustomerDashboardAddressPage />
+                </PrivateRoute>
                 <PrivateRoute path={ROUTE_PATHS.CUSTOMER_DASHBOARD_ORDER}>
-                  <div>Orders</div>
+                  <CustomerOrderDashboardPage />
                 </PrivateRoute>
                 <PrivateRoute path={ROUTE_PATHS.CUSTOMER_DASHBOARD}>
                   <CustomerDashboardPage />
                 </PrivateRoute>
+              
+
               </Switch>
             </div>
 
