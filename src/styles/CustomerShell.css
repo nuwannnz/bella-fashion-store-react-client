@@ -1,17 +1,18 @@
-.customer-shell{
+.customer-shell {
   width: 100%;
 }
 
 .customer-shell .category-wrap {
   height: 100%;
-  width: 250px;
-  background-color: darkmagenta;
+  min-width: 14%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 20px;
 }
 
 .customer-shell .content-wrap {
-  height: 100%;
-  width: 100%;
-  background-color: darksalmon;
+  height: 90%;
 }
 
 .customer-shell .page-content-wrap {
@@ -22,11 +23,22 @@
 .customer-shell .page {
   width: 100%;
   height: 120vh;
-  background-color: dimgrey;
 }
 
 .customer-shell .footer-wrap {
   width: 100%;
   height: 100px;
   background-color: indianred;
+}
+
+/* Mobile design */
+@media only screen and (max-width: 600px) {
+  .category-wrap.closed {
+    display: none;
+  }
+
+  .category-wrap.opened {
+    display: flex !important;
+    width: 100%;
+  }
 }

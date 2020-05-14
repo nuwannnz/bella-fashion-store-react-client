@@ -1,0 +1,10 @@
+.input-box {
+    margin-bottom: 10px;
+    width: 345px;
+    height: 45px;
+    border-radius: 10px;
+    border: 1px solid #8c52ff;
+    background-color: #ffffff;
+    padding-left: 35px;
+    position: relative;
+}

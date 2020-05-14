@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { getAdminPanelMenuItems } from "../../helpers/menu.helper";
 import { useUserRole, useAuthUser } from "../../hooks/admin-panel/Auth.hooks";
 import { uiIsLoading } from "../../redux/actions/ui.actions";
+import ProductDashboardPage from "./product/AdminProductPage";
 
 export default function Dashboard() {
 
@@ -64,6 +65,10 @@ export default function Dashboard() {
 
                 <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_ORDER}>
                   <OrderDashboard />
+                </Route>
+
+                <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_PRODUCT}>
+                  <ProductDashboardPage />
                 </Route>
               </Switch>
             </div>

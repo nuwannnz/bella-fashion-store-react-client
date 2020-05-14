@@ -1,0 +1,36 @@
+.dashboard-side-bar {
+  height: 100%;
+  padding: 20px;
+}
+
+.dashboard-side-bar a {
+  text-decoration: none !important;
+}
+
+.dashboard-side-bar .sidebar-btn {
+  background-color: #efefef;
+  border: 1px solid #efefef;
+  padding: 15px;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 10px 0px;
+  overflow: hidden;
+  max-height: 50px;
+  text-decoration: none !important;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-side-bar .sidebar-btn span {
+  text-decoration: none !important;
+}
+
+.dashboard-side-bar .sidebar-btn-active .sidebar-btn {
+  color: #8c52ff !important;
+}

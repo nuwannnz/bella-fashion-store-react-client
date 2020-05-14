@@ -1,25 +1,68 @@
-import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { ROUTE_PATHS } from "../../constants";
-import Homepage from './Homepage';
+import Homepage from "./Homepage";
+import CustomerLoginPage from "./CustomerLoginPage";
+import CustomerSignUpPage from "./CustomerSignUpPage";
+import ProductPage from "./ProductPage";
+import AboutUs from "./AboutUs";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  verifyStoredTokenAsync,
+  checkHasCustomerAsync,
+} from "../../redux/actions/customer/customer.actions";
+import { uiIsLoading } from "../../redux/actions/ui.actions";
+import CustomerDashboardPage from "./CustomerDashboardPage";
 
+export default function CustomerShell() {
+  const dispatch = useDispatch();
 
-export default class CustomerShell extends Component {
-  render() {
-    return (
-      <div className="flex w-100 h-100">
-        <Switch>
+  const hasCustomerChecked = useSelector(
+    (state) => state.customer.checkedHasCustomer
+  );
+  const verifyedToken = useSelector((state) => state.customer.tokenVerified);
 
-          <Route path={ROUTE_PATHS.CUSTOMER_LOGIN} >
-            {/* Put login component here  */}
-            <div>Login</div>
-          </Route>
+  useEffect(() => {
+    // set ui to loading
 
-          <Route path={ROUTE_PATHS.CUSTOMER_SHELL}>
-            <Homepage />
-          </Route>
-        </Switch>
-      </div>
-    );
-  }
+    // if we did not check has customer, check it
+    if (!hasCustomerChecked) {
+      dispatch(uiIsLoading(true));
+
+      dispatch(checkHasCustomerAsync());
+    }
+
+    // if we did not checked the saved token, check it
+    if (!verifyedToken) {
+      dispatch(uiIsLoading(true));
+
+      dispatch(verifyStoredTokenAsync());
+    }
+
+    if (verifyedToken && hasCustomerChecked) {
+      dispatch(uiIsLoading(false));
+    }
+  });
+
+  return (
+    <div className="flex w-100 h-100">
+      <Switch>
+        <Route path={ROUTE_PATHS.CUSTOMER_LOGIN}>
+          <CustomerLoginPage />
+        </Route>
+
+        <Route path={ROUTE_PATHS.CUSTOMER_SIGNUP}>
+          <CustomerSignUpPage />
+        </Route>
+
+        <Route path={ROUTE_PATHS.CUSTOMER_ABOUTUS}>
+          <AboutUs />
+        </Route>
+
+        <Route path={ROUTE_PATHS.CUSTOMER_SHELL}>
+          <Homepage />
+        </Route>
+      </Switch>
+    </div>
+  );
 }
