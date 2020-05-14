@@ -45,13 +45,13 @@ export const users = (state = initialState, action) => {
       return {
         ...state,
         items: state.items.map((user) =>
-          user._id === action.payload ? { ...user, deleting: true } : user
+          user._id === action.payload.id ? { ...user, deleting: true } : user
         ),
       };
 
     case USER_DASHBOAR_ACTION_TYPES.DELETE_SUCCESS:
       return {
-        items: state.items.filter((user) => user._id !== action.payload),
+        items: state.items.filter((user) => user._id !== action.payload.id),
       };
 
     case USER_DASHBOAR_ACTION_TYPES.DELETE_FAILURE:
