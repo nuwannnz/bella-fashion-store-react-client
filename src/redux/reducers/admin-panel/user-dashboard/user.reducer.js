@@ -32,11 +32,13 @@ export const users = (state = initialState, action) => {
     case USER_DASHBOAR_ACTION_TYPES.ADD_SUCCESS:
       return {
         items: [...state.items, action.payload],
+        closePopups: true,
       };
 
     case USER_DASHBOAR_ACTION_TYPES.ADD_FAILURE:
       return {
-        error: action.payload,
+        items: state.items,
+        addUserError: action.payload,
       };
 
     case USER_DASHBOAR_ACTION_TYPES.DELETE_REQUEST:

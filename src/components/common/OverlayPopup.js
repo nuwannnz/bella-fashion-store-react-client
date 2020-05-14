@@ -90,7 +90,11 @@ export default function OverlayPopup({
 
         <div className="action-wrapper" style={styles.actionWrapper}>
           <div style={{ marginRight: "5px" }}>
-            <AccentButton text={secondaryActionText} isSecondary={true} />
+            <AccentButton
+              text={secondaryActionText}
+              isSecondary={true}
+              onButtonClick={closeClickHandler}
+            />
           </div>
           <div>
             <AccentButton
