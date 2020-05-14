@@ -56,7 +56,7 @@ export function addUserAsync(userDto) {
     if (result.isResultOk()) {
       dispatch(success(result.data));
     } else {
-      failiure(result.errorMessage);
+      dispatch(failiure(result.errorMessage));
     }
   };
 

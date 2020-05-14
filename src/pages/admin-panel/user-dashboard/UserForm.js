@@ -5,6 +5,7 @@ import SelectBox from "../../../components/common/SelectBox";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllRolesAsync } from "../../../redux/actions/admin-panel/user-dashboard/role.actions";
 import { addUserAsync } from "../../../redux/actions/admin-panel/user-dashboard/user.actions";
+import ErrorMessage from "../../../components/common/ErrorMessage";
 
 export default function UserForm({ closeFormClickHandler }) {
   const roles = useSelector((state) => state.userDashboard.roles);
@@ -22,6 +23,11 @@ export default function UserForm({ closeFormClickHandler }) {
     dispatch(getAllRolesAsync());
   }, []);
 
+  useEffect(() => {
+    if (users.closePopups) {
+      closeFormClickHandler();
+    }
+  }, [users]);
   const handleRoleSelected = (roleName) => {
     const selectedRole = roles.items.find((role) => role.name === roleName);
     if (!selectedRole) {
@@ -87,6 +93,8 @@ export default function UserForm({ closeFormClickHandler }) {
             placeholder="Select a role"
           />
         )}
+
+        {users.addUserError && <ErrorMessage msg={users.addUserError} />}
       </div>
     </OverlayPopup>
   );
