@@ -1,8 +1,17 @@
 export const ROUTE_PATHS = {
   CUSTOMER_SHELL: "/",
   CUSTOMER_LOGIN: "/login",
+<<<<<<< HEAD
   CUSTOMER_CATEGORIES: "/categories/category-name",
   CUSTOMER_CONTACT: "/contact",
+=======
+  CUSTOMER_SIGNUP: "/signup",
+  CUSTOMER_DASHBOARD: "/dashboard",
+  CUSTOMER_DASHBOARD_ORDER: "/dashboard/order",
+  CUSTOMER_DASHBOARD_ADDRESS: "/dashboard/address",
+  CUSTOMER_DASHBOARD_ACCOUNT_INFO: "/dashboard/account-info",
+  CUSTOMER_WISHLIST: "/wishlist",
+>>>>>>> 0a32cacffb0bf362a5238e5eb7efdb21bea55a6e
   ADMIN_SHELL: "/admin",
   ADMIN_DASHBOARD: "/admin/",
   ADIMN_DASHBOARD_USER: '/admin/user',

@@ -1,11 +1,178 @@
-.header-wrap{
-    height: 100px;
-    width: 100%;    
-    background-color: white;
-    
+.header-wrap {
+  height: 10%;
+  width: 100%;
+  background-color: white;
+  padding: 10px 10px 0px 10px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.header-wrap .title{
-    font-family: 'La Belle Aurore', cursive;
-    font-size: 38px;
+.header-wrap .title {
+  font-family: "La Belle Aurore", cursive;
+  font-size: 38px;
+}
+
+.header-wrap .logo-wrap {
+  width: 11%;
+  padding-top: 40px;
+}
+.header-wrap .logo {
+  width: 100px;
+  height: 100px;
+}
+.header-wrap .logo img {
+  width: 100%;
+}
+
+.search-box-wrap {
+  width: 60%;
+  position: relative;
+  margin-top: 15px;
+}
+
+.search-box-wrap .search-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 16px;
+  color: #777;
+}
+
+.search-box {
+  width: 100%;
+  border: 1px solid transparent;
+  background-color: #efefef;
+  border-radius: 9px;
+  padding: 14px;
+  padding-right: 43px;
+  font-size: 14px;
+  outline: none;
+}
+
+.search-box:focus {
+  border-color: #8c52ff;
+}
+
+.header-btn-group {
+  align-items: center;
+  margin-top: 15px;
+  padding-right: 15px;
+}
+
+.header-btn {
+  border: none;
+  background: transparent;
+  padding: 10px;
+  font-size: 20px;
+  color: #555;
+  margin: 0px 5px;
+  outline: none;
+  cursor: pointer;
+}
+
+.header-btn:hover {
+  color: #333;
+}
+
+.header-btn.nav-drawer-btn {
+  color: #8c52ff !important;
+  margin-top: 15px;
+}
+
+.customer-avatar-wrap {
+  position: relative;
+}
+
+.customer-avatar-wrap .customer-info {
+  background-color: #efefef;
+  padding: 13px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #333;
+  font-weight: 500;
+  transition: width 1s ease-in;
+}
+
+.customer-info:hover {
+  background-color: #ddd;
+  box-shadow: 0px 0px 5px #eee;
+}
+
+.customer-expand-menu {
+  position: absolute;
+  top: 110%;
+  right: 0px;
+  z-index: 99999;
+}
+
+.customer-expand-menu .customer-menu {
+  background-color: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.customer-menu .customer-menu-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.customer-menu .customer-menu-item:hover {
+  background-color: #ddd;
+}
+
+.customer-menu .customer-menu-item:first-of-type {
+  border-bottom: 1px solid #ddd;
+}
+
+.customer-menu a {
+  text-decoration: none;
+}
+
+.customer-menu .customer-menu-login-btn {
+  padding: 15px;
+  background-color: #efefef;
+  border-radius: 10px;
+  color: #555;
+}
+
+@media only screen and (min-width: 600px) {
+  #m-nav-drawer-btn {
+    display: none;
+  }
+  #m-search-btn {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #search-box {
+    display: none;
+  }
+
+  .logo-wrap {
+    width: 20%;
+  }
+
+  .logo {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.log-out-wrap {
+  position: absolute;
+  top: 50%;
+  left: 95%;
+  transform: translate(-50%, -50%);
+}
+
+.log-out-wrap button {
+  background: #8c52ff;
+  border: none;
+  width: 90px;
+  border-radius: 20px;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
 }

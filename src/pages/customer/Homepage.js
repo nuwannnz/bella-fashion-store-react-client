@@ -1,27 +1,71 @@
-import React from 'react'
-import { Header } from '../../components/Header';
+import React from "react";
+import { Header } from "../../components/Header";
 
 import "../../styles/CustomerShell.css";
+import CategoryBar from "../../components/customer/CategoryBar";
+import { useSelector } from "react-redux";
+import { Switch, Route, Redirect, useLocation } from "react-router-dom";
+import { ROUTE_PATHS } from "../../constants";
+import CustomerDashboardPage from "./CustomerDashboardPage";
+import CustomerDashboardSideBar from "../../components/customer/CustomerDashboardSideBar";
+
+function PrivateRoute({ children, ...rest }) {
+  const token = useSelector((state) => state.customer.token);
+
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        token !== null ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: ROUTE_PATHS.CUSTOMER_LOGIN,
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
+  );
+}
 
 export default function Homepage() {
-    return (
-        <div className="customer-shell flex flex-r">
-            {/* Category bar, this is not always visible */}
-            <div className="category-wrap"></div>
+  const sideBarOpened = useSelector((state) => state.ui.mobileSideBarOpened);
+  const location = useLocation();
+  return (
+    <div className="customer-shell flex flex-r">
+      <div className="w-100 flex flex-c">
+        <Header />
 
-            {/* Main content wrap */}
-            <div className="content-wrap flex flex-c">
-                {/* Header */}
-                <Header />
+        <div className="content-wrap flex">
+          <div
+            className={`category-wrap ${sideBarOpened ? "opened" : "closed"}`}
+          >
+            {location.pathname.includes(ROUTE_PATHS.CUSTOMER_DASHBOARD) ? (
+              <CustomerDashboardSideBar />
+            ) : (
+              <CategoryBar />
+            )}
+          </div>
 
-                {/* Page content */}
-                <div className="page-content-wrap">
-                    <div className="page"></div>
-
-                    {/* Footer */}
-                    <div className="footer-wrap"></div>
-                </div>
+          <div className="page-content-wrap">
+            <div className="page">
+              <Switch>
+                <PrivateRoute path={ROUTE_PATHS.CUSTOMER_DASHBOARD_ORDER}>
+                  <div>Orders</div>
+                </PrivateRoute>
+                <PrivateRoute path={ROUTE_PATHS.CUSTOMER_DASHBOARD}>
+                  <CustomerDashboardPage />
+                </PrivateRoute>
+              </Switch>
             </div>
+
+            <div className="footer-wrap"></div>
+          </div>
         </div>
-    )
+      </div>
+    </div>
+  );
 }

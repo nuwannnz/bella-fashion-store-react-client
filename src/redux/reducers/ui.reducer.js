@@ -1,21 +1,25 @@
 import { UI_ACTION_TYPES } from "../actions/ui.actions";
 
-
 const initialState = {
-    isLoading: false,
+  isLoading: false,
+  mobileSideBarOpened: false,
 };
 
 export const ui = (state = initialState, action) => {
+  switch (action.type) {
+    case UI_ACTION_TYPES.UI_IS_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
 
-    switch (action.type) {
-        case UI_ACTION_TYPES.UI_IS_LOADING:
-            return {
-                ...state,
-                isLoading: action.payload
-            }
+    case UI_ACTION_TYPES.MOBILE_SIDEBAR_TOGGLE:
+      return {
+        ...state,
+        mobileSideBarOpened: !state.mobileSideBarOpened,
+      };
 
-
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 };

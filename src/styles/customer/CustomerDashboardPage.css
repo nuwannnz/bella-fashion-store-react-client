@@ -1,0 +1,125 @@
+.customer-dashboard-wrapper {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    font-family: cursive;
+}
+
+.customer-dashboard-wrapper .title {
+    position: absolute;
+    top: 18%;
+    left: 18%;
+    transform: translate(-18%, -18%);
+}
+
+.customer-dashboard-greeing .greeting-to-customer{
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.customer-dashboard-greeing div:first-child h1 {
+    font-size: 35px;
+}
+
+.greeting-to-customer p {
+    font-size: 20px;
+}
+
+.dashboard-cover-img img {
+    height: 500px;
+    opacity: 0.7;
+}
+
+.dashboard-cover-img {
+    position: absolute;
+    top: 10%;
+    right: 0%;
+}
+
+.customer-dashboard-msg {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    z-index: 99999;
+    width: 48%;
+    word-break: 173px;
+    transform: translate(-50%, 0%);
+}
+
+.customer-dashboard-msg p {
+    font-size: 18px;
+}
+
+.dashboard-filter-cards .pending-card {
+    width: 140px;
+    height: 80px;
+    border: none;
+    background-color: #8C52FF;
+    color: white;
+    position: absolute;
+    top: 30%;
+    right: 13%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    box-shadow: 0 8px 6px -6px black;
+    transition: 0.3s;
+}
+
+.dashboard-filter-cards .completed-card {
+    width: 140px;
+    height: 80px;
+    border: none;
+    background-color: #8C52FF;
+    color: white;
+    position: absolute;
+    top: 30%;
+    right: 0%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    box-shadow: 0 8px 6px -6px black;
+    transition: 0.3s;
+}
+
+.filer-card-wrap {
+    display: flex;
+}
+
+.pending {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -15%);
+}
+
+.pending-card p {
+    text-align: center;
+    margin: 0px;
+    text-shadow: 2px 2px #333;
+}
+
+.completed {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -15%);
+}
+
+.completed-card p {
+    text-align: center;
+    margin: 0px;
+    text-shadow: 2px 2px #333;
+}
+
+.pending-card h1 {
+    text-align: center;
+    margin: 0px;
+    text-shadow: 2px 2px #333;
+}
+
+.completed-card h1 {
+    text-align: center;
+    margin: 0px;
+    text-shadow: 2px 2px #333;
+}
