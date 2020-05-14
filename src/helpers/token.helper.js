@@ -1,17 +1,17 @@
-const ADMIN_TOKEN_KEY = "BELLA_ADMIN_TOKEN_KEY";
+const STAFF_INFO = "BELLA_ADMIN_TOKEN_KEY";
 const CUSTOMER_TOKEN_KEY = "BELLA_CUSTOMER_TOKEN_KEY";
 
-export const loadAdminTokenFromStorage = () => {
-  return localStorage.getItem(ADMIN_TOKEN_KEY);
+export const loadStaffInfoFromStorage = () => {
+  return JSON.parse(localStorage.getItem(STAFF_INFO));
 };
 
-export const saveAdminTokenToStorage = (token) => {
-  localStorage.setItem(ADMIN_TOKEN_KEY, token);
+export const saveStaffInfoToStorage = (info) => {
+  localStorage.setItem(STAFF_INFO, JSON.stringify(info));
 };
 
 export const deleteAdminTokenFromStorage = () => {
-  localStorage.removeItem(ADMIN_TOKEN_KEY);
-}
+  localStorage.removeItem(STAFF_INFO);
+};
 
 export const loadCustomerTokenFromStorage = () => {
   return localStorage.getItem(CUSTOMER_TOKEN_KEY);
@@ -23,13 +23,12 @@ export const saveCustomerTokenToStorage = (token) => {
 
 export const deleteCustomerTokenFromStorage = () => {
   localStorage.removeItem(CUSTOMER_TOKEN_KEY);
-}
+};
 
 export const getAuthHeader = (token) => {
   return {
     headers: {
       Authorization: `Bearer ${token}`,
-
-    }
+    },
   };
 };

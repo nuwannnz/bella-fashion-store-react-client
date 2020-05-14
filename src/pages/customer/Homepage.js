@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Header } from "../../components/Header";
 
 import "../../styles/CustomerShell.css";
 import CategoryBar from "../../components/customer/CategoryBar";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import { ROUTE_PATHS } from "../../constants";
 import CustomerDashboardPage from "./CustomerDashboardPage";
 import CustomerDashboardSideBar from "../../components/customer/CustomerDashboardSideBar";
-import CustomerOrderDashboardPage from "./CustomerOrderDashboardPage";
+import CartPage from "./CartPage";
+import ProductPage from "./ProductPage";
+import { loadCartAsync } from "../../redux/actions/customer/cart.actions";
 import CustomerDashboardAddressPage from "./CustomerDashboardAddressPage";
+import CustomerOrderDashboardPage from "./CustomerOrderDashboardPage";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.customer.token);
@@ -36,6 +39,17 @@ function PrivateRoute({ children, ...rest }) {
 export default function Homepage() {
   const sideBarOpened = useSelector((state) => state.ui.mobileSideBarOpened);
   const location = useLocation();
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.customer.token);
+
+  useEffect(() => {
+    if (token !== null) {
+      // customer logged in
+      // load cart and wishlist
+      dispatch(loadCartAsync());
+    }
+  }, [token]);
+
   return (
     <div className="customer-shell flex flex-r">
       <div className="w-100 flex flex-c">
@@ -64,8 +78,14 @@ export default function Homepage() {
                 <PrivateRoute path={ROUTE_PATHS.CUSTOMER_DASHBOARD}>
                   <CustomerDashboardPage />
                 </PrivateRoute>
-              
 
+                <PrivateRoute path={ROUTE_PATHS.CUSTOMER_CART}>
+                  <CartPage />
+                </PrivateRoute>
+
+                <Route path={ROUTE_PATHS.CUSTOMER_PRODUCT}>
+                  <ProductPage />
+                </Route>
               </Switch>
             </div>
 

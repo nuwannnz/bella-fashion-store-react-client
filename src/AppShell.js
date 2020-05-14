@@ -4,10 +4,10 @@ import { Router, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { adminPanelStore, customerStore } from "./redux/store";
 import { ROUTE_PATHS } from "./constants";
-import AdminPanelShell from "./pages/admin-panel/AdminPanelShell";
 import CustomerShell from "./pages/customer/CustomerShell";
 import LoadingAnimation from "./components/common/LoadingAnimation";
 import { history } from "./helpers/navigation.helper";
+import AdminPanelShell from "./pages/admin-panel/AdminPanelShell";
 
 function AppShell() {
   return (

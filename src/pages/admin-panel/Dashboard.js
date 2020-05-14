@@ -4,12 +4,13 @@ import SideBar from "../../components/admin/dashboard/SideBar";
 import HeaderBar from "../../components/admin/dashboard/HeaderBar";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { ROUTE_PATHS } from "../../constants";
-import UserDashboard from "./UserDashboard";
+import UserDashboardPage from "./user-dashboard/UserDashboardPage";
 import OrderDashboard from "./OrderDashboard";
 import { useDispatch } from "react-redux";
 import { getAdminPanelMenuItems } from "../../helpers/menu.helper";
 import { useUserRole, useAuthUser } from "../../hooks/admin-panel/Auth.hooks";
 import { uiIsLoading } from "../../redux/actions/ui.actions";
+import ProductDashboardPage from "./product/AdminProductPage";
 
 export default function Dashboard() {
 
@@ -59,11 +60,15 @@ export default function Dashboard() {
 
               <Switch>
                 <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_USER} >
-                  <UserDashboard />
+                  <UserDashboardPage />
                 </Route>
 
                 <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_ORDER}>
                   <OrderDashboard />
+                </Route>
+
+                <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_PRODUCT}>
+                  <ProductDashboardPage />
                 </Route>
               </Switch>
             </div>
