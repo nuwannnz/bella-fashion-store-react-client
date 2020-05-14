@@ -22,13 +22,13 @@ function SearchBar({ onSearchClick }) {
 
 export default function HeaderBar() {
 
-    const user = useSelector(state => state.staffLogin.auth.userInfo.user);
+    const user = useSelector(state => state.staffLogin.auth.userInfo);
 
     return (
         <div className="header-bar w-100 h-100">
             <div className="header-bar-content w-100 h-100 flex">
                 <SearchBar />
-                <UserInfo userName={user ? user.fName : ''} />
+                <UserInfo userName={user && user.fName} />
             </div>
         </div>
     )

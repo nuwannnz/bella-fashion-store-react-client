@@ -3,6 +3,7 @@ import { STAFF_ACTION_TYPES } from "../../../actions/admin-panel/staff.actions";
 const initialState = {
     token: null,
     userInfo: null,
+    tokenVerified: false
 };
 
 export const auth = (state = initialState, action) => {
@@ -27,6 +28,11 @@ export const auth = (state = initialState, action) => {
                 userInfo: action.payload,
             };
 
+        case STAFF_ACTION_TYPES.TOKEN_VERIFICATION_COMPLETED:
+            return {
+                ...state,
+                tokenVerified: true
+            }
 
         default:
             return state;

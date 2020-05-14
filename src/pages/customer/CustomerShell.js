@@ -6,6 +6,7 @@ import Homepage from './Homepage';
 import CustomerCategory from './Categories/CustomerCategoryPage'
 
 
+
 export default class CustomerShell extends Component {
   render() {
     return (

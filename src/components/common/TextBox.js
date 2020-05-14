@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import '../../styles/common/TextBox.css';
 
-export default function TextBox({ onTextInput = null, onTextChange = null, label, placeholder = "", name = "textBox", type = "text", animateTitle = true, disabled = false, doSpacing = true }) {
+export default function TextBox({ onTextInput = null, onTextChange = null,value, label, placeholder = "", name = "textBox", type = "text", animateTitle = true, disabled = false, doSpacing = true }) {
     const [text, setText] = useState("");
     return (
 
@@ -13,6 +13,7 @@ export default function TextBox({ onTextInput = null, onTextChange = null, label
             <input
 
                 className="textual-form-element"
+                value={value}
                 type={type}
                 name={name}
                 placeholder={placeholder}

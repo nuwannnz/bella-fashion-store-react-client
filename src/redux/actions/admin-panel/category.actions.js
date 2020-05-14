@@ -12,6 +12,12 @@ export const CATEGORY_ACTION_TYPES = {
     NEWCATEGORY_UPDATED_ERROR: "NEWCATEGORY_UPDATED_ERROR",
     NEWCATEGORY_DELETED: "NEWCATEGORY_DELETED",
     NEWCATEGORY_DELETED_ERROR: "NEWCATEGORY_DELETED_ERROR",
+    NEWSUBCATEGORY_CREATED: "NEWSUBCATEGORY_CREATED",
+    NEWSUBCATEGORY_CREATED_ERROR: "NEWSUBCATEGORY_ERROR",
+    NEWSUBCATEGORY_UPDATED: "NEWSUBCATEGORY_UPDATED",
+    NEWSUBCATEGORY_UPDATED_ERROR: "NEWSUBCATEGORY_UPDATED_ERROR",
+    NEWSUBCATEGORY_DELETED: "NEWSUBCATEGORY_DELETED",
+    NEWSUBCATEGORY_DELETED_ERROR: "NEWSUBCATEGORY_DELETED_ERROR",
 }
 
 export const STAFF_ACTION_TYPES = {
@@ -44,9 +50,9 @@ const createCategoryError = () => ({
 });
 
 
-export const updateCategory = (categoryid, newcategoryname) => ({
+export const updateCategory = (categoryId,updatedCategoryName) => ({
     type: CATEGORY_ACTION_TYPES.NEWCATEGORY_UPDATED,
-    payload: categoryid, newcategoryname
+    payload: categoryId,updatedCategoryName
 
   });
 
@@ -64,6 +70,35 @@ const deleteCategoryError = () => ({
 
 });
 
+export const createSubCategory = (category) => ({
+  type: CATEGORY_ACTION_TYPES.NEWSUBCATEGORY_CREATED,
+  payload: category
+});
+
+const createSubCategoryError = () => ({
+  type: CATEGORY_ACTION_TYPES.NEWSUBCATEGORY_CREATED_ERROR,
+});
+
+
+export const updateSubCategory = (categoryID,subcategoryName, NewSubCategoryName) => ({
+  type: CATEGORY_ACTION_TYPES.NEWSUBCATEGORY_UPDATED,
+  payload: subcategoryName
+
+});
+
+const updateSubCategoryError = () => ({
+  type: CATEGORY_ACTION_TYPES.NEWSUBCATEGORY_UPDATED_ERROR,
+});
+
+export const deleteSubCategory = (SubcategoryID) => ({
+  type: CATEGORY_ACTION_TYPES.NEWSUBCATEGORY_DELETED,
+  payload: SubcategoryID
+});
+
+const deleteSubCategoryError = () => ({
+  type: CATEGORY_ACTION_TYPES.NEWSUBCATEGORY_UPDATED_ERROR,
+
+});
 export const userLoaded = (user) => ({
   type: STAFF_ACTION_TYPES.USER_INFO_LOADED,
   payload: user,
@@ -87,7 +122,7 @@ export function categoriesAsync() {
     if (result.isResultOk()) {
 
         // set user info
-        dispatch(categoriesLoaded(result.data.categories));
+        dispatch(categoriesLoaded(result.data));
   
   
       } else {
@@ -101,6 +136,8 @@ export function categoriesAsync() {
     };
 }
 
+
+
 export function addNewCategoryAsync(categoryName) {
     return async (dispatch) => {
       // delete token from storage
@@ -110,15 +147,37 @@ export function addNewCategoryAsync(categoryName) {
       // get result from API
       const result = await categoryService.newCategory(categoryName);
   
-      if (result.isResultOk() && categoryName!="null") {
-        // signup success
-        // send user to the login page
-        dispatch(createCategory(categoryName));
+      if (result.isResultOk()) {
+
+
+        dispatch(createCategory(result.data));
+  
+      } else {
+
+        // set error message
+        dispatch(createCategoryError());
+  
+      }
+      // set isLoading to false
+      dispatch(isLoading(false));
+    };
+  }
+
+  export function addNewSubCategoryAsync(categoryName,SubCategoryName) {
+    return async (dispatch) => {
+
+      dispatch(isLoading(true));
+  
+      const result = await categoryService.newSubCategory(categoryName,SubCategoryName);
+  
+      if (result.isResultOk()) {
+
+        dispatch(createSubCategory(result.data));
   
       } else {
   
         // set error message
-        dispatch(createCategoryError());
+        dispatch(createSubCategoryError());
   
       }
       // set isLoading to false
@@ -129,27 +188,63 @@ export function addNewCategoryAsync(categoryName) {
 export function deleteCategoryAsync(categoryID) {
     return async (dispatch, getState) => {
       // delete token from storage
-      deleteCategory(categoryID);
+      const result = await categoryService.deleteCategory(categoryID);
+      if (result.deletedCount === 1) {
+        // update category Name
+
+        dispatch(deleteCategory(categoryID));
+      } else {
+        // display error notification
+        dispatch(deleteCategoryError());
+      }
   
     };
   }
 
-  export function updateCategoryAsync(categoryID, NewCategoryName) {
+  export function deleteSubCategoryAsync(categoryID) {
     return async (dispatch, getState) => {
-      // get state from the state
-      const { token } = getState().staff;
-      if (!token) {
-      return;
-    }
-  
-      const result = await categoryService.updateCategory(categoryID, NewCategoryName);
-      if (result.isResultOk() && result.success && NewCategoryName!="null" ) {
+      // delete token from storage
+      const result = await categoryService.deleteCategory(categoryID);
+      if (result.isResultOk()) {
         // update category Name
 
-        dispatch(updateCategory(categoryID, NewCategoryName));
+        dispatch(deleteCategory(categoryID));
+      } else {
+        // display error notification
+        dispatch(deleteCategoryError());
+      }
+  
+    };
+  }
+
+  export function updateCategoryAsync(categoryId,updatedCategoryName) {
+    return async (dispatch, getState) => {
+
+  
+      const result = await categoryService.updateCategory(categoryId,updatedCategoryName);
+      if (result.isResultOk() && result.success ) {
+        // update category Name
+
+        dispatch(updateCategory(categoryId,updatedCategoryName));
       } else {
         // display error notification
         dispatch(updateCategoryError());
+      }
+    };
+  }
+
+  export function updateSubCategoryAsync(categoryID,subcategoryName, NewSubCategoryName) {
+    return async (dispatch, getState) => {
+
+  
+      const result = await categoryService.updateCategory(categoryID,subcategoryName, NewSubCategoryName);
+      if (result.isResultOk()) {
+        // update category Name
+
+        dispatch(updateSubCategory(categoryID,subcategoryName, NewSubCategoryName));
+      } else {
+        // display error notification
+        dispatch(updateSubCategoryError());
       }
     };
   }

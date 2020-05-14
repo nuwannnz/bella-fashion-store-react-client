@@ -9,11 +9,29 @@ export const category = (state = initialState, action) => {
     logger.info("Runing category reducer", state);
     switch (action.type) {
 
-        case CATEGORY_ACTION_TYPES.CATEGORIES_LOADED:
+        case CATEGORY_ACTION_TYPES.CATEGORY_INFO_LOADED:
             return {
                 ...state,
-                category: action.payload
+                categories: action.payload
             }
+
+            case CATEGORY_ACTION_TYPES.NEWCATEGORY_CREATED:
+                return{
+                    ...state,
+                    categories:[ action.payload, ...state.categories]
+                }
+
+                case CATEGORY_ACTION_TYPES.NEWCATEGORY_DELETED:
+                    return{
+                        ...state,
+                        categories:state.categories.filter(p => p._id  !== action.payload)
+                    }
+
+                    case CATEGORY_ACTION_TYPES.NEWSUBCATEGORY_CREATED:
+                        return{
+                            ...state,
+                            categories: state.categories.map(cat => cat._id === action.payload._id ? action.payload : cat )
+                        }
 
         default: 
             return state;

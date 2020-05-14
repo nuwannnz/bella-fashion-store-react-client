@@ -2,58 +2,77 @@ import React, { useState, useEffect } from "react";
 import '../../styles/admin/Dashboard.css';
 import SideBar from "../../components/admin/dashboard/SideBar";
 import HeaderBar from "../../components/admin/dashboard/HeaderBar";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { ROUTE_PATHS } from "../../constants";
 import UserDashboard from "./UserDashboard";
 import OrderDashboard from "./OrderDashboard";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getAdminPanelMenuItems } from "../../helpers/menu.helper";
-import { useUserRole } from "../../hooks/admin-panel/Auth.hooks";
+import { useUserRole, useAuthUser } from "../../hooks/admin-panel/Auth.hooks";
+import { uiIsLoading } from "../../redux/actions/ui.actions";
+import { CategoriesAdmin } from "./staff/CategoriesAdmin";
 
 export default function Dashboard() {
 
+  const dispatch = useDispatch();
+
   const userRole = useUserRole()
+  const authedUser = useAuthUser();
+
 
   const [menuItems, setMenuItems] = useState([])
 
-
   useEffect(() => {
-
+    console.log('dashboard page');
     if (userRole) {
 
       const menuItemList = getAdminPanelMenuItems(userRole.permissions);
       if (menuItemList) {
         setMenuItems(menuItemList);
       }
+
+      dispatch(uiIsLoading(false));
     }
   }, [userRole])
 
   return (
-    <div className="dashboard-root flex">
-      {/* <div className="side-bar-wrap"> */}
-      <SideBar menuItems={menuItems} />
-      {/* </div> */}
-      <div className="main-content-wrapper flex flex-c w-100 h-100">
-        <div className="header-wrapper w-100">
-          <HeaderBar />
-        </div>
 
-        <div className="content-wrapper">
-          {/* <div className="content">
+
+    authedUser && authedUser.isNew ? (
+      <Redirect to={ROUTE_PATHS.ADMIN_UPDATE_TEMP_PWD} />
+    ) : (
+
+
+        <div className="dashboard-root flex">
+          {/* <div className="side-bar-wrap"> */}
+          <SideBar menuItems={menuItems} />
+          {/* </div> */}
+          <div className="main-content-wrapper flex flex-c w-100 h-100">
+            <div className="header-wrapper w-100">
+              <HeaderBar />
+            </div>
+
+            <div className="content-wrapper">
+              {/* <div className="content">
 
           </div> */}
 
-          <Switch>
-            <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_USER} >
-              <UserDashboard />
-            </Route>
+              <Switch>
+                <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_USER} >
+                  <UserDashboard />
+                </Route>
 
-            <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_ORDER}>
-              <OrderDashboard />
-            </Route>
-          </Switch>
-        </div>
-      </div>
-    </div>
-  );
+                <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_ORDER}>
+                  <OrderDashboard />
+                </Route>
+                <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_CATEGORY}>
+                  <CategoriesAdmin />
+                </Route>
+              </Switch>
+            </div>
+          </div>
+        </div >
+      )
+  )
+
 }

@@ -8,7 +8,7 @@ import {
 } from "../../helpers/token.helper";
 
 export const getCategory = async () => {
-  const path = `${API_HOST}/category`;
+  const path = `${API_HOST}/category/`;
   const result = new APIResult();
 
   try {
@@ -27,13 +27,14 @@ export const getCategory = async () => {
 
 
 export const newCategory = async (categoryName) => {
-  const path = `${API_HOST}`;
+  const path = `${API_HOST}/category`;
   const data = {categoryName}
-  const config = verifyStoredToken();
   const result = new APIResult();
   try {
-    const response = await axios.post(path, data, config);
-    result.data = response.data.success;
+    const response = await axios.post(path, data);
+    logger.info(`Received result => ${path}`, response);
+
+    result.data = response.data;
     return result;
   } catch (error) {
 
@@ -43,16 +44,13 @@ export const newCategory = async (categoryName) => {
   }
 }
 
-export const newSubCategory = async ( categoryName,subcategory ) => {
-  const path = `${API_HOST}/admin/category/${categoryName}`;
-  const data = {
-    categoryName,subcategory 
-  }
-  const config = verifyStoredToken();
+export const newSubCategory = async (category,subcategory) => {
+  const path = `${API_HOST}/category/subcategory`;
+  const data = { category,subcategory}
   const result = new APIResult();
   try {
-    const response = await axios.post(path, data, config);
-    result.data = response.data.success;
+    const response = await axios.post(path, data);
+    result.data = response.data;
     return result;
   } catch (error) {
 
@@ -63,14 +61,13 @@ export const newSubCategory = async ( categoryName,subcategory ) => {
 }
 
 export const updateCategory = async ( categoryId, updatedCategoryName) => {
-  const path = `${API_HOST}/admin/category/${categoryId}`;
-  const data = { updatedCategoryName };
-  const config = getAuthHeader();
+  const path = `${API_HOST}/category`;
+  const data = { categoryId,updatedCategoryName};
 
   const result = new APIResult();
 
   try {
-    const response = await axios.put(path, data, config);
+    const response = await axios.put(path, data);
     result.data = response.data;
     return result;
 
@@ -82,7 +79,7 @@ export const updateCategory = async ( categoryId, updatedCategoryName) => {
 };
 
 export const updateSubCategory = async ( id,sbid, newSubcategoryName) => {
-  const path = `${API_HOST}/admin/category/${id}`;
+  const path = `${API_HOST}/category/subcategory${id}`;
   const data = { sbid, newSubcategoryName };
   const config = getAuthHeader();
 
@@ -99,6 +96,43 @@ export const updateSubCategory = async ( id,sbid, newSubcategoryName) => {
     return result;
   }
 };
+
+export const deleteCategory = async (categoryID) => {
+  const path = `${API_HOST}/category/${categoryID}`;
+  const data = {categoryID}
+  const result = new APIResult();
+  try {
+    const response = await axios.delete(path, data);
+    result.data = response.data.success;
+    return result;
+  } catch (error) {
+
+    logger.error(`Error in API call => ${path}`);
+    result.setError(error);
+    return result;
+  }
+}
+
+export const deleteSubCategory = async ( categoryID,subcategoryID ) => {
+  const path = `${API_HOST}/category/subcategory${categoryID}`;
+  const data = {
+    categoryID,subcategoryID
+  }
+  const config = verifyStoredToken();
+  const result = new APIResult();
+  try {
+    const response = await axios.post(path, data, config);
+    result.data = response.data.success;
+    return result;
+  } catch (error) {
+
+    logger.error(`Error in API call => ${path}`);
+    result.setError(error);
+    return result;
+  }
+}
+
+
 
 export const verifyStoredToken = async () => {
   const storedToken = loadAdminTokenFromStorage();
