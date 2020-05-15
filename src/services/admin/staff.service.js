@@ -3,7 +3,7 @@ import { API_HOST } from "../../constants";
 import logger from "../../helpers/logger.helper";
 import {
   getAuthHeader,
-  loadAdminTokenFromStorage,
+  loadStaffInfoFromStorage,
 } from "../../helpers/token.helper";
 import { APIResult } from "../APIResult";
 
@@ -33,21 +33,19 @@ export const signUpAdmin = async (email, fName, lName) => {
   const data = {
     email,
     fName,
-    lName
-  }
+    lName,
+  };
   const result = new APIResult();
   try {
     const response = await axios.post(path, data);
     result.data = response.data.success;
     return result;
   } catch (error) {
-
-
     logger.error(`Error in API call => ${path}`);
     result.setError(error);
     return result;
   }
-}
+};
 
 export const updateTempPassword = async (token, updatedPassword) => {
   const path = `${API_HOST}/staff/pwd`;
@@ -57,11 +55,10 @@ export const updateTempPassword = async (token, updatedPassword) => {
   const result = new APIResult();
 
   try {
-    const response = await axios.put(path, data, config);
+    const response = await axios.patch(path, data, config);
 
     result.data = response.data;
     return result;
-
   } catch (error) {
     logger.error(`Error in API call => ${path}`);
     result.setError(error);
@@ -85,18 +82,18 @@ export const getHasAdmin = async () => {
 };
 
 export const verifyStoredToken = async () => {
-  const storedToken = loadAdminTokenFromStorage();
-  if (storedToken === null) {
+  const userInfo = loadStaffInfoFromStorage();
+  if (userInfo === null) {
     return null;
   }
 
-  const path = `${API_HOST}/staff`;
-  const config = getAuthHeader(storedToken);
+  const path = `${API_HOST}/staff/${userInfo.userId}`;
+  const config = getAuthHeader(userInfo.token);
   try {
     const result = await axios.get(path, config);
     if (result.data) {
       return {
-        token: storedToken,
+        token: userInfo.token,
         userInfo: result.data.user,
       };
     }
@@ -104,5 +101,130 @@ export const verifyStoredToken = async () => {
   } catch (error) {
     logger.error(`Error in API call => ${path}`);
     return null;
+  }
+};
+
+export const addUser = async (token, userDto) => {
+  const path = `${API_HOST}/staff/`;
+  const data = { ...userDto };
+  const config = getAuthHeader(token);
+
+  const result = new APIResult();
+
+  try {
+    const response = await axios.post(path, data, config);
+
+    result.data = response.data;
+    return result;
+  } catch (error) {
+    logger.error(`Error in API call => ${path}`);
+    result.setError(error);
+    return result;
+  }
+};
+
+export const getAllUsers = async (token) => {
+  const path = `${API_HOST}/staff/`;
+  const config = getAuthHeader(token);
+
+  const result = new APIResult();
+
+  try {
+    const response = await axios.get(path, config);
+
+    result.data = response.data;
+    return result;
+  } catch (error) {
+    logger.error(`Error in API call => ${path}`);
+    result.setError(error);
+    return result;
+  }
+};
+
+export const getAllRoles = async (token) => {
+  const path = `${API_HOST}/staff/role/`;
+  const config = getAuthHeader(token);
+
+  const result = new APIResult();
+
+  try {
+    const response = await axios.get(path, config);
+
+    result.data = response.data;
+    return result;
+  } catch (error) {
+    logger.error(`Error in API call => ${path}`);
+    result.setError(error);
+    return result;
+  }
+};
+
+export const updateUser = async (token, userId, userDto) => {
+  const path = `${API_HOST}/staff/${userId}`;
+  const config = getAuthHeader(token);
+  const data = { ...userDto };
+  const result = new APIResult();
+
+  try {
+    const response = await axios.put(path, data, config);
+
+    result.data = response.data;
+    return result;
+  } catch (error) {
+    logger.error(`Error in API call => ${path}`);
+    result.setError(error);
+    return result;
+  }
+};
+
+export const updateRole = async (token, roleDto) => {
+  const path = `${API_HOST}/staff/role/${roleDto._id}`;
+  const config = getAuthHeader(token);
+  const data = { ...roleDto };
+  const result = new APIResult();
+
+  try {
+    const response = await axios.put(path, data, config);
+
+    result.data = response.data;
+    return result;
+  } catch (error) {
+    logger.error(`Error in API call => ${path}`);
+    result.setError(error);
+    return result;
+  }
+};
+
+export const deleteUser = async (token, userId) => {
+  const path = `${API_HOST}/staff/${userId}`;
+  const config = getAuthHeader(token);
+  const result = new APIResult();
+
+  try {
+    const response = await axios.delete(path, config);
+
+    result.data = response.data;
+    return result;
+  } catch (error) {
+    logger.error(`Error in API call => ${path}`);
+    result.setError(error);
+    return result;
+  }
+};
+
+export const deleteRole = async (token, roleId) => {
+  const path = `${API_HOST}/staff/role/${roleId}`;
+  const config = getAuthHeader(token);
+  const result = new APIResult();
+
+  try {
+    const response = await axios.delete(path, config);
+
+    result.data = response.data;
+    return result;
+  } catch (error) {
+    logger.error(`Error in API call => ${path}`);
+    result.setError(error);
+    return result;
   }
 };

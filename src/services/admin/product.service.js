@@ -10,35 +10,16 @@ import { APIResult } from "../APIResult";
 //add products
 export const addProduct = async (    
   token,
-    name,
-    sizeQty,
-    brand,
-    category,
-    subCategory,
-    price,
-    discount,
-    colors,
-    tags,
-    description
+  productData
     ) => {
     const path = `${API_HOST}/products`;
-    const data = {
-        name,
-        sizeQty,
-        brand,
-        category,
-        subCategory,
-        price,
-        discount,
-        colors,
-        tags,
-        description
-    }
-
+   
     const config = getAuthHeader(token)
+    config.headers['Content-Type'] = 'multipart/form-data'
+
     const result = new APIResult();
     try {
-      const response = await axios.post(path, data, config);
+      const response = await axios.post(path, productData, config);
       result.data = response.data;
       return result;
     } catch (error) {
@@ -124,7 +105,7 @@ export const addProduct = async (
       return result;
     }
   };
-
+ 
   //delete products
   export const deleteProducts = async (token, id) => {
   

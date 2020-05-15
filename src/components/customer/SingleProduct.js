@@ -57,58 +57,31 @@ const [selectedProduct, setSelectedProduct] = useState(null);
     <div class="container">
       {selectedProduct && (
         <div>
+
+
+
           <div class="row">
+
             <div class="col-md-5">
-              <div
-                id="carouselExampleControls"
-                class="carousel slide"
-                data-ride="carousel"
-              >
+
+              <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-                    <img
-                      src={require("../../assets/shirt.jpg")}
-                      class="d-block w-100"
-                      alt="..."
-                    />
+                    <img src={require('../../assets/shirt.jpg')} class="d-block w-100" alt="..." />
                   </div>
                   <div class="carousel-item">
-                    <img
-                      src={require("../../assets/shirt.jpg")}
-                      class="d-block w-100"
-                      alt="..."
-                    />
+                    <img src={require('../../assets/shirt.jpg')} class="d-block w-100" alt="..." />
                   </div>
                   <div class="carousel-item">
-                    <img
-                      src={require("../../assets/shirt.jpg")}
-                      class="d-block w-100"
-                      alt="..."
-                    />
+                    <img src={require('../../assets/shirt.jpg')} class="d-block w-100" alt="..." />
                   </div>
                 </div>
-                <a
-                  class="carousel-control-prev"
-                  href="#carouselExampleControls"
-                  role="button"
-                  data-slide="prev"
-                >
-                  <span
-                    class="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span class="sr-only">Previous</span>
                 </a>
-                <a
-                  class="carousel-control-next"
-                  href="#carouselExampleControls"
-                  role="button"
-                  data-slide="next"
-                >
-                  <span
-                    class="carousel-control-next-icon"
-                    aria-hidden="true"
-                  ></span>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
                   <span class="sr-only">Next</span>
                 </a>
               </div>
@@ -124,7 +97,7 @@ const [selectedProduct, setSelectedProduct] = useState(null);
               <p>product code: {selectedProduct._id}</p>
               <p>{selectedProduct.description}</p>
 
-              <img src={require("../../assets/stars.png")} class="stars" />
+              <img src={require('../../assets/stars.png')} class="stars" />
 
               {checkOffer(selectedProduct.discount) ? (
                 <CurrencyFormat
@@ -202,8 +175,11 @@ const [selectedProduct, setSelectedProduct] = useState(null);
                 size={selected_size}
               />
             </div>
+
           </div>
+
         </div>
+
       )}
     </div>
   );

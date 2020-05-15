@@ -1,0 +1,20 @@
+.tab-header {
+  display: flex;
+  margin: 5px 0px 30px 0px;
+}
+
+.tab-header-item {
+  padding: 8px 25px;
+  font-weight: 500;
+  font-size: 14px;
+  background-color: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #999;
+}
+
+.tab-header-item.selected {
+  background-color: #fff;
+  box-shadow: 0 8px 17px 1px #e4e4e4;
+  color: var(--accent-color);
+}

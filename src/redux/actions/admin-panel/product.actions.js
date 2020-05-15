@@ -21,18 +21,36 @@ export const PRODUCT_ACTION_TYPES = {
     PRODUCT_UPDATED_FAILURE_MSG:"PRODUCT_UPDATED_FAILURE_MSG",
     CLEAR_PRODUCT_UPDATED_SUCCESS_MSG:"CLEAR_PRODUCT_UPDATED_SUCCESS_MSG",
 
-    
-  };
+  PRODUCT_INFO_LOADED: "PRODUCT_INFO_LOADED",
+  PRODUCT_LOADED_BY_ID: "PRODUCT_LOADED_BY_ID",
+  PRODUCT_ADDED: "PRODUCT_ADDED",
+  PRODUCT_DELETED: "PRODUCT_DELETED"
 
-  export const productsLoaded = (productList) => ({
-    type:PRODUCT_ACTION_TYPES.PRODUCT_INFO_LOADED,
-    payload: productList
-  })
 
-  export const productsAdded = (product) => ({
-    type:PRODUCT_ACTION_TYPES.PRODUCT_ADDED,
-    payload: product
-  })
+};
+
+export const productsLoaded = (productList) => ({
+  type: PRODUCT_ACTION_TYPES.PRODUCT_INFO_LOADED,
+  payload: productList
+})
+
+export const productsAdded = (product) => ({
+  type: PRODUCT_ACTION_TYPES.PRODUCT_ADDED,
+  payload: product
+})
+
+export const productLoadedByID = (product) => ({
+  type: PRODUCT_ACTION_TYPES.PRODUCT_LOADED_BY_ID,
+  payload: product
+})
+
+export const productDeleted = (product) => ({
+  type: PRODUCT_ACTION_TYPES.PRODUCT_DELETED,
+  payload: product
+})
+
+
+
 
   export const productsAddedSuccessMsg = (msg) => ({
     type:PRODUCT_ACTION_TYPES.PRODUCT_ADDED_SUCCESS_MSG,
@@ -68,37 +86,15 @@ export const PRODUCT_ACTION_TYPES = {
   })
 
 
-  export const productDeleted = (productId) => ({
-    type:PRODUCT_ACTION_TYPES.PRODUCT_DELETED,
-    payload: productId
-  })
 
   export function addProductAsync(
-    name,
-    sizeQty,
-    brand,
-    category,
-    subCategory,
-    price,
-    discount,
-    colors,
-    tags,
-    description
+    productData
     ) {
       return async (dispatch, getState) => {
         const { token } = getState().staffLogin.auth;
         const result = await productService.addProduct(
           token,
-            name,
-            sizeQty,
-            brand,
-            category,
-            subCategory,
-            price,
-            discount,
-            colors,
-            tags,
-            description);
+           productData);
 
             console.log(result.data)
             
@@ -120,6 +116,7 @@ export const PRODUCT_ACTION_TYPES = {
       }
   }
 
+
   export function productsLoadedAsync() {
     return async (dispatch, getState)=> {
       const result = await productService.getProducts();
@@ -132,6 +129,7 @@ export const PRODUCT_ACTION_TYPES = {
         }
       }
   }
+
 
   export function productDeletedByIDAsync(id) {
     return async (dispatch, getState) => {

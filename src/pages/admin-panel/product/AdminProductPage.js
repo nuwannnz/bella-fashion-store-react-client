@@ -1,4 +1,4 @@
-import React, { useState }from 'react'
+import React, { useState } from 'react'
 import '../../../styles/product.css'
 import AdminAddProductsForm from "../../../components/admin/forms/AdminAddProductsForm";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,8 +25,8 @@ export default function ProductDashboardPage() {
     
     const onOpenModal = () => {
         setOpen(true);
-      };
-     const onCloseModal = () => {
+    };
+    const onCloseModal = () => {
         setOpen(false);
       };
    
@@ -42,28 +42,10 @@ export default function ProductDashboardPage() {
                     <div><AdminAddProductsForm
                         
                          onAddProductClick={( 
-                            name,
-                            sizeQty,
-                            brand,
-                            category,
-                            subCategory,
-                            price,
-                            discount,
-                            colors,
-                            tags,
-                            description
+                          productData
                         ) =>
                             dispatch(addProductAsync(
-                                name,
-                                sizeQty,
-                                brand,
-                                category,
-                                subCategory,
-                                price,
-                                discount,
-                                colors,
-                                tags,
-                                description, history
+                              productData, history
 
                                 
                             ))}
