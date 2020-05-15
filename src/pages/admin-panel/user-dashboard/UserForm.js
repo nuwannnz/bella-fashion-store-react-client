@@ -17,25 +17,14 @@ export default function UserForm({ closeFormClickHandler, userToUpdate }) {
 
   const [user, setUser] = useState({
     email: userToUpdate ? userToUpdate.email : "",
-    fName: "",
-    lName: "",
-    roleId: "",
+    fName: userToUpdate ? userToUpdate.fName : "",
+    lName: userToUpdate ? userToUpdate.lName : "",
+    roleId: userToUpdate ? userToUpdate.roleId : "",
   });
 
   useEffect(() => {
     dispatch(getAllRolesAsync());
   }, []);
-
-  //   useEffect(() => {
-  //     if (userToUpdate !== null) {
-  //       setUser({
-  //         email: userToUpdate.email,
-  //         fName: userToUpdate.fName,
-  //         lName: userToUpdate.lName,
-  //         roleId: userToUpdate.roleId,
-  //       });
-  //     }
-  //   }, [userToUpdate]);
 
   useEffect(() => {
     if (users.closePopups) {
@@ -69,11 +58,11 @@ export default function UserForm({ closeFormClickHandler, userToUpdate }) {
 
   const handleFormSubmit = () => {
     if (userToUpdate) {
+      // update user
+      dispatch(updateUserAsync(userToUpdate._id, user));
+    } else {
       // add user
       dispatch(addUserAsync(user));
-    } else {
-      // update user
-      dispatch(updateUserAsync(user));
     }
   };
 

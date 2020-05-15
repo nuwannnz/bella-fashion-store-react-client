@@ -159,8 +159,8 @@ export const getAllRoles = async (token) => {
   }
 };
 
-export const updateUser = async (token, userDto) => {
-  const path = `${API_HOST}/staff/${userDto.id}`;
+export const updateUser = async (token, userId, userDto) => {
+  const path = `${API_HOST}/staff/${userId}`;
   const config = getAuthHeader(token);
   const data = { ...userDto };
   const result = new APIResult();

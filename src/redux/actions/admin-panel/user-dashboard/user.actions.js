@@ -107,12 +107,12 @@ export function deleteUserAsync(userId) {
   }
 }
 
-export function updateUserAsync(userDto) {
+export function updateUserAsync(userId, userDto) {
   return async (dispatch, getState) => {
     dispatch(request());
     const { token } = getState().staffLogin.auth;
 
-    const result = await updateUser(token, userDto);
+    const result = await updateUser(token, userId, userDto);
 
     if (result.isResultOk()) {
       dispatch(success(result.data));
