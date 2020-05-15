@@ -14,6 +14,7 @@
     "create-use-effect": "^0.1.0",
     "history": "^4.10.1",
     "react": "^16.13.0",
+    "react-butterfiles": "^1.3.3",
     "react-card-carousel": "^1.1.3",
     "react-currency-format": "^1.0.0",
     "react-dom": "^16.13.0",
