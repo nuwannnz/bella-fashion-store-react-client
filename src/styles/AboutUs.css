@@ -1,4 +1,4 @@
-*{
+/* *{
     margin: 0;
     padding: 0;
     font-family: "Open Sans",sans-serif;
@@ -9,75 +9,66 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
-}
+    justify-content: center; */
+/* } */
 .about-section {
-    background: url(../assets/new-logo-cropped.png) no-repeat left;
-    background-size: 55%;
-    background-color: #fdfdfd;
-    overflow: hidden;
-    padding: 100px 0;
-   
-
+  background: url(../assets/new-logo-cropped.png) no-repeat left;
+  background-size: 55%;
+  background-color: #fdfdfd;
+  overflow: hidden;
+  padding: 100px 0;
 }
 
 .inner-container {
-    width: 55%;
-    float: right;
-    background-color:#fdfdfd ;
-    padding: 150px;
-    border: 5px solid var(--accent-color);;
-    border-radius: 50px;
-
+  width: 55%;
+  float: right;
+  background-color: #fdfdfd;
+  padding: 150px;
+  border: 5px solid var(--accent-color);
+  border-radius: 50px;
 }
 
 .inner-container h1 {
-    margin-bottom: 30px;
-    font-size: 30px;
-    font-weight: 900;
+  margin-bottom: 30px;
+  font-size: 30px;
+  font-weight: 900;
 }
 
-
 .text {
-    color: #545454;
-    font-size: 16px;
-    line-height: 30px;
-    text-align: justify;
-    margin-bottom: 40px;
-
+  color: #545454;
+  font-size: 16px;
+  line-height: 30px;
+  text-align: justify;
+  margin-bottom: 40px;
 }
 
 .skills {
-    display: flex;
-    justify-content: space-between;
-    font-weight: 700;
-    font-size: 16px;
-
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 16px;
 }
 
-@media screen and (max-width:1200px) {
-    .inner-container{
-        padding: 80px;
-    }
+@media screen and (max-width: 1200px) {
+  .inner-container {
+    padding: 80px;
+  }
 }
-@media screen and (max-width:1000px) {
-    .about-container{
-        background-size: 100%;
-        padding: 100px 40px;
-    }
-    .inner-container{
-        width: 100%;
-    }
-
-}
-
-@media screen and (max-width:600px) {
-    .about-container{
-        padding: 0;
-    }
-    .inner-container{
-        padding: 60px;
-    }
-
+@media screen and (max-width: 1000px) {
+  .about-container {
+    background-size: 100%;
+    padding: 100px 40px;
+  }
+  .inner-container {
+    width: 100%;
+  }
 }
 
+@media screen and (max-width: 600px) {
+  .about-container {
+    padding: 0;
+  }
+  .inner-container {
+    padding: 60px;
+  }
+}

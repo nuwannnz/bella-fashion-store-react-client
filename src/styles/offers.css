@@ -1,23 +1,22 @@
 .category-card {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    margin: 10px;
-    
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 10px;
 }
 
 .category-card img {
-    height: 300px;
-    width: 300px
+  height: 300px;
+  width: 300px;
 }
 
 .category-card img:hover {
-    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
-    opacity: 0.7;
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+  opacity: 0.7;
 }
 
-h5,h6 {
-    font-family: 'Trebuchet MS';
+.category-card h5,
+.category-card h6 {
+  font-family: "Trebuchet MS";
 }
-

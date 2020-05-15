@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
 import { updateProductAsync, productDeletedByIDAsync,productsLoadedAsync } from "../../redux/actions/admin-panel/product.actions";
+import { addBrandAsync } from '../../redux/actions/admin-panel/brand.actions';
 import { useHistory } from "react-router-dom";
 import AdminUpdateProductForm from './forms/AdminUpdateProductForm';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
-import { addBrandAsync } from '../../redux/actions/admin-panel/brand.actions';
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import ViewProduct from './ViewProduct';
 
 export default function ProductList(){
 
@@ -15,26 +17,50 @@ export default function ProductList(){
 
     const products = useSelector(state => state.product.products);
 
-    const errorMsg = useSelector(state => state.staffLogin.ui.errorMsg);
-
     const[open,setOpen] = useState("");
+    const[openView,setOpenView] = useState("");
+    const[selectedId, setSelectedId] = useState("");
+
+    const deleteProducts = (pid) => {
+      
+        confirmAlert({
+          title: 'Confirm to Delete the product',
+          message: 'Are you sure to do this ?',
+          buttons: [
+            {
+              label: 'Yes',
+              onClick: () => {dispatch(productDeletedByIDAsync(pid))}
+            },
+            {
+              label: 'No',
+              
+            }
+          ]
+        });
+      };
   
     
-    const onOpenModal = () => {
+    const onOpenUpdateModal = (id) => {
         setOpen(true);
+        setSelectedId(id);
       };
-     const onCloseModal = () => {
+
+    const onOpenViewModal = (id) => {
+      setOpenView(true);
+      setSelectedId(id);
+    }
+     const onCloseUpdateModal = () => {
         setOpen(false);
       };
+
+     const onCloseViewModal = () => {
+       setOpenView(false);
+     }
     
     useEffect(()=>{
         dispatch(productsLoadedAsync())
     },[])
           
-       
-
-    
-  
   
         return (
             <div class="table-responsive"> 
@@ -63,7 +89,7 @@ export default function ProductList(){
                    <tbody>
                        {
                            products.map(product => (
-                                <tr>
+                                <tr key={product._id}>
                                     <td>{product._id}</td>
                                    <td>{product.name}</td>
                                    <td>
@@ -85,10 +111,16 @@ export default function ProductList(){
                                    <td>{product.addedDate}</td>
                                    <td>{product.updatedDate}</td>
                                    <td>
-                                   <button className="button buttonEdit" onClick={onOpenModal}>EDIT</button>
-                <Modal open={open} onClose={onCloseModal} center>
+                                   <button className="button buttonView" onClick={() => onOpenViewModal(product._id)}>VIEW</button>
+                                   <Modal open={openView} onClose={onCloseViewModal} center>
+                                     <div>
+                                       <ViewProduct pid = {selectedId}/>
+                                     </div>
+                                   </Modal>
+                                   <button className="button buttonEdit" onClick={() => onOpenUpdateModal(product._id)}>EDIT</button>
+                <Modal open={open} onClose={onCloseUpdateModal} center>
                                   
-                    <div><AdminUpdateProductForm errorMsg={errorMsg}
+                    <div><AdminUpdateProductForm 
                                     onUpdateProductClick={( 
                                         _id,
                                         name,
@@ -117,23 +149,15 @@ export default function ProductList(){
                                     ))
                                 
                                 }
-                                    id = {product._id} 
-                                    name= {product.name}
-                                    size = {product.sizeQty}
-                                    brand = {product.brand}
-                                    category = {product.category}
-                                    sub_category = {product.subCategory}
-                                    price = {product.price}
-                                    discount = {product.discount}
-                                    colors = {product.colors}
-                                    tags = {product.tags}
-                                    description = {product.description}
+                                    pid = {selectedId}
 
 
                                     onAddBrandClick = {(bname) => dispatch(addBrandAsync(bname,history)) }/></div>
                                     </Modal>
 
-                                        <button class="button buttonDelete" onClick={() => {dispatch(productDeletedByIDAsync(product._id))}} >Delete</button>   
+                                        <button class="button buttonDelete" onClick={() => deleteProducts(product._id)} >Delete</button> 
+                                        
+                                          
                                     </td>
                                </tr> 
                            ))

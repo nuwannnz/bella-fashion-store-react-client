@@ -14,7 +14,7 @@ export const brand = (state = initialState, action) => {
             case BRAND_ACTION_TYPES.BRAND_ADDED:
                 return{
                     ...state,
-                    products:[ action.payload, ...state.brands]
+                    brands:[ action.payload, ...state.brands]
                 }
         default:
             return state;

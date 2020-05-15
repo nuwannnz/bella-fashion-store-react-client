@@ -55,10 +55,6 @@ export default function CustomerShell() {
           <CustomerSignUpPage />
         </Route>
 
-        <Route path={ROUTE_PATHS.CUSTOMER_PRODUCT}>
-          <ProductPage />
-        </Route>
-
         <Route path={ROUTE_PATHS.CUSTOMER_ABOUTUS}>
           <AboutUs />
         </Route>

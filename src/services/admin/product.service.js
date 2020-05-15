@@ -7,7 +7,9 @@ import {
 } from "../../helpers/token.helper";
 import { APIResult } from "../APIResult";
 
+//add products
 export const addProduct = async (    
+  token,
     name,
     sizeQty,
     brand,
@@ -32,10 +34,12 @@ export const addProduct = async (
         tags,
         description
     }
+
+    const config = getAuthHeader(token)
     const result = new APIResult();
     try {
-      const response = await axios.post(path, data);
-      result.data = response.data.success;
+      const response = await axios.post(path, data, config);
+      result.data = response.data;
       return result;
     } catch (error) {
   
@@ -45,40 +49,28 @@ export const addProduct = async (
       return result;
     }
   }
-
+//get all products
   export const getProducts = async () => {
-  let result = null;
-    fetch(API_HOST +'/products').then(response => response.json())
-      .then(json => {
-        console.log(json)
-         return json;
-      })
+    const path = `${API_HOST}/products`;
 
-    
-  }
-
-  export const getProductById = async (id) => {
-  
-    const path = `${API_HOST}/products/${id}`;
+    const result = new APIResult();
 
     try {
-      const result = fetch(path).then(response => response.json())
-      .then(json => {
-         return json
-          
-      })
-      if (result.data) {
-        return result.data;
-      }
-      return null;
+      const response = await axios.get(path);
+      result.data = response.data;
+      return result;
     } catch (error) {
       logger.error(`Error in API call => ${path}`);
-      return null;
+      result.setError(error);
+      return result;
     }
-  };
-  
 
+    
+  };
+
+  //update products
   export const updateProduct = async ( 
+    token,
     _id,
     name,
     sizeQty,
@@ -103,6 +95,7 @@ export const addProduct = async (
         tags,
         description)
 
+    const config = getAuthHeader(token)
     const path = `${API_HOST}/products`;
     const data = { _id,
       name,
@@ -120,7 +113,7 @@ export const addProduct = async (
     const result = new APIResult();
   
     try {
-      const response = await axios.put(path, data);
+      const response = await axios.put(path, data, config);
   
       result.data = response.data;
       return result;
@@ -132,14 +125,16 @@ export const addProduct = async (
     }
   };
 
-  export const deleteProducts = async (id) => {
+  //delete products
+  export const deleteProducts = async (token, id) => {
   
+    const config = getAuthHeader(token)
     const path = `${API_HOST}/products/${id}`;
 
     const result = new APIResult();
   
     try {
-      const response = await axios.delete(path);
+      const response = await axios.delete(path, config);
   
       result.data = response.data;
       return result;

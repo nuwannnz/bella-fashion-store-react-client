@@ -8,9 +8,18 @@ import ProductList from "../../../components/admin/ProductList";
 export const PRODUCT_ACTION_TYPES = {
     
     PRODUCT_INFO_LOADED: "PRODUCT_INFO_LOADED",
-    PRODUCT_LOADED_BY_ID: "PRODUCT_LOADED_BY_ID",
+
     PRODUCT_ADDED: "PRODUCT_ADDED",
-    PRODUCT_DELETED: "PRODUCT_DELETED"
+    PRODUCT_ADDED_SUCCESS_MSG:"PRODUCT_ADDED_SUCCESS_MSG",
+    PRODUCT_ADDED_FAILURE_MSG:"PRODUCT_ADDED_FAILURE_MSG",
+    CLEAR_PRODUCT_ADDED_SUCCESS_MSG:"CLEAR_PRODUCT_ADDED_SUCCESS_MSG",
+
+    PRODUCT_DELETED: "PRODUCT_DELETED",
+
+    PRODUCT_UPDATED: "PRODUCT_UPDATED",
+    PRODUCT_UPDATED_SUCCESS_MSG:"PRODUCT_UPDATED_SUCCESS_MSG",
+    PRODUCT_UPDATED_FAILURE_MSG:"PRODUCT_UPDATED_FAILURE_MSG",
+    CLEAR_PRODUCT_UPDATED_SUCCESS_MSG:"CLEAR_PRODUCT_UPDATED_SUCCESS_MSG",
 
     
   };
@@ -25,14 +34,43 @@ export const PRODUCT_ACTION_TYPES = {
     payload: product
   })
 
-  export const productLoadedByID = (product) => ({
-    type:PRODUCT_ACTION_TYPES.PRODUCT_LOADED_BY_ID,
+  export const productsAddedSuccessMsg = (msg) => ({
+    type:PRODUCT_ACTION_TYPES.PRODUCT_ADDED_SUCCESS_MSG,
+    payload: msg
+  })
+
+  export const productsAddedFailMsg = (msg) => ({
+    type:PRODUCT_ACTION_TYPES.PRODUCT_ADDED_FAILURE_MSG,
+    payload: msg
+  })
+
+  export const clearProductsAddedSuccessMsg = () => ({
+    type:PRODUCT_ACTION_TYPES.CLEAR_PRODUCT_ADDED_SUCCESS_MSG,
+  })
+
+  export const productsUpdated = (product) => ({
+    type:PRODUCT_ACTION_TYPES.PRODUCT_UPDATED,
     payload: product
   })
 
-  export const productDeleted = (product) => ({
+  export const productsUpdatedSuccessMsg = (msg) => ({
+    type:PRODUCT_ACTION_TYPES.PRODUCT_ADDED_SUCCESS_MSG,
+    payload: msg
+  })
+
+  export const productsUpdatedFailMsg = (msg) => ({
+    type:PRODUCT_ACTION_TYPES.PRODUCT_ADDED_FAILURE_MSG,
+    payload: msg
+  })
+
+  export const clearProductsUpdatedSuccessMsg = () => ({
+    type:PRODUCT_ACTION_TYPES.CLEAR_PRODUCT_ADDED_SUCCESS_MSG,
+  })
+
+
+  export const productDeleted = (productId) => ({
     type:PRODUCT_ACTION_TYPES.PRODUCT_DELETED,
-    payload: product
+    payload: productId
   })
 
   export function addProductAsync(
@@ -48,7 +86,9 @@ export const PRODUCT_ACTION_TYPES = {
     description
     ) {
       return async (dispatch, getState) => {
+        const { token } = getState().staffLogin.auth;
         const result = await productService.addProduct(
+          token,
             name,
             sizeQty,
             brand,
@@ -60,50 +100,48 @@ export const PRODUCT_ACTION_TYPES = {
             tags,
             description);
 
-            if(result.isResultOk() && result.data.success) {
-              dispatch(productsAdded(result.data))
+            console.log(result.data)
+            
+
+            if(result.isResultOk()) {
+              dispatch(productsAddedSuccessMsg("Product is added successfully!!"))
+              console.log("Product added successfull")
+              dispatch(productsAdded(result.data.addedEntry))
             } else {
               // display error notification
+              dispatch(productsAddedSuccessMsg("Product is Failed to Add!!"))
               console.log("error");
-              return;
+              
             }
+           
+
+            return;
           
       }
   }
 
   export function productsLoadedAsync() {
     return async (dispatch, getState)=> {
-      fetch('http://localhost:5000/api/v1/products').then(response => response.json())
-      .then(json => {
-        dispatch(productsLoaded(json))
-         return json;
-      })
-
+      const result = await productService.getProducts();
+      
+        if(result.isResultOk) {
+          console.log("product loaded")
+          dispatch(productsLoaded(result.data));
+        } else {
+          console.log("error in product loaded");
+        }
       }
-  }
-
-  export function productLoadedByIDAsync(id) {
-    return async (dispatch, getState)=> {
-      fetch('http://localhost:5000/api/v1/products/'+id).then(response => response.json())
-      .then(json => {
-          dispatch(productLoadedByID(json));
-          
-      })
-      // const result = await productService.getProductById(id);
-      // dispatch(productLoadedByID(result));
-      // console.log(result)
-    }
   }
 
   export function productDeletedByIDAsync(id) {
     return async (dispatch, getState) => {
-      const result = await productService.deleteProducts(id)
+      const { token } = getState().staffLogin.auth;
+      const result = await productService.deleteProducts(token,id)
 
-      if (result.isResultOk() && result.data.success) {
-        // fetch user again again
-        // dispatch(loggedOut());
-        // dispatch(updatedTempPassword());
-        console.log(result);
+      if (result.isResultOk() && result.data.succeded) {
+        
+        dispatch(productDeleted(id))
+       
       } else {
         // display error notification
         console.log("error");
@@ -148,6 +186,7 @@ export const PRODUCT_ACTION_TYPES = {
       // }
   
       const result = await productService.updateProduct(
+        token,
         _id,
         name,
         sizeQty,
@@ -160,14 +199,17 @@ export const PRODUCT_ACTION_TYPES = {
         tags,
         description);
 
-      if (result.isResultOk() && result.data.success) {
+      if (result.isResultOk()) {
         // fetch user again again
         // dispatch(loggedOut());
-        // dispatch(updatedTempPassword());
-        console.log(result);
+        console.log("Success");
+         dispatch(productsUpdated(result.data));
+         dispatch(productsUpdatedSuccessMsg("Product is Updated Successfully!!"));
+        
       } else {
         // display error notification
         console.log("error");
+        dispatch(productsUpdatedSuccessMsg("Product is failed to update!!"))
         return;
       }
     };

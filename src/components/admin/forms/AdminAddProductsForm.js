@@ -4,14 +4,27 @@ import ErrorMessage from "../../common/ErrorMessage";
 import { isEmpty } from "../../../helpers/input-validation.helper";
 import TextBox from '../../common/TextBox';
 import AccentButton from '../../common/AccentButton';
-import { brandsLoadedAsync } from '../../../redux/actions/admin-panel/brand.actions';
+import { brandsLoadedAsync, clearBrandsAsync } from '../../../redux/actions/admin-panel/brand.actions';
+import { clearProductsAddedSuccessMsg } from '../../../redux/actions/admin-panel/product.actions';
 import '../../../styles/common/IconButton.css'
+import SuccessMessage from '../../common/SuccessMessage';
 
 
-export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick, errorMsg = ""}) {
+
+
+export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}) {
 
     const dispatch = useDispatch();
     const brands = useSelector(state => state.brand.brands);
+
+    const errorMsg = useSelector(state => state.product.errorMsg);
+    const successMsg = useSelector(state => state.product.successMsg)
+
+    console.log(successMsg)
+
+    
+
+   
    
     const [name, setName] = useState("");
     const [qty_small, setQtyS] = useState("");
@@ -37,6 +50,11 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick,
 
 
     const [invalidInput, setInvalidInput] = useState("");
+    const [validInput, setValidInput] = useState("");
+
+    const submitClearAll = () => {
+        dispatch(clearBrandsAsync());
+    } 
 
     const submitBrand =() => {
         if(isEmpty(bname)) {
@@ -50,57 +68,74 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick,
     }
     useEffect(() => {
         dispatch(brandsLoadedAsync());
+        dispatch(clearProductsAddedSuccessMsg());
         return () => {
             
         }
     },[])
     
 
+    
 
+      
+        const submitForm = async () => {
 
-    const submitForm = () => {
-
+            
+         
         if (isEmpty(name)) {
             setInvalidInput("product name is required");
+            setValidInput("");
 
         } else if (isEmpty(sizeQty)) {
             setInvalidInput("product sizes and qtys is required");
+            setValidInput("");
     
 
         }else if (isEmpty(brand)) {
             setInvalidInput("product brand is required");
+            setValidInput("");
 
         } else if (isEmpty(category)) {
             setInvalidInput("product category is required");
+            setValidInput("");
 
         }else if (isEmpty(subCategory)) {
             setInvalidInput("product category is required");
+            setValidInput("");
 
         } else if (isEmpty(price)) {
             setInvalidInput("product price is required");
+            setValidInput("");
 
         }else if (price < 0) {
             setInvalidInput("product price shouldn't be less than 0");
+            setValidInput("");
 
         }  else if (isEmpty(discount)) {
             setInvalidInput("product discount is required");
+            setValidInput("");
 
         } else if (discount < 0) {
             setInvalidInput("product discount shouldn't be less than 0");
+            setValidInput("");
 
         } else if (isEmpty(colors)) {
             setInvalidInput("product colors is required");
+            setValidInput("");
 
         } else if (isEmpty(tags)) {
             setInvalidInput("product tags is required");
+            setValidInput("");
 
         } else if (isEmpty(description)) {
             setInvalidInput("product description is required");
+            setValidInput("");
 
         }
          else {
            
             setInvalidInput("");
+            
             onAddProductClick(
                 name,
                 sizeQty,
@@ -114,18 +149,28 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick,
                 description
                 
             );
+
+            setValidInput(successMsg);
+            
+
+           
+            
         }
-
-
     }
-   
+
+
+    
         return (
+           
+                
             <div>
                
                 
             
        
          <div className="container-fluid">
+      
+
            <div className="row">
                <div className="col-md-12">
                     <TextBox 
@@ -173,6 +218,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick,
                             ))}   
                         </select>
                         </div>
+                        <button class="iconBtn" onClick={submitClearAll}><i class="fa fa-trash"></i> clearAll</button>
                 </div>
                 <div className="col-md-6">
                     <div className="row">
@@ -264,10 +310,19 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick,
                     <ErrorMessage msg={invalidInput} />
                     : null
 }
+{
+                validInput !== null && validInput.length > 0 ?
+                    <SuccessMessage msg={validInput} />
+                    : null
+}
 
 
             {errorMsg.length > 0 ?
                 <ErrorMessage msg={errorMsg} />
+                : null
+            }
+            {successMsg.length > 0 ?
+                <SuccessMessage msg={successMsg} />
                 : null
             }
 
@@ -279,6 +334,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick,
                 
             </div>
             </div>
+           
                 
         )
     

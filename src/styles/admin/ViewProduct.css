@@ -1,0 +1,10 @@
+.text-label {
+    font-size: 20px;
+    color:  var(--accent-color);
+    font-weight: bold;
+    text-align: right;
+}
+.text-viewpage {
+    font-style: oblique;
+    text-align: left;
+}
