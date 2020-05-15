@@ -4,6 +4,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import OverlayPopup from "../common/OverlayPopup";
 import { useSelector, useDispatch } from "react-redux";
 import { addAddressAsync } from "../../redux/actions/customer/customer.actions";
+import ErrorMessage from "../common/ErrorMessage";
 
 export default function CustomerDashboardAddressForm( {closeFormClickHandler} ) {
 
@@ -83,19 +84,49 @@ export default function CustomerDashboardAddressForm( {closeFormClickHandler} ) 
                     />
                     <input 
                         type="text" 
+                        placeholder="Last Name" 
+                        onChange={handleLNameChanged}    
+                    />
+                    
+                    <br />
+
+                    <input 
+                        type="text" 
                         placeholder="Phone" 
                         onChange={handlePhoneChanged}    
                     />
                     <input 
                         type="text" 
+                        placeholder="Country" 
+                        onChange={handleCountryChanged}
+                    />
+
+                    <br />
+
+                    <input
+                        className="street-address" 
+                        type="text" 
                         placeholder="Street Address" 
                         onChange={handleStreetChanged}
                     />
+
+                    <br />
+
+                    <input 
+                        type="text" 
+                        placeholder="Town" 
+                        onChange={handleTownChanged}
+                    />
+                    <input 
+                        type="text" 
+                        placeholder="Postcode/Zip" 
+                        onChange={handleZipChanged}
+                    />
+
+                    {customers.addAddressError && <ErrorMessage msg={customers.addAddressError} />}                    
+
                 </OverlayPopup>
-                
-                
             </div>
-           
         </div>
     );
 }

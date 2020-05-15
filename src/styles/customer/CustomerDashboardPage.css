@@ -1,14 +1,12 @@
 .customer-dashboard-wrapper {
-    height: 100%;
-    width: 100%;
-    position: relative;
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 10px;
 }
 
 .customer-dashboard-wrapper .title {
-    position: absolute;
-    top: 0%;
-    left: 6%;
-    transform: translate(-3%, -6%);
+    margin-bottom: 20px;
+    display: flex;
 }
 
 .customer-dashboard-greeing-wrapper{
@@ -19,7 +17,6 @@
 }
 
 .greeting-to-customer p {
-    font-size: 20px;
     text-align: center;
     font-weight: bold;
 }
@@ -48,6 +45,12 @@
     font-size: 18px;
 }
 
+.dashboard-filter-cards {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
 .dashboard-filter-cards .pending-card {
     border: none;
     background-color: #8C52FF;
@@ -68,11 +71,7 @@
 }
 
 .filer-card-wrap {
-    display: flex;
-    position: absolute;
-    top: 7%;
-    left: 86%;
-    transform: translate(-48%, -13%);
+   display: flex;
 }
 
 .pending {
@@ -97,36 +96,30 @@
     text-shadow: 2px 2px #333;
 }
 
-.pending-card h4 {
+.pending-card h5 {
     margin: 0px;
     text-shadow: 2px 2px #333;
     margin-left: 10px;
 }
 
-.completed-card h4 {
+.completed-card h5 {
     margin: 0px;
     text-shadow: 2px 2px #333;
     margin-left: 10px;
 }
 
 .dashboard-order-card-wrapper {
-    position: relative;
-    top: 29%;
-    left: 60%;
-    transform: translate(-59%, 55%);
     margin-bottom: 20px;
 }
 
 .order-card {
-    width: 79vw;
+    width: 80vw;
     height: 30vh;
     border: none;
     background-color: #efefef;
     border-radius: 10px;
-    margin-left: 47px;
     display: flex;
     position: relative;
-    box-shadow: 5px 5px 5px #666;
 }
 
 .pending span {
@@ -152,9 +145,9 @@
     transform: translate(-24%, -50%);
 }
 
-.order-details h4 {
+.order-details p {
     margin: 0px;
-    padding: 3px;
+    font-weight: bold;
 }
 
 .order-card .total-price h1 {
@@ -162,10 +155,9 @@
 }
 
 .order-card .total-price {
-    position: absolute;
-    top: 10%;
-    right: 1%;
-    transform: translate(-1%, -60%);
+    display: flex;
+    width: 81%;
+    justify-content: flex-end;
 }
 
 .dot {

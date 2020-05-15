@@ -218,4 +218,75 @@ export function addAddressAsync(addressDto) {
       payload: errorMsg
     };
   }
-}
+};
+
+export function deleteAddressAsync(addressId) {
+  return async (dispatch, getState) => {
+    dispatch(request({ id: addressId }));
+    const { token } = getState().customer;
+
+    const result = await customerService.deleteCustomerAddress(token, addressId);
+
+    if(result.isResultOk()) {
+      dispatch(success({ id: addressId }));
+    } else {
+      dispatch(failure(result.errorMessage));
+    }
+  };
+
+  function request(payload) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.DELETE_ADDRESS_REQUEST, 
+      payload
+    };
+  }
+  
+  function success(payload) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.DELETE_ADDRESS_SUCCESS,
+      payload
+    };
+  } 
+
+  function failure(errorMsg) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.DELETE_ADDRESS_FAILURE,
+      payload: errorMsg
+    };
+  }
+};
+
+export function updateCustomerAddressAsync( addressId, addressDto) {
+  return async (dispatch, getState) => {
+    dispatch(request());
+    const { token } = getState().customer;
+
+    const result = await customerService.updateCustomerAddress(token, addressId, addressDto);
+
+    if(result.isResultOk()) {
+      dispatch(success(result.data));
+    } else {
+      dispatch(failure(result.errorMessage));
+    }
+  };
+
+  function request() {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_REQUEST
+    };
+  }
+
+  function success(payload) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_SUCCESS,
+      payload
+    };
+  }
+
+  function failure(errorMsg) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_FAILURE,
+      payload: errorMsg
+    };
+  }
+};

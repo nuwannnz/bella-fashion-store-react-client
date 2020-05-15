@@ -1,24 +1,21 @@
+.customer-address-dashboard-wrapper {
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 10px;
+}
+
 .customer-address-dashboard-wrapper .title {
-    position: relative;
-    top: 15%;
-    left: 20%;
-    transform: translate(-14%, -15%);
+    display: flex;
     margin-bottom: 20px;
 }
 
 .empty-address-card {
-    width: 93%;
+    width: 100%;
     height: 20vh;
     background-color: #efefef;
     border: none;
-    box-shadow: 5px 5px 5px #666;
     border-radius: 10px;
     position: relative;
-}
-
-.customer-address-dashboard {
-    position: relative;
-    left: 6%;
 }
 
 .empty-address-card .msg p {
@@ -59,12 +56,8 @@
     transform: translateY(-0.25em);
 }
 
-.customer-address-dashboard-form-wrapper {
-   
-}
-
 .customer-address-dashboard-form-wrapper .customer-address-dashboard-form {
-    width: 175vh;
+    width: 68%;
 }
 
 .customer-address-dashboard-form-wrapper .customer-address-dashboard-form input {
@@ -73,5 +66,63 @@
     padding-left: 10px;
     border-radius: 20px;
     border: 1px solid blueviolet;
+    margin: 10px;
 }
 
+.customer-address-dashboard-form-wrapper .customer-address-dashboard-form .street-address {
+    width: 97%;
+}
+
+.customer-address-dashboard .address-card {
+    width: 100%;
+    height: 20vh;
+    background-color: #efefef;
+    border: none;
+    border-radius: 10px;
+    position: relative;
+    border-left-width: 15px;
+    border-left-color: #8c52ff;
+    border-left-style: solid;
+    display: flex;
+    align-items: center;
+}
+
+.customer-address-dashboard .address-card .icon-wrap {
+    margin: 0px 20px;
+
+}
+
+.customer-address-dashboard .address-details-wrap {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.customer-address-dashboard .address-details-wrap p {
+    font-size: 18px;
+    margin: 0px;
+}
+
+.customer-address-dashboard .address-details-wrap .icons-wrap {
+    margin-right: 20px;
+}
+
+.customer-address-dashboard .address-details-wrap .icons-wrap span {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.customer-address-dashboard-wrapper .add-address-btn {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.customer-address-dashboard-wrapper .add-address-btn button {
+    border: none;
+    color: #ffffff;
+    border-radius: 50px;
+    background-color: #8c52ff;
+    padding: 0px 39px;
+    cursor: pointer;
+}

@@ -9,10 +9,10 @@ export default function CustomerDashboardFilterCards() {
                 <div className="pending-card">
                     <div className="pending">
                         <span>
-                            <FaHourglassHalf color="#fffff" size="1em"/>
+                            <FaHourglassHalf color="#fffff" size="1.5em"/>
                         </span>
                         <p>Pending:</p>
-                        <h4>4</h4>
+                        <h5>4</h5>
                     </div>
                 </div>
 
@@ -20,10 +20,10 @@ export default function CustomerDashboardFilterCards() {
                     {/* <div className="completed-icon"></div> */}
                     <div className="completed">
                         <span>
-                            <FaRegCheckCircle color="#fffff" size="1em"/>
+                            <FaRegCheckCircle color="#fffff" size="1.5em"/>
                         </span>
                         <p>Completed:</p>
-                        <h4>5</h4>
+                        <h5>5</h5>
                     </div>
                 </div>
             </div>

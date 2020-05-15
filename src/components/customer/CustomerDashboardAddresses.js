@@ -1,18 +1,23 @@
 import React from "react";
 import "../../styles/customer/CustomerDashboardAddressPage.css";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle, FaPenSquare, FaTrash } from "react-icons/fa";
 
 export default function CustomerDashboardAddresses() {
     
     return (
         <div className="customer-address-dashboard">
-            <div className="empty-address-card">
-                <div className="msg">
-                    <FaCheckCircle size="2em" color="#8C52FF"/>
-                    <p>No address has been made yet.</p>
+            <div className="address-card">
+                <div className="icon-wrap">
+                    <FaCheckCircle size="1.5em" color="#8C52FF"/>
                 </div>
-                <div className="add-address-btn">
-                    <button>Add Address</button>
+                <div className="address-details-wrap">
+                    <p>Anjana Kumari</p>
+                    <p>131/A, Madapola, Theldeniya</p>
+                    <div className="icons-wrap">
+                        <span><FaPenSquare size="1.5em" color="#8C52FF" /></span> 
+                        <span><FaTrash size="1.5em" color="#8C52FF" /></span>
+                    </div>
+                   
                 </div>
             </div>
         </div>

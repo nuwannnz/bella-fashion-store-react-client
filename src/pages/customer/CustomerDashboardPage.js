@@ -10,9 +10,10 @@ export default function CustomerDashboardPage() {
         <div className="customer-dashboard-wrapper">
                 <div className="title">
                     <h1>Dashboard</h1>
+                    <CustomerDashboardFilterCards />
                 </div>
                {/* <CustomerDashboardGreeting /> */}
-               <CustomerDashboardFilterCards />
+               
                <CustomerDashboardCard />
                <CustomerDashboardCard />
                <CustomerDashboardCard />

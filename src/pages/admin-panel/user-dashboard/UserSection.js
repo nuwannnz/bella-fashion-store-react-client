@@ -82,7 +82,6 @@ export default function UserSection() {
     dispatch(getAllUsersAsync());
   }, []);
   useEffect(() => {
-    //
     console.log(users);
     
   });

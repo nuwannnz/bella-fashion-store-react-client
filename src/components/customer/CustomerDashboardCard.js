@@ -44,9 +44,9 @@ export default function CustomerDashboardCard() {
                         </div>
                     </div>
                     <div className="order-details">
-                        <h4>Order No: 1000013250</h4>
-                        <h4>Date: 2020.03.25</h4>
-                        <h4>Status: Pending</h4>
+                        <p>Order No: 1000013250</p>
+                        <p>Date: 2020.03.25</p>
+                        <p>Status: Pending</p>
                     </div>
                     <div className="total-price">
                         <h1>$150</h1>
