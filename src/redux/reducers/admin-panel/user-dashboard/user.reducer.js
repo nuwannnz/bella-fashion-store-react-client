@@ -57,7 +57,7 @@ export const users = (state = initialState, action) => {
     case USER_DASHBOAR_ACTION_TYPES.DELETE_FAILURE:
       return {
         ...state,
-        error: action.payload.error,
+        error: action.payload,
         items: state.items.map((user) => {
           if (user._id === action.payload.id) {
             const { deleting, ...userInfo } = user;
@@ -77,7 +77,7 @@ export const users = (state = initialState, action) => {
     case USER_DASHBOAR_ACTION_TYPES.UPDATE_FAILURE:
       return {
         ...state,
-        error: action.payload.error,
+        error: action.payload,
         items: state.items.map((user) => {
           if (user._id === action.payload.id) {
             const { updating, ...userInfo } = user;

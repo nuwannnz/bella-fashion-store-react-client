@@ -12,7 +12,6 @@ import {
   checkHasCustomerAsync,
 } from "../../redux/actions/customer/customer.actions";
 import { uiIsLoading } from "../../redux/actions/ui.actions";
-import CustomerDashboardPage from "./CustomerDashboardPage";
 
 export default function CustomerShell() {
   const dispatch = useDispatch();

@@ -12,6 +12,7 @@ export default function SelectBox({
   const [selected, setSelected] = useState(selectedItem);
 
   const handleItemSelected = (e) => {
+    setSelected(e.target.value);
     if (parseInt(e.target.value) === -1) {
       return;
     }
@@ -23,7 +24,7 @@ export default function SelectBox({
   return (
     <div className="select-box">
       <label>{title}</label>
-      <select onChange={handleItemSelected}>
+      <select onChange={handleItemSelected} value={selected}>
         <option className="default-option" value="-1">
           {capitalizeString(placeholder)}
         </option>
