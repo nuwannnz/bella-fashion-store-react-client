@@ -39,7 +39,7 @@ export default function CustomerSignUpForm({onSignUpClick, hasError}) {
     return (
         <div className="sign-up-form-wrapper">
             <div className="sign-up-form">
-                <h1>Create Account</h1>
+                <p>Create Account</p>
                 <div className="logo">
                     <img src={getAssetUrl("logo/logo.png")} alt="Bella logo"/>
                 </div>
