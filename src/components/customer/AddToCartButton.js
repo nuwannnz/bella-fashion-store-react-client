@@ -10,6 +10,13 @@ export default function AddToCartButton({ productId, size, qty }) {
   const history = useHistory();
 
   const onClickHandler = () => {
+
+    // if only product id is given navigate to the product page
+    if (!size || !qty) {
+      history.push(`${ROUTE_PATHS.CUSTOMER_PRODUCT}/${productId}`);
+      return;
+    }
+
     // dispatch action to add to cart
     if (!token) {
       // user not logged in
@@ -22,8 +29,8 @@ export default function AddToCartButton({ productId, size, qty }) {
   };
 
   return (
-    <button onClick={onClickHandler} disabled={!productId || !size || !qty}>
-      Add to cart
+    <button className="add-to-cart-btn" onClick={onClickHandler} >
+      <i class="fas fa-shopping-cart"></i>
     </button>
   );
 }
