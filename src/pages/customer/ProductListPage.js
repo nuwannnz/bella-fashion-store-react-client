@@ -47,7 +47,7 @@ export default function ProductListPage() {
 
     useEffect(() => {
         dispatch(productsLoadedAsync())
-    })
+    }, [])
 
     return (
         <div className="page" >

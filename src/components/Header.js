@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/Header.css";
 import { getAssetUrl } from "../helpers/assets.helper";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleMobileSideBar } from "../redux/actions/ui.actions";
+import { toggleMobileSideBar, toggleCartBar } from "../redux/actions/ui.actions";
 import { Link, useHistory } from "react-router-dom";
 import { ROUTE_PATHS } from "../constants";
 import { logoutAsync } from "../redux/actions/customer/customer.actions";
@@ -103,29 +103,40 @@ const CustomerMenu = () => {
         {token ? (
           <CustomerAvatar />
         ) : (
-          <Link to={ROUTE_PATHS.CUSTOMER_LOGIN}>
-            <div className="customer-menu-login-btn">
-              <span>Login</span>
-            </div>
-          </Link>
-        )}
+            <Link to={ROUTE_PATHS.CUSTOMER_LOGIN}>
+              <div className="customer-menu-login-btn">
+                <span>Login</span>
+              </div>
+            </Link>
+          )}
       </div>
     </div>
   );
 };
 
 const CartButton = () => {
-  const productsOfCart = useSelector((state) => state.cart.products);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const cartItems = useSelector((state) => state.cart.items);
+  const token = useSelector((state) => state.customer.token);
+
+  const onCartBtnClick = () => {
+    if (token === null) {
+      // user not logged in
+      history.push(ROUTE_PATHS.CUSTOMER_LOGIN);
+    }
+    dispatch(toggleCartBar());
+  }
 
   return (
-    <Link to={ROUTE_PATHS.CUSTOMER_CART}>
-      <button className="header-btn badge-btn" style={{ marginRight: "25px" }}>
-        <i className="fas fa-shopping-basket"></i>
-        {productsOfCart && (
-          <span className="product-count-badge">{productsOfCart.length}</span>
-        )}
-      </button>
-    </Link>
+    // <Link to={ROUTE_PATHS.CUSTOMER_CART}>
+    <button className="header-btn badge-btn" style={{ marginRight: "25px" }} onClick={onCartBtnClick}>
+      <i className="fas fa-shopping-basket"></i>
+      {cartItems && (
+        <span className="product-count-badge">{cartItems.length}</span>
+      )}
+    </button>
+    // </Link>
   );
 };
 
@@ -157,8 +168,8 @@ const MobileNavBarBtn = () => {
       {sideBarOpened ? (
         <i className="fas fa-times"></i>
       ) : (
-        <i className="fas fa-bars"></i>
-      )}
+          <i className="fas fa-bars"></i>
+        )}
     </button>
   );
 };

@@ -12,6 +12,7 @@ import CartPage from "./CartPage";
 import ProductPage from "./ProductPage";
 import { loadCartAsync } from "../../redux/actions/customer/cart.actions";
 import ProductListPage from "./ProductListPage";
+import FloatingCart from "./FloatingCart";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.customer.token);
@@ -64,6 +65,8 @@ export default function Homepage() {
                 <CategoryBar />
               )}
           </div>
+
+          <FloatingCart />
 
           <div className="page-content-wrap">
             <div className="page">
