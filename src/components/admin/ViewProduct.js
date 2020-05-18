@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import '../../styles/admin/ViewProduct.css'
 
+
 export default function ViewProduct({pid}) {
 
     const products = useSelector(state => state.product.products);
@@ -17,9 +18,17 @@ export default function ViewProduct({pid}) {
 
         return (
             
-            <div>
+            <div className="model-style">
                 {selectedProduct && (
                     <div>
+                <div className="row">
+                    <div className="text-label col-md-4"> Product Images :</div>
+                    <div className="text-viewpage col-md-8">
+                        {selectedProduct.images.map(image => (
+                            <img className="viewimg" src={image} ></img>
+                        ))}
+                    </div>
+                </div> <hr />
                 <div className="row">
                 <div className="text-label col-md-4">Product ID :</div>
                 <div className="text-viewpage col-md-8">{selectedProduct._id}</div></div> <hr />
@@ -40,8 +49,8 @@ export default function ViewProduct({pid}) {
                 <div className="text-label col-md-4">Product Discount :</div>
                 <div className="text-viewpage col-md-8">{selectedProduct.discount}</div></div> <hr />
                 <div className="row">
-                <div className="text-label col-md-4">Product Colors :</div>
-                <div className="text-viewpage col-md-8">{selectedProduct.colors}</div></div> <hr />
+                <div className="text-label col-md-4">Product Color :</div>
+                <div className="text-viewpage col-md-8"> <div className="view-color" style={{backgroundColor: selectedProduct.colors}}></div>{selectedProduct.colors}</div></div> <hr />
                 <div className="row">
                 <div className="text-label col-md-4">Product Tags :</div>
                 <div className="text-viewpage col-md-8">{selectedProduct.tags}</div></div> <hr />

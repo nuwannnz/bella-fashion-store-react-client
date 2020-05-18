@@ -7,12 +7,18 @@ import {
 } from "../../helpers/token.helper";
 import { APIResult } from "../APIResult";
 
-export const addBrand = async (name) => {
+export const addBrand = async (token, brandData) => {
     const path = `${API_HOST}/brands`;
-    const data = {name}
+    const data = {brandData}
+
+    console.log(brandData)
+
+    const config = getAuthHeader(token)
+    config.headers['Content-Type'] = 'multipart/form-data'
+    
     const result = new APIResult();
     try {
-      const response = await axios.post(path, data);
+      const response = await axios.post(path, brandData, config);
       result.data = response.data;
       return result;
     } catch (error) {
@@ -44,14 +50,15 @@ export const addBrand = async (name) => {
 
 
 
-  export const clearBrands = async () => {
+  export const deleteBrands = async (token,id) => {
   
-    const path = `${API_HOST}/brands`;
+    const config = getAuthHeader(token);
+    const path = `${API_HOST}/brands/${id}`;
 
     const result = new APIResult();
   
     try {
-      const response = await axios.delete(path);
+      const response = await axios.delete(path, config);
   
       result.data = response.data;
       return result;

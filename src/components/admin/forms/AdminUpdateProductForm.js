@@ -129,7 +129,7 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
     }
    
         return (
-            <div>
+            <div className="model-style">
 
          <div className="containerForm">
          <TextBox 

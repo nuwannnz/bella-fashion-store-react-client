@@ -4,9 +4,11 @@ import ErrorMessage from "../../common/ErrorMessage";
 import { isEmpty } from "../../../helpers/input-validation.helper";
 import TextBox from '../../common/TextBox';
 import AccentButton from '../../common/AccentButton';
-import { brandsLoadedAsync, clearBrandsAsync } from '../../../redux/actions/admin-panel/brand.actions';
+import { brandsLoadedAsync } from '../../../redux/actions/admin-panel/brand.actions';
 import { clearProductsAddedSuccessMsg } from '../../../redux/actions/admin-panel/product.actions';
 import Files from 'react-butterfiles';
+import { ChromePicker } from 'react-color'
+import InputColor from 'react-input-color';
 
 import '../../../styles/common/IconButton.css'
 import SuccessMessage from '../../common/SuccessMessage';
@@ -24,42 +26,51 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
 
     console.log(successMsg)
 
-    
+    const [count, setCount] = useState(-1);
+  
+
+   const [showColorPicker, setshowColorPicker] = useState(false) 
 
    
-   
     const [name, setName] = useState("");
-    const [qty_small, setQtyS] = useState("");
-    const [qty_medium, setQtyM] = useState("");
-    const [qty_large, setQtyL] = useState("");
+    const [size, setSize] = useState("");
+    const [qty, setQty] = useState("");
     const [brand, setBrand] = useState("");
     const [category, setCategory] = useState("");
     const [subCategory, setSubCategory] = useState("");
     const [price, setPrice] = useState("");
     const [discount, setDiscount] = useState("");
-    const [colors, setColors] = useState("");
+    const [colors, setColors] = useState("#000000");
     const [tags, setTags] = useState("");
     const [description, setDescription] = useState("");
-
-
+    const [sizeQty, setSizeQty] = useState([])
+    console.log(sizeQty)
     const [images, setImages] = useState([]);
 
     const [bname, setBrandname] = useState("");
 
-    const sizeQty = [
-        { size: "S", qty: qty_small },
-        { size: "M", qty: qty_medium },
-        { size: "L", qty: qty_large }
-    ];
+    const submitSizeQty = () => {
+        if(isEmpty(size)) {
+            setInvalidInput("Size is required");
+        } else if(size == -1) {
+            setInvalidInput("Size is required");
+        } 
+         else if(isEmpty(qty)) {
+            setInvalidInput("quantity is required");
+        } else {
+    
+            setSizeQty([...sizeQty, {size:size, qty:qty}]);
+        }
+    }
+
+    
 
 
 
     const [invalidInput, setInvalidInput] = useState("");
     const [validInput, setValidInput] = useState("");
 
-    const submitClearAll = () => {
-        dispatch(clearBrandsAsync());
-    } 
+  
 
     const submitBrand = () => {
         if (isEmpty(bname)) {
@@ -97,6 +108,17 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
         console.log(error);
     }
 
+    const removeData = (index) => {
+        console.log(index)
+        const newArray = sizeQty
+
+        if(index != -1) {
+            newArray.splice(index, 1);
+            setSizeQty(newArray);
+        }
+
+    }
+
           
         const submitForm = async () => {  
          
@@ -114,15 +136,24 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
             setInvalidInput("product brand is required");
             setValidInput("");
 
+        }  else if(subCategory == -1) {
+            setInvalidInput("subCategory is required");
+
         } else if (isEmpty(category)) {
             setInvalidInput("product category is required");
             setValidInput("");
+
+        }  else if(category == -1) {
+            setInvalidInput("category is required");
 
         } else if (isEmpty(subCategory)) {
             setInvalidInput("product category is required");
             setValidInput("");
 
-        } else if (isEmpty(price)) {
+        } else if(subCategory == -1) {
+            setInvalidInput("subCategory is required");
+
+        }  else if (isEmpty(price)) {
             setInvalidInput("product price is required");
             setValidInput("");
 
@@ -179,6 +210,8 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                 formData
             );
 
+            console.log(formData)
+
             setValidInput(successMsg);
             
 
@@ -186,10 +219,12 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
             
         }
     }
+
+   
     
 
     return (
-        <div>
+        <div className="modal-style">
 
 
 
@@ -204,32 +239,67 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                             onTextChange={text => setName(text)} />
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-md-4">
-                        <TextBox
-                            name="small_product_qty"
-                            placeholder="Enter Small Qty here"
-                            label="Prodcut Small Qty"
-                            type="number"
-                            onTextChange={text => setQtyS(text)} />
-                    </div>
+                <hr />
+                    <div className="row">
+                <div className="col-md-6">
+                        <label>Select Size :</label>
 
+                        <div className="select">
 
-                    <div className="col-md-4">
-                        <TextBox
-                            name="medium_product_qty"
-                            placeholder="Enter Medium qty here"
-                            label="Prodcut medium qty"
-                            onTextChange={text => setQtyM(text)} />
+                            <select id="leave" onChange={e => { setSize(e.target.value); console.log(e.target.value) }}>
+                                <option value="-1">-pick a size-</option>
+                                <option value="XS">Extra-Small</option>
+                                <option value="S">Small</option>
+                                <option value="M">Medium</option>
+                                <option value="L">Large</option>
+                                <option value="XL">Extra-Large</option>
+                                <option value="FressSize">FreeSize</option>
+
+                            </select>
+                        </div>
+
                     </div>
-                    <div className="col-md-4">
-                        <TextBox
-                            name="large_product_qty"
-                            placeholder="Enter Large qty here"
-                            label="Prodcut large qty"
-                            onTextChange={text => setQtyL(text)} />
+                    <div className="col-md-5">
+                    <TextBox 
+                    name="product_qty"
+                    placeholder="You can enter quatity here"
+                    label="Prodcut quantity"
+                    onTextChange={text => setQty(text)} />
                     </div>
-                </div>
+                    <div className="col-md-1 icon-btn">
+                    <button class="iconBtn" onClick={submitSizeQty}><i class="fa fa-plus"></i></button>
+                    </div>
+                    </div>
+                    <div className="row">
+                        <div className="table-responsive">
+                            <table className="table table-bordered">
+                                <thead className="thead-light">
+                                    <tr>
+                                        <td colSpan="3">Sizes and Quantities</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        {sizeQty && sizeQty.map((sizes, index) => (
+                                            <tr key={index}>
+                                            <td>
+                                                <p> {sizes.size}</p>
+                                            </td>
+                                        <td>
+                                            <p> {sizes.qty}</p>
+                                        </td>
+                                        <td>
+                                            <button className="button buttonDelete" onClick={() => removeData(index)}> <i className="fa fa-trash"></i> </button>
+                                        </td>
+                                            </tr> ))}
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                
+                <hr />
                 <div className="row">
                     <div className="col-md-6">
                         <label>Brands :</label>
@@ -237,14 +307,15 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                         <div className="select">
 
                             <select id="leave" onChange={e => { setBrand(e.target.value); console.log(e.target.value) }}>
+                            <option value="-1">- pick a brand -</option>
                                 {brands && brands.map(brand => (
                                     <option value={brand.name}>{brand.name}</option>
                                 ))}
                             </select>
                         </div>
-                        <button class="iconBtn" onClick={submitClearAll}><i class="fa fa-trash"></i> clearAll</button>
+                       
               </div>
-                </div>
+                
                 <div className="col-md-6">
                     <div className="row">
                     <div className="col-md-9"  >
@@ -254,26 +325,15 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                     label="Prodcut brand"
                     onTextChange={text => setBrandname(text)} />
                     </div>
-                    <div className="col-md-3">
+                    <div className="col-md-3 icon-btn">
                     <button class="iconBtn" onClick={submitBrand}><i class="fa fa-plus"></i></button>
                     </div>
-                    <div className="col-md-6">
-                        <div className="row">
-                            <div className="col-md-9"  >
-                                <TextBox
-                                    name="product_brand"
-                                    placeholder="You can add a brand here"
-                                    label="Prodcut brand"
-                                    onTextChange={text => setBrandname(text)} />
-                            </div>
-                            <div className="col-md-3">
-                                <button class="iconBtn" onClick={submitBrand}><i class="fa fa-plus"></i></button>
-                            </div>
-                        </div>
-                    </div>
+                  
 
 </div>
                 </div>
+                </div>
+                <hr />
                 <div className="row">
                     <div className="col-md-6">
                         <label>Category</label>
@@ -281,6 +341,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                         <div className="select">
 
                             <select id="leave" onChange={e => { setCategory(e.target.value); console.log(e.target.value) }}>
+                            <option value="-1">- pick a category -</option>
                                 <option value="Mens">Mens</option>
                                 <option value="Womens">Womens</option>
 
@@ -292,6 +353,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                         <label>Sub-Category</label>
                         <div className="select">
                             <select id="leave" onChange={e => { setSubCategory(e.target.value); console.log(e.target.value) }}>
+                            <option value="-1">- pick a sub category -</option>
                                 <option value="Shirts">Shirts</option>
                                 <option value="Trousers">Trousers</option>
                                 <option value="Blousers">Blousers</option>
@@ -301,6 +363,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                         </div>
                     </div>
                 </div>
+                <hr />
                 <div className="row">
                     <div className="col-md-6">
                         <TextBox
@@ -320,13 +383,25 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                             onTextChange={text => setDiscount(text)} />
                     </div>
                 </div>
+                <hr />
                 <div className="row">
-                    <div className="col-md-6">
-                        <TextBox
-                            name="product_colors"
-                            placeholder="Enter Product colors here"
-                            label="Prodcut colors"
-                            onTextChange={text => setColors(text)} />
+                                
+                    <div className="row col-md-6 color-picker">
+                   <button className="button color-btn" onClick={() => setshowColorPicker(showColorPicker => ! showColorPicker)}>
+                       {showColorPicker ? 'Close color picker' : 'Pick a Color'}
+
+                   </button>
+                   {showColorPicker && (
+                       
+                       <ChromePicker 
+                            color={colors}
+                            onChange={updatedColor => setColors(updatedColor.hex)} />
+                            
+                   )}
+                    
+
+                    <div className="view-color" style={{backgroundColor: colors}}></div>
+                    
                     </div>
                     <div className="col-md-6">
                         <TextBox
@@ -336,13 +411,14 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                             onTextChange={text => setTags(text)} />
                     </div>
                 </div>
+                <hr />
                 <TextBox
                     name="product_description"
                     placeholder="Enter Product description here"
                     label="Prodcut description"
                     type="textarea"
                     onTextChange={text => setDescription(text)} />
-
+<hr />
                 <div className="row">
                     <div class="col">
 
@@ -427,7 +503,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                 : null
             }</div>
 
-<AccentButton onButtonClick={submitForm} text="ADD" />
+            <AccentButton onButtonClick={submitForm} text="ADD" />
 
             </div>
            

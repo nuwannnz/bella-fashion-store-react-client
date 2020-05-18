@@ -78,7 +78,11 @@ export default function Homepage() {
                   <CartPage />
                 </PrivateRoute>
 
-                <Route path={ROUTE_PATHS.CUSTOMER_PRODUCT}>
+                <Route path={`${ROUTE_PATHS.CUSTOMER_PRODUCT}/:productId`}>
+                  <ProductPage />
+                </Route>
+
+                <Route path={ROUTE_PATHS.CUSTOMER_PRODUCT_SINGLE} name="id">
                   <ProductPage />
                 </Route>
               </Switch>

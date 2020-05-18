@@ -7,26 +7,30 @@ import { useLocation } from 'react-router-dom';
 import { productLoadedByIDAsync } from "../../redux/actions/admin-panel/product.actions";
 import AddToCartButton from "./AddToCartButton";
 
-export default function SingleProduct() {
+export default function SingleProduct({productId}) {
   const [selected_size, setSize] = useState("");
   const [qty, setQty] = useState(0);
-const [selectedProduct, setSelectedProduct] = useState(null);
-	const dispatch = useDispatch();
-	
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const dispatch = useDispatch();
+  const[id, setID] = useState("");
+  
+  console.log(productId)
 	const products = useSelector(state => state.product.products);
 
+  
 	useEffect(()=>{
 		dispatch(productsLoadedAsync());
 
-	},[])
+  },[])
+  
 
 	useEffect(()=>{
 		
-		const id = '5ebcd85245b34811f0e9497f';
+		setID(productId);
 		const _selectedProduct = products.find(p => p._id === id);
 		setSelectedProduct(_selectedProduct);
 		console.log(selectedProduct)
-    },[products])
+    }, [products])
  
 
   //   dispatch(productLoadedByIDAsync("5eb52be16177293bb4c683ba"));
@@ -51,10 +55,10 @@ const [selectedProduct, setSelectedProduct] = useState(null);
 	}
 	const totalPrice =(discount, price) => {
 		return price - discount;
-	}
+  }
 
   return (
-    <div class="container">
+    <div class="container-fluid">
       {selectedProduct && (
         <div>
 
@@ -66,15 +70,20 @@ const [selectedProduct, setSelectedProduct] = useState(null);
 
               <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img src={require('../../assets/shirt.jpg')} class="d-block w-100" alt="..." />
-                  </div>
-                  <div class="carousel-item">
-                    <img src={require('../../assets/shirt.jpg')} class="d-block w-100" alt="..." />
-                  </div>
-                  <div class="carousel-item">
-                    <img src={require('../../assets/shirt.jpg')} class="d-block w-100" alt="..." />
-                  </div>
+
+                <div class="carousel-item active">
+                  <img className="single-img" src={selectedProduct.images[0]} class="d-block w-100" alt="..." /> {console.log("active")}
+                </div>
+
+                <div class="carousel-item">
+                  <img className="single-img" src={selectedProduct.images[1]} class="d-block w-100" alt="..." /> {console.log("active")}
+                </div>
+
+                <div class="carousel-item">
+                  <img className="single-img" src={selectedProduct.images[2]} class="d-block w-100" alt="..." /> {console.log("active")}
+                </div>
+                  
+                  
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -93,7 +102,7 @@ const [selectedProduct, setSelectedProduct] = useState(null);
                 ""
               )}
 
-              <h2>{selectedProduct.name}</h2>
+              <h2 style={{textTransform: 'uppercase'}}>{selectedProduct.name}</h2>
               <p>product code: {selectedProduct._id}</p>
               <p>{selectedProduct.description}</p>
 
@@ -126,8 +135,9 @@ const [selectedProduct, setSelectedProduct] = useState(null);
               )}
 
               <label>Select Size</label>
-              <div className="select">
+              <div className="select-single">
                 <select
+                  className="select-single"
                   id="leave"
                   onChange={(e) => {
                     setSize(e.target.value);

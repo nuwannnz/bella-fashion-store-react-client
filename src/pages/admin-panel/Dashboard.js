@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { getAdminPanelMenuItems } from "../../helpers/menu.helper";
 import { useUserRole, useAuthUser } from "../../hooks/admin-panel/Auth.hooks";
 import { uiIsLoading } from "../../redux/actions/ui.actions";
-import ProductDashboardPage from "./product/AdminProductPage";
+import ProductDashboardPage from "./product/ProductDashboardPage";
 
 export default function Dashboard() {
 

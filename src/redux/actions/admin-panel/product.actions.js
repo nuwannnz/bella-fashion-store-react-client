@@ -96,7 +96,9 @@ export const productDeleted = (product) => ({
           token,
            productData);
 
-            console.log(result.data)
+           console.log(productData)
+
+           
             
 
             if(result.isResultOk()) {
@@ -136,7 +138,7 @@ export const productDeleted = (product) => ({
       const { token } = getState().staffLogin.auth;
       const result = await productService.deleteProducts(token,id)
 
-      if (result.isResultOk() && result.data.succeded) {
+      if (result.isResultOk() && result.data.success) {
         
         dispatch(productDeleted(id))
        

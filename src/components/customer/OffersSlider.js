@@ -23,7 +23,7 @@ export default function OffersSlider() {
 
   const checkOffers = () => {
     products.map((pro) => (
-      <div>{seeOffers(pro.product_discount) ? obj.push(pro) : "null"}</div>
+      <div>{seeOffers(pro.discount) ? obj.push(pro) : "null"}</div>
     ));
   };
   const seeOffers = (offer) => {
@@ -43,21 +43,23 @@ export default function OffersSlider() {
       <ItemsCarousel
         requestToChangeActive={setActiveItemIndex}
         activeItemIndex={activeItemIndex}
-        numberOfCards={3}
+        numberOfCards={4}
         gutter={20}
-        leftChevron={<button>{"<"}</button>}
-        rightChevron={<button>{">"}</button>}
+        leftChevron={<button className="slider-btn"><i className="fa fa-arrow-left"></i></button>}
+        rightChevron={<button className="slider-btn"><i className="fa fa-arrow-right"></i></button>}
         outsideChevron
         chevronWidth={chevronWidth}
       >
         {obj.map((product) => (
           <div>
             <PrdouctCard
-              name={product.product_name}
-              price={product.product_price}
+            id = {product._id}
+              image={product.images[0]}
+              name={product.name}
+              price={product.price}
               totalPrice={totalPrice(
-                product.product_discount,
-                product.product_price
+                product.discount,
+                product.price
               )}
             />
           </div>

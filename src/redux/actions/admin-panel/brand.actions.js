@@ -6,7 +6,7 @@ export const BRAND_ACTION_TYPES = {
     
   BRAND_INFO_LOADED: "BRAND_INFO_LOADED",
   BRAND_ADDED: "BRAND_ADDED",
-  BRAND_CLEARED: "BRAND_CLEARED"
+  BRAND_DELETED: "BRAND_DELETED"
     
   };
 
@@ -20,15 +20,17 @@ export const BRAND_ACTION_TYPES = {
     payload: brand
   })
 
-  export const brandsCleared = () => ({
-    type:BRAND_ACTION_TYPES.BRAND_CLEARED
+  export const brandsDeleted = (brandId) => ({
+    type:BRAND_ACTION_TYPES.BRAND_DELETED,
+    payload: brandId
   })
 
 
 
-  export function addBrandAsync(name) {
+  export function addBrandAsync(brandData) {
       return async (dispatch, getState) => {
-        const result = await brandService.addBrand(name);
+        const { token } = getState().staffLogin.auth;
+        const result = await brandService.addBrand(token, brandData);
 
         console.log(result.data); 
 
@@ -58,18 +60,18 @@ export const BRAND_ACTION_TYPES = {
   }
 
 
-  export function clearBrandsAsync() {
+  export function deleteBrandByID(id) {
     return async (dispatch, getState) => {
-      const result = await brandService.clearBrands()
+      const { token } = getState().staffLogin.auth;
+      const result = await brandService.deleteBrands(token, id)
 
-      if (result.isResultOk() && result.data.succeded) {
-        console.log("Brands cleared");
-        // fetch user again again
-        // dispatch(loggedOut());
-        dispatch(brandsCleared());
-      } else {
-        // display error notification
+      if (result.isResultOk() && result.data.success) {
+        console.log("Brand deleted");
+        dispatch(brandsDeleted(id));
+
+      } else { 
         console.log("error");
+
         return;
       }
     };

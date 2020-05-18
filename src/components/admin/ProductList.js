@@ -71,17 +71,8 @@ export default function ProductList(){
                         <td>ItemName</td>
                         
                         <td colSpan="2">Sizes and quantites</td>
-                        <td>Brand</td>
-                        <td>Category</td>
-                        <td>Sub category</td>
-                        <td>Price</td>
-                        <td>Discount</td>
-                        <td>Color</td>
-                        <td>Tags</td>
-                        <td>Description</td>
-                        <td>Added date</td>
-                        <td>Last updated date</td>
-                        <td>Action</td>
+                     
+                        <td>Actions</td>
 
                      </tr>
 
@@ -100,24 +91,15 @@ export default function ProductList(){
                                    {product.sizeQty && product.sizeQty.map(sizes => (
                                         <p>{sizes.qty}</p>
                                     ))}</td>
-                                   <td>{product.brand}</td>
-                                   <td>{product.category}</td>
-                                   <td>{product.subCategory}</td>
-                                   <td>{product.price}</td>
-                                   <td>{product.discount}</td>
-                                   <td>{product.colors}</td>
-                                   <td>{product.tags}</td>
-                                   <td>{product.description}</td>
-                                   <td>{product.addedDate}</td>
-                                   <td>{product.updatedDate}</td>
+                               
                                    <td>
-                                   <button className="button buttonView" onClick={() => onOpenViewModal(product._id)}>VIEW</button>
+                                   <button className="button buttonView" onClick={() => onOpenViewModal(product._id)}><i className="fa fa-eye"></i> VIEW</button>
                                    <Modal open={openView} onClose={onCloseViewModal} center>
                                      <div>
                                        <ViewProduct pid = {selectedId}/>
                                      </div>
                                    </Modal>
-                                   <button className="button buttonEdit" onClick={() => onOpenUpdateModal(product._id)}>EDIT</button>
+                                   <button className="button buttonEdit" onClick={() => onOpenUpdateModal(product._id)}><i className="fa fa-pencil"></i> EDIT</button>
                 <Modal open={open} onClose={onCloseUpdateModal} center>
                                   
                     <div><AdminUpdateProductForm 
@@ -155,7 +137,7 @@ export default function ProductList(){
                                     onAddBrandClick = {(bname) => dispatch(addBrandAsync(bname,history)) }/></div>
                                     </Modal>
 
-                                        <button class="button buttonDelete" onClick={() => deleteProducts(product._id)} >Delete</button> 
+                                        <button class="button buttonDelete" onClick={() => deleteProducts(product._id)} ><i className="fa fa-trash"></i> DELETE</button> 
                                         
                                           
                                     </td>
