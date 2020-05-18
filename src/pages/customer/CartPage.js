@@ -11,11 +11,20 @@ const CartItem = ({ product, size, qty }) => {
 
   return (
     <div className=" card flex">
-      <div>Product: {product.name}</div>
 
-      <div>Size: {size}</div>
+      <div className>
 
-      <div>Quantity: {qty}</div>
+        <div>
+
+        </div>
+
+        <div>Product: {product.name}</div>
+
+        <div>Size: {size}</div>
+
+        <div>Quantity: {qty}</div>
+
+      </div>
 
       <div>
         <button onClick={handleRemoveClick}>remove</button>

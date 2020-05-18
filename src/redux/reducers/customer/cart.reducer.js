@@ -10,7 +10,7 @@ import { CART_ACTION_TYPES } from "../../actions/customer/cart.actions";
 */
 
 const initialState = {
-  products: [],
+  items: [],
 };
 
 export const cart = (state = initialState, action) => {
@@ -23,7 +23,7 @@ export const cart = (state = initialState, action) => {
 
     case CART_ACTION_TYPES.CART_ITEMS_LOAD_SUCCESS:
       return {
-        products: action.payload,
+        items: action.payload,
       };
 
     case CART_ACTION_TYPES.CART_ITEMS_LOAD_FAILURE:
@@ -41,12 +41,12 @@ export const cart = (state = initialState, action) => {
 
     case CART_ACTION_TYPES.ADD_ITEM_TO_CART_SUCCESS:
       return {
-        products: [...state.products, action.payload],
+        items: [...state.items, action.payload],
       };
 
     case CART_ACTION_TYPES.ADD_ITEM_TO_CART_FAILURE:
       return {
-        products: state.products,
+        items: state.items,
         errorMsg: action.payload,
       };
 
@@ -59,14 +59,14 @@ export const cart = (state = initialState, action) => {
 
     case CART_ACTION_TYPES.UPDATE_ITEM_OF_CART_SUCCESS:
       return {
-        products: state.products.map((product) =>
-          product._id === action.payload.product._id ? action.payload : product
+        items: state.items.map((item) =>
+          item._id === action.payload._id ? action.payload : item
         ),
       };
 
     case CART_ACTION_TYPES.UPDATE_ITEM_OF_CART_FAILURE:
       return {
-        products: state.products,
+        items: state.items,
         errorMsg: action.payload,
       };
 
@@ -79,20 +79,20 @@ export const cart = (state = initialState, action) => {
 
     case CART_ACTION_TYPES.DELETE_ITEM_FROM_CART_SUCCESS:
       return {
-        products: state.products.filter(
+        items: state.items.filter(
           (productEntry) => productEntry.product._id !== action.payload
         ),
       };
 
     case CART_ACTION_TYPES.DELETE_ITEM_FROM_CART_FAILURE:
       return {
-        products: state.products,
+        items: state.items,
         errorMsg: action.payload,
       };
 
     case CART_ACTION_TYPES.CLEAR_CART_SUCCESS:
       return {
-        products: [],
+        items: [],
       };
 
     case CART_ACTION_TYPES.CLEAR_CART_FAILURE:

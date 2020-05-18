@@ -11,6 +11,8 @@ import CustomerDashboardSideBar from "../../components/customer/CustomerDashboar
 import CartPage from "./CartPage";
 import ProductPage from "./ProductPage";
 import { loadCartAsync } from "../../redux/actions/customer/cart.actions";
+import ProductListPage from "./ProductListPage";
+import FloatingCart from "./FloatingCart";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.customer.token);
@@ -22,13 +24,13 @@ function PrivateRoute({ children, ...rest }) {
         token !== null ? (
           children
         ) : (
-          <Redirect
-            to={{
-              pathname: ROUTE_PATHS.CUSTOMER_LOGIN,
-              state: { from: location },
-            }}
-          />
-        )
+            <Redirect
+              to={{
+                pathname: ROUTE_PATHS.CUSTOMER_LOGIN,
+                state: { from: location },
+              }}
+            />
+          )
       }
     />
   );
@@ -41,6 +43,7 @@ export default function Homepage() {
   const token = useSelector((state) => state.customer.token);
 
   useEffect(() => {
+    console.log('homepage')
     if (token !== null) {
       // customer logged in
       // load cart and wishlist
@@ -60,9 +63,11 @@ export default function Homepage() {
             {location.pathname.includes(ROUTE_PATHS.CUSTOMER_DASHBOARD) ? (
               <CustomerDashboardSideBar />
             ) : (
-              <CategoryBar />
-            )}
+                <CategoryBar />
+              )}
           </div>
+
+          <FloatingCart />
 
           <div className="page-content-wrap">
             <div className="page">
@@ -74,9 +79,9 @@ export default function Homepage() {
                   <CustomerDashboardPage />
                 </PrivateRoute>
 
-                <PrivateRoute path={ROUTE_PATHS.CUSTOMER_CART}>
+                {/* <PrivateRoute path={ROUTE_PATHS.CUSTOMER_CART}>
                   <CartPage />
-                </PrivateRoute>
+                </PrivateRoute> */}
 
                 <Route path={`${ROUTE_PATHS.CUSTOMER_PRODUCT}/:productId`}>
                   <ProductPage />
@@ -84,6 +89,10 @@ export default function Homepage() {
 
                 <Route path={ROUTE_PATHS.CUSTOMER_PRODUCT_SINGLE} name="id">
                   <ProductPage />
+                </Route>
+
+                <Route path="*">
+                  <ProductListPage />
                 </Route>
               </Switch>
             </div>

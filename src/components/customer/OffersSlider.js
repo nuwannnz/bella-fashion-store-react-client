@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ItemsCarousel from "react-items-carousel";
 import { productsLoadedAsync } from "../../redux/actions/admin-panel/product.actions";
 import "../../styles/offers.css";
-import PrdouctCard from "./PrdouctCard";
+import {ProductInfoCard} from "../../pages/customer/ProductListPage";
 
 export default function OffersSlider() {
   const dispatch = useDispatch();
@@ -52,16 +52,8 @@ export default function OffersSlider() {
       >
         {obj.map((product) => (
           <div>
-            <PrdouctCard
-            id = {product._id}
-              image={product.images[0]}
-              name={product.name}
-              price={product.price}
-              totalPrice={totalPrice(
-                product.discount,
-                product.price
-              )}
-            />
+
+            <ProductInfoCard product = {product} />
           </div>
         ))}
       </ItemsCarousel>

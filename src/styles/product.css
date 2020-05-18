@@ -61,7 +61,7 @@
 }
 
 .button {
-  background-color: var(--accent-color); /* Green */
+  background-color: var(--accent-color); 
   border: none;
   border-radius: 1em;
   color: white;
