@@ -13,6 +13,9 @@ import ProductDashboardPage from "./pages/admin-panel/product/AdminProductPage";
 import ProductPage from "./pages/customer/ProductPage";
 import OffersSlider from "./components/customer/OffersSlider";
 
+
+
+
 function AppShell() {
   return (
     <div className="app-wrap flex flex-r">
@@ -25,7 +28,8 @@ function AppShell() {
             </Provider>
           </Route>
 
-          {/* <LoginForm /> */}
+
+          {/*<LoginForm />*/}
 
           <Route path={ROUTE_PATHS.CUSTOMER_SHELL}>
             <Provider store={customerStore}>

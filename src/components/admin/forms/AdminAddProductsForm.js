@@ -5,6 +5,7 @@ import { isEmpty } from "../../../helpers/input-validation.helper";
 import TextBox from '../../common/TextBox';
 import AccentButton from '../../common/AccentButton';
 import { brandsLoadedAsync } from '../../../redux/actions/admin-panel/brand.actions';
+import { categoriesAsync } from '../../../redux/actions/admin-panel/category.actions'
 import { clearProductsAddedSuccessMsg } from '../../../redux/actions/admin-panel/product.actions';
 import Files from 'react-butterfiles';
 import { ChromePicker } from 'react-color'
@@ -20,7 +21,8 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
 
     const dispatch = useDispatch();
     const brands = useSelector(state => state.brand.brands);
-
+    const categories = useSelector(state => state.category.categories )
+    console.log(categories)
     const errorMsg = useSelector(state => state.product.errorMsg);
     const successMsg = useSelector(state => state.product.successMsg)
 
@@ -30,14 +32,15 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
   
 
    const [showColorPicker, setshowColorPicker] = useState(false) 
+   
 
    
     const [name, setName] = useState("");
     const [size, setSize] = useState("");
     const [qty, setQty] = useState("");
     const [brand, setBrand] = useState("");
-    const [category, setCategory] = useState("");
-    const [subCategory, setSubCategory] = useState("");
+    const [category, setCategory] = useState("-1");
+    const [subCategory, setSubCategory] = useState("-1");
     const [price, setPrice] = useState("");
     const [discount, setDiscount] = useState("");
     const [colors, setColors] = useState("#000000");
@@ -46,6 +49,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
     const [sizeQty, setSizeQty] = useState([])
     console.log(sizeQty)
     const [images, setImages] = useState([]);
+    const [subSelectedCategories, setSubCategories] = useState([{_id:'', subcategory:[{_id:'', name:''}], name: ''}]);
 
     const [bname, setBrandname] = useState("");
 
@@ -63,6 +67,25 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
         }
     }
 
+        const changeSubs = () => {
+            const id = category
+            console.log("id is "+id)
+            const _selectedProduct = categories.find(p => p._id === id);
+            setSubCategories(_selectedProduct);
+        
+        }
+        
+            
+
+        console.log(subSelectedCategories)
+        
+        // _selectedCategory.map(subs => (
+        //     <div>
+        //     {setSubCategories(...subSelectedCategories,subs.subcategory)}
+        //     </div>
+        // ))
+		
+   
     
 
 
@@ -85,7 +108,10 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
     useEffect(() => {
         dispatch(brandsLoadedAsync());
         dispatch(clearProductsAddedSuccessMsg());
-        
+    }, [])
+
+    useEffect(() => {
+        dispatch(categoriesAsync())
     }, [])
 
     
@@ -114,7 +140,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
 
         if(index != -1) {
             newArray.splice(index, 1);
-            setSizeQty(newArray);
+            setSizeQty([...newArray]);
         }
 
     }
@@ -340,10 +366,11 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
 
                         <div className="select">
 
-                            <select id="leave" onChange={e => { setCategory(e.target.value); console.log(e.target.value) }}>
+                            <select id="leave" onChange={e => { setCategory(e.target.value); console.log(e.target.value); changeSubs() }}>
                             <option value="-1">- pick a category -</option>
-                                <option value="Mens">Mens</option>
-                                <option value="Womens">Womens</option>
+                                {categories.map( category => (
+                                    <option value={category._id}>{category.name}</option>
+                                ))}
 
                             </select>
                         </div>
@@ -352,12 +379,14 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                     <div className="col-md-6">
                         <label>Sub-Category</label>
                         <div className="select">
-                            <select id="leave" onChange={e => { setSubCategory(e.target.value); console.log(e.target.value) }}>
+                            <select id="leave" onChange={e => { setSubCategory(e.target.value); console.log(e.target.value);  }}>
                             <option value="-1">- pick a sub category -</option>
-                                <option value="Shirts">Shirts</option>
-                                <option value="Trousers">Trousers</option>
-                                <option value="Blousers">Blousers</option>
-                                <option value="Frocks">Frocks</option>
+
+                                {
+                                    category !== '-1' && categories.find(c=>c._id === category).subcategory.map(subcat => (
+                                        <option value={subcat._id}>{subcat.name}</option>
+                                   ))
+                                }
 
                             </select>
                         </div>

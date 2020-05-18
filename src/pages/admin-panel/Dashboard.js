@@ -11,6 +11,7 @@ import { getAdminPanelMenuItems } from "../../helpers/menu.helper";
 import { useUserRole, useAuthUser } from "../../hooks/admin-panel/Auth.hooks";
 import { uiIsLoading } from "../../redux/actions/ui.actions";
 import ProductDashboardPage from "./product/ProductDashboardPage";
+import { CategoriesAdmin } from "./staff/CategoriesAdmin";
 
 export default function Dashboard() {
 
@@ -21,7 +22,6 @@ export default function Dashboard() {
 
 
   const [menuItems, setMenuItems] = useState([])
-
 
   useEffect(() => {
     console.log('dashboard page');
@@ -69,6 +69,10 @@ export default function Dashboard() {
 
                 <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_PRODUCT}>
                   <ProductDashboardPage />
+                  </Route>
+                  
+                <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_CATEGORY}>
+                  <CategoriesAdmin />
                 </Route>
               </Switch>
             </div>

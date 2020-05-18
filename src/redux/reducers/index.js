@@ -8,6 +8,8 @@ import { product as customerProducts } from "./customer/product.reducer";
 import { ui } from "./ui.reducer";
 import { brand } from "./admin-panel/brand.reducer";
 import { customer } from "./customer/customer.reducer";
+import {category} from "./admin-panel/category.reducer"
+
 
 export const customerReducer = combineReducers({
   customer,
@@ -24,4 +26,6 @@ export const adminPanelReducer = combineReducers({
   userDashboard,
   product,
   brand,
+  category
 });
+
