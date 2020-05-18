@@ -79,6 +79,26 @@
   margin-top: 15px;
 }
 
+.header-btn.badge-btn {
+  position: relative;
+}
+
+.badge-btn .product-count-badge {
+  position: absolute;
+  top: -1px;
+  left: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+  padding: 4px;
+  background-color: #8c52ff;
+  color: #fff;
+  font-size: 11px;
+  min-width: 15px;
+  min-height: 15px;
+}
+
 .customer-avatar-wrap {
   position: relative;
 }

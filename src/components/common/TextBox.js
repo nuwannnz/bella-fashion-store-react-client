@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import '../../styles/common/TextBox.css';
 
-export default function TextBox({ onTextInput = null, onTextChange = null,value, label, placeholder = "", name = "textBox", type = "text", animateTitle = true, disabled = false, doSpacing = true }) {
+export default function TextBox({ onTextInput = null, onTextChange = null, label, placeholder = "", value=null, name = "textBox", type = "text", animateTitle = true, disabled = false, doSpacing = true,pattern='' }) {
     const [text, setText] = useState("");
     return (
 
@@ -16,6 +16,8 @@ export default function TextBox({ onTextInput = null, onTextChange = null,value,
                 value={value}
                 type={type}
                 name={name}
+                value={value}
+                pattern = {pattern}
                 placeholder={placeholder}
                 disabled={disabled}
                 onChange={(e) => {

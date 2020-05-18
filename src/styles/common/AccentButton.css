@@ -34,23 +34,43 @@
   }
 }
 
-
-.bella-btn, .bella-accent-btn{
-    border: 1px solid ;
-    padding: 8px 10px;
-    border-radius: 4px;
-    font-size: 15px;
-    cursor: pointer;
-    outline: none;
-    width: 100%;
+.bella-btn,
+.bella-accent-btn {
+  border: 1px solid;
+  padding: 8px 10px;
+  border-radius: 4px;
+  font-size: 15px;
+  cursor: pointer;
+  outline: none;
+  width: 100%;
 }
 
-.bella-accent-btn{
-    border-color: var(--accent-color);
-    background-color: var(--accent-color);
-    color: var(--accent-font-color);
+.bella-accent-btn:disabled {
+  color: #aaa;
+  background-color: #9865ff;
 }
 
-.bella-accent-btn:hover{
-    background-color: var(--accent-color-hover);
+.bella-btn::first-letter,
+.bella-accent-btn::first-letter {
+  text-transform: capitalize;
+}
+
+.bella-accent-btn {
+  border-color: var(--accent-color);
+  background-color: var(--accent-color);
+  color: var(--accent-font-color);
+}
+
+.bella-accent-btn:hover {
+  background-color: var(--accent-color-hover);
+}
+
+.bella-accent-btn.secondary {
+  border-color: #ddd;
+  background-color: #ddd;
+  color: #333;
+}
+
+.bella-accent-btn.secondary:hover {
+  background-color: #aaa;
 }

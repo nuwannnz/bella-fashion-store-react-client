@@ -1,28 +1,34 @@
 import { combineReducers } from "redux";
-import { cart } from "./cart.reducer";
+import { cart } from "./customer/cart.reducer";
 import { staffLogin } from "./admin-panel/login/staff.reducer";
 import { notification } from "./admin-panel/notification.reducer";
+import { userDashboard } from "./admin-panel/user-dashboard";
 import { ui } from "./ui.reducer";
-<<<<<<< HEAD
+
 import {category} from "./admin-panel/category.reducer"
+import {category as customerCat} from "./customer/customer.category.reducer"
 
+import { product } from "./admin-panel/product.reducer";
+import { brand } from "./admin-panel/brand.reducer";
 
-export const customerReducer = combineReducers({
-=======
 import { customer } from "./customer/customer.reducer";
-
 
 export const customerReducer = combineReducers({
   customer,
->>>>>>> 0a32cacffb0bf362a5238e5eb7efdb21bea55a6e
   cart,
-  ui
+  ui,
+  brand,
+  product,
+  category:customerCat
 });
 
 export const adminPanelReducer = combineReducers({
   staffLogin,
   notification,
   category,
-  ui
+  ui,
+  userDashboard,
+  product,
+  brand,
 });
 

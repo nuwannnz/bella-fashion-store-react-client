@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import {categoriesAsync} from '../../redux/actions/customer/customer.category.actions'
 import "../../styles/CategoryBar.css";
 
 const SubCategoryBtn = ({ index, subCategory, onClick, selected }) => {
@@ -11,6 +13,7 @@ const SubCategoryBtn = ({ index, subCategory, onClick, selected }) => {
     </div>
   );
 };
+
 
 const CategoryButton = ({
   index,
@@ -40,7 +43,7 @@ const CategoryButton = ({
       <span>{category.name}</span>
 
       <div className={`sub-category-list`}>
-        {category.subCategories.map((s, i, a) => (
+        {category.subcategory.map((s, i, a) => (
           <SubCategoryBtn
             key={i}
             index={i}
@@ -55,7 +58,7 @@ const CategoryButton = ({
 };
 
 export default function CategoryBar() {
-  const [categories, setCategories] = useState([
+  /*const [categories, setCategories] = useState([
     {
       name: "women",
       subCategories: [
@@ -89,7 +92,15 @@ export default function CategoryBar() {
         { name: "T-Shirts" },
       ],
     },
-  ]);
+  ]);*/
+const dispatch = useDispatch();
+const categories = useSelector(state => state.category.categories);
+console.log(categories)
+
+useEffect(()=>{
+    dispatch(categoriesAsync());
+
+}, [])
 
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(-1);
   const [selectedSubCategoryIndex, setSelectedSubCategoryIndex] = useState(-1);
@@ -97,7 +108,7 @@ export default function CategoryBar() {
   return (
     <div className="category-bar">
       <div className="category-list">
-        {categories.map((category, i, a) => (
+        { categories && categories.map((category, i, a) => (
           <CategoryButton
             key={i}
             index={i}

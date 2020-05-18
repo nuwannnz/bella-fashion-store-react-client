@@ -29,7 +29,7 @@ function PrivateRoute({ children, ...rest }) {
 
 export default function AdminPanelShell() {
 
-  /*const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const hasAdminChecked = useSelector((state) => state.staffLogin.ui.checkedHasAdmin);
   const verifyedToken = useSelector((state) => state.staffLogin.auth.tokenVerified);
@@ -59,7 +59,7 @@ export default function AdminPanelShell() {
 
     }
 
-  });*/
+  });
 
 
   return (
