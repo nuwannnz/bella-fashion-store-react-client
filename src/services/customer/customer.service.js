@@ -169,3 +169,37 @@ export const deleteCustomerAddress = async (token, addressId) => {
         return result;
       }
 };
+
+export const updateCustomerInfo = async (token, customerInfoToUpdate) => {
+    console.log("HI I'm front service");
+
+    const path = `${API_HOST}/customer`;
+    console.log("Hi, I'm path");
+    console.log(path);
+
+    const data = { customerInfoToUpdate };
+    
+    const config = getAuthHeader(token);
+    console.log("Hi, I'm config");
+    console.log(config);
+
+    const result = new APIResult();
+    console.log("Hi, I'm result");
+    console.log(result);
+
+    try {
+        console.log("Hi, I'm data");
+        console.log(data);
+        const response = await axios.patch(path, data, config);
+        console.log("Hi, I'm response");
+        console.log(response);
+
+        result.data = response.data;
+        
+        return result;
+    } catch(error) {
+        logger.error(`Error in API call => ${path}`);
+        result.setError(error);
+        return result;
+    }
+};

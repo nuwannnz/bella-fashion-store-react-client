@@ -3,6 +3,7 @@ import { UI_ACTION_TYPES } from "../actions/ui.actions";
 const initialState = {
   isLoading: false,
   mobileSideBarOpened: false,
+  cartBarOpened: false
 };
 
 export const ui = (state = initialState, action) => {
@@ -18,6 +19,12 @@ export const ui = (state = initialState, action) => {
         ...state,
         mobileSideBarOpened: !state.mobileSideBarOpened,
       };
+
+    case UI_ACTION_TYPES.CART_BAR_TOGGLE:
+      return {
+        ...state,
+        cartBarOpened: !state.cartBarOpened
+      }
 
     default:
       return state;

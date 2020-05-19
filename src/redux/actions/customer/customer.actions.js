@@ -30,7 +30,11 @@ export const CUSTOMER_ACTION_TYPES = {
 
     UPDATE_ADDRESS_REQUEST: "UPDATE_ADDRESS_REQUEST",
     UPDATE_ADDRESS_SUCCESS: "UPDATE_ADDRESS_SUCCESS",
-    UPDATE_ADDRESS_FAILURE: "UPDATE_ADDRESS_FAILURE"
+    UPDATE_ADDRESS_FAILURE: "UPDATE_ADDRESS_FAILURE",
+
+    UPDATE_CUSTOMER_INFO_REQUEST: "UPDATE_CUSTOMER_INFO_REQUEST",
+    UPDATE_CUSTOMER_INFO_SUCCESS: "UPDATE_CUSTOMER_INFO_SUCCESS",
+    UPDATE_CUSTOMER_INFO_FAILURE: "UPDATE_CUSTOMER_INFO_FAILURE"
 };
 
 // action creators
@@ -295,3 +299,38 @@ export function updateCustomerAddressAsync( addressId, addressDto) {
     };
   }
 };
+
+export function updateCustomerInfoAsync(customerInfo) {
+  return async (dispatch, getState) => {
+    dispatch(request());
+    const { token } = getState().customer;
+
+    const result = await customerService.updateCustomerInfo(token, customerInfo);
+
+    if(result.isResultOk()) {
+      dispatch(success(result.data));
+    } else {
+      dispatch(failure(result.errorMessage));
+    }
+  };
+
+  function request() {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_CUSTOMER_INFO_REQUEST
+    };
+  }
+
+  function success(payload) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_CUSTOMER_INFO_SUCCESS,
+      payload
+    };
+  }
+
+  function failure(errorMsg) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_CUSTOMER_INFO_FAILURE,
+      payload: errorMsg
+    };
+  }
+}

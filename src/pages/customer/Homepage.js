@@ -14,6 +14,8 @@ import { loadCartAsync } from "../../redux/actions/customer/cart.actions";
 import CustomerDashboardAddressPage from "./CustomerDashboardAddressPage";
 import CustomerOrderDashboardPage from "./CustomerOrderDashboardPage";
 import CustomerDashboardDetailsPage from "./CustomerDashboardDetailPage";
+import ProductListPage from "./ProductListPage";
+import FloatingCart from "./FloatingCart";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.customer.token);
@@ -25,13 +27,13 @@ function PrivateRoute({ children, ...rest }) {
         token !== null ? (
           children
         ) : (
-          <Redirect
-            to={{
-              pathname: ROUTE_PATHS.CUSTOMER_LOGIN,
-              state: { from: location },
-            }}
-          />
-        )
+            <Redirect
+              to={{
+                pathname: ROUTE_PATHS.CUSTOMER_LOGIN,
+                state: { from: location },
+              }}
+            />
+          )
       }
     />
   );
@@ -63,9 +65,11 @@ export default function Homepage() {
             {location.pathname.includes(ROUTE_PATHS.CUSTOMER_DASHBOARD) ? (
               <CustomerDashboardSideBar />
             ) : (
-              <CategoryBar />
-            )}
+                <CategoryBar />
+              )}
           </div>
+
+          <FloatingCart />
 
           <div className="page-content-wrap">
             <div className="page">
@@ -89,6 +93,10 @@ export default function Homepage() {
 
                 <Route path={ROUTE_PATHS.CUSTOMER_PRODUCT}>
                   <ProductPage />
+                </Route>
+
+                <Route path="*">
+                  <ProductListPage />
                 </Route>
               </Switch>
             </div>

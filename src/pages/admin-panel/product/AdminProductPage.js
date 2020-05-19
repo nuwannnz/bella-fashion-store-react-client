@@ -1,4 +1,4 @@
-import React, { useState }from 'react'
+import React, { useState } from 'react'
 import '../../../styles/product.css'
 import AdminAddProductsForm from "../../../components/admin/forms/AdminAddProductsForm";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,64 +20,46 @@ export default function ProductDashboardPage() {
     const errorMsg = useSelector(state => state.staffLogin.ui.errorMsg);
     const isLoading = useSelector(state => state.staffLogin.ui.isLoading);
 
-    const[open,setOpen] = useState("");
-  
-    
+    const [open, setOpen] = useState("");
+
+
     const onOpenModal = () => {
         setOpen(true);
-      };
-     const onCloseModal = () => {
+    };
+    const onCloseModal = () => {
         setOpen(false);
-      };
-   
+    };
 
 
-    
-        return (
-            <div className="container-fluid">
-                <h1>Admin-Product Page</h1>
-                <hr />
-                <button className="button buttonAdd" onClick={onOpenModal}>ADD NEW PRODUCT TO THE SYSTEM</button>
-                <Modal open={open} onClose={onCloseModal} center>
-                    <div><AdminAddProductsForm
-                        errorMsg={errorMsg}
-                         onAddProductClick={( 
-                            name,
-                            sizeQty,
-                            brand,
-                            category,
-                            subCategory,
-                            price,
-                            discount,
-                            colors,
-                            tags,
-                            description
-                        ) =>
-                            dispatch(addProductAsync(
-                                name,
-                                sizeQty,
-                                brand,
-                                category,
-                                subCategory,
-                                price,
-                                discount,
-                                colors,
-                                tags,
-                                description, history
 
-                                
-                            ))}
-                            
-                            onAddBrandClick = {(bname) => dispatch(addBrandAsync(bname,history)) }/></div>
-                    </Modal>
-                    <hr />
-                    <br />
-                <ProductList />
-               
-                
-               
- 
-            </div>
-        )
-    
+
+    return (
+        <div className="container-fluid">
+            <h1>Admin-Product Page</h1>
+            <hr />
+            <button className="button buttonAdd" onClick={onOpenModal}>ADD NEW PRODUCT TO THE SYSTEM</button>
+            <Modal open={open} onClose={onCloseModal} center>
+                <div><AdminAddProductsForm
+                    errorMsg={errorMsg}
+                    onAddProductClick={(
+                        productData
+                    ) =>
+                        dispatch(addProductAsync(
+                            productData, history
+
+
+                        ))}
+
+                    onAddBrandClick={(bname) => dispatch(addBrandAsync(bname, history))} /></div>
+            </Modal>
+            <hr />
+            <br />
+            <ProductList />
+
+
+
+
+        </div>
+    )
+
 }

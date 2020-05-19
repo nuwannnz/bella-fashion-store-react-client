@@ -106,7 +106,7 @@ export default function CustomerDashboardAddressForm( {closeFormClickHandler, ad
                         type="text" 
                         placeholder="First Name"
                         value={fName}
-                        onInput={handleFNameChanged} 
+                        onChange={handleFNameChanged} 
                     />
                     <input 
                         type="text" 
