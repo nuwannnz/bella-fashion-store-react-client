@@ -1,0 +1,106 @@
+.checkout-wrapper {
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 50px;
+  min-width: 650px;
+  background-color: #fff;
+  z-index: 999;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.checkout-overlay .floating-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.checkout-header {
+  padding: 20px;
+  position: relative;
+}
+
+.checkout-header h2 {
+  text-align: center;
+}
+
+.checkout-wrapper .close-btn {
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #333;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.checkout-step-counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px 20px 20px;
+}
+
+.checkout-step-counter .step-number {
+  display: inline-block;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  background-color: #ddd;
+  position: relative;
+}
+
+.step-number .step-label {
+  position: absolute;
+  top: 140%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #aaa;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+.step-number.active .step-label {
+  color: var(--accent-color);
+}
+
+.checkout-step-counter .step-bar {
+  display: inline-block;
+  width: 100px;
+  height: 2px;
+  background-color: #eee;
+}
+
+.step-number.active,
+.step-bar.active {
+  background-color: var(--accent-color);
+}
+
+.checkout-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.continue-button {
+  border: none;
+  border-radius: 14px;
+  padding: 10px 40px;
+  background-color: var(--accent-color);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none !important;
+  cursor: pointer;
+}
+
+.continue-button:hover {
+  background-color: var(--accent-color-hover);
+}
+
+.continue-button span:first-of-type {
+  margin-right: 10px;
+}
