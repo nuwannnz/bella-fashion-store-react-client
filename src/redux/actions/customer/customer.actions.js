@@ -186,6 +186,8 @@ export function checkHasCustomerAsync() {
 };
 
 export function addAddressAsync(addressDto) {
+  console.log(addressDto);
+  
   return async (dispatch, getState) => {
     dispatch(request());
     const { token } = getState().customer;
@@ -221,6 +223,8 @@ export function addAddressAsync(addressDto) {
 };
 
 export function deleteAddressAsync(addressId) {
+  console.log("Delete" + addressId);
+  
   return async (dispatch, getState) => {
     dispatch(request({ id: addressId }));
     const { token } = getState().customer;
@@ -228,7 +232,7 @@ export function deleteAddressAsync(addressId) {
     const result = await customerService.deleteCustomerAddress(token, addressId);
 
     if(result.isResultOk()) {
-      dispatch(success({ id: addressId }));
+      dispatch(success(addressId));
     } else {
       dispatch(failure(result.errorMessage));
     }
@@ -258,7 +262,7 @@ export function deleteAddressAsync(addressId) {
 
 export function updateCustomerAddressAsync( addressId, addressDto) {
   return async (dispatch, getState) => {
-    dispatch(request());
+    dispatch(request(addressId));
     const { token } = getState().customer;
 
     const result = await customerService.updateCustomerAddress(token, addressId, addressDto);
@@ -270,9 +274,10 @@ export function updateCustomerAddressAsync( addressId, addressDto) {
     }
   };
 
-  function request() {
+  function request(payload) {
     return {
-      type: CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_REQUEST
+      type: CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_REQUEST,
+      payload
     };
   }
 

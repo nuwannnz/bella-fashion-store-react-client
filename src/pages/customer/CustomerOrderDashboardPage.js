@@ -10,10 +10,10 @@ export default function CustomerOrderDashboardPage() {
             <div className="title">
                 <h1>Orders</h1>
             </div>
-            <CustomerOrderDashboard />
-            {/* <CustomerOrderDashboardCard />
+            {/* <CustomerOrderDashboard /> */}
             <CustomerOrderDashboardCard />
-            <CustomerOrderDashboardCard /> */}
+            <CustomerOrderDashboardCard />
+            <CustomerOrderDashboardCard />
         </div>
     );
 }

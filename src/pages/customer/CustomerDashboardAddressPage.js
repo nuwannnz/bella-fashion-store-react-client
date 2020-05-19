@@ -4,12 +4,12 @@ import CustomerDashboardAddress from "../../components/customer/CustomerDashboar
 import CustomerDashboardAddressForm from "../../components/customer/CustomerDashboardAddressForm";
 import CustomerDashboardAddresses from "../../components/customer/CustomerDashboardAddresses";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCustomerAddress } from "../../services/customer/customer.service";
+
 
 export default function CustomerDashboardAddressPage() {
     const dispatch = useDispatch();
     const customers = useSelector((state) => state.customer);
-    // const loggedInAddressId = useSelector((state) => state.customer.customerInfo.addresses.id);
+    const addresses = useSelector((state) => state.customer.customerInfo.addresses);
     
     const [displayAddressForm, setDisplayAddressForm] = useState(false);
     const [addressToUpdate, setAddressToUpdate] = useState(null);
@@ -20,9 +20,7 @@ export default function CustomerDashboardAddressPage() {
         setDisplayAddressForm(!displayAddressForm);
     }
 
-    const handleDeleteClick = (address) => {
-        dispatch(deleteCustomerAddress(address._id));
-    };
+    
 
     const handleUpdateClick = (address) => {
         toggleDisplayAddressForm();
@@ -33,13 +31,24 @@ export default function CustomerDashboardAddressPage() {
         <div className="customer-address-dashboard-wrapper">
             <div className="title">
                 <h1>Addresses</h1>
-                <div className="add-address-btn">
-                    <button onClick={toggleDisplayAddressForm}>Add Address</button>
-                </div>
+                {
+                    addresses.length > 0 && (
+                        <div className="add-address-btn">
+                            <button onClick={toggleDisplayAddressForm}>Add Address</button>
+                        </div>
+                    )
+                }
+               
             </div>
-            {/* <CustomerDashboardAddress /> */}
-            {/* <CustomerDashboardAddressForm /> */}
-            <CustomerDashboardAddresses />
+
+            {addresses.length === 0 &&  <CustomerDashboardAddress closeFormClickHandler={toggleDisplayAddressForm} />}
+            
+           
+            {displayAddressForm && <CustomerDashboardAddressForm closeFormClickHandler={toggleDisplayAddressForm}  addressToUpdate={addressToUpdate}/>}
+            
+            {addresses.length > 0 && <CustomerDashboardAddresses customerAddresses={addresses} handleUpdateClick={handleUpdateClick} /> }
+
+            
         </div>
     );
 }

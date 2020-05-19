@@ -15,7 +15,6 @@ export default function AccentButton({
           onButtonClick();
         }
       }}
-      disabled={isLoading}
     >
       <span>{text}</span>
     </button>

@@ -117,7 +117,7 @@
     height: 30vh;
     border: none;
     background-color: #efefef;
-    border-radius: 10px;
+    border-radius: 20px;
     display: flex;
     position: relative;
 }
@@ -134,8 +134,8 @@
     width: 14vw;
     height: 30vh;
     background-color: blueviolet;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
 }
 
 .order-card .order-details {

@@ -46,6 +46,7 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    zIndex: "99999"
   },
 
   actionWrapper: {

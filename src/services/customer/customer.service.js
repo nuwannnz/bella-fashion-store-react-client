@@ -103,9 +103,9 @@ export const verifyStoredToken = async () => {
     }
 };
 
-export const addAddress = async (token, customerDto) => {
-    const path = `${API_HOST}/address`;
-    const data = { ...customerDto };
+export const addAddress = async (token, addressDto) => {
+    const path = `${API_HOST}/customer/address`;
+    const data = { addressDto };
     const config = getAuthHeader(token);
 
     const result = new APIResult();
@@ -121,11 +121,24 @@ export const addAddress = async (token, customerDto) => {
         return result;
     }
 };
-
+/**
+ * 
+ * const a = {id: 1, name:'hkgjh'}
+ * 
+ * const b = {...a}
+ * b = { id: 1, name:'hkgjh'}
+ * 
+ * 
+ * const b = {a}
+ * 
+ * b{
+ *   a:{id: 1, name:'hkgjh'}
+ * }
+ */
 export const updateCustomerAddress = async (token, addressId, addressDto) => {
-    const path = `${API_HOST}/address/${addressId}`;
+    const path = `${API_HOST}/customer/address/${addressId}`;
     const config = getAuthHeader(token);
-    const data = { ...addressDto };
+    const data = { addressDto };
     const result = new APIResult();
 
     try {
@@ -141,7 +154,7 @@ export const updateCustomerAddress = async (token, addressId, addressDto) => {
 };
 
 export const deleteCustomerAddress = async (token, addressId) => {
-    const path = `${API_HOST}/address/${addressId}`;
+    const path = `${API_HOST}/customer/address/${addressId}`;
     const config = getAuthHeader(token);
     const result = new APIResult();
 

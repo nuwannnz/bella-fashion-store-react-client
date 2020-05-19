@@ -13,6 +13,7 @@ import ProductPage from "./ProductPage";
 import { loadCartAsync } from "../../redux/actions/customer/cart.actions";
 import CustomerDashboardAddressPage from "./CustomerDashboardAddressPage";
 import CustomerOrderDashboardPage from "./CustomerOrderDashboardPage";
+import CustomerDashboardDetailsPage from "./CustomerDashboardDetailPage";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.customer.token);
@@ -69,6 +70,9 @@ export default function Homepage() {
           <div className="page-content-wrap">
             <div className="page">
               <Switch>
+                <PrivateRoute path={ROUTE_PATHS.CUSTOMER_DASHBOARD_ACCOUNT_INFO}>
+                  <CustomerDashboardDetailsPage />
+                </PrivateRoute>
                 <PrivateRoute path={ROUTE_PATHS.CUSTOMER_DASHBOARD_ADDRESS}>
                   <CustomerDashboardAddressPage />
                 </PrivateRoute>

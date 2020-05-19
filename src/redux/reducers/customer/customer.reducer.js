@@ -115,6 +115,32 @@ export const customer = (state = initialState, action) => {
           ...state,
           deleteAddressError: action.payload
         }; 
+      
+      case CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_REQUEST:
+        return {
+          ...state,
+          updatingAddressId: action.payload
+        };
+        
+      case CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_SUCCESS:     
+      const customerInfoToUpdate = state.customerInfo;
+      customerInfoToUpdate.addresses = customerInfoToUpdate.addresses.map(addr => {
+        if(addr._id === action.payload._id){
+          return action.payload
+        }
+        return addr
+      })
+        return {
+          ...state,
+          customerInfo: customerInfoToUpdate
+        }; 
+      
+      case CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_FAILURE: 
+        return {
+          ...state,
+          updateErrorMsg: action.payload
+      };  
+
       default:
         return state;
     }
