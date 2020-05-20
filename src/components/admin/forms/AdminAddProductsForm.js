@@ -10,9 +10,11 @@ import { clearProductsAddedSuccessMsg } from '../../../redux/actions/admin-panel
 import Files from 'react-butterfiles';
 import { ChromePicker } from 'react-color'
 import InputColor from 'react-input-color';
+import '../../../styles/common/SelectBox.css'
 
 import '../../../styles/common/IconButton.css'
 import SuccessMessage from '../../common/SuccessMessage';
+import { sizesLoadedAsync } from '../../../redux/actions/admin-panel/size.actions';
 
 
 
@@ -21,19 +23,16 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
 
     const dispatch = useDispatch();
     const brands = useSelector(state => state.brand.brands);
-    const categories = useSelector(state => state.category.categories )
+    const categories = useSelector(state => state.category.categories );
+    const sizes = useSelector(state => state.size.sizes );
     console.log(categories)
     const errorMsg = useSelector(state => state.product.errorMsg);
     const successMsg = useSelector(state => state.product.successMsg)
 
     console.log(successMsg)
-
-    const [count, setCount] = useState(-1);
   
-
    const [showColorPicker, setshowColorPicker] = useState(false) 
-   
-
+   const [addSizes, setAddSizes] = useState([])
    
     const [name, setName] = useState("");
     const [size, setSize] = useState("");
@@ -67,6 +66,22 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
         }
     }
 
+    console.log(addSizes)
+
+    const [enteredSize, setEnteredSize] = useState("");
+
+    const AddSizes = () => {
+        if(isEmpty(enteredSize)) {
+            setInvalidInput("You should enter somthing!");
+        } if(enteredSize === "0") {
+            setAddSizes(['XS','S','M','L','XL'])
+            setEnteredSize("")
+        } else {
+            setAddSizes([...addSizes, enteredSize])
+            setEnteredSize("")
+        }
+    }
+
         const changeSubs = () => {
             const id = category
             console.log("id is "+id)
@@ -75,20 +90,6 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
         
         }
         
-            
-
-        console.log(subSelectedCategories)
-        
-        // _selectedCategory.map(subs => (
-        //     <div>
-        //     {setSubCategories(...subSelectedCategories,subs.subcategory)}
-        //     </div>
-        // ))
-		
-   
-    
-
-
 
     const [invalidInput, setInvalidInput] = useState("");
     const [validInput, setValidInput] = useState("");
@@ -107,6 +108,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
     }
     useEffect(() => {
         dispatch(brandsLoadedAsync());
+        dispatch(sizesLoadedAsync())
         dispatch(clearProductsAddedSuccessMsg());
     }, [])
 
@@ -270,27 +272,23 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                 <div className="col-md-6">
                         <label>Select Size :</label>
 
-                        <div className="select">
-
-                            <select id="leave" onChange={e => { setSize(e.target.value); console.log(e.target.value) }}>
-                                <option value="-1">-pick a size-</option>
-                                <option value="XS">Extra-Small</option>
-                                <option value="S">Small</option>
-                                <option value="M">Medium</option>
-                                <option value="L">Large</option>
-                                <option value="XL">Extra-Large</option>
-                                <option value="FressSize">FreeSize</option>
-
+                        <div className="select-box">
+                            <select onChange={e => { setSize(e.target.value); console.log(e.target.value) }}>
+                                <option className="default-option" value="-1">- pick a size -</option>
+                                {sizes && sizes.map(sizes => (
+                                    <option value={sizes.name}>{sizes.name}</option>
+                                ))}
                             </select>
                         </div>
 
                     </div>
+                 
                     <div className="col-md-5">
-                    <TextBox 
-                    name="product_qty"
-                    placeholder="You can enter quatity here"
-                    label="Prodcut quantity"
-                    onTextChange={text => setQty(text)} />
+                        <TextBox 
+                        name="product_qty"
+                        placeholder="You can enter quatity here"
+                        label="Product quantity"
+                        onTextChange={text => setQty(text)} />
                     </div>
                     <div className="col-md-1 icon-btn">
                     <button class="iconBtn" onClick={submitSizeQty}><i class="fa fa-plus"></i></button>
@@ -327,13 +325,13 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                 
                 <hr />
                 <div className="row">
-                    <div className="col-md-6">
-                        <label>Brands :</label>
+                    <div className="col-md-12">
+                        <label>Select Brands :</label>
 
-                        <div className="select">
+                        <div className="select-box">
 
-                            <select id="leave" onChange={e => { setBrand(e.target.value); console.log(e.target.value) }}>
-                            <option value="-1">- pick a brand -</option>
+                            <select onChange={e => { setBrand(e.target.value); console.log(e.target.value) }}>
+                            <option className="default-option"  value="-1">- pick a brand -</option>
                                 {brands && brands.map(brand => (
                                     <option value={brand.name}>{brand.name}</option>
                                 ))}
@@ -342,32 +340,17 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                        
               </div>
                 
-                <div className="col-md-6">
-                    <div className="row">
-                    <div className="col-md-9"  >
-                    <TextBox 
-                    name="product_brand"
-                    placeholder="You can add a brand here"
-                    label="Prodcut brand"
-                    onTextChange={text => setBrandname(text)} />
-                    </div>
-                    <div className="col-md-3 icon-btn">
-                    <button class="iconBtn" onClick={submitBrand}><i class="fa fa-plus"></i></button>
-                    </div>
-                  
-
-</div>
-                </div>
+             
                 </div>
                 <hr />
                 <div className="row">
                     <div className="col-md-6">
-                        <label>Category</label>
+                        <label>Select Category :</label>
 
-                        <div className="select">
+                        <div className="select-box">
 
-                            <select id="leave" onChange={e => { setCategory(e.target.value); console.log(e.target.value); changeSubs() }}>
-                            <option value="-1">- pick a category -</option>
+                            <select onChange={e => { setCategory(e.target.value); console.log(e.target.value); changeSubs() }}>
+                            <option className="default-option"  value="-1">- pick a category -</option>
                                 {categories.map( category => (
                                     <option value={category._id}>{category.name}</option>
                                 ))}
@@ -377,10 +360,10 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
 
                     </div>
                     <div className="col-md-6">
-                        <label>Sub-Category</label>
-                        <div className="select">
-                            <select id="leave" onChange={e => { setSubCategory(e.target.value); console.log(e.target.value);  }}>
-                            <option value="-1">- pick a sub category -</option>
+                        <label>Select Sub-Category :</label>
+                        <div className="select-box">
+                            <select onChange={e => { setSubCategory(e.target.value); console.log(e.target.value);  }}>
+                            <option className="default-option"  value="-1">- pick a sub category -</option>
 
                                 {
                                     category !== '-1' && categories.find(c=>c._id === category).subcategory.map(subcat => (

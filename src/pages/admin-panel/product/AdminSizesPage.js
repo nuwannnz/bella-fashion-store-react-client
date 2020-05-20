@@ -7,10 +7,12 @@ import { useHistory } from "react-router-dom";
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import '../../../styles/common/AccentButton.css';
-import { addBrandAsync } from '../../../redux/actions/admin-panel/brand.actions';
+import { addSizeAsync } from '../../../redux/actions/admin-panel/size.actions';
 import BrandList from '../../../components/admin/BrandList';
+import SizeList from '../../../components/admin/SizeList';
+import AdminAddSizesForm from '../../../components/admin/forms/AdminAddSizesForm';
 
-export default function AdminBrandPage() {
+export default function AdminSizesPage() {
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -28,14 +30,14 @@ export default function AdminBrandPage() {
 
         return (
             <div className="container-fluid">
-                <button className="button buttonAdd" onClick={onOpenModal}><i className="fa fa-plus-circle"></i> ADD NEW BRAND TO THE SYSTEM</button>
+                <button className="button buttonAdd" onClick={onOpenModal}><i className="fa fa-plus-circle"></i> ADD NEW SIZE TO THE SYSTEM</button>
                 <Modal open={open} onClose={onCloseModal} center>
-                    <div><AdminAddBrandsForm
-                          onAddBrandClick = {(productData) => dispatch(addBrandAsync(productData,history)) }/></div>
+                    <div><AdminAddSizesForm
+                          onAddSizeClick = {(sizeData) => dispatch(addSizeAsync(sizeData,history)) }/></div>
                     </Modal>
                     <hr />
                     <br />
-                <BrandList />
+                <SizeList /> 
             </div>
         )
     

@@ -1,31 +1,47 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import '../../styles/admin/ViewProduct.css'
+import { brandsLoadedAsync } from '../../redux/actions/admin-panel/brand.actions';
+import { productsLoadedAsync } from '../../redux/actions/customer/product.actions';
 
 
 export default function ViewProduct({pid}) {
 
     const products = useSelector(state => state.product.products);
+    const brands = useSelector(state => state.brand.brands);
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const [brandName, setBrandName] = useState("")
+    const [brand, setBrand] = useState([]);
+    const dispatch = useDispatch();
 
+
+    useEffect(()=>{
+        dispatch(brandsLoadedAsync());
+        dispatch(productsLoadedAsync())
+  },[products, brands])
     
     useEffect(()=>{
 		console.log(pid)
 		const id = pid;
 		const _selectedProduct = products.find(p => p._id === id);
-		setSelectedProduct(_selectedProduct);
-    }, [products])
+        setSelectedProduct(_selectedProduct);
+        setBrandName(selectedProduct && selectedProduct.brand)
+        console.log(selectedProduct)
+		const _selectedbrand = brands.find(b => b.name === brandName);
+        setBrand(_selectedbrand);
+    }, [brands, products])
+
 
         return (
             
             <div className="model-style">
-                {selectedProduct && (
+                {selectedProduct && brand && (
                     <div>
                 <div className="row">
                     <div className="text-label col-md-4"> Product Images :</div>
                     <div className="text-viewpage col-md-8">
                         {selectedProduct.images.map(image => (
-                            <img className="viewimg" src={image} ></img>
+                            <img className="viewimg" src={image}></img>
                         ))}
                     </div>
                 </div> <hr />
@@ -37,7 +53,7 @@ export default function ViewProduct({pid}) {
                 <div className="text-viewpage col-md-8">{selectedProduct.name}</div></div><hr />
                 <div className="row">
                 <div className="text-label col-md-4">Product Brand :</div>
-                <div className="text-viewpage col-md-8">{selectedProduct.brand}</div></div><hr />
+                <div className="text-viewpage col-md-8"><img className="viewimg" src={brand.images} alt={brand.name}></img></div></div><hr />
                 <div className="row">
                 <div className="text-label col-md-4">Product Category :</div>
                 <div className="text-viewpage col-md-8">{selectedProduct.subCategory}</div></div> <hr />

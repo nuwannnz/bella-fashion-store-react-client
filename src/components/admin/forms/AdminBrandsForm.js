@@ -101,9 +101,9 @@ export default function AdminAddBrandsForm({onAddBrandClick}) {
                 <div className="row">
                     <div className="col-md-12">
                         <TextBox
-                            name="product_name"
-                            placeholder="Enter Product name here"
-                            label="Prodcut name"
+                            name="Brand name"
+                            placeholder="Enter brand name here"
+                            label="Brand name"
                             onTextChange={text => setName(text)} />
                     </div>
                 </div>

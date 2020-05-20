@@ -5,7 +5,9 @@ import { productsLoadedAsync } from '../../redux/actions/customer/product.action
 import CurrencyFormat from 'react-currency-format';
 import { useLocation } from 'react-router-dom';
 import { productLoadedByIDAsync } from "../../redux/actions/admin-panel/product.actions";
+import { brandsLoadedAsync } from "../../redux/actions/admin-panel/brand.actions"
 import AddToCartButton from "./AddToCartButton";
+import '../../styles/common/SelectBox.css';
 
 export default function SingleProduct({productId}) {
   const [selected_size, setSize] = useState("");
@@ -13,25 +15,31 @@ export default function SingleProduct({productId}) {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const dispatch = useDispatch();
   const[id, setID] = useState("");
+  const [brand, setBrand] = useState([]);
+  const [brandName, setBrandName] = useState("")
+  const products = useSelector(state => state.product.products);
   
-  console.log(productId)
-	const products = useSelector(state => state.product.products);
 
   
 	useEffect(()=>{
 		dispatch(productsLoadedAsync());
-
+    dispatch(brandsLoadedAsync());
   },[])
-  
-
-	useEffect(()=>{
-		
-		setID(productId);
-		const _selectedProduct = products.find(p => p._id === id);
-		setSelectedProduct(_selectedProduct);
-		console.log(selectedProduct)
-    }, [products])
  
+  const brands = useSelector(state => state.brand.brands);
+   
+  useEffect(()=>{
+    setID(productId);
+		const _selectedProduct = products.find(p => p._id === id);
+    setSelectedProduct(_selectedProduct);
+    setBrandName(selectedProduct && selectedProduct.brand)
+    console.log(brandName)
+    const _brand = brands.find(b => b.name === brandName);
+    console.log(_brand)
+		setBrand(_brand);
+		
+    }, [brands, products])
+
 
   //   dispatch(productLoadedByIDAsync("5eb52be16177293bb4c683ba"));
 
@@ -68,19 +76,19 @@ export default function SingleProduct({productId}) {
 
             <div class="col-md-5">
 
-              <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
+              <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style={{maxHeight: '800px',maxWidth: '500px', borderRadius: '1em'}}>
+                <div class="carousel-inner" >
 
                 <div class="carousel-item active">
-                  <img className="single-img" src={selectedProduct.images[0]} class="d-block w-100" alt="..." /> {console.log("active")}
+                  <img className="single-img" style={{maxHeight: '800px',maxWidth: '500px', borderRadius: '1em'}} src={selectedProduct.images[0]} class="d-block w-100" alt={selectedProduct.name} />
                 </div>
 
                 <div class="carousel-item">
-                  <img className="single-img" src={selectedProduct.images[1]} class="d-block w-100" alt="..." /> {console.log("active")}
+                  <img className="single-img" style={{maxHeight: '800px',maxWidth: '500px', borderRadius: '1em'}} src={selectedProduct.images[1]} class="d-block w-100" alt="..." />
                 </div>
 
                 <div class="carousel-item">
-                  <img className="single-img" src={selectedProduct.images[2]} class="d-block w-100" alt="..." /> {console.log("active")}
+                  <img className="single-img"  style={{maxHeight: '800px',maxWidth: '500px' , borderRadius: '1em'}}src={selectedProduct.images[2]} class="d-block w-100" alt="..." /> 
                 </div>
                   
                   
@@ -135,21 +143,18 @@ export default function SingleProduct({productId}) {
               )}
 
               <label>Select Size</label>
-              <div className="select-single">
+              <div>
                 <select
-                  className="select-single"
-                  id="leave"
+                  className="select-box"
                   onChange={(e) => {
                     setSize(e.target.value);
                     console.log(e.target.value);
                   }}
                 >
-                   {/* <option value="S">Small</option>
-                        <option value="M">Medium</option>
-                        <option value="L">Large</option> */}
+                  <option value="-1">-pick a size -</option>
                         {
 							selectedProduct.sizeQty.map(s =>(
-							<option value={s.size}>{s.size}</option>
+							<option className="default-option" value={s.size}>{s.size}</option>
 							))
 						}
                 </select>
@@ -165,7 +170,8 @@ export default function SingleProduct({productId}) {
               </p>
               <p>
                 <b>Brand : </b>
-                {selectedProduct.brand}
+                <img className="viewimg" src={brand && brand.images} />
+                {}
               </p>
               <label>
                 <b>Quantitiy : </b>{" "}

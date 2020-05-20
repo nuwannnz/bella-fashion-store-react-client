@@ -5,8 +5,9 @@ import ProductList from "../../../components/admin/ProductList";
 import BrandList from "../../../components/admin/BrandList";
 import AdminProductPage from "./AdminProductPage";
 import AdminBrandPage from "./AdminBrandPage";
+import AdminSizesPage from "./AdminSizesPage";
 
-const tabHeaders = ["Products", "Brands"];
+const tabHeaders = ["Products", "Brands", "Sizes"];
 
 export default function ProductDashboardPage() {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
@@ -25,6 +26,8 @@ export default function ProductDashboardPage() {
         {selectedTabIndex === 0 && <AdminProductPage />}
 
         {selectedTabIndex === 1 && <AdminBrandPage />}
+
+        {selectedTabIndex === 2 && <AdminSizesPage />}
       </div>
     </div>
   );

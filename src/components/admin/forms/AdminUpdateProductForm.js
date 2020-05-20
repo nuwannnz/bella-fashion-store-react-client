@@ -5,23 +5,31 @@ import { isEmpty } from "../../../helpers/input-validation.helper";
 import TextBox from '../../common/TextBox';
 import AccentButton from '../../common/AccentButton';
 import { brandsLoadedAsync } from '../../../redux/actions/admin-panel/brand.actions';
+import { categoriesAsync } from '../../../redux/actions/admin-panel/category.actions'
 import { clearProductsUpdatedSuccessMsg } from '../../../redux/actions/admin-panel/product.actions';
 import SuccessMessage from '../../common/SuccessMessage';
+import { ChromePicker } from 'react-color'
+import '../../../styles/common/SelectBox.css'
+
+import '../../../styles/common/IconButton.css'
 
 
-export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrandClick,id}) {
+export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrandClick,pid}) {
 
     const dispatch = useDispatch();
     const brands = useSelector(state => state.brand.brands);
-
+    const categories = useSelector(state => state.category.categories );
+    const products = useSelector(state => state.product.products);
     const errorMsg = useSelector(state => state.product.errorMsg);
     const successMsg = useSelector(state => state.product.successMsg)
 
+    const [addSizes, setAddSizes] = useState([])
+    const [sizeQty, setSizeQty] = useState([])
+
     const [_id, setId] = useState("");
     const [name, setName] = useState("");
-    const [qty_small, setQtyS] = useState("");
-    const [qty_medium, setQtyM] = useState("");
-    const [qty_large, setQtyL] = useState("");
+    const [size, setSize] = useState("");
+    const [qty, setQty] = useState("");
     const [brand, setBrand] = useState("");
     const [category, setCategory] = useState("");
     const [subCategory, setSubCategory] = useState("");
@@ -30,17 +38,68 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
     const [colors, setColors] = useState("");
     const [tags, setTags] = useState("");
     const [description, setDescription] = useState("");
+    const [subSelectedCategories, setSubCategories] = useState([{_id:'', subcategory:[{_id:'', name:''}], name: ''}]);
 
     const [bname, setBrandname] = useState("");
 
-    const sizeQty = [
-        {size: "S", qty: qty_small},
-         {size: "M", qty: qty_medium},
-         {size: "L", qty: qty_large}
-     ];
+    const [selectedProduct, setSelectedProduct] = useState(null);
+
+    const submitSizeQty = () => {
+        if(isEmpty(size)) {
+            setInvalidInput("Size is required");
+        } else if(size == -1) {
+            setInvalidInput("Size is required");
+        } 
+         else if(isEmpty(qty)) {
+            setInvalidInput("quantity is required");
+        } else {
+    
+            setSizeQty([...sizeQty, {size:size, qty:qty}]);
+        }
+    }
+
+        const changeSubs = () => {
+            const id = category
+            console.log("id is "+id)
+            const _selectedProduct = categories.find(p => p._id === id);
+            setSubCategories(_selectedProduct);
+        
+        }
+
+        
+    const removeData = (index) => {
+        console.log(index)
+        const newArray = sizeQty
+
+        if(index != -1) {
+            newArray.splice(index, 1);
+            setSizeQty([...newArray]);
+        }
+
+    }
+        
+    useEffect(()=>{
+		console.log(pid)
+		const id = pid;
+		const _selectedProduct = products.find(p => p._id === id);
+        setSelectedProduct(_selectedProduct);
+        console.log(pid)
+        
+       
+    }, [pid])
+
+
+    useEffect(()=>{
+        if(selectedProduct){
+
+            const sizeInf = selectedProduct.sizeQty.map(sq => ({size: sq.size, qty: sq.qty}));
+            setSizeQty(sizeInf)
+        }
+    },[selectedProduct])
+
   
    
-
+    console.log(selectedProduct)
      const submitBrand =() => {
         if(isEmpty(bname)) {
             setInvalidInput("brand name is required");
@@ -59,6 +118,11 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
         }
     },[])
     
+    
+    useEffect(() => {
+        dispatch(categoriesAsync())
+    }, [])
+
    
 
     const [invalidInput, setInvalidInput] = useState("");
@@ -147,33 +211,62 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
                     label="Prodcut name"
                     onTextChange={text => setName(text)} />
                 </div>
-            </div>
-            <div className="row">
-                <div className="col-md-4">
-                    <TextBox 
-                    name="small_product_qty"
-                    placeholder="Enter Small Qty here"
-                    label="Prodcut Small Qty"
-                    type="number"
-                    onTextChange={text => setQtyS(text)} />
-                </div>
-             
-            
-                <div className="col-md-4">   
-                    <TextBox 
-                    name="medium_product_qty"
-                    placeholder="Enter Medium qty here"
-                    label="Prodcut medium qty"
-                    onTextChange={text => setQtyM(text)} />
-                </div>
-                <div className="col-md-4">   
-                    <TextBox 
-                    name="large_product_qty"
-                    placeholder="Enter Large qty here"
-                    label="Prodcut large qty"
-                    onTextChange={text => setQtyL(text)} />
-                </div>
-                </div>
+            </div>               
+                <hr />
+                    <div className="row">
+                <div className="col-md-6">
+                        <label>Select Size :</label>
+
+                        <div className="select-box">
+                            <select onChange={e => { setSize(e.target.value); console.log(e.target.value) }}>
+                                <option className="default-option" value="-1">- pick a size -</option>
+                                <option className="Licc">Licc</option>
+                                {addSizes.map(sizes => (
+                                    <option value={sizes}>{sizes}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                    </div>
+                 
+                    <div className="col-md-5">
+                        <TextBox 
+                        name="product_qty"
+                        placeholder="You can enter quatity here"
+                        label="Product quantity"
+                        onTextChange={text => setQty(text)} />
+                    </div>
+                    <div className="col-md-1 icon-btn">
+                    <button class="iconBtn" onClick={submitSizeQty}><i class="fa fa-plus"></i></button>
+                    </div>
+                    </div>
+                    <div className="row">
+                        <div className="table-responsive">
+                            <table className="table table-bordered">
+                                <thead className="thead-light">
+                                    <tr>
+                                        <td colSpan="3">Sizes and Quantities</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        {sizeQty && sizeQty.map((sizes, index) => (
+                                            <tr key={index}>
+                                            <td>
+                                                <p> {sizes.size}</p>
+                                            </td>
+                                        <td>
+                                            <p> {sizes.qty}</p>
+                                        </td>
+                                        <td>
+                                            <button className="button buttonDelete" onClick={() => removeData(index)}> <i className="fa fa-trash"></i> </button>
+                                        </td>
+                                            </tr> ))}
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 <div className="row">
                 <div className="col-md-6">  
                     <label>Brands :</label>
@@ -207,11 +300,13 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
                 <div className="col-md-6"> 
                     <label>Category</label>
 
-                    <div className="select">
+                    <div className="select-box">
 
                     <select id="leave" onChange={e => {setCategory(e.target.value); console.log(e.target.value)}}>
-                        <option value="Mens">Mens</option>
-                        <option value="Womens">Womens</option>
+                        <option className="default-option" value="-1">- pick a category -</option>
+                        {/* {categories && categories.map( category => (
+                                    <option value={category._id}>{category.name}</option>
+                                ))} */}
                     
                     </select>
                     </div>
@@ -219,12 +314,14 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
             </div>
                 <div className="col-md-6"> 
                     <label>Sub-Category</label>
-                    <div className="select">
+                    <div className="select-box">
                     <select id="leave" onChange={e => {setSubCategory(e.target.value); console.log(e.target.value)}}>
-                        <option value="Shirts">Shirts</option>
-                        <option value="Trousers">Trousers</option>
-                        <option value="Blousers">Blousers</option>
-                        <option value="Frocks">Frocks</option>
+                    <option className="default-option"  value="-1">- pick a sub category -</option>
+                        {/* {
+                                  categories &&  category !== '-1' && categories.find(c=>c._id === category).subcategory.map(subcat => (
+                                        <option value={subcat._id}>{subcat.name}</option>
+                                   ))
+                                } */}
 \
                     </select>
                     </div>
@@ -298,6 +395,7 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
 
                 
             </div>
+          
             </div>
                 
         )
