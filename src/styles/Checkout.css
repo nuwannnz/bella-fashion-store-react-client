@@ -10,7 +10,6 @@
   border-radius: 14px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .checkout-overlay .floating-overlay {
@@ -103,4 +102,57 @@
 
 .continue-button span:first-of-type {
   margin-right: 10px;
+}
+
+.checkout-content-wrapper {
+  height: 100%;
+}
+.checkout-stage-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+.checkout-address {
+  padding: 20px;
+}
+
+.address-item input {
+  opacity: 0;
+}
+
+.address-item label {
+  display: block;
+}
+
+.address-item label .address-info {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 10px;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  cursor: pointer;
+}
+
+.address-item input:checked + label .address-info {
+  background-color: #efe6ff;
+  border: 1px solid #8c52ff;
+}
+
+.address-info .address-name {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.address-info .address-street,
+.address-info .address-phone {
+  font-size: 13px;
+}
+
+.address-info .address-phone {
+  color: #777;
+  margin-bottom: 5px;
 }

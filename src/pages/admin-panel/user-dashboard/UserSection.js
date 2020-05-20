@@ -81,6 +81,10 @@ export default function UserSection() {
   useEffect(() => {
     dispatch(getAllUsersAsync());
   }, []);
+  useEffect(() => {
+    console.log(users);
+    
+  });
 
   const toggleDisplayUserForm = () => {
     setUserToUpdate(null);
