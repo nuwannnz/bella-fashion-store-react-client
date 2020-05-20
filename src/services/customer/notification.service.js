@@ -1,13 +1,14 @@
 export const NOTIFICATION_TYPE = {
-    INFO: "INFO",
-    ERROR: "ERROR",
+  SUCCESS: "SUCCESS",
+  INFO: "INFO",
+  ERROR: "ERROR",
+};
+
+export const buildNotification = (msg, type) => {
+  const notification = {
+    message: msg,
+    type,
   };
-  
-  export const buildNotification = (msg, type) => {
-    const notification = {
-      message: msg,
-      type,
-    };
-  
-    return notification;
-  };
+
+  return notification;
+};

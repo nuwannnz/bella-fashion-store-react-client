@@ -1,6 +1,5 @@
 import * as staffService from "../../../services/admin/staff.service";
 import { displayTimeoutNotificationAsync } from "./notification.actions";
-import { buildNotification } from "../../../services/admin/notification.service";
 import { MESSAGE_STRINGS } from "../../../resources/Strings";
 import { ROUTE_PATHS } from "../../../constants";
 import {
@@ -8,6 +7,7 @@ import {
   deleteAdminTokenFromStorage,
 } from "../../../helpers/token.helper";
 import { history } from "../../../helpers/navigation.helper";
+import { buildNotification } from "../../../services/customer/notification.service";
 
 export const STAFF_ACTION_TYPES = {
   LOGGED_IN: "LOGGED_IN",

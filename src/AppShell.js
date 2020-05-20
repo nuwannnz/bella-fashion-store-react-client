@@ -9,6 +9,7 @@ import LoadingAnimation from "./components/common/LoadingAnimation";
 import { history } from "./helpers/navigation.helper";
 import AdminPanelShell from "./pages/admin-panel/AdminPanelShell";
 import PopupContainer from "./components/common/PopupContainer";
+import ToastManger from "./components/common/ToastManager";
 
 function AppShell() {
   return (
@@ -20,6 +21,7 @@ function AppShell() {
               <AdminPanelShell />
               <LoadingAnimation />
               <PopupContainer />
+              <ToastManger />
             </Provider>
           </Route>
 
