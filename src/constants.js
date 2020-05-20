@@ -24,4 +24,11 @@ export const ROUTE_PATHS = {
   ADMIN_UPDATE_TEMP_PWD: "/admin/update-pwd",
 };
 
+export const POPUP_KEYS = {
+  USER_POPUP: 'USER_POPUP',
+  ROLE_POPUP: 'ROLE_POPUP',
+  ADDRESS_POPUP: 'ADDRESS_POPUP',
+
+}
+
 export const API_HOST = process.env.REACT_APP_API_URL;

@@ -10,7 +10,7 @@ import {
 } from "../../../redux/actions/admin-panel/user-dashboard/user.actions";
 import ErrorMessage from "../../../components/common/ErrorMessage";
 
-export default function UserForm({ closeFormClickHandler, userToUpdate }) {
+export function UserForm({ closeFormClickHandler, userToUpdate, closePopup }) {
   const roles = useSelector((state) => state.userDashboard.roles);
   const users = useSelector((state) => state.userDashboard.users);
   const dispatch = useDispatch();
@@ -26,11 +26,7 @@ export default function UserForm({ closeFormClickHandler, userToUpdate }) {
     dispatch(getAllRolesAsync());
   }, []);
 
-  useEffect(() => {
-    if (users.closePopups) {
-      closeFormClickHandler();
-    }
-  }, [users]);
+
 
   const handleRoleSelected = (roleName) => {
     const selectedRole = roles.items.find((role) => role.name === roleName);
@@ -59,17 +55,21 @@ export default function UserForm({ closeFormClickHandler, userToUpdate }) {
   const handleFormSubmit = () => {
     if (userToUpdate) {
       // update user
-      dispatch(updateUserAsync(userToUpdate._id, user));
+      dispatch(updateUserAsync(userToUpdate._id, user)).then(() => {
+        closePopup();
+      })
     } else {
       // add user
-      dispatch(addUserAsync(user));
+      dispatch(addUserAsync(user)).then(() => {
+        closePopup();
+      });;
     }
   };
 
   return (
     <OverlayPopup
       title={userToUpdate ? "Update user" : "Add new user"}
-      onClosing={closeFormClickHandler}
+      onClosing={closePopup}
       onSubmit={handleFormSubmit}
       primaryActionText={userToUpdate ? "Update user" : "Add user"}
       isSubmitting={users.addingItem}

@@ -60,8 +60,10 @@ export function addUserAsync(userDto) {
 
     if (result.isResultOk()) {
       dispatch(success(result.data));
+      return true
     } else {
       dispatch(failiure(result.errorMessage));
+      return false
     }
   };
 
@@ -116,8 +118,10 @@ export function updateUserAsync(userId, userDto) {
 
     if (result.isResultOk()) {
       dispatch(success(result.data));
+      return true;
     } else {
       dispatch(failiure(result.errorMessage));
+      return false;
     }
   };
 
