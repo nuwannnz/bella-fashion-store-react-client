@@ -17,6 +17,10 @@ export const loadCustomerTokenFromStorage = () => {
   return localStorage.getItem(CUSTOMER_TOKEN_KEY);
 };
 
+export const loadAdminTokenFromStorage = () => {
+  return localStorage.getItem(STAFF_INFO);
+};
+
 export const saveCustomerTokenToStorage = (token) => {
   localStorage.setItem(CUSTOMER_TOKEN_KEY, token);
 };

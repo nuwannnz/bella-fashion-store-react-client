@@ -49,6 +49,7 @@ export default function Homepage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('homepage')
     if (token !== null) {
       // customer logged in
       // load cart and wishlist
@@ -92,11 +93,15 @@ export default function Homepage() {
                   <CustomerDashboardPage />
                 </PrivateRoute>
 
-                <PrivateRoute path={ROUTE_PATHS.CUSTOMER_CART}>
+                {/* <PrivateRoute path={ROUTE_PATHS.CUSTOMER_CART}>
                   <CartPage />
-                </PrivateRoute>
+                </PrivateRoute> */}
 
-                <Route path={ROUTE_PATHS.CUSTOMER_PRODUCT}>
+                <Route path={`${ROUTE_PATHS.CUSTOMER_PRODUCT}/:productId`}>
+                  <ProductPage />
+                </Route>
+
+                <Route path={ROUTE_PATHS.CUSTOMER_PRODUCT_SINGLE} name="id">
                   <ProductPage />
                 </Route>
 

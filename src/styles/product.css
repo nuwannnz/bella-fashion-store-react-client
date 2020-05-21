@@ -1,5 +1,27 @@
-.container {
-  margin-top: 100px;
+.container-fluid {
+  margin-top: 60px;
+
+}
+
+.color-picker {
+  margin-top: 25px;
+}
+
+.view-color {
+  border-radius: 10em;
+  background-color: lightgrey;
+  width: 60px;
+  padding: 20px;
+  margin: 10px;
+}
+
+.icon-btn {
+  margin-top: 20px;
+}
+
+.single-img {
+  border-radius: 50%;
+  max-height: 100px;
 }
 
 .newarrival {
@@ -40,8 +62,9 @@
 }
 
 .button {
-  background-color: var(--accent-color); /* Green */
+  background-color: var(--accent-color); 
   border: none;
+  border-radius: 1em;
   color: white;
   padding: 15px 32px;
   text-align: center;
@@ -52,6 +75,22 @@
   cursor: pointer;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
+}
+
+.modal-style {
+  min-width: 700px;
+}
+
+.color-btn:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  background-color: var(--accent-color-hover);
+}
+
+.buttonView:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  background-color: var(--accent-color-hover);
 }
 
 .buttonAdd:hover {
@@ -79,7 +118,7 @@
   background-color: #da3446;
 }
 
-.container select {
+.container select-single {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -91,11 +130,11 @@
   background-image: none;
 }
 
-.container select::-ms-expand {
+.container select-single::-ms-expand {
   display: none;
 }
 
-.select {
+.select-single {
   position: relative;
   display: flex;
   width: 15em;
@@ -108,14 +147,14 @@
   border-color: var(--accent-color);
 }
 
-.container select {
+.container select-single {
   flex: 1;
   padding: 0 0.5em;
   color: #333;
   cursor: pointer;
 }
 
-.select::after {
+.select-single::after {
   content: "\25BC";
   position: absolute;
   top: 0;
@@ -127,7 +166,7 @@
   transition: 0.25s all ease;
 }
 
-.select:hover::after {
+.select-single:hover::after {
   color: white;
 }
 

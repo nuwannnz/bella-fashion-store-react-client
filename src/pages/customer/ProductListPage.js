@@ -8,7 +8,20 @@ import { ROUTE_PATHS } from '../../constants';
 import AddToCartButton from '../../components/customer/AddToCartButton';
 
 
-const ProductInfoCard = ({ product }) => {
+export const ProductInfoCard = ({ product }) => {
+ 
+  const seeOffers = (offer) => {
+    if (offer > 0) {
+      return true;
+    } else return false;
+  };
+
+  const totalPrice = () => {
+    return product.price - product.discount;
+  };
+
+
+
     return (
         <div className="product-info-card">
             <button className="wishlist-btn" >
@@ -24,13 +37,17 @@ const ProductInfoCard = ({ product }) => {
 
             </div>
 
-            <Link to={`${ROUTE_PATHS.CUSTOMER_PRODUCT}/${product._id}`} className="product-card-link">
+            <Link to={`${ROUTE_PATHS.CUSTOMER_PRODUCT}/${product._id}`}    className="product-card-link">
                 <div className="product-image-wrapper">
                     <img src={product.images[0]} alt={product.name} />
                 </div>
+               
                 <div className="product-info-wrapper">
                     <span className="product-name">{product.name}</span>
-                    <span className="product-price" >LKR {product.price}</span>
+                    {seeOffers(product.discount) ?<span className="product-price" ><s>LKR {product.price}</s></span> : <span className="product-price" >LKR {product.price}</span>}
+                    {seeOffers(product.discount) ? <span className="prdouct-discount" >NOW! LKR {totalPrice()}</span> : ""}    
+                    
+
                 </div>
             </Link>
         </div>

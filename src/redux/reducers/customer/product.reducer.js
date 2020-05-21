@@ -1,8 +1,7 @@
 import { PRODUCT_ACTION_TYPES } from "../../actions/customer/product.actions";
 
 const initialState = {
-    products: [],
-    singleProduct:[]
+    products: []
 }
 
 export const product = (state = initialState, action) => {
@@ -12,11 +11,6 @@ export const product = (state = initialState, action) => {
                 ...state,
                 products: action.payload
             }
-        case PRODUCT_ACTION_TYPES.PRODUCT_LOADED_BY_ID:
-                return {
-                    ...state,
-                    singleProduct: action.payload
-                }
 
                 case PRODUCT_ACTION_TYPES.PRODUCT_ADDED:
                     return{

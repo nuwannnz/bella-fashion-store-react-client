@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ReactCardCarousel from "react-card-carousel";
 import ItemsCarousel from "react-items-carousel";
 import { productsLoadedAsync } from "../../redux/actions/admin-panel/product.actions";
 import "../../styles/offers.css";
-import PrdouctCard from "./PrdouctCard";
+import {ProductInfoCard} from "../../pages/customer/ProductListPage";
 
 export default function OffersSlider() {
   const dispatch = useDispatch();
@@ -24,7 +23,7 @@ export default function OffersSlider() {
 
   const checkOffers = () => {
     products.map((pro) => (
-      <div>{seeOffers(pro.product_discount) ? obj.push(pro) : "null"}</div>
+      <div>{seeOffers(pro.discount) ? obj.push(pro) : "null"}</div>
     ));
   };
   const seeOffers = (offer) => {
@@ -44,23 +43,17 @@ export default function OffersSlider() {
       <ItemsCarousel
         requestToChangeActive={setActiveItemIndex}
         activeItemIndex={activeItemIndex}
-        numberOfCards={3}
+        numberOfCards={4}
         gutter={20}
-        leftChevron={<button>{"<"}</button>}
-        rightChevron={<button>{">"}</button>}
+        leftChevron={<button className="slider-btn"><i className="fa fa-arrow-left"></i></button>}
+        rightChevron={<button className="slider-btn"><i className="fa fa-arrow-right"></i></button>}
         outsideChevron
         chevronWidth={chevronWidth}
       >
         {obj.map((product) => (
           <div>
-            <PrdouctCard
-              name={product.product_name}
-              price={product.product_price}
-              totalPrice={totalPrice(
-                product.product_discount,
-                product.product_price
-              )}
-            />
+
+            <ProductInfoCard product = {product} />
           </div>
         ))}
       </ItemsCarousel>
