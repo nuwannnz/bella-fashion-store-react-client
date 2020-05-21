@@ -4,11 +4,14 @@ import {
   getAllUsersAsync,
   deleteUserAsync,
 } from "../../../redux/actions/admin-panel/user-dashboard/user.actions";
-import UserForm from "./UserForm";
+import { UserForm } from "./UserForm";
 import {
   displayOverlayPopup,
   displayPopup,
 } from "../../../components/common/OverlayPopup";
+import { openPopup } from "../../../redux/actions/popup.actions";
+import { POPUP_KEYS } from "../../../constants";
+import { usePopup } from "../../../hooks/Popup.hooks";
 
 const UserEntry = ({
   user,
@@ -50,10 +53,10 @@ const UserEntry = ({
         {!isCurrentAdmin && (
           <div className="action-group ">
             <button onClick={handleUpdateClick} className="btn btn-info">
-              <i class="fas fa-pen"></i>
+              <i className="fas fa-pen"></i>
             </button>
             <button onClick={handleDeleteClick} className="btn btn-info ml-1">
-              <i class="far fa-trash-alt"></i>
+              <i className="far fa-trash-alt"></i>
             </button>
           </div>
         )}
@@ -75,16 +78,15 @@ export default function UserSection() {
     (state) => state.staffLogin.auth.userInfo.id
   );
 
-  const [displayUserForm, setDisplayUserForm] = useState(false);
-  const [userToUpdate, setUserToUpdate] = useState(null);
 
   useEffect(() => {
     dispatch(getAllUsersAsync());
   }, []);
 
+
+
   const toggleDisplayUserForm = () => {
-    setUserToUpdate(null);
-    setDisplayUserForm(!displayUserForm);
+    dispatch(openPopup(POPUP_KEYS.USER_POPUP));
   };
 
   const handleDeleteClick = (user) => {
@@ -93,7 +95,7 @@ export default function UserSection() {
 
   const handleUpdateClick = (user) => {
     toggleDisplayUserForm();
-    setUserToUpdate(user);
+    dispatch(openPopup(POPUP_KEYS.USER_POPUP, { userToUpdate: user }));
   };
 
   return (
@@ -113,12 +115,7 @@ export default function UserSection() {
           />
         ))}
 
-      {displayUserForm && (
-        <UserForm
-          closeFormClickHandler={toggleDisplayUserForm}
-          userToUpdate={userToUpdate}
-        />
-      )}
+
     </div>
   );
 }

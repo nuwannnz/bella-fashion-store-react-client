@@ -9,7 +9,7 @@ const initialState = {
   customerSignUpSuccess: false,
   isLoading: false,
   hasCustomer: true,
-  checkedHasCustomer: false
+  checkedHasCustomer: false,
 };
 
 export const customer = (state = initialState, action) => {
@@ -73,7 +73,74 @@ export const customer = (state = initialState, action) => {
         return {
           ...state,
           checkedHasCustomer: true
-        }  
+        } 
+
+      case CUSTOMER_ACTION_TYPES.ADD_ADDRESS_REQUEST:
+        return {
+          ...state,
+          addingAddress: true
+        };
+        
+      case CUSTOMER_ACTION_TYPES.ADD_ADDRESS_SUCCESS:
+        const customerInfo = state.customerInfo;
+        customerInfo.addresses.push(action.payload);
+        return {
+          ...state,
+          customerInfo,
+          closePopups: true
+        };
+
+      case CUSTOMER_ACTION_TYPES.ADD_ADDRESS_FAILURE:
+        return {
+          ...state,
+          addAddressError: action.payload
+        };
+       
+      case CUSTOMER_ACTION_TYPES.DELETE_ADDRESS_REQUEST:
+        return {
+          ...state,
+          deletingAddress: action.payload
+        }; 
+      
+      case CUSTOMER_ACTION_TYPES.DELETE_ADDRESS_SUCCESS:
+        const info = state.customerInfo;
+        info.addresses = info.addresses.filter(addr => addr._id !== action.payload);
+        return {
+          ...state,
+          info
+        };
+
+      case CUSTOMER_ACTION_TYPES.DELETE_ADDRESS_FAILURE:
+        return {
+          ...state,
+          deleteAddressError: action.payload
+        }; 
+      
+      case CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_REQUEST:
+        return {
+          ...state,
+          updatingAddressId: action.payload
+        };
+        
+      case CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_SUCCESS:     
+      const customerInfoToUpdate = state.customerInfo;
+      customerInfoToUpdate.addresses = customerInfoToUpdate.addresses.map(addr => {
+        if(addr._id === action.payload._id){
+          return action.payload
+        }
+        return addr
+      })
+        return {
+          ...state,
+          customerInfo: customerInfoToUpdate
+        }; 
+      
+      case CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_FAILURE: 
+        return {
+          ...state,
+          updateErrorMsg: action.payload
+      };  
+
       default:
         return state;
     }

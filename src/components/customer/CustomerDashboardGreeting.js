@@ -8,11 +8,12 @@ export default function CustomerDashboardGreeting() {
     const customer = useSelector((state) => state.customer.customerInfo);
 
     return (
-        <div className="customer-dashboard-greeing">
+        <div className="customer-dashboard-greeing-wrapper">
+            <div className="customer-dashboard-greeing">
                 <div className="greeting-to-customer">
                     <p>Hello {customer && customer.fName}!</p>
                 </div>
-
+                <br />
                 <div className="customer-dashboard-msg">
                     <p>
                     From your account dashboard you can view your recent orders, 
@@ -20,7 +21,7 @@ export default function CustomerDashboardGreeting() {
                     and edit your password and account details.
                     </p>
                 </div>
-
+            </div>
                 <div className="dashboard-cover-img">
                     <img src={getAssetUrl("customerDashboard/dashboard.jpg")} alt="Dashboard Cover" />
                 </div>

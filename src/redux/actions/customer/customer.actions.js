@@ -5,6 +5,7 @@ import { MSG_STRINGS } from "../../../resources/Strings";
 import { ROUTE_PATHS } from "../../../constants";
 import { saveCustomerTokenToStorage, deleteCustomerTokenFromStorage } from "../../../helpers/token.helper";
 import { uiIsLoading } from "../ui.actions";
+import { USER_DASHBOAR_ACTION_TYPES } from "../admin-panel/user-dashboard/user.actions";
 
 export const CUSTOMER_ACTION_TYPES = {
     LOGGED_IN: "LOGGED_IN",
@@ -17,7 +18,19 @@ export const CUSTOMER_ACTION_TYPES = {
     HAS_CUSTOMER: "HAS_CUSTOMER",
     IS_LOADING: 'IS_LOADING',
     TOKEN_VERIFICATION_COMPLETED: "TOKEN_VERIFICATION_COMPLETED",
-    HAS_CUSTOMER_CHECK_COMPLETED: "HAS_CUSTOMER_CHECK_COMPLETED"
+    HAS_CUSTOMER_CHECK_COMPLETED: "HAS_CUSTOMER_CHECK_COMPLETED",
+
+    ADD_ADDRESS_REQUEST: "ADD_ADDRESS_REQUEST",
+    ADD_ADDRESS_SUCCESS: "ADD_ADDRESS_SUCCESS",
+    ADD_ADDRESS_FAILURE: "ADD_ADDRESS_FAILURE",
+
+    DELETE_ADDRESS_REQUEST: "DELETE_ADDRESS_REQUEST",
+    DELETE_ADDRESS_SUCCESS: "DELETE_ADDRESS_SUCCESS",
+    DELETE_ADDRESS_FAILURE: "DELETE_ADDRESS_FAILURE",
+
+    UPDATE_ADDRESS_REQUEST: "UPDATE_ADDRESS_REQUEST",
+    UPDATE_ADDRESS_SUCCESS: "UPDATE_ADDRESS_SUCCESS",
+    UPDATE_ADDRESS_FAILURE: "UPDATE_ADDRESS_FAILURE"
 };
 
 // action creators
@@ -170,4 +183,115 @@ export function checkHasCustomerAsync() {
 
       dispatch(hasCustomerChecked());
     }
+};
+
+export function addAddressAsync(addressDto) {
+  console.log(addressDto);
+  
+  return async (dispatch, getState) => {
+    dispatch(request());
+    const { token } = getState().customer;
+
+    const result = await customerService.addAddress(token, addressDto);
+
+    if(result.isResultOk()) {
+      dispatch(success(result.data));
+    } else {
+      dispatch(failure(result.errorMessage));
+    }
+  };
+
+  function request() {
+    return {
+      type: CUSTOMER_ACTION_TYPES.ADD_ADDRESS_REQUEST
+    };
+  }
+
+  function success(payload) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.ADD_ADDRESS_SUCCESS,
+      payload
+    };
+  }
+
+  function failure(errorMsg) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.ADD_ADDRESS_FAILURE,
+      payload: errorMsg
+    };
+  }
+};
+
+export function deleteAddressAsync(addressId) {
+  console.log("Delete" + addressId);
+  
+  return async (dispatch, getState) => {
+    dispatch(request({ id: addressId }));
+    const { token } = getState().customer;
+
+    const result = await customerService.deleteCustomerAddress(token, addressId);
+
+    if(result.isResultOk()) {
+      dispatch(success(addressId));
+    } else {
+      dispatch(failure(result.errorMessage));
+    }
+  };
+
+  function request(payload) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.DELETE_ADDRESS_REQUEST, 
+      payload
+    };
+  }
+  
+  function success(payload) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.DELETE_ADDRESS_SUCCESS,
+      payload
+    };
+  } 
+
+  function failure(errorMsg) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.DELETE_ADDRESS_FAILURE,
+      payload: errorMsg
+    };
+  }
+};
+
+export function updateCustomerAddressAsync( addressId, addressDto) {
+  return async (dispatch, getState) => {
+    dispatch(request(addressId));
+    const { token } = getState().customer;
+
+    const result = await customerService.updateCustomerAddress(token, addressId, addressDto);
+
+    if(result.isResultOk()) {
+      dispatch(success(result.data));
+    } else {
+      dispatch(failure(result.errorMessage));
+    }
+  };
+
+  function request(payload) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_REQUEST,
+      payload
+    };
+  }
+
+  function success(payload) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_SUCCESS,
+      payload
+    };
+  }
+
+  function failure(errorMsg) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_FAILURE,
+      payload: errorMsg
+    };
+  }
 };

@@ -13,6 +13,10 @@ import ProductPage from "./ProductPage";
 import { loadCartAsync } from "../../redux/actions/customer/cart.actions";
 import ProductListPage from "./ProductListPage";
 import FloatingCart from "./FloatingCart";
+import Checkout from "./Checkout";
+import CustomerDashboardAddressPage from "./CustomerDashboardAddressPage";
+import CustomerOrderDashboardPage from "./CustomerOrderDashboardPage";
+import CustomerDashboardDetailsPage from "./CustomerDashboardDetailPage";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.customer.token);
@@ -37,10 +41,12 @@ function PrivateRoute({ children, ...rest }) {
 }
 
 export default function Homepage() {
+  const token = useSelector((state) => state.customer.token);
   const sideBarOpened = useSelector((state) => state.ui.mobileSideBarOpened);
+  const displayCheckout = useSelector(state => state.ui.displayCheckout)
+
   const location = useLocation();
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.customer.token);
 
   useEffect(() => {
     console.log('homepage')
@@ -69,11 +75,19 @@ export default function Homepage() {
 
           <FloatingCart />
 
+          {displayCheckout && <Checkout />}
+
           <div className="page-content-wrap">
             <div className="page">
               <Switch>
+                <PrivateRoute path={ROUTE_PATHS.CUSTOMER_DASHBOARD_ACCOUNT_INFO}>
+                  <CustomerDashboardDetailsPage />
+                </PrivateRoute>
+                <PrivateRoute path={ROUTE_PATHS.CUSTOMER_DASHBOARD_ADDRESS}>
+                  <CustomerDashboardAddressPage />
+                </PrivateRoute>
                 <PrivateRoute path={ROUTE_PATHS.CUSTOMER_DASHBOARD_ORDER}>
-                  <div>Orders</div>
+                  <CustomerOrderDashboardPage />
                 </PrivateRoute>
                 <PrivateRoute path={ROUTE_PATHS.CUSTOMER_DASHBOARD}>
                   <CustomerDashboardPage />

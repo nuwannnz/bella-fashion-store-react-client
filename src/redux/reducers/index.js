@@ -8,8 +8,12 @@ import { product as customerProducts } from "./customer/product.reducer";
 import { ui } from "./ui.reducer";
 import { brand } from "./admin-panel/brand.reducer";
 import { customer } from "./customer/customer.reducer";
+
 import {category} from "./admin-panel/category.reducer"
 import { size } from "./admin-panel/size.reducer"
+
+import { popup } from "./popup.reducer";
+import { toast } from "./toast.reducer";
 
 
 export const customerReducer = combineReducers({
@@ -17,7 +21,9 @@ export const customerReducer = combineReducers({
   cart,
   ui,
   brand,
-  product: customerProducts
+  product: customerProducts,
+  popup,
+  toast
 });
 
 export const adminPanelReducer = combineReducers({
@@ -27,7 +33,12 @@ export const adminPanelReducer = combineReducers({
   userDashboard,
   product,
   brand,
+
   category,
   size
+
+  popup,
+  toast
+
 });
 

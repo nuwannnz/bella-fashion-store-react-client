@@ -15,8 +15,11 @@
     font-size: 20px;
 }
 
-.sign-up-msg h1 {
+.sign-up-msg p:first-child {
     text-align: center;
+    font-size: 35px;
+    font-weight: bold;
+    margin: 0px;
 }
 
 .sign-up-msg p {
@@ -65,9 +68,12 @@
     transform: translate(-20%, -50%); 
 }
 
-.login-form h1 {
+.login-form p {
     text-align: center;
-    color: #8C52FF;
+    font-size: 35px;
+    color: #8c52ff;
+    font-weight: bold;
+    margin: 10px 0px;
 }
 
 .login-page-logo {

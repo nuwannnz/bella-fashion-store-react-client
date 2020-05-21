@@ -4,6 +4,8 @@ import {
   deleteUser,
   updateUser,
 } from "../../../../services/admin/staff.service";
+import { displayToastAsync } from "../../toast.actions";
+import { buildNotification, NOTIFICATION_TYPE } from "../../../../services/customer/notification.service";
 
 export const USER_DASHBOAR_ACTION_TYPES = {
   GETALL_REQUEST: "USERS_GETALL_REQUEST",
@@ -60,8 +62,10 @@ export function addUserAsync(userDto) {
 
     if (result.isResultOk()) {
       dispatch(success(result.data));
+      return true
     } else {
       dispatch(failiure(result.errorMessage));
+      return false
     }
   };
 
@@ -116,8 +120,11 @@ export function updateUserAsync(userId, userDto) {
 
     if (result.isResultOk()) {
       dispatch(success(result.data));
+      dispatch(displayToastAsync(buildNotification("Updated user successfully", NOTIFICATION_TYPE.SUCCESS)))
+      return true;
     } else {
       dispatch(failiure(result.errorMessage));
+      return false;
     }
   };
 

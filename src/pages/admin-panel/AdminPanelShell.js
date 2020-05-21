@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { ROUTE_PATHS } from "../../constants";
+import { ROUTE_PATHS, POPUP_KEYS } from "../../constants";
 import { useDispatch } from "react-redux";
 import {
   verifyStoredTokenAsync,
@@ -14,6 +14,8 @@ import "../../styles/admin/AdminPanelShell.css";
 
 import { uiIsLoading } from "../../redux/actions/ui.actions";
 import Dashboard from "./Dashboard";
+import { usePopup } from "../../hooks/Popup.hooks";
+import { UserForm } from "./user-dashboard/UserForm";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.staffLogin.auth.token);
@@ -25,13 +27,13 @@ function PrivateRoute({ children, ...rest }) {
         token !== null ? (
           children
         ) : (
-          <Redirect
-            to={{
-              pathname: ROUTE_PATHS.ADMIN_LOGIN,
-              state: { from: location },
-            }}
-          />
-        )
+            <Redirect
+              to={{
+                pathname: ROUTE_PATHS.ADMIN_LOGIN,
+                state: { from: location },
+              }}
+            />
+          )
       }
     />
   );
@@ -39,6 +41,7 @@ function PrivateRoute({ children, ...rest }) {
 
 export default function AdminPanelShell() {
   const dispatch = useDispatch();
+  const { registerPopup } = usePopup();
 
   const hasAdminChecked = useSelector(
     (state) => state.staffLogin.ui.checkedHasAdmin
@@ -68,6 +71,13 @@ export default function AdminPanelShell() {
       dispatch(uiIsLoading(false));
     }
   });
+
+  useEffect(() => {
+
+    registerPopup(POPUP_KEYS.USER_POPUP, UserForm);
+
+
+  }, [])
 
   return (
     <div id="adminPanelShell" className="admin-panel-wrap">

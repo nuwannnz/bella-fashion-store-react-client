@@ -1,0 +1,158 @@
+.checkout-wrapper {
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 50px;
+  min-width: 650px;
+  background-color: #fff;
+  z-index: 999;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout-overlay .floating-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.checkout-header {
+  padding: 20px;
+  position: relative;
+}
+
+.checkout-header h2 {
+  text-align: center;
+}
+
+.checkout-wrapper .close-btn {
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #333;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.checkout-step-counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px 20px 20px;
+}
+
+.checkout-step-counter .step-number {
+  display: inline-block;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  background-color: #ddd;
+  position: relative;
+}
+
+.step-number .step-label {
+  position: absolute;
+  top: 140%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #aaa;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+.step-number.active .step-label {
+  color: var(--accent-color);
+}
+
+.checkout-step-counter .step-bar {
+  display: inline-block;
+  width: 100px;
+  height: 2px;
+  background-color: #eee;
+}
+
+.step-number.active,
+.step-bar.active {
+  background-color: var(--accent-color);
+}
+
+.checkout-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.continue-button {
+  border: none;
+  border-radius: 14px;
+  padding: 10px 40px;
+  background-color: var(--accent-color);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none !important;
+  cursor: pointer;
+}
+
+.continue-button:hover {
+  background-color: var(--accent-color-hover);
+}
+
+.continue-button span:first-of-type {
+  margin-right: 10px;
+}
+
+.checkout-content-wrapper {
+  height: 100%;
+}
+.checkout-stage-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+.checkout-address {
+  padding: 20px;
+}
+
+.address-item input {
+  opacity: 0;
+}
+
+.address-item label {
+  display: block;
+}
+
+.address-item label .address-info {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 10px;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  cursor: pointer;
+}
+
+.address-item input:checked + label .address-info {
+  background-color: #efe6ff;
+  border: 1px solid #8c52ff;
+}
+
+.address-info .address-name {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.address-info .address-street,
+.address-info .address-phone {
+  font-size: 13px;
+}
+
+.address-info .address-phone {
+  color: #777;
+  margin-bottom: 5px;
+}
