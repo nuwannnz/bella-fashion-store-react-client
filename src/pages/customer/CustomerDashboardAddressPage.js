@@ -3,12 +3,10 @@ import "../../styles/customer/CustomerDashboardAddressPage.css";
 import CustomerDashboardAddress from "../../components/customer/CustomerDashboardAddress";
 import CustomerDashboardAddressForm from "../../components/customer/CustomerDashboardAddressForm";
 import CustomerDashboardAddresses from "../../components/customer/CustomerDashboardAddresses";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 
 export default function CustomerDashboardAddressPage() {
-    const dispatch = useDispatch();
-    const customers = useSelector((state) => state.customer);
     const addresses = useSelector((state) => state.customer.customerInfo.addresses);
     
     const [displayAddressForm, setDisplayAddressForm] = useState(false);
@@ -19,8 +17,6 @@ export default function CustomerDashboardAddressPage() {
         setAddressToUpdate(null);
         setDisplayAddressForm(!displayAddressForm);
     }
-
-    
 
     const handleUpdateClick = (address) => {
         toggleDisplayAddressForm();

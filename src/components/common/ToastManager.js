@@ -13,19 +13,19 @@ const Toast = ({ toast }) => {
     const typeClass = () => {
         switch (toast.type) {
             case NOTIFICATION_TYPE.ERROR:
-                return 'toast-error'
+                return 'bella-toast-error'
             case NOTIFICATION_TYPE.SUCCESS:
-                return 'toast-success'
+                return 'bella-toast-success'
             case NOTIFICATION_TYPE.INFO:
-                return 'toast-info'
+                return 'bella-toast-info'
             default:
                 return ''
         }
     }
     return (
-        <div className={`toast ${typeClass()} ${toast.hiding && 'toast-hiding'}`}>
+        <div className={`bella-toast ${typeClass()} ${toast.hiding && 'toast-hiding'}`}>
             <span>{toast.message}</span>
-            <span class="toast-close-btn" onClick={closeClickHandler}><i className="fas fa-times-circle"></i></span>
+            <span class="bella-toast-close-btn" onClick={closeClickHandler}><i className="fas fa-times-circle"></i></span>
         </div>
     )
 }

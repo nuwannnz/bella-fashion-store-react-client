@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../../styles/customer/CustomerDashboardAddressPage.css";
-import { FaCheckCircle } from "react-icons/fa";
 import OverlayPopup from "../common/OverlayPopup";
 import { useSelector, useDispatch } from "react-redux";
 import { addAddressAsync, updateCustomerAddressAsync } from "../../redux/actions/customer/customer.actions";
@@ -83,7 +82,9 @@ export default function CustomerDashboardAddressForm( {closeFormClickHandler, ad
             dispatch(updateCustomerAddressAsync(addressToUpdate._id, address));
         }else{
 
-            dispatch(addAddressAsync(address));
+            dispatch(addAddressAsync(address)).then(()=>{
+                // closePopup()
+            });
         }
     };
 
@@ -106,7 +107,7 @@ export default function CustomerDashboardAddressForm( {closeFormClickHandler, ad
                         type="text" 
                         placeholder="First Name"
                         value={fName}
-                        onInput={handleFNameChanged} 
+                        onChange={handleFNameChanged} 
                     />
                     <input 
                         type="text" 
@@ -157,7 +158,7 @@ export default function CustomerDashboardAddressForm( {closeFormClickHandler, ad
                         onChange={handleZipChanged}
                     />
 
-                    {customers.addAddressError && <ErrorMessage msg={customers.addAddressError} />}                    
+                    {/* {customers.addAddressError && <ErrorMessage msg={customers.addAddressError} />}                     */}
 
                 </OverlayPopup>
             </div>

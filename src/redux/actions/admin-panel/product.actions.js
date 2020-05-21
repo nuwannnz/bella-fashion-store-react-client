@@ -116,11 +116,14 @@ export const productDeleted = (product) => ({
             return;
           
       }
+
   }
+
 
 
   export function productsLoadedAsync() {
     return async (dispatch, getState)=> {
+
       const result = await productService.getProducts();
       
         if(result.isResultOk) {
@@ -130,7 +133,10 @@ export const productDeleted = (product) => ({
           console.log("error in product loaded");
         }
       }
+
   }
+
+
 
 
   export function productDeletedByIDAsync(id) {

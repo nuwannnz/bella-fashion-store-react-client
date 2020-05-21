@@ -21,9 +21,11 @@ export const customerReducer = combineReducers({
   cart,
   ui,
   brand,
+
   product: customerProducts,
   popup,
   toast
+
 });
 
 export const adminPanelReducer = combineReducers({

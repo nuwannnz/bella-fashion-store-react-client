@@ -1,6 +1,5 @@
 .customer-dashboard-details-wrapper {
-    margin-top: 50px;
-    margin-left: 50px;
+    margin-left: 41px;
     margin-right: 10px;
 }
 
@@ -16,7 +15,7 @@
 .customer-dashboard-details .details-form {
     padding: 40px 50px;
     width: 41%;
-    height: 62vh;
+    height: 70vh;
     border-radius: 20px;
     border: 1px solid #8c52ff;
     position: relative;

@@ -22,12 +22,13 @@ export default function AdminProductPage() {
 
     const[open,setOpen] = useState("");
   
-    
+
     const onOpenModal = () => {
         setOpen(true);
     };
     const onCloseModal = () => {
         setOpen(false);
+
       };
    
 
@@ -60,5 +61,5 @@ export default function AdminProductPage() {
  
             </div>
         )
-    
+
 }
