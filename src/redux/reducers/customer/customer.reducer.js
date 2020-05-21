@@ -163,8 +163,7 @@ export const customer = (state = initialState, action) => {
           ...state,
           updatingCustomerInfo: false,
           customerUpdatingError: action.payload
-        }; 
-
+        };
       default:
         return state;
     }

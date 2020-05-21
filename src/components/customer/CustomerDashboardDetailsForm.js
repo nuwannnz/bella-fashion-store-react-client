@@ -4,13 +4,14 @@ import { FaUserEdit, FaUserLock } from "react-icons/fa";
 import { updateCustomerInfoAsync } from "../../redux/actions/customer/customer.actions";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorMessage from "../common/ErrorMessage";
+import { isPwdMatch, isEmpty } from "../../helpers/input-validation.helper";
 
-export default function CustomerDashboardDetailsForm( {getCustomer} ) {
+export default function CustomerDashboardDetailsForm( {getCustomer, onUpdateClick} ) {
 
     const customers = useSelector((state) => state.customer);
     
     const dispatch = useDispatch();
-
+    
     const [fName, setFname] = useState(getCustomer ? getCustomer.fName : "");
     const [lName, setLname] = useState(getCustomer ? getCustomer.lName : "");
     const [email, setEmail] = useState(getCustomer ? getCustomer.email : "");
@@ -41,6 +42,44 @@ export default function CustomerDashboardDetailsForm( {getCustomer} ) {
 
     const handleFormSubmit = () => {
         dispatch(updateCustomerInfoAsync(customer));
+    }
+
+    const [currentPwd, setCurrentPwd] = useState("");
+    const [newPwd, setNewPwd] = useState("");
+    const [confirmPwd, setConfirmPwd] = useState("");
+    const [invalidInput, setInvalidInput] = useState("");
+    const [checkedPwd, setCheckedPwd] = useState("");
+
+
+    const handleCurrentPwd = (e) => {
+        setCurrentPwd(e.target.value);
+    }
+
+    const handleNewPwd = (e) => {
+        setNewPwd(e.target.value);
+    }
+
+    const handleConfirmPwd = (e) => {
+        setConfirmPwd(e.target.value);
+    }
+
+    const handlePwdUpdate = () => {
+        if(isEmpty(currentPwd)) {
+            setCheckedPwd(true);
+            setInvalidInput("Password feilds should be filled.");
+        } else if(isPwdMatch(newPwd, confirmPwd)){
+            setCheckedPwd(true);
+            setInvalidInput("New password is not match from confirm password.");
+        } 
+        // else if(newPwd.length < 6) {
+        //     setCheckedPwd(true);
+        //     setInvalidInput("Password must include atleast 6 characters");
+        // } 
+        else {
+            setInvalidInput("");
+            setCheckedPwd(false);
+            onUpdateClick(currentPwd, newPwd);
+        }
     }
 
     return(
@@ -84,18 +123,31 @@ export default function CustomerDashboardDetailsForm( {getCustomer} ) {
                     <FaUserLock size="2em" color="#8c52ff"/>
                 </div>
                 <div>
-                    <input type="password" placeholder="Current Password" />
+                    <input 
+                        type="password" 
+                        placeholder="Current Password"
+                        onChange={handleCurrentPwd} />
                 </div>
                 <div>
-                    <input type="password" placeholder="New Password" />            
+                    <input 
+                        type="password" 
+                        placeholder="New Password"
+                        onChange={handleNewPwd} />            
                 </div>
                 <div>
-                    <input type="password" placeholder="Confirm New Password" />
+                    <input 
+                        type="password" 
+                        placeholder="Confirm New Password"
+                        onChange={handleConfirmPwd} />
                 </div>
+                
+                {checkedPwd ? <ErrorMessage msg={invalidInput} /> : null}
 
                 <div className="reset-btn">
-                    <button>Reset Your Password</button>
+                    <button onClick={handlePwdUpdate}>Reset Your Password</button>
                 </div>
+
+            
             </div>
            
         </div>

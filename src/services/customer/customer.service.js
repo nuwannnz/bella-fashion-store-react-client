@@ -203,3 +203,23 @@ export const updateCustomerInfo = async (token, customerInfoToUpdate) => {
         return result;
     }
 };
+
+export const updateCustomerPassword = async (token, currentPwd, newPwd) => {
+    const path = `${API_HOST}/customer/pwd`;
+    const data = { currentPwd, newPwd };
+    
+    const config = getAuthHeader(token);
+
+    const result = new APIResult();
+    
+    try {
+        const response = await axios.patch(path, data, config);
+
+        result.data = response.data;
+        return result;
+    } catch(error) {
+        logger.error(`Error in API call => ${path}`);
+        result.setError(error);
+        return result;
+    }
+};

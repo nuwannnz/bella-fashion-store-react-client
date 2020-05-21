@@ -1,7 +1,7 @@
 import * as customerService from "../../../services/customer/customer.service";
 import { displayTimeoutNotificationAsync } from "./notification.actions";
 import { buildNotification } from "../../../services/customer/notification.service";
-import { MSG_STRINGS } from "../../../resources/Strings";
+import { MSG_STRINGS, MESSAGE_STRINGS } from "../../../resources/Strings";
 import { ROUTE_PATHS } from "../../../constants";
 import { saveCustomerTokenToStorage, deleteCustomerTokenFromStorage } from "../../../helpers/token.helper";
 import { uiIsLoading } from "../ui.actions";
@@ -34,7 +34,11 @@ export const CUSTOMER_ACTION_TYPES = {
 
     UPDATE_CUSTOMER_INFO_REQUEST: "UPDATE_CUSTOMER_INFO_REQUEST",
     UPDATE_CUSTOMER_INFO_SUCCESS: "UPDATE_CUSTOMER_INFO_SUCCESS",
-    UPDATE_CUSTOMER_INFO_FAILURE: "UPDATE_CUSTOMER_INFO_FAILURE"
+    UPDATE_CUSTOMER_INFO_FAILURE: "UPDATE_CUSTOMER_INFO_FAILURE",
+
+    UPDATE_CUSTOMER_PASSWORD_REQUEST: "UPDATE_CUSTOMER_PASSWORD_REQUEST",
+    UPDATE_CUSTOMER_PASSWORD_SUCCESS: "UPDATE_CUSTOMER_PASSWORD_SUCCESS",
+    UPDATE_CUSTOMER_PASSWORD_FAILURE: "UPDATE_CUSTOMER_PASSWORD_FAILURE" 
 };
 
 // action creators
@@ -333,4 +337,26 @@ export function updateCustomerInfoAsync(customerInfo) {
       payload: errorMsg
     };
   }
+};
+
+export function updateCustomerPasswordAsync(currentPwd, newPwd) {
+  return async (dispatch, getState) => {
+    const { token } = getState().customer;
+
+    if(!token) {
+      return;
+    }
+
+    const result = await customerService.updateCustomerPassword(token, currentPwd, newPwd);
+  
+    if(result.isResultOk() && result.data) {
+      // dispatch(loggedOut());
+      dispatch(verifyStoredTokenAsync());
+    } else {
+      displayTimeoutNotificationAsync(
+        buildNotification(MSG_STRINGS.CUSTOMER_PASSWORD_UPDATE_FAILED)
+      );
+      return;
+    }
+  };
 }
