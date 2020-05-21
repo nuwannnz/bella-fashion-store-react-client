@@ -35,7 +35,7 @@ export const adminPanelReducer = combineReducers({
   brand,
 
   category,
-  size
+  size,
 
   popup,
   toast

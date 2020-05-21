@@ -23,6 +23,10 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
     const errorMsg = useSelector(state => state.product.errorMsg);
     const successMsg = useSelector(state => state.product.successMsg)
 
+    const [product, setProduct] = useState({
+        id: pid, name: "", size: "", qty: "", brand: "", category: "", subCategory: "", price: "",discount: "", colors: "", tags:"", description: ""
+    })
+
     const [addSizes, setAddSizes] = useState([])
     const [sizeQty, setSizeQty] = useState([])
 
@@ -66,6 +70,12 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
         
         }
 
+    //form handles
+    const handleIdChanged = (pid) => {
+        product.id = pid
+        setProduct(product);
+    } 
+    //--------------------
         
     const removeData = (index) => {
         console.log(index)
@@ -200,8 +210,8 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
              name="product_id"
              placeholder="Enter Product id here"
              label="Prodcut id"
-             
-             onTextChange={text => setId(text)} />
+             value={product.id}
+             onTextChange={handleIdChanged} />
             
             <div className="row">
             <div className="col-md-12">
@@ -209,7 +219,7 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
                     name="product_name"
                     placeholder="Enter Product name here"
                     label="Prodcut name"
-                    onTextChange={text => setName(text)} />
+                    onTextChange={handleIdChanged} />
                 </div>
             </div>               
                 <hr />
