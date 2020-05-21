@@ -34,22 +34,22 @@ export function UserForm({ closeFormClickHandler, userToUpdate, closePopup }) {
       return;
     }
     user.roleId = selectedRole._id;
-    setUser(user);
+    setUser({ ...user });
   };
 
   const handleFnameChanged = (fName) => {
     user.fName = fName;
-    setUser(user);
+    setUser({ ...user });
   };
 
   const handleEmailChanged = (email) => {
     user.email = email;
-    setUser(user);
+    setUser({ ...user });
   };
 
   const handleLNameChanged = (lName) => {
     user.lName = lName;
-    setUser(user);
+    setUser({ ...user });
   };
 
   const handleFormSubmit = () => {
