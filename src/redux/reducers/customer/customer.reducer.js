@@ -141,6 +141,29 @@ export const customer = (state = initialState, action) => {
           updateErrorMsg: action.payload
       };  
 
+      case CUSTOMER_ACTION_TYPES.UPDATE_CUSTOMER_INFO_REQUEST:
+        return {
+          ...state,
+          updatingCustomerInfo: true
+        };
+
+      case CUSTOMER_ACTION_TYPES.UPDATE_CUSTOMER_INFO_SUCCESS:
+        const customerToUpdate = state.customerInfo;
+        customerToUpdate.fName = action.payload.fName;
+        customerToUpdate.lName = action.payload.lName;
+        customerToUpdate.email = action.payload.email;
+        return {
+            ...state,
+            updatingCustomerInfo: false,
+            customerInfo: customerToUpdate
+        };
+        
+      case CUSTOMER_ACTION_TYPES.UPDATE_CUSTOMER_INFO_FAILURE:
+        return {
+          ...state,
+          updatingCustomerInfo: false,
+          customerUpdatingError: action.payload
+        };
       default:
         return state;
     }

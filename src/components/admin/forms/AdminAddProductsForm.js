@@ -4,6 +4,7 @@ import ErrorMessage from "../../common/ErrorMessage";
 import { isEmpty } from "../../../helpers/input-validation.helper";
 import TextBox from '../../common/TextBox';
 import AccentButton from '../../common/AccentButton';
+import Files from 'react-butterfiles';
 import { brandsLoadedAsync } from '../../../redux/actions/admin-panel/brand.actions';
 import { categoriesAsync } from '../../../redux/actions/admin-panel/category.actions'
 import { clearProductsAddedSuccessMsg } from '../../../redux/actions/admin-panel/product.actions';
@@ -15,6 +16,7 @@ import '../../../styles/common/SelectBox.css'
 import '../../../styles/common/IconButton.css'
 import SuccessMessage from '../../common/SuccessMessage';
 import { sizesLoadedAsync } from '../../../redux/actions/admin-panel/size.actions';
+
 
 
 
@@ -33,7 +35,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
   
    const [showColorPicker, setshowColorPicker] = useState(false) 
    const [addSizes, setAddSizes] = useState([])
-   
+
     const [name, setName] = useState("");
     const [size, setSize] = useState("");
     const [qty, setQty] = useState("");
@@ -50,7 +52,11 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
     const [images, setImages] = useState([]);
     const [subSelectedCategories, setSubCategories] = useState([{_id:'', subcategory:[{_id:'', name:''}], name: ''}]);
 
+
+    const [images, setImages] = useState([]);
+
     const [bname, setBrandname] = useState("");
+
 
     const submitSizeQty = () => {
         if(isEmpty(size)) {
@@ -108,6 +114,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
     }
     useEffect(() => {
         dispatch(brandsLoadedAsync());
+
         dispatch(sizesLoadedAsync())
         dispatch(clearProductsAddedSuccessMsg());
     }, [])
@@ -116,7 +123,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
         dispatch(categoriesAsync())
     }, [])
 
-    
+
 
     const handleImages = (image, index) => {
         if (index === images.length) {
@@ -135,6 +142,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
     const handleImageErrors = (error) => {
         console.log(error);
     }
+
 
     const removeData = (index) => {
         console.log(index)
@@ -156,6 +164,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
 
         } else if (isEmpty(sizeQty)) {
             setInvalidInput("product sizes and qtys is required");
+
             setValidInput("");
     
 
@@ -233,7 +242,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
 
 
             setInvalidInput("");
-            
+
             onAddProductClick(
                 formData
             );
@@ -248,11 +257,11 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
         }
     }
 
-   
     
 
     return (
         <div className="modal-style">
+
 
 
 
@@ -267,6 +276,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                             onTextChange={text => setName(text)} />
                     </div>
                 </div>
+
                 <hr />
                     <div className="row">
                 <div className="col-md-6">
@@ -345,9 +355,10 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                 <hr />
                 <div className="row">
                     <div className="col-md-6">
-                        <label>Select Category :</label>
 
+                        <label>Select Category :</label>
                         <div className="select-box">
+
 
                             <select onChange={e => { setCategory(e.target.value); console.log(e.target.value); changeSubs() }}>
                             <option className="default-option"  value="-1">- pick a category -</option>
@@ -393,8 +404,11 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                             label="Prodcut discount"
                             type="number"
                             onTextChange={text => setDiscount(text)} />
+
                     </div>
+
                 </div>
+
                 <hr />
                 <div className="row">
                                 
@@ -424,13 +438,16 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                     </div>
                 </div>
                 <hr />
+
                 <TextBox
                     name="product_description"
                     placeholder="Enter Product description here"
                     label="Prodcut description"
                     type="textarea"
                     onTextChange={text => setDescription(text)} />
+
 <hr />
+
                 <div className="row">
                     <div class="col">
 
@@ -497,13 +514,16 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
 
                 {errorMsg.length > 0 ?
                     <ErrorMessage msg={errorMsg} />
+
                     : null
 }
 {
                 validInput !== null && validInput.length > 0 ?
                     <SuccessMessage msg={validInput} />
+
                     : null
-}
+                }
+
 
 
             {errorMsg.length > 0 ?
@@ -521,5 +541,5 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
            
                 
         )
-    
+
 }

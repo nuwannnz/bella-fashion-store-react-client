@@ -14,7 +14,6 @@ export const PRODUCT_ACTION_TYPES = {
     payload: productList
   })
 
-
   export function productsLoadedAsync() {
     return async (dispatch, getState)=> {
       fetch('http://localhost:5000/api/v1/products').then(response => response.json())
@@ -25,3 +24,4 @@ export const PRODUCT_ACTION_TYPES = {
 
       }
   }
+

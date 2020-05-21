@@ -17,6 +17,8 @@ import Checkout from "./Checkout";
 import CustomerDashboardAddressPage from "./CustomerDashboardAddressPage";
 import CustomerOrderDashboardPage from "./CustomerOrderDashboardPage";
 import CustomerDashboardDetailsPage from "./CustomerDashboardDetailPage";
+import ProductListPage from "./ProductListPage";
+import FloatingCart from "./FloatingCart";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.customer.token);
@@ -104,6 +106,7 @@ export default function Homepage() {
                 <Route path={ROUTE_PATHS.CUSTOMER_PRODUCT_SINGLE} name="id">
                   <ProductPage />
                 </Route>
+
 
                 <Route path="*">
                   <ProductListPage />

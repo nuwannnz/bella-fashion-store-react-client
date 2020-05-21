@@ -1,3 +1,4 @@
+
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import '../../styles/product.css'
@@ -9,9 +10,11 @@ import { brandsLoadedAsync } from "../../redux/actions/admin-panel/brand.actions
 import AddToCartButton from "./AddToCartButton";
 import '../../styles/common/SelectBox.css';
 
+
 export default function SingleProduct({productId}) {
   const [selected_size, setSize] = useState("");
   const [qty, setQty] = useState(0);
+
   const [selectedProduct, setSelectedProduct] = useState(null);
   const dispatch = useDispatch();
   const[id, setID] = useState("");
@@ -41,7 +44,23 @@ export default function SingleProduct({productId}) {
     }, [brands, products])
 
 
-  //   dispatch(productLoadedByIDAsync("5eb52be16177293bb4c683ba"));
+  const product = useSelector(state => state.product.singleProduct);
+  const products = useSelector(state => state.product.products);
+  console.log(product)
+
+  useEffect(() => {
+    dispatch(productsLoadedAsync());
+
+  }, [])
+
+  useEffect(() => {
+
+    const id = '5ebad020755b7d2d343581ba';
+    // meka usestate ekak dapan
+    const _selectedProduct = products.find(p => p._id === id);
+    setSelectedProduct(_selectedProduct);
+    console.log(selectedProduct)
+  }, [products])
 
   const checkOffer = (offer) => {
     if (offer > 0) {
@@ -50,10 +69,10 @@ export default function SingleProduct({productId}) {
       return false;
     }
   };
-
   const checkNew = (date) => {
-    const msDiff = new Date().getTime() - new Date(date).getTime(); //Future date - current date
+    const msDiff = new Date().getTime() - new Date(date).getTime();   //Future date - current date
     const difference = Math.floor(msDiff / (1000 * 60 * 60 * 24));
+
 
 		if(difference > 7) {
 			return false;
@@ -67,6 +86,7 @@ export default function SingleProduct({productId}) {
 
   return (
     <div class="container-fluid">
+
       {selectedProduct && (
         <div>
 
@@ -75,6 +95,7 @@ export default function SingleProduct({productId}) {
           <div class="row">
 
             <div class="col-md-5">
+
 
               <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style={{maxHeight: '800px',maxWidth: '500px', borderRadius: '1em'}}>
                 <div class="carousel-inner" >
@@ -93,6 +114,7 @@ export default function SingleProduct({productId}) {
                   
                   
                 </div>
+
                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span class="sr-only">Previous</span>
@@ -104,6 +126,7 @@ export default function SingleProduct({productId}) {
               </div>
             </div>
             <div class="col-md-7">
+
               {checkNew(selectedProduct.addedDate) ? (
                 <p class="newarrival text-center">NEW</p>
               ) : (
@@ -111,10 +134,12 @@ export default function SingleProduct({productId}) {
               )}
 
               <h2 style={{textTransform: 'uppercase'}}>{selectedProduct.name}</h2>
+
               <p>product code: {selectedProduct._id}</p>
               <p>{selectedProduct.description}</p>
 
               <img src={require('../../assets/stars.png')} class="stars" />
+
 
               {checkOffer(selectedProduct.discount) ? (
                 <CurrencyFormat
@@ -190,6 +215,7 @@ export default function SingleProduct({productId}) {
                 qty={qty}
                 size={selected_size}
               />
+
             </div>
 
           </div>
@@ -198,5 +224,6 @@ export default function SingleProduct({productId}) {
 
       )}
     </div>
-  );
+  )
+
 }

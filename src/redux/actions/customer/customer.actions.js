@@ -1,11 +1,12 @@
 import * as customerService from "../../../services/customer/customer.service";
 import { displayTimeoutNotificationAsync } from "./notification.actions";
 import { buildNotification } from "../../../services/customer/notification.service";
-import { MSG_STRINGS } from "../../../resources/Strings";
+import { MSG_STRINGS, MESSAGE_STRINGS } from "../../../resources/Strings";
 import { ROUTE_PATHS } from "../../../constants";
 import { saveCustomerTokenToStorage, deleteCustomerTokenFromStorage } from "../../../helpers/token.helper";
 import { uiIsLoading } from "../ui.actions";
 import { USER_DASHBOAR_ACTION_TYPES } from "../admin-panel/user-dashboard/user.actions";
+import { history } from "../../../helpers/navigation.helper";
 
 export const CUSTOMER_ACTION_TYPES = {
     LOGGED_IN: "LOGGED_IN",
@@ -30,7 +31,15 @@ export const CUSTOMER_ACTION_TYPES = {
 
     UPDATE_ADDRESS_REQUEST: "UPDATE_ADDRESS_REQUEST",
     UPDATE_ADDRESS_SUCCESS: "UPDATE_ADDRESS_SUCCESS",
-    UPDATE_ADDRESS_FAILURE: "UPDATE_ADDRESS_FAILURE"
+    UPDATE_ADDRESS_FAILURE: "UPDATE_ADDRESS_FAILURE",
+
+    UPDATE_CUSTOMER_INFO_REQUEST: "UPDATE_CUSTOMER_INFO_REQUEST",
+    UPDATE_CUSTOMER_INFO_SUCCESS: "UPDATE_CUSTOMER_INFO_SUCCESS",
+    UPDATE_CUSTOMER_INFO_FAILURE: "UPDATE_CUSTOMER_INFO_FAILURE",
+
+    UPDATE_CUSTOMER_PASSWORD_REQUEST: "UPDATE_CUSTOMER_PASSWORD_REQUEST",
+    UPDATE_CUSTOMER_PASSWORD_SUCCESS: "UPDATE_CUSTOMER_PASSWORD_SUCCESS",
+    UPDATE_CUSTOMER_PASSWORD_FAILURE: "UPDATE_CUSTOMER_PASSWORD_FAILURE" 
 };
 
 // action creators
@@ -295,3 +304,60 @@ export function updateCustomerAddressAsync( addressId, addressDto) {
     };
   }
 };
+
+export function updateCustomerInfoAsync(customerInfo) {
+  return async (dispatch, getState) => {
+    dispatch(request());
+    const { token } = getState().customer;
+
+    const result = await customerService.updateCustomerInfo(token, customerInfo);
+
+    if(result.isResultOk()) {
+      dispatch(success(result.data));
+    } else {
+      dispatch(failure(result.errorMessage));
+    }
+  };
+
+  function request() {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_CUSTOMER_INFO_REQUEST
+    };
+  }
+
+  function success(payload) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_CUSTOMER_INFO_SUCCESS,
+      payload
+    };
+  }
+
+  function failure(errorMsg) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_CUSTOMER_INFO_FAILURE,
+      payload: errorMsg
+    };
+  }
+};
+
+export function updateCustomerPasswordAsync(currentPwd, newPwd) {
+  return async (dispatch, getState) => {
+    const { token } = getState().customer;
+
+    if(!token) {
+      return;
+    }
+
+    const result = await customerService.updateCustomerPassword(token, currentPwd, newPwd);
+  
+    if(result.isResultOk() && result.data) {
+      dispatch(logoutAsync(history));
+      dispatch(verifyStoredTokenAsync());
+    } else {
+      displayTimeoutNotificationAsync(
+        buildNotification(MSG_STRINGS.CUSTOMER_PASSWORD_UPDATE_FAILED)
+      );
+      return;
+    }
+  };
+}
