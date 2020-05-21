@@ -125,7 +125,7 @@ export default function NewCategoryAdmin({category}) {
                 confirmButtonText: 'Ok'
               })
         } else {
-            dispatch(addNewSubCategoryAsync(categoryName,SubCategoryName));
+            dispatch(addNewSubCategoryAsync(category.name,SubCategoryName));
             Swal.fire({
                 title: 'Success!',
                 text: 'Successfully Added '+SubCategoryName,
