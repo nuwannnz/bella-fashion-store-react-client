@@ -102,7 +102,7 @@ export const clearCart = async (token) => {
 };
 
 export const placeOrder = async (token, orderDto) => {
-  const path = `${API_HOST}/order`;
+  const path = `${API_HOST}/orders`;
   const config = getAuthHeader(token);
   const data = { orderDto }
 
