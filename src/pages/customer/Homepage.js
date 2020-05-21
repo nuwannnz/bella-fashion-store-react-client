@@ -13,7 +13,7 @@ import ProductPage from "./ProductPage";
 import { loadCartAsync } from "../../redux/actions/customer/cart.actions";
 import ProductListPage from "./ProductListPage";
 import FloatingCart from "./FloatingCart";
-import Checkout from "./Checkout";
+import Checkout from "./checkout/Checkout";
 import CustomerDashboardAddressPage from "./CustomerDashboardAddressPage";
 import CustomerOrderDashboardPage from "./CustomerOrderDashboardPage";
 import CustomerDashboardDetailsPage from "./CustomerDashboardDetailPage";

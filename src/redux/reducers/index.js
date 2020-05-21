@@ -10,6 +10,7 @@ import { brand } from "./admin-panel/brand.reducer";
 import { customer } from "./customer/customer.reducer";
 import { popup } from "./popup.reducer";
 import { toast } from "./toast.reducer";
+import { order } from "./customer/order.reducer";
 
 export const customerReducer = combineReducers({
   customer,
@@ -18,7 +19,8 @@ export const customerReducer = combineReducers({
   brand,
   product: customerProducts,
   popup,
-  toast
+  toast,
+  order
 });
 
 export const adminPanelReducer = combineReducers({

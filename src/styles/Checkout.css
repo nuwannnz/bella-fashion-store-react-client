@@ -1,9 +1,9 @@
 .checkout-wrapper {
   position: fixed;
-  top: 50px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 50px;
+  bottom: 20px;
   min-width: 650px;
   background-color: #fff;
   z-index: 999;
@@ -21,7 +21,7 @@
   position: relative;
 }
 
-.checkout-header h2 {
+.checkout-header h4 {
   text-align: center;
 }
 
@@ -39,14 +39,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px 20px 20px 20px;
+  padding: 15px 20px 20px 20px;
 }
 
 .checkout-step-counter .step-number {
   display: inline-block;
   border-radius: 50%;
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   background-color: #ddd;
   position: relative;
 }
@@ -57,7 +57,7 @@
   left: 50%;
   transform: translateX(-50%);
   color: #aaa;
-  font-size: 13px;
+  font-size: 11px;
   text-transform: uppercase;
 }
 .step-number.active .step-label {
@@ -130,9 +130,14 @@
   height: 100%;
   padding: 0px 20px 20px 20px;
 }
+.checkout-stage-container h5 {
+  margin-bottom: 10px;
+  text-align: center;
+}
 
 .address-item input {
   opacity: 0;
+  position: absolute;
 }
 
 .address-item label {
@@ -183,6 +188,12 @@
   opacity: 0;
 }
 
+.payment-item {
+  margin: 0px 5px;
+}
+.payment-item label {
+  width: 100%;
+}
 .payment-item label .method-info {
   display: flex;
   justify-content: center;
@@ -205,4 +216,100 @@
 
 .payment-item .method-icon {
   margin-right: 10px;
+}
+
+.coupon-code-wrapper {
+  align-items: flex-end;
+}
+
+.card-information-wrapper {
+  width: 375px;
+}
+
+.card-information-wrapper .card-expire-wrapper {
+  width: 140px;
+}
+
+.card-expire-wrapper .select-box:first-of-type {
+  margin-right: 15px !important;
+}
+
+.card-information-wrapper .card-cvt-wrapper {
+  width: 80px;
+}
+
+.card-cvt-wrapper {
+  margin-left: 40px;
+}
+
+.card-cvt-wrapper .form-element-wrapper {
+  margin: 0px !important;
+  padding: 0px;
+  padding-top: 2px;
+}
+
+.checkout-confirm {
+  flex-direction: row !important;
+  justify-content: start;
+  width: 70vw;
+  align-items: flex-start;
+}
+
+.checkout-confirm .address-item,
+.checkout-confirm .payment-item {
+  width: 100%;
+  margin-bottom: 5px;
+}
+.checkout-confirm .item-list {
+  max-height: 550px;
+  overflow: auto;
+}
+
+.checkout-confirm .method-info {
+  border: 1px solid #aaa;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.checkout-confirm .method-info .method-name {
+  font-weight: 500;
+}
+
+.checkout-confirm .items-wrap,
+.checkout-confirm .info-wrap {
+  width: 50%;
+}
+
+.checkout-confirm .info-wrap {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.checkout-confirm .payment-item {
+  margin: 0px 0px 5px 0px !important;
+}
+.info-wrap .price-wrapper {
+  margin-bottom: 20px;
+}
+
+.info-wrap .total-price {
+  font-weight: 600;
+  font-size: 30px;
+}
+
+.info-wrap .total-label {
+  color: rgb(85, 85, 85);
+  font-weight: 500;
+}
+
+.info-wrap .price-wrapper {
+  flex-direction: column;
+}
+
+.info-wrap .continue-button:not(.secondary) {
+  width: 300px;
+  font-size: 20px;
 }

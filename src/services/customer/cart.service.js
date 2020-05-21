@@ -100,3 +100,22 @@ export const clearCart = async (token) => {
     return result;
   }
 };
+
+export const placeOrder = async (token, orderDto) => {
+  const path = `${API_HOST}/order`;
+  const config = getAuthHeader(token);
+  const data = { orderDto }
+
+  const result = new APIResult();
+
+  try {
+    const response = await axios.post(path, config, data);
+
+    result.data = response.data;
+    return result;
+  } catch (error) {
+    logger.error(`Error in API call => ${path}`);
+    result.setError(error);
+    return result;
+  }
+}

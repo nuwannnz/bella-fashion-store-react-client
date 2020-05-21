@@ -4,6 +4,7 @@ import {
   updateProductOfCart,
   removeProductFromCart,
   clearCart,
+  checkoutCart,
 } from "../../../services/customer/cart.service";
 
 export const CART_ACTION_TYPES = {
@@ -25,6 +26,7 @@ export const CART_ACTION_TYPES = {
 
   CLEAR_CART_SUCCESS: "CLEAR_CART_SUCCESS",
   CLEAR_CART_FAILURE: "CLEAR_CART_FAILURE",
+
 };
 
 export function loadCartAsync() {
@@ -160,3 +162,4 @@ export function clearCartAsync() {
     return { type: CART_ACTION_TYPES.CLEAR_CART_FAILURE, payload };
   }
 }
+

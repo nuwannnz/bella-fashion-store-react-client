@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleCartBar, toggleDisplayCheckout } from '../../redux/actions/ui.actions';
 
 
-const CartItem = ({ product, size, qty }) => {
+export const CartItem = ({ product, size, qty }) => {
     return (
         <div className="cart-item">
             <div className="cart-item-image">
