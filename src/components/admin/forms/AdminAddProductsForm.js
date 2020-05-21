@@ -8,7 +8,6 @@ import Files from 'react-butterfiles';
 import { brandsLoadedAsync } from '../../../redux/actions/admin-panel/brand.actions';
 import { categoriesAsync } from '../../../redux/actions/admin-panel/category.actions'
 import { clearProductsAddedSuccessMsg } from '../../../redux/actions/admin-panel/product.actions';
-import Files from 'react-butterfiles';
 import { ChromePicker } from 'react-color'
 import InputColor from 'react-input-color';
 import '../../../styles/common/SelectBox.css'
@@ -51,9 +50,6 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
     console.log(sizeQty)
     const [images, setImages] = useState([]);
     const [subSelectedCategories, setSubCategories] = useState([{_id:'', subcategory:[{_id:'', name:''}], name: ''}]);
-
-
-    const [images, setImages] = useState([]);
 
     const [bname, setBrandname] = useState("");
 

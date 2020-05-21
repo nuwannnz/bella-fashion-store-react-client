@@ -205,6 +205,7 @@ export function addAddressAsync(addressDto) {
 
     if(result.isResultOk()) {
       dispatch(success(result.data));
+      return true;
     } else {
       dispatch(failure(result.errorMessage));
     }

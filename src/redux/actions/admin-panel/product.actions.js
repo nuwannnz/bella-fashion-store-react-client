@@ -118,7 +118,7 @@ export const productDeleted = (product) => ({
       }
 
   }
-}
+
 
 
   export function productsLoadedAsync() {
@@ -135,7 +135,7 @@ export const productDeleted = (product) => ({
       }
 
   }
-}
+
 
 
 

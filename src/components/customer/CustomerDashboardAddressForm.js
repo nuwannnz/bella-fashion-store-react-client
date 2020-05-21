@@ -82,7 +82,9 @@ export default function CustomerDashboardAddressForm( {closeFormClickHandler, ad
             dispatch(updateCustomerAddressAsync(addressToUpdate._id, address));
         }else{
 
-            dispatch(addAddressAsync(address));
+            dispatch(addAddressAsync(address)).then(()=>{
+                // closePopup()
+            });
         }
     };
 

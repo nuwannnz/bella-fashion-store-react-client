@@ -43,6 +43,7 @@ function AppShell() {
               <CustomerShell />
               <LoadingAnimation />
               <PopupContainer />
+              <ToastManger />
             </Provider>
           </Route>
         </Switch>

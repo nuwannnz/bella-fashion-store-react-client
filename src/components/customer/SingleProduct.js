@@ -45,7 +45,7 @@ export default function SingleProduct({productId}) {
 
 
   const product = useSelector(state => state.product.singleProduct);
-  const products = useSelector(state => state.product.products);
+
   console.log(product)
 
   useEffect(() => {
