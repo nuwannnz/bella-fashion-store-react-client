@@ -11,6 +11,9 @@ import CustomerDashboardSideBar from "../../components/customer/CustomerDashboar
 import CartPage from "./CartPage";
 import ProductPage from "./ProductPage";
 import { loadCartAsync } from "../../redux/actions/customer/cart.actions";
+import ProductListPage from "./ProductListPage";
+import FloatingCart from "./FloatingCart";
+import Checkout from "./Checkout";
 import CustomerDashboardAddressPage from "./CustomerDashboardAddressPage";
 import CustomerOrderDashboardPage from "./CustomerOrderDashboardPage";
 import CustomerDashboardDetailsPage from "./CustomerDashboardDetailPage";
@@ -40,12 +43,15 @@ function PrivateRoute({ children, ...rest }) {
 }
 
 export default function Homepage() {
+  const token = useSelector((state) => state.customer.token);
   const sideBarOpened = useSelector((state) => state.ui.mobileSideBarOpened);
+  const displayCheckout = useSelector(state => state.ui.displayCheckout)
+
   const location = useLocation();
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.customer.token);
 
   useEffect(() => {
+    console.log('homepage')
     if (token !== null) {
       // customer logged in
       // load cart and wishlist
@@ -71,6 +77,8 @@ export default function Homepage() {
 
           <FloatingCart />
 
+          {displayCheckout && <Checkout />}
+
           <div className="page-content-wrap">
             <div className="page">
               <Switch>
@@ -87,13 +95,18 @@ export default function Homepage() {
                   <CustomerDashboardPage />
                 </PrivateRoute>
 
-                <PrivateRoute path={ROUTE_PATHS.CUSTOMER_CART}>
+                {/* <PrivateRoute path={ROUTE_PATHS.CUSTOMER_CART}>
                   <CartPage />
-                </PrivateRoute>
+                </PrivateRoute> */}
 
-                <Route path={ROUTE_PATHS.CUSTOMER_PRODUCT}>
+                <Route path={`${ROUTE_PATHS.CUSTOMER_PRODUCT}/:productId`}>
                   <ProductPage />
                 </Route>
+
+                <Route path={ROUTE_PATHS.CUSTOMER_PRODUCT_SINGLE} name="id">
+                  <ProductPage />
+                </Route>
+
 
                 <Route path="*">
                   <ProductListPage />

@@ -3,7 +3,10 @@ import { UI_ACTION_TYPES } from "../actions/ui.actions";
 const initialState = {
   isLoading: false,
   mobileSideBarOpened: false,
-  cartBarOpened: false
+
+  cartBarOpened: false,
+  displayCheckout: false
+
 };
 
 export const ui = (state = initialState, action) => {
@@ -24,6 +27,13 @@ export const ui = (state = initialState, action) => {
       return {
         ...state,
         cartBarOpened: !state.cartBarOpened
+      }
+
+
+    case UI_ACTION_TYPES.DISPLAY_CHECKOUT:
+      return {
+        ...state,
+        displayCheckout: !state.displayCheckout
       }
 
     default:

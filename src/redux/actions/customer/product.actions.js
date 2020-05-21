@@ -14,14 +14,9 @@ export const PRODUCT_ACTION_TYPES = {
     payload: productList
   })
 
-  export const productLoadedByID = (product) => ({
-    type:PRODUCT_ACTION_TYPES.PRODUCT_LOADED_BY_ID,
-    payload: product
-  })
-
   export function productsLoadedAsync() {
     return async (dispatch, getState)=> {
-      fetch('http://localhost:4200/api/v1/products').then(response => response.json())
+      fetch('http://localhost:5000/api/v1/products').then(response => response.json())
       .then(json => {
         dispatch(productsLoaded(json))
          return json;
@@ -30,15 +25,3 @@ export const PRODUCT_ACTION_TYPES = {
       }
   }
 
-  export function productLoadedByIDAsync(id) {
-    return async (dispatch, getState)=> {
-      fetch('http://localhost:4200/api/v1/products/'+id).then(response => response.json())
-      .then(json => {
-          dispatch(productLoadedByID(json));
-          
-      })
-      // const result = await productService.getProductById(id);
-      // dispatch(productLoadedByID(result));
-      // console.log(result)
-    }
-  }

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import '../../styles/FloatingCart.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleCartBar } from '../../redux/actions/ui.actions';
+
+import { toggleCartBar, toggleDisplayCheckout } from '../../redux/actions/ui.actions';
+
 
 
 const CartItem = ({ product, size, qty }) => {
@@ -47,6 +49,16 @@ const CartContent = ({ items }) => {
 
 
 const CartFooter = ({ totalPrice, checkoutClickHandler }) => {
+
+
+    const dispatch = useDispatch();
+
+    const handleCheckoutClick = () => {
+        dispatch(toggleCartBar())
+        dispatch(toggleDisplayCheckout());
+    }
+
+
     return (
         <div className="cart-footer">
             <div className="cart-footer-content">
@@ -58,7 +70,9 @@ const CartFooter = ({ totalPrice, checkoutClickHandler }) => {
                     </div>
                 </div>
 
-                <button className="checkout-btn">
+
+                <button className="checkout-btn" onClick={handleCheckoutClick}>
+
                     <span>Checkout</span>
                     <span> <i class="fas fa-arrow-right"></i></span>
                 </button>

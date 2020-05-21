@@ -6,6 +6,7 @@ export const BRAND_ACTION_TYPES = {
     
   BRAND_INFO_LOADED: "BRAND_INFO_LOADED",
   BRAND_ADDED: "BRAND_ADDED",
+  BRAND_DELETED: "BRAND_DELETED"
     
   };
 
@@ -19,15 +20,24 @@ export const BRAND_ACTION_TYPES = {
     payload: brand
   })
 
+  export const brandsDeleted = (brandId) => ({
+    type:BRAND_ACTION_TYPES.BRAND_DELETED,
+    payload: brandId
+  })
 
 
-  export function addBrandAsync(name) {
+
+  export function addBrandAsync(brandData) {
       return async (dispatch, getState) => {
-        const result = await brandService.addBrand(name);
+        const { token } = getState().staffLogin.auth;
+        const result = await brandService.addBrand(token, brandData);
+
+        console.log(result.data); 
 
         
-        if(result.isResultOk() && result.data.success) {
-          dispatch(brandsAdded(result.data))
+        if(result.isResultOk() && result.data.succeded) {
+          console.log("brand added successfull");
+          dispatch(brandsAdded(result.data.addedEntry))
         } else {
           // display error notification
           console.log("error");
@@ -37,28 +47,31 @@ export const BRAND_ACTION_TYPES = {
   }
 
   export function brandsLoadedAsync() {
-    return(dispatch, getState)=> {
-      fetch('http://localhost:5000/api/v1/brands').then(response => response.json())
-      .then(json => {
-          dispatch(brandsLoaded(json));
-          console.log(json)
-      })
+    return async (dispatch, getState)=> {
+      const result = await brandService.getBrands();
+      
+      if(result.isResultOk) {
+        console.log("brands loaded")
+        dispatch(brandsLoaded(result.data));
+      } else {
+        console.log("error");
+      }
     }
   }
 
 
-  export function brandDeletedByIDAsync(id) {
+  export function deleteBrandByID(id) {
     return async (dispatch, getState) => {
-      const result = await brandService.deleteBrand(id)
+      const { token } = getState().staffLogin.auth;
+      const result = await brandService.deleteBrands(token, id)
 
       if (result.isResultOk() && result.data.success) {
-        // fetch user again again
-        // dispatch(loggedOut());
-        // dispatch(updatedTempPassword());
-        console.log(result);
-      } else {
-        // display error notification
+        console.log("Brand deleted");
+        dispatch(brandsDeleted(id));
+
+      } else { 
         console.log("error");
+
         return;
       }
     };
