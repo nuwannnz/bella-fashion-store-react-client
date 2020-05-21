@@ -6,6 +6,7 @@ import { ROUTE_PATHS } from "../../../constants";
 import { saveCustomerTokenToStorage, deleteCustomerTokenFromStorage } from "../../../helpers/token.helper";
 import { uiIsLoading } from "../ui.actions";
 import { USER_DASHBOAR_ACTION_TYPES } from "../admin-panel/user-dashboard/user.actions";
+import { history } from "../../../helpers/navigation.helper";
 
 export const CUSTOMER_ACTION_TYPES = {
     LOGGED_IN: "LOGGED_IN",
@@ -350,7 +351,7 @@ export function updateCustomerPasswordAsync(currentPwd, newPwd) {
     const result = await customerService.updateCustomerPassword(token, currentPwd, newPwd);
   
     if(result.isResultOk() && result.data) {
-      // dispatch(loggedOut());
+      dispatch(logoutAsync(history));
       dispatch(verifyStoredTokenAsync());
     } else {
       displayTimeoutNotificationAsync(
