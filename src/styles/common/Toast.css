@@ -7,7 +7,7 @@
   transition: height 0.3s ease-out;
 }
 
-.toast {
+.bella-toast {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,35 +19,35 @@
   animation: slide-top 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
 }
 
-.toast-hiding {
+.bella-toast-hiding {
   animation: slide-right 0.4s ease-in forwards;
 }
 
-.toast span {
+.bella-toast span {
   max-width: 300px;
   white-space: pre-wrap;
 }
 
-.toast-success {
+.bella-toast-success {
   background-color: #c8e6c9;
   color: green;
   border-color: green;
 }
 
-.toast-error {
+.bella-toast-error {
   background-color: #ffcdd2;
   color: maroon;
   border-color: maroon;
 }
 
-.toast .toast-close-btn {
+.bella-toast .bella-toast-close-btn {
   color: rgba(0, 0, 0, 0.3);
   display: inline-block;
   padding: 5px;
   cursor: pointer;
 }
 
-.toast .toast-close-btn:hover {
+.bella-toast .bella-toast-close-btn:hover {
   color: rgba(0, 0, 0, 0.5);
 }
 

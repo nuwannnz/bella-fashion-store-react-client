@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import '../../styles/FloatingCart.css';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { toggleCartBar, toggleDisplayCheckout } from '../../redux/actions/ui.actions';
 import { removeProductFromCartAsync } from "../../redux/actions/customer/cart.actions";
 
 
+
 export const CartItem = ({ product, size, qty }) => {
     const dispatch = useDispatch();
+
     return (
         <div className="cart-item">
             <span className="delete-cart-item-btn" onClick={() => dispatch(removeProductFromCartAsync(product._id, size))}>
@@ -53,12 +56,14 @@ const CartContent = ({ items }) => {
 
 const CartFooter = ({ totalPrice, checkoutClickHandler }) => {
 
+
     const dispatch = useDispatch();
 
     const handleCheckoutClick = () => {
         dispatch(toggleCartBar())
         dispatch(toggleDisplayCheckout());
     }
+
 
     return (
         <div className="cart-footer">
@@ -71,7 +76,9 @@ const CartFooter = ({ totalPrice, checkoutClickHandler }) => {
                     </div>
                 </div>
 
+
                 <button className="checkout-btn" onClick={handleCheckoutClick}>
+
                     <span>Checkout</span>
                     <span> <i class="fas fa-arrow-right"></i></span>
                 </button>

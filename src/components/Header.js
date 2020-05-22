@@ -140,6 +140,11 @@ const CartButton = () => {
   );
 };
 
+const WishlistButton = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+};
+
 const HeaderButtonGroup = () => {
   return (
     <div className="header-btn-group flex">

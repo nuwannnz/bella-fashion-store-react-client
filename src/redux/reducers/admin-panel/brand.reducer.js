@@ -12,9 +12,14 @@ export const brand = (state = initialState, action) => {
                 brands: action.payload
             }
             case BRAND_ACTION_TYPES.BRAND_ADDED:
-                return{
+                return {
                     ...state,
-                    products:[ action.payload, ...state.brands]
+                    brands:[ action.payload, ...state.brands]
+                }
+            case BRAND_ACTION_TYPES.BRAND_DELETED:
+                return {
+                    ...state,
+                    brands: [...state.brands.filter(b => b._id  !== action.payload)]
                 }
         default:
             return state;

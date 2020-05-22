@@ -18,3 +18,6 @@ export const isLengthOf = (val, length) => {
     return val.length === length;
 }
 
+export const isPwdMatch = (newPwd, confirmPwd) => {
+    return newPwd !== confirmPwd;
+}
