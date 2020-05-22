@@ -28,7 +28,6 @@ export const customerReducer = combineReducers({
   popup,
   toast,
   order,
-  product,
   category: customerCat
 
 });
