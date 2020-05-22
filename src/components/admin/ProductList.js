@@ -9,6 +9,7 @@ import { Modal } from 'react-responsive-modal';
 import { confirmAlert } from 'react-confirm-alert'; 
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
 import ViewProduct from './ViewProduct';
+import LoadingScreen from 'react-loading-screen';
 
 export default function ProductList(){
 
@@ -16,6 +17,8 @@ export default function ProductList(){
     const history = useHistory();
 
     const products = useSelector(state => state.product.products);
+    const loading = useSelector(state => state.product.loading);
+
 
     const[open,setOpen] = useState("");
     const[openView,setOpenView] = useState("");
@@ -66,6 +69,14 @@ export default function ProductList(){
           
   
         return (
+          <LoadingScreen
+          loading={loading}
+          bgColor='#f1f1f1'
+          spinnerColor='#8c52ff'
+          textColor='#8c52ff'
+          
+          text='Loading.. Please wait'
+      > 
             <div class="table-responsive"> 
                <table class="table table-bordered">
                 <thead class="thead-light">
@@ -80,7 +91,9 @@ export default function ProductList(){
                      </tr>
 
                    </thead>
+                  
                    <tbody>
+                     
                        {
                            products.map(product => (
                                 <tr key={product._id}>
@@ -108,7 +121,9 @@ export default function ProductList(){
                                </tr> 
                            ))
                        }
+                      
                    </tbody>
+                  
                </table>
               
                <Modal open={open} onClose={onCloseUpdateModal} center>
@@ -157,6 +172,7 @@ export default function ProductList(){
                                      </div>
                                    </Modal>
             </div>
+            </LoadingScreen>
         )
     
 }

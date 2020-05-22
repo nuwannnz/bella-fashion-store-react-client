@@ -3,6 +3,8 @@ import { MESSAGE_STRINGS } from "../../../resources/Strings";
 import { ROUTE_PATHS } from "../../../constants";
 import { saveAdminTokenToStorage, deleteAdminTokenFromStorage } from "../../../helpers/token.helper";
 import ProductList from "../../../components/admin/ProductList";
+import { displayToastAsync } from "../toast.actions";
+import { buildNotification, NOTIFICATION_TYPE } from "../../../services/customer/notification.service";
 
 
 export const PRODUCT_ACTION_TYPES = {
@@ -24,10 +26,17 @@ export const PRODUCT_ACTION_TYPES = {
   PRODUCT_INFO_LOADED: "PRODUCT_INFO_LOADED",
   PRODUCT_LOADED_BY_ID: "PRODUCT_LOADED_BY_ID",
   PRODUCT_ADDED: "PRODUCT_ADDED",
-  PRODUCT_DELETED: "PRODUCT_DELETED"
+  PRODUCT_DELETED: "PRODUCT_DELETED",
+
+  PODUCT_LOADING: "PODUCT_LOADING"
 
 
 };
+
+export const productsLoading = (loading) => ({
+  type: PRODUCT_ACTION_TYPES.PODUCT_LOADING,
+  payload: loading
+})
 
 export const productsLoaded = (productList) => ({
   type: PRODUCT_ACTION_TYPES.PRODUCT_INFO_LOADED,
@@ -91,6 +100,7 @@ export const productDeleted = (product) => ({
     productData
     ) {
       return async (dispatch, getState) => {
+        dispatch(productsLoading(true))
         const { token } = getState().staffLogin.auth;
         const result = await productService.addProduct(
           token,
@@ -98,18 +108,19 @@ export const productDeleted = (product) => ({
 
            console.log(productData)
 
-           
-            
 
             if(result.isResultOk()) {
               dispatch(productsAddedSuccessMsg("Product is added successfully!!"))
               console.log("Product added successfull")
               dispatch(productsAdded(result.data.addedEntry))
+              dispatch(productsLoading(false))
+              dispatch(displayToastAsync(buildNotification("Product Added Successfully", NOTIFICATION_TYPE.SUCCESS)))
             } else {
               // display error notification
               dispatch(productsAddedSuccessMsg("Product is Failed to Add!!"))
               console.log("error");
-              
+              dispatch(displayToastAsync(buildNotification("Product is failed to Added", NOTIFICATION_TYPE.ERROR)))
+              dispatch(productsLoading(false))
             }
            
 
@@ -123,14 +134,16 @@ export const productDeleted = (product) => ({
 
   export function productsLoadedAsync() {
     return async (dispatch, getState)=> {
-
+      dispatch(productsLoading(true))
       const result = await productService.getProducts();
       
         if(result.isResultOk) {
           console.log("product loaded")
           dispatch(productsLoaded(result.data));
+          dispatch(productsLoading(false))
         } else {
           console.log("error in product loaded");
+          dispatch(productsLoading(false))
         }
       }
 
@@ -141,17 +154,22 @@ export const productDeleted = (product) => ({
 
   export function productDeletedByIDAsync(id) {
     return async (dispatch, getState) => {
+      dispatch(productsLoading(true))
       const { token } = getState().staffLogin.auth;
       const result = await productService.deleteProducts(token,id)
 
       if (result.isResultOk() && result.data.success) {
         
         dispatch(productDeleted(id))
+        dispatch(productsLoading(false))
+        dispatch(displayToastAsync(buildNotification("Product Deleted", NOTIFICATION_TYPE.SUCCESS)))
         
        return true
       } else {
         // display error notification
         console.log("error");
+        dispatch(productsLoading(false))
+        dispatch(displayToastAsync(buildNotification("Product is failed to delete", NOTIFICATION_TYPE.ERROR)))
         return false;
       }
     };
@@ -184,7 +202,7 @@ export const productDeleted = (product) => ({
         colors,
         tags,
         description)
-  
+        dispatch(productsLoading(true))
       // get state from the state
       const { token } = getState().staffLogin.auth;
       // if (!token) {
@@ -212,11 +230,15 @@ export const productDeleted = (product) => ({
         console.log("Success");
          dispatch(productsUpdated(result.data));
          dispatch(productsUpdatedSuccessMsg("Product is Updated Successfully!!"));
+         dispatch(productsLoading(false))
+         dispatch(displayToastAsync(buildNotification("Product is updated Successfully", NOTIFICATION_TYPE.SUCCESS)))
         
       } else {
         // display error notification
         console.log("error");
         dispatch(productsUpdatedSuccessMsg("Product is failed to update!!"))
+        dispatch(productsLoading(false))
+        dispatch(displayToastAsync(buildNotification("Product is failed to update", NOTIFICATION_TYPE.ERROR)))
         return;
       }
     };

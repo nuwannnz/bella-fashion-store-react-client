@@ -4,11 +4,12 @@ import '../../styles/admin/ViewProduct.css'
 import { brandsLoadedAsync } from '../../redux/actions/admin-panel/brand.actions';
 import { productsLoadedAsync } from '../../redux/actions/customer/product.actions';
 import { categoriesAsync } from '../../redux/actions/admin-panel/category.actions';
-
+import LoadingScreen from 'react-loading-screen';
 
 export default function ViewProduct({pid}) {
 
     const products = useSelector(state => state.product.products);
+    const loading = useSelector(state => state.product.loading);
     const brands = useSelector(state => state.brand.brands);
     const categories = useSelector(state => state.category.categories);
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -52,6 +53,14 @@ export default function ViewProduct({pid}) {
         return (
             
             <div className="model-style">
+                   <LoadingScreen
+                        loading={loading}
+                        bgColor='#f1f1f1'
+                        spinnerColor='#8c52ff'
+                        textColor='#8c52ff'
+                        
+                        text='Loading.. Please wait'
+                        > 
                 {selectedProduct && brand && (
                     <div>
                 <div className="row">
@@ -104,6 +113,7 @@ export default function ViewProduct({pid}) {
 
                 </div>
                 )}
+                </LoadingScreen>
             </div>
         )
     

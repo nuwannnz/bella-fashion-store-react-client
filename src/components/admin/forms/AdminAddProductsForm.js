@@ -11,10 +11,12 @@ import { clearProductsAddedSuccessMsg } from '../../../redux/actions/admin-panel
 import { ChromePicker } from 'react-color'
 import InputColor from 'react-input-color';
 import '../../../styles/common/SelectBox.css'
+import logo from '../../../assets/new-logo-cropped.png'
 
 import '../../../styles/common/IconButton.css'
 import SuccessMessage from '../../common/SuccessMessage';
 import { sizesLoadedAsync } from '../../../redux/actions/admin-panel/size.actions';
+import LoadingScreen from 'react-loading-screen';
 
 
 
@@ -29,6 +31,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
     console.log(categories)
     const errorMsg = useSelector(state => state.product.errorMsg);
     const successMsg = useSelector(state => state.product.successMsg)
+    const loading = useSelector(state => state.product.loading)
 
     console.log(successMsg)
   
@@ -53,7 +56,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
 
     const [bname, setBrandname] = useState("");
 
-
+    
     const submitSizeQty = () => {
         if(isEmpty(size)) {
             setInvalidInput("Size is required");
@@ -238,11 +241,11 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
 
 
             setInvalidInput("");
-
+       
             onAddProductClick(
                 formData
             );
-
+          
             console.log(formData)
 
             setValidInput(successMsg);
@@ -257,14 +260,19 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
 
     return (
         <div className="modal-style">
-
-
-
-
-
+             
+             <LoadingScreen
+                loading={loading}
+                bgColor='#f1f1f1'
+                spinnerColor='#8c52ff'
+                textColor='#8c52ff'
+                
+                text='Loading.. Please wait'
+            > 
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-12">
+           
                         <TextBox
                             name="product_name"
                             placeholder="Enter Product name here"
@@ -530,9 +538,10 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                 <SuccessMessage msg={successMsg} />
                 : null
             }</div>
-
-            <AccentButton onButtonClick={submitForm} text="ADD" />
-
+            {loading ? "Loading......" : ""}
+            </LoadingScreen>
+            <AccentButton isLoading={loading} onButtonClick={submitForm} text="ADD" />
+                
             </div>
            
                 

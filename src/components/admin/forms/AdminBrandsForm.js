@@ -12,6 +12,7 @@ import InputColor from 'react-input-color';
 
 import '../../../styles/common/IconButton.css'
 import SuccessMessage from '../../common/SuccessMessage';
+import LoadingScreen from 'react-loading-screen';
 
 
 
@@ -19,8 +20,7 @@ import SuccessMessage from '../../common/SuccessMessage';
 export default function AdminAddBrandsForm({onAddBrandClick}) {
 
     const dispatch = useDispatch();
-    const brands = useSelector(state => state.brand.brands);
-
+    const loading = useSelector(state => state.brand.loading);
     const errorMsg = useSelector(state => state.product.errorMsg);
     const successMsg = useSelector(state => state.product.successMsg)
 
@@ -97,6 +97,14 @@ export default function AdminAddBrandsForm({onAddBrandClick}) {
 
     return (
         <div className="modal-style">
+            <LoadingScreen
+                        loading={loading}
+                        bgColor='#f1f1f1'
+                        spinnerColor='#8c52ff'
+                        textColor='#8c52ff'
+                        
+                        text='Loading.. Please wait'
+                        > 
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-12">
@@ -193,7 +201,7 @@ export default function AdminAddBrandsForm({onAddBrandClick}) {
             }</div>
 
             <AccentButton onButtonClick={submitForm} text="ADD" />
-
+</LoadingScreen>
             </div>
            
                 

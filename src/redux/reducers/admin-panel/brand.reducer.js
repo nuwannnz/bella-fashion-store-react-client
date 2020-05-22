@@ -1,7 +1,8 @@
 import { BRAND_ACTION_TYPES } from "../../actions/admin-panel/brand.actions";
 
 const initialState = {
-    brands: []
+    brands: [],
+    loading: false
 }
 
 export const brand = (state = initialState, action) => {
@@ -10,6 +11,11 @@ export const brand = (state = initialState, action) => {
             return {
                 ...state,
                 brands: action.payload
+            }
+            case BRAND_ACTION_TYPES.BRAND_LOADING:
+            return {
+                ...state,
+                loading: action.payload
             }
             case BRAND_ACTION_TYPES.BRAND_ADDED:
                 return {

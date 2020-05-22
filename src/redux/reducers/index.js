@@ -7,10 +7,12 @@ import { product } from "./admin-panel/product.reducer";
 import { product as customerProducts } from "./customer/product.reducer";
 import { ui } from "./ui.reducer";
 import { brand } from "./admin-panel/brand.reducer";
+import { brand as customerBrands } from "./customer/brand.reducer";
 import { customer } from "./customer/customer.reducer";
 
 import {category} from "./admin-panel/category.reducer"
 import { size } from "./admin-panel/size.reducer"
+import { size as customerSizes } from "./customer/size.reducer";
 
 import { popup } from "./popup.reducer";
 import { toast } from "./toast.reducer";
@@ -20,8 +22,8 @@ export const customerReducer = combineReducers({
   customer,
   cart,
   ui,
-  brand,
-
+  brand: customerBrands,
+  size: customerSizes,
   product: customerProducts,
   popup,
   toast

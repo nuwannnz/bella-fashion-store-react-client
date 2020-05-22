@@ -27,6 +27,7 @@
     "react-icons": "^3.10.0",
     "react-input-color": "^3.0.0",
     "react-items-carousel": "^2.8.0",
+    "react-loading-screen": "0.0.17",
     "react-radio-buttons": "^1.2.2",
     "react-redux": "^7.2.0",
     "react-responsive-modal": "^5.0.2",

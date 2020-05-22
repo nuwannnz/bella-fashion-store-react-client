@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { deleteBrandByID,brandsLoadedAsync } from "../../redux/actions/admin-panel/brand.actions";
 import { confirmAlert } from 'react-confirm-alert'; 
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import LoadingScreen from 'react-loading-screen';
 
 export default function BrandList() {
 
@@ -11,6 +12,7 @@ export default function BrandList() {
     const history = useHistory();
 
     const brands = useSelector(state => state.brand.brands);
+    const loading = useSelector(state => state.brand.loading);
 
     const[open,setOpen] = useState("");
     const[openView,setOpenView] = useState("");
@@ -58,6 +60,14 @@ export default function BrandList() {
     },[])
     
         return (
+          <LoadingScreen
+                        loading={loading}
+                        bgColor='#f1f1f1'
+                        spinnerColor='#8c52ff'
+                        textColor='#8c52ff'
+                        
+                        text='Loading.. Please wait'
+                        > 
             <div class="table-responsive"> 
                <table class="table table-bordered">
                 <thead class="thead-light">
@@ -89,6 +99,7 @@ export default function BrandList() {
               
                 
             </div>
+            </LoadingScreen>
         )
     
 }
