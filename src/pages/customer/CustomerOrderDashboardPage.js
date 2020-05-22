@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 export default function CustomerOrderDashboardPage() {
     const dispatch = useDispatch();
     const items = useSelector((state) => state.order.items);
-    const address = useSelector((state) => state.customer.customerInfo.addresses);
     const numOfItems = items.length;
         
     return (
