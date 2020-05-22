@@ -1,4 +1,7 @@
 export const capitalizeString = (text, allWords = false) => {
+  if (typeof text !== 'string') {
+    return text;
+  }
   if (text.length === 0) {
     return text;
   }

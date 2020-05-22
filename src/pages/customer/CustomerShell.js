@@ -24,6 +24,10 @@ export default function CustomerShell() {
   const verifyedToken = useSelector((state) => state.customer.tokenVerified);
 
   useEffect(() => {
+    registerPopup(POPUP_KEYS.ADDRESS_POPUP, CustomerDashboardAddressForm);
+  }, [])
+
+  useEffect(() => {
     // set ui to loading
 
     // if we did not check has customer, check it

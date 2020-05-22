@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Header } from "../../components/Header";
-
 import "../../styles/CustomerShell.css";
 import CategoryBar from "../../components/customer/CategoryBar";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,12 +12,13 @@ import ProductPage from "./ProductPage";
 import { loadCartAsync } from "../../redux/actions/customer/cart.actions";
 import ProductListPage from "./ProductListPage";
 import FloatingCart from "./FloatingCart";
-import Checkout from "./Checkout";
+import Checkout from "./checkout/Checkout";
 import CustomerDashboardAddressPage from "./CustomerDashboardAddressPage";
 import CustomerOrderDashboardPage from "./CustomerOrderDashboardPage";
 import CustomerDashboardDetailsPage from "./CustomerDashboardDetailPage";
 import FloatingWishlist from "./FloatingWishlist";
 import { loadWishlistAsync } from "../../redux/actions/customer/wishlist.action";
+import { loadOrdersAync } from "../../redux/actions/customer/order.actions";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.customer.token);
@@ -58,6 +58,9 @@ export default function Homepage() {
       // load cart and wishlist
       dispatch(loadCartAsync());
       dispatch(loadWishlistAsync());
+
+      // load orders of the customer
+      dispatch(loadOrdersAync());
     }
   }, [token]);
 

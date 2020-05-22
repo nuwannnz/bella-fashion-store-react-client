@@ -3,12 +3,18 @@ import '../../styles/FloatingCart.css';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { toggleCartBar, toggleDisplayCheckout } from '../../redux/actions/ui.actions';
+import { removeProductFromCartAsync } from "../../redux/actions/customer/cart.actions";
 
 
 
-const CartItem = ({ product, size, qty }) => {
+export const CartItem = ({ product, size, qty }) => {
+    const dispatch = useDispatch();
+
     return (
         <div className="cart-item">
+            <span className="delete-cart-item-btn" onClick={() => dispatch(removeProductFromCartAsync(product._id, size))}>
+                <i className="far fa-trash-alt"></i>
+            </span>
             <div className="cart-item-image">
                 <img src={product.images[0]} alt='product images' />
             </div>
