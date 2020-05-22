@@ -69,11 +69,12 @@ export default function Dashboard() {
 
                 <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_PRODUCT}>
                   <ProductDashboardPage />
-                  </Route>
-                  
+                </Route>
+
                 <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_CATEGORY}>
                   <CategoriesAdmin />
                 </Route>
+
               </Switch>
             </div>
           </div>

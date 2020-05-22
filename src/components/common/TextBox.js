@@ -3,7 +3,7 @@ import "../../styles/common/TextBox.css";
 
 import '../../styles/common/TextBox.css';
 
-export default function TextBox({ onTextInput = null, onTextChange = null,value, label, placeholder = "", name = "textBox", type = "text", animateTitle = true, disabled = false, doSpacing = true }) {
+export default function TextBox({ onTextInput = null, onTextChange = null, value, label, placeholder = "", name = "textBox", type = "text", animateTitle = true, disabled = false, doSpacing = true }) {
     const [text, setText] = useState("");
     return (
 

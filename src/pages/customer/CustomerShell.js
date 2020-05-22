@@ -4,7 +4,6 @@ import { ROUTE_PATHS, POPUP_KEYS } from "../../constants";
 import Homepage from "./Homepage";
 import CustomerLoginPage from "./CustomerLoginPage";
 import CustomerSignUpPage from "./CustomerSignUpPage";
-import ProductPage from "./ProductPage";
 import AboutUs from "./AboutUs";
 import { useDispatch, useSelector } from "react-redux";
 import {

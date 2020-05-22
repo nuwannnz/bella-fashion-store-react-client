@@ -50,9 +50,9 @@ const createCategoryError = () => ({
 });
 
 
-export const updateCategory = (categoryId,updatedCategoryName) => ({
+export const updateCategory = (category) => ({
     type: CATEGORY_ACTION_TYPES.NEWCATEGORY_UPDATED,
-    payload: categoryId,updatedCategoryName
+    payload: category
 
   });
 
@@ -80,9 +80,9 @@ const createSubCategoryError = () => ({
 });
 
 
-export const updateSubCategory = (categoryID,subcategoryName, NewSubCategoryName) => ({
+export const updateSubCategory = (category) => ({
   type: CATEGORY_ACTION_TYPES.NEWSUBCATEGORY_UPDATED,
-  payload: subcategoryName
+  payload: category
 
 });
 
@@ -189,7 +189,7 @@ export function deleteCategoryAsync(categoryID) {
     return async (dispatch, getState) => {
       // delete token from storage
       const result = await categoryService.deleteCategory(categoryID);
-      if (result.deletedCount === 1) {
+      if (result.data.success) {
         // update category Name
 
         dispatch(deleteCategory(categoryID));
@@ -201,17 +201,17 @@ export function deleteCategoryAsync(categoryID) {
     };
   }
 
-  export function deleteSubCategoryAsync(categoryID) {
+  export function deleteSubCategoryAsync(categoryID,subcategoryID) {
     return async (dispatch, getState) => {
       // delete token from storage
-      const result = await categoryService.deleteCategory(categoryID);
-      if (result.isResultOk()) {
+      const result = await categoryService.deleteSubCategory(categoryID,subcategoryID);
+      if (result.data.success) {
         // update category Name
 
-        dispatch(deleteCategory(categoryID));
+        dispatch(deleteSubCategory({catId:categoryID, subCatId:subcategoryID}));
       } else {
         // display error notification
-        dispatch(deleteCategoryError());
+        dispatch(deleteSubCategoryError());
       }
   
     };
@@ -222,10 +222,10 @@ export function deleteCategoryAsync(categoryID) {
 
   
       const result = await categoryService.updateCategory(categoryId,updatedCategoryName);
-      if (result.isResultOk() && result.success ) {
+      if (result.isResultOk()) {
         // update category Name
 
-        dispatch(updateCategory(categoryId,updatedCategoryName));
+        dispatch(updateCategory(result.data));
       } else {
         // display error notification
         dispatch(updateCategoryError());
@@ -233,15 +233,15 @@ export function deleteCategoryAsync(categoryID) {
     };
   }
 
-  export function updateSubCategoryAsync(categoryID,subcategoryName, NewSubCategoryName) {
+  export function updateSubCategoryAsync(categoryID,subCatIdToUpdate, NewSubCategoryName) {
     return async (dispatch, getState) => {
 
   
-      const result = await categoryService.updateCategory(categoryID,subcategoryName, NewSubCategoryName);
+      const result = await categoryService.updateSubCategory(categoryID,subCatIdToUpdate, NewSubCategoryName);
       if (result.isResultOk()) {
         // update category Name
 
-        dispatch(updateSubCategory(categoryID,subcategoryName, NewSubCategoryName));
+        dispatch(updateSubCategory(result.data));
       } else {
         // display error notification
         dispatch(updateSubCategoryError());

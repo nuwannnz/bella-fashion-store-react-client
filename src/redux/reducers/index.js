@@ -9,12 +9,13 @@ import { ui } from "./ui.reducer";
 import { brand } from "./admin-panel/brand.reducer";
 import { customer } from "./customer/customer.reducer";
 
-import {category} from "./admin-panel/category.reducer"
+import { category } from "./admin-panel/category.reducer"
 import { size } from "./admin-panel/size.reducer"
 
 import { popup } from "./popup.reducer";
 import { toast } from "./toast.reducer";
 import { order } from "./customer/order.reducer";
+import { category as customerCat } from "./customer/customer.category.reducer"
 
 
 export const customerReducer = combineReducers({
@@ -26,13 +27,16 @@ export const customerReducer = combineReducers({
   product: customerProducts,
   popup,
   toast,
-  order
+  order,
+  product,
+  category: customerCat
 
 });
 
 export const adminPanelReducer = combineReducers({
   staffLogin,
   notification,
+  category,
   ui,
   userDashboard,
   product,

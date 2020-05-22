@@ -8,15 +8,6 @@ import CustomerShell from "./pages/customer/CustomerShell";
 import LoadingAnimation from "./components/common/LoadingAnimation";
 import { history } from "./helpers/navigation.helper";
 import AdminPanelShell from "./pages/admin-panel/AdminPanelShell";
-
-import SingleProduct from "./components/customer/SingleProduct";
-import ProductDashboardPage from "./pages/admin-panel/product/AdminProductPage";
-import ProductPage from "./pages/customer/ProductPage";
-import OffersSlider from "./components/customer/OffersSlider";
-
-
-
-
 import PopupContainer from "./components/common/PopupContainer";
 import ToastManger from "./components/common/ToastManager";
 
