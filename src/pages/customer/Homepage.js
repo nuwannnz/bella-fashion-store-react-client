@@ -17,6 +17,8 @@ import Checkout from "./Checkout";
 import CustomerDashboardAddressPage from "./CustomerDashboardAddressPage";
 import CustomerOrderDashboardPage from "./CustomerOrderDashboardPage";
 import CustomerDashboardDetailsPage from "./CustomerDashboardDetailPage";
+import FloatingWishlist from "./FloatingWishlist";
+import { loadWishlistAsync } from "../../redux/actions/customer/wishlist.action";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.customer.token);
@@ -43,7 +45,8 @@ function PrivateRoute({ children, ...rest }) {
 export default function Homepage() {
   const token = useSelector((state) => state.customer.token);
   const sideBarOpened = useSelector((state) => state.ui.mobileSideBarOpened);
-  const displayCheckout = useSelector(state => state.ui.displayCheckout)
+  const displayCheckout = useSelector(state => state.ui.displayCheckout);
+  const displayCart = useSelector((state) => state.ui.displayCart);
 
   const location = useLocation();
   const dispatch = useDispatch();
@@ -54,6 +57,7 @@ export default function Homepage() {
       // customer logged in
       // load cart and wishlist
       dispatch(loadCartAsync());
+      dispatch(loadWishlistAsync());
     }
   }, [token]);
 
@@ -75,7 +79,11 @@ export default function Homepage() {
 
           <FloatingCart />
 
+          <FloatingWishlist />
+
           {displayCheckout && <Checkout />}
+
+          {displayCart && <FloatingCart />}
 
           <div className="page-content-wrap">
             <div className="page">

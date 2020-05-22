@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
-import { ROUTE_PATHS } from "../../constants";
+import { Switch, Route } from "react-router-dom";
+import { ROUTE_PATHS, POPUP_KEYS } from "../../constants";
 import Homepage from "./Homepage";
 import CustomerLoginPage from "./CustomerLoginPage";
 import CustomerSignUpPage from "./CustomerSignUpPage";
-import ProductPage from "./ProductPage";
 import AboutUs from "./AboutUs";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,9 +11,12 @@ import {
   checkHasCustomerAsync,
 } from "../../redux/actions/customer/customer.actions";
 import { uiIsLoading } from "../../redux/actions/ui.actions";
+import { usePopup } from "../../hooks/Popup.hooks";
+import CustomerDashboardAddressForm from "../../components/customer/CustomerDashboardAddressForm";
 
 export default function CustomerShell() {
   const dispatch = useDispatch();
+  const { registerPopup } = usePopup();
 
   const hasCustomerChecked = useSelector(
     (state) => state.customer.checkedHasCustomer
@@ -42,6 +44,10 @@ export default function CustomerShell() {
       dispatch(uiIsLoading(false));
     }
   });
+
+  useEffect(() => {
+    registerPopup(POPUP_KEYS.ADDRESS_POPUP, CustomerDashboardAddressForm);
+  }, [])
 
   return (
     <div className="flex w-100 h-100">

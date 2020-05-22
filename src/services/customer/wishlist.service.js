@@ -45,25 +45,6 @@ export const addProductToWishlist = async (token, productId, qty) => {
     }
 };
 
-export const updateProductOfWishlist = async (token, productId, qty) => {
-    const path = `${API_HOST}/wishlists/products/${productId}`;
-    const data = { qty };
-    const config = getAuthHeader(token);
-
-    const result = new APIResult();
-
-    try {
-        const response = await axios.put(path, data, config);
-
-        result.data = response.data;
-        return result;
-    } catch(error) {
-        logger.error(`Error in API call => ${path}`);
-        result.setError(error);
-        return result;
-    }
-};
-
 export const removeProductFromWishlist = async (token, productId) => {
     const path = `${API_HOST}/wishlists/products/${productId}`;
     const data = {};

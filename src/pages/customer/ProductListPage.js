@@ -6,6 +6,7 @@ import '../../styles/ProductListPage.css'
 import { Link } from 'react-router-dom';
 import { ROUTE_PATHS } from '../../constants';
 import AddToCartButton from '../../components/customer/AddToCartButton';
+import AddToWishlistButton from '../../components/customer/AddToWishlistButton';
 
 
 
@@ -24,10 +25,7 @@ export const ProductInfoCard = ({ product }) => {
 
     return (
         <div className="product-info-card">
-            <button className="wishlist-btn" >
-                <i class="on-hover fas fa-heart"></i>
-                <i class="default far fa-heart"></i>
-            </button>
+            <AddToWishlistButton productId={product._id} qty={product.qty}/>
             <div className="add-to-cart-btn-wrap">
 
                 {/* IMPORTANT TODO: 

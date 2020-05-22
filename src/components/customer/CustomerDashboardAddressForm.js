@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addAddressAsync, updateCustomerAddressAsync } from "../../redux/actions/customer/customer.actions";
 import ErrorMessage from "../common/ErrorMessage";
 
-export default function CustomerDashboardAddressForm( {closeFormClickHandler, addressToUpdate} ) {
+export default function CustomerDashboardAddressForm( { addressToUpdate, closePopup } ) {
 
     const customers = useSelector((state) => state.customer);
     const dispatch = useDispatch();
@@ -79,11 +79,17 @@ export default function CustomerDashboardAddressForm( {closeFormClickHandler, ad
     const handleFormSubmit = () => {
         if(addressToUpdate){
 
-            dispatch(updateCustomerAddressAsync(addressToUpdate._id, address));
-        }else{
+            dispatch(updateCustomerAddressAsync(addressToUpdate._id, address)).then((success) => {
+               if(success) {
+                closePopup();
+               }
+            });
+        } else {
 
-            dispatch(addAddressAsync(address)).then(()=>{
-                // closePopup()
+            dispatch(addAddressAsync(address)).then((success)=>{
+                if(success) {
+                    closePopup();
+                }
             });
         }
     };
@@ -95,7 +101,7 @@ export default function CustomerDashboardAddressForm( {closeFormClickHandler, ad
                     title={
                         addressToUpdate ? "Update Address" : "Add new Address"
                     }
-                    onClosing={closeFormClickHandler}
+                    onClosing={closePopup}
                     onSubmit={handleFormSubmit}
                     primaryActionText={
                         addressToUpdate ? "Update Address" : "Add Address"

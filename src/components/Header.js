@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/Header.css";
 import { getAssetUrl } from "../helpers/assets.helper";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleMobileSideBar, toggleCartBar } from "../redux/actions/ui.actions";
+import { toggleMobileSideBar, toggleCartBar, toggleWishlistBar } from "../redux/actions/ui.actions";
 import { Link, useHistory } from "react-router-dom";
 import { ROUTE_PATHS } from "../constants";
 import { logoutAsync } from "../redux/actions/customer/customer.actions";
@@ -143,7 +143,27 @@ const CartButton = () => {
 const WishlistButton = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-};
+  const wishlistItems = useSelector((state) => state.wishlist.items);
+  const token = useSelector((state) => state.customer.token);
+
+  const onWishlistBtnClick = () => {
+    if(token === null) {
+      // Customer is not logged in
+      history.push(ROUTE_PATHS.CUSTOMER_LOGIN);
+    }
+    dispatch(toggleWishlistBar());
+  }
+
+  return(
+    <button className="header-btn badge-btn" style={{ marginRight: "25px" }} onClick={onWishlistBtnClick}>
+      <i className="far fa-heart"></i>
+      {wishlistItems && (
+        <span className="product-count-badge">{wishlistItems.length}</span>
+      )}
+    </button>
+  )
+}
+
 
 const HeaderButtonGroup = () => {
   return (
@@ -151,9 +171,7 @@ const HeaderButtonGroup = () => {
       <button id="m-search-btn" className="header-btn">
         <i class="fas fa-search"></i>
       </button>
-      <button className="header-btn">
-        <i className="far fa-heart"></i>
-      </button>
+      <WishlistButton />
       <CartButton />
       <CustomerMenu />
     </div>

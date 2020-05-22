@@ -1,27 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../styles/customer/CustomerDashboardAddressPage.css";
 import CustomerDashboardAddress from "../../components/customer/CustomerDashboardAddress";
-import CustomerDashboardAddressForm from "../../components/customer/CustomerDashboardAddressForm";
 import CustomerDashboardAddresses from "../../components/customer/CustomerDashboardAddresses";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { openPopup } from "../../redux/actions/popup.actions";
+import { POPUP_KEYS } from "../../constants";
 
 
 export default function CustomerDashboardAddressPage() {
+    const dispatch = useDispatch();
     const addresses = useSelector((state) => state.customer.customerInfo.addresses);
-    
-    const [displayAddressForm, setDisplayAddressForm] = useState(false);
-    const [addressToUpdate, setAddressToUpdate] = useState(null);
+
 
 
     const toggleDisplayAddressForm = () => {
-        setAddressToUpdate(null);
-        setDisplayAddressForm(!displayAddressForm);
-    }
+       dispatch(openPopup(POPUP_KEYS.ADDRESS_POPUP));
+    };
 
     const handleUpdateClick = (address) => {
-        toggleDisplayAddressForm();
-        setAddressToUpdate(address);
-    }
+        dispatch(openPopup(POPUP_KEYS.ADDRESS_POPUP, { addressToUpdate: address }));
+    };
 
     return (
         <div className="customer-address-dashboard-wrapper">
@@ -39,9 +37,7 @@ export default function CustomerDashboardAddressPage() {
 
             {addresses.length === 0 &&  <CustomerDashboardAddress closeFormClickHandler={toggleDisplayAddressForm} />}
             
-           
-            {displayAddressForm && <CustomerDashboardAddressForm closeFormClickHandler={toggleDisplayAddressForm}  addressToUpdate={addressToUpdate}/>}
-            
+                    
             {addresses.length > 0 && <CustomerDashboardAddresses customerAddresses={addresses} handleUpdateClick={handleUpdateClick} /> }
 
             
