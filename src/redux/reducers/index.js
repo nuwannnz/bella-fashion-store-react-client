@@ -14,6 +14,7 @@ import { size } from "./admin-panel/size.reducer"
 
 import { popup } from "./popup.reducer";
 import { toast } from "./toast.reducer";
+import { order } from "./customer/order.reducer";
 
 
 export const customerReducer = combineReducers({
@@ -24,7 +25,8 @@ export const customerReducer = combineReducers({
 
   product: customerProducts,
   popup,
-  toast
+  toast,
+  order
 
 });
 

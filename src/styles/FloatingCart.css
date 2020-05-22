@@ -76,6 +76,20 @@
   border-radius: 10px;
   background-color: #fff;
   margin: 10px 0px;
+  position: relative;
+}
+
+.delete-cart-item-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 13px;
+  display: none;
+  cursor: pointer;
+}
+
+.cart-item:hover .delete-cart-item-btn {
+  display: inline-block;
 }
 
 .cart-item-image {

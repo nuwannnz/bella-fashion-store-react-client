@@ -8,6 +8,7 @@ export default function SelectBox({
   onItemSelected,
   placeholder = "Select an item",
   selectedItem = "default",
+  displayDefault = true
 }) {
   const [selected, setSelected] = useState(selectedItem);
 
@@ -25,9 +26,13 @@ export default function SelectBox({
     <div className="select-box">
       <label>{title}</label>
       <select onChange={handleItemSelected} value={selected}>
-        <option className="default-option" value="-1">
-          {capitalizeString(placeholder)}
-        </option>
+
+        {
+          displayDefault &&
+          <option className="default-option" value="-1">
+            {capitalizeString(placeholder)}
+          </option>
+        }
         {optionValues.map((value, i, a) => (
           <option key={i} value={value}>
             {capitalizeString(value, true)}
