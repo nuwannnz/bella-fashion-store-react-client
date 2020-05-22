@@ -7,7 +7,8 @@ import { uiIsLoading } from "../ui.actions";
 import { history } from "../../../helpers/navigation.helper";
 import { displayToastAsync } from "../toast.actions";
 import { NOTIFICATION_TYPE, buildNotification } from "../../../helpers/notification.helper";
-import { loadWishlistAsync } from "./wishlist.action";
+import { loadWishlistAsync, wishlistLoaded } from "./wishlist.action";
+import { loadWishlist } from "../../../services/customer/wishlist.service";
 
 export const CUSTOMER_ACTION_TYPES = {
     LOGGED_IN: "LOGGED_IN",
@@ -108,7 +109,7 @@ export function loginAsync(email, password, history) {
             dispatch(loggedIn(result.data.token));
             // set user info
             dispatch(customerLoaded(result.data.customer));
-
+            dispatch(wishlistLoaded(result.data.customer.wishlist));
             history.push(ROUTE_PATHS.CUSTOMER_DASHBOARD);
 
             // save token in local storage
@@ -177,7 +178,7 @@ export function verifyStoredTokenAsync() {
       if (result !== null) {
         // stored token is verified
         dispatch(customerLoaded(result.customerInfo));
-        dispatch(loadWishlistAsync(result.customerInfo.wishlist));
+      dispatch(wishlistLoaded(result.customerInfo.wishlist));
         dispatch(loggedIn(result.token));
       }
       dispatch(tokenVerificationCompleted());

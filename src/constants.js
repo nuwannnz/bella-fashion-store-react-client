@@ -28,7 +28,6 @@ export const ROUTE_PATHS = {
   ADMIN_SIGNUP: "/admin/signup",
   ADMIN_CATEGORY_ADD: "/admin/categories",
   ADMIN_UPDATE_TEMP_PWD: "/admin/update-pwd",
-  ADMIN_UPDATE_TEMP_PWD: "/admin/update-pwd"
 
 };
 
@@ -36,6 +35,8 @@ export const POPUP_KEYS = {
   USER_POPUP: 'USER_POPUP',
   ROLE_POPUP: 'ROLE_POPUP',
   ADDRESS_POPUP: 'ADDRESS_POPUP',
+  INQUIRY_POPUP: 'INQUIRY_POPUP',
+  CUSTOMER_INQUIRY_POPUP: 'CUSTOMER_INQUIRY_POPUP'
 
 }
 

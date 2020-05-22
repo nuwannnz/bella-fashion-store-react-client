@@ -76,7 +76,7 @@
 .order-card-wrapper .order-details {
   position: absolute;
   top: 40%;
-  left: 30%;
+  left: 35%;
   transform: translate(-50%, -50%);
   font-weight: bold;
 }
@@ -169,4 +169,22 @@
   background-color: rgb(152, 90, 209);
   box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
   transform: translateY(-0.25em);
+}
+
+.inquiry-form input {
+  width: 320px;
+  height: 45px;
+  padding-left: 10px;
+  border-radius: 20px;
+  border: 1px solid blueviolet;
+  margin: 10px;
+}
+
+.inquiry-form textarea {
+  width: 320px;
+  height: 145px;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid blueviolet;
+  margin: 10px;
 }

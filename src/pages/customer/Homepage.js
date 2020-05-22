@@ -57,7 +57,7 @@ export default function Homepage() {
       // customer logged in
       // load cart and wishlist
       dispatch(loadCartAsync());
-      dispatch(loadWishlistAsync());
+      // dispatch(loadWishlistAsync());
 
       // load orders of the customer
       dispatch(loadOrdersAync());

@@ -17,6 +17,11 @@ export const WISHLIST_ACTION_TYPES = {
     CLEAR_WISHLIST_FAILURE: "CLEAR_WISHLIST_FAILURE"
 };
 
+
+export const wishlistLoaded=(payload)=>({
+    type: WISHLIST_ACTION_TYPES.WISHLIST_ITEMS_LOAD_SUCCESS,
+     payload
+})
 export function loadWishlistAsync() {
     return async (dispatch, getState) => {
         dispatch(request());
@@ -51,13 +56,13 @@ export function loadWishlistAsync() {
     }  
 }
 
-export function addProductToWishlistAsync(productId, qty) {
+export function addProductToWishlistAsync(productId) {
     return async (dispatch, getState) => {
         dispatch(request());
 
         const { token } = getState().customer;
 
-        const result = await addProductToWishlist(token, productId, qty);
+        const result = await addProductToWishlist(token, productId);
 
         if(result.isResultOk()) {
             dispatch(success(result.data.addedEntry));

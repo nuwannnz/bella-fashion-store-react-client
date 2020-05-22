@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { ROUTE_PATHS } from "../../constants";
 import { addProductToWishlistAsync } from "../../redux/actions/customer/wishlist.action";
 
-export default function AddToWishlistButton( {productId, qty }) {
+export default function AddToWishlistButton( { productId }) {
     const dispatch = useDispatch();
     const { token } = useSelector((state) => state.customer);
     const history = useHistory();
@@ -14,7 +14,7 @@ export default function AddToWishlistButton( {productId, qty }) {
             history.push(ROUTE_PATHS.CUSTOMER_LOGIN);
             return;
         }
-        dispatch(addProductToWishlistAsync(productId, qty));
+        dispatch(addProductToWishlistAsync(productId));
     };
     return(
         <button className="wishlist-btn" onClick={onClickHandler}>

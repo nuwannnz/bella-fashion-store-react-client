@@ -1,7 +1,30 @@
 import React from "react";
 import "../../styles/customer/CustomerOrderDashboardPage.css";
+import { useDispatch, useSelector } from "react-redux";
+import { openPopup } from "../../redux/actions/popup.actions";
+import { POPUP_KEYS } from "../../constants";
+import moment from 'moment';
 
-export default function CustomerOrderDashboardCard() {
+export default function CustomerOrderDashboardCard({ item, numOfItems }) {
+    const dispatch = useDispatch();
+    const address = useSelector((state) => state.customer.customerInfo.addresses);
+
+    const customerAddress = address.find((addr) => 
+        addr._id === item.addressId
+    );
+
+    const itemName = item.items.map((i) => i.product.name);
+    console.log(itemName);
+    
+    
+    
+    const toggleDisplayInquiryForm = () => {
+        dispatch(openPopup(POPUP_KEYS.INQUIRY_POPUP));
+    }
+
+    const date = moment(item.createdAt).format("YYYY.MM.DD");
+
+    const status = item.isCompleted ? "Completed" : "Pending";
     
     return (
         <div className="customer-order-dashboard-card-wrapper">
@@ -9,19 +32,19 @@ export default function CustomerOrderDashboardCard() {
                 <div className="img">
                 </div>
                 <div className="order-details">
-                        <p>Order No: 1000013250</p>
-                        <p>Date: 2020.03.25</p>
-                        <p>Status: Pending</p>
-                        <p>Order Items: 3</p>
-                        <p>Address: 131/A, Madapola, Teldeniya.</p>
+                        <p>Order No: {item._id}</p>
+                        <p>Date: {date}</p>
+                        <p>Status: {status}</p>
+                        <p>Order Items: {numOfItems}</p>
+                        <p>Address: {`${customerAddress.street}, ${customerAddress.town}`}</p>
                 </div>
                 <div className="total-price">
-                    <h1>$150</h1>
+                <h1>LKR {item.totalValue}</h1>
                 </div>
 
                 <div className="order-card-btn">
                     <button>Review</button>
-                    <button>Inquiry</button>
+                    <button onClick={toggleDisplayInquiryForm}>Inquiry</button>
                 </div>
 
                 <div className="horizontal-line-wrapper">
@@ -40,6 +63,9 @@ export default function CustomerOrderDashboardCard() {
               
         </div>
     );
+   
 }
+
+
 
 

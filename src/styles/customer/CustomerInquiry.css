@@ -1,0 +1,17 @@
+.customer-inquiry-form input {
+    width: 320px;
+  height: 45px;
+  padding-left: 10px;
+  border-radius: 20px;
+  border: 1px solid blueviolet;
+  margin: 10px;
+}
+
+.customer-inquiry-form textarea {
+    width: 320px;
+    height: 145px;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid blueviolet;
+    margin: 10px;
+}

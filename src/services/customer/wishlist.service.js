@@ -5,7 +5,7 @@ import axios from "axios";
 import logger from "../../helpers/logger.helper";
 
 export const loadWishlist = async (token) => {
-    const path = `${API_HOST}/wishlists/`;
+    const path = `${API_HOST}/customer/wishlist`;
 
     const config = getAuthHeader(token);
 
@@ -13,8 +13,6 @@ export const loadWishlist = async (token) => {
 
     try {
         const response = await axios.get(path, config);
-
-        result.data = response.data;
 
         result.data = response.data;
 
@@ -27,8 +25,10 @@ export const loadWishlist = async (token) => {
 };
 
 export const addProductToWishlist = async (token, productId, qty) => {
-    const path = `${API_HOST}/wishlists/products`;
+    const path = `${API_HOST}/customer/wishlist/products`;
     const data = { product_id: productId, qty };
+    console.log(data);
+    
     const config = getAuthHeader(token);
 
     const result = new APIResult();
@@ -46,7 +46,7 @@ export const addProductToWishlist = async (token, productId, qty) => {
 };
 
 export const removeProductFromWishlist = async (token, productId) => {
-    const path = `${API_HOST}/wishlists/products/${productId}`;
+    const path = `${API_HOST}/customer/wishlist/products/${productId}`;
     const data = {};
     const config = getAuthHeader(token);
 
@@ -67,7 +67,7 @@ export const removeProductFromWishlist = async (token, productId) => {
 };
 
 export const clearWishlist = async (token) => {
-    const path = `${API_HOST}/wishlists/products`;
+    const path = `${API_HOST}/customer/wishlist/products`;
     const config = getAuthHeader(token);
 
     const result = new APIResult();

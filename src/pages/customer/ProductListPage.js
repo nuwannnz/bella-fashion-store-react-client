@@ -25,7 +25,7 @@ export const ProductInfoCard = ({ product }) => {
 
     return (
         <div className="product-info-card">
-            <AddToWishlistButton productId={product._id} qty={product.qty}/>
+            <AddToWishlistButton productId={product._id} />
             <div className="add-to-cart-btn-wrap">
 
                 {/* IMPORTANT TODO: 
