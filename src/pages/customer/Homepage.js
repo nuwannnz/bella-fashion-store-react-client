@@ -17,6 +17,7 @@ import Checkout from "./checkout/Checkout";
 import CustomerDashboardAddressPage from "./CustomerDashboardAddressPage";
 import CustomerOrderDashboardPage from "./CustomerOrderDashboardPage";
 import CustomerDashboardDetailsPage from "./CustomerDashboardDetailPage";
+import { loadOrdersAync } from "../../redux/actions/customer/order.actions";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.customer.token);
@@ -53,6 +54,9 @@ export default function Homepage() {
       // customer logged in
       // load cart and wishlist
       dispatch(loadCartAsync());
+
+      // load orders of the customer
+      dispatch(loadOrdersAync());
     }
   }, [token]);
 

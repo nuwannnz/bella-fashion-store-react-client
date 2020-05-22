@@ -109,7 +109,26 @@ export const placeOrder = async (token, orderDto) => {
   const result = new APIResult();
 
   try {
-    const response = await axios.post(path, config, data);
+    const response = await axios.post(path, data, config);
+
+    result.data = response.data;
+    return result;
+  } catch (error) {
+    logger.error(`Error in API call => ${path}`);
+    result.setError(error);
+    return result;
+  }
+}
+
+
+export const loadOrders = async (token) => {
+  const path = `${API_HOST}/orders`;
+  const config = getAuthHeader(token);
+
+  const result = new APIResult();
+
+  try {
+    const response = await axios.get(path, config);
 
     result.data = response.data;
     return result;

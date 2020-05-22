@@ -138,7 +138,9 @@ export default function Checkout() {
     }
 
     const handleConfirmClick = () => {
-        dispatch(placeOrderAsync(orderInfo)).then(success => {
+        const orderDto = orderInfo;
+        orderDto.itemList = orderDto.itemList.map(item => ({ ...item, product: item.product._id }));
+        dispatch(placeOrderAsync(orderDto)).then(success => {
             if (success) {
                 dispatch(toggleDisplayCheckout(false));
             } else {

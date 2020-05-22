@@ -1,9 +1,9 @@
-import { placeOrder } from "../../../services/customer/cart.service";
+import { placeOrder, loadOrders } from "../../../services/customer/cart.service";
 import { clearCartAsync } from "./cart.actions";
 import { displayToastAsync } from "../toast.actions";
 import { buildNotification, NOTIFICATION_TYPE } from "../../../services/customer/notification.service";
 
-const ORDER_ACTION_TYPES = {
+export const ORDER_ACTION_TYPES = {
     ORDERS_LOADED: 'ORDERS_LOADED',
     ORDER_ADDED: 'ORDER_ADDED'
 }
@@ -26,15 +26,33 @@ export function placeOrderAsync(orderDto) {
 
         const result = await placeOrder(token, orderDto);
         if (result.isResultOk()) {
-            dispatch(orderAdded(result.data))
-            dispatch(clearCartAsync());
-            dispatch(displayToastAsync(buildNotification("Placed your order successfully", NOTIFICATION_TYPE.SUCCESS)))
+            if (result.data.success) {
 
-            return true;
+                dispatch(orderAdded(result.data.createdOrder))
+                dispatch(clearCartAsync());
+                dispatch(displayToastAsync(buildNotification("Placed your order successfully", NOTIFICATION_TYPE.SUCCESS)))
+                return true;
+            } else {
+
+                dispatch(displayToastAsync(buildNotification(result.data.errorMessage, NOTIFICATION_TYPE.ERROR)))
+                return false;
+            }
+
         } else {
             dispatch(displayToastAsync(buildNotification("Failed to create order. Please try again", NOTIFICATION_TYPE.ERROR)))
 
             return false;
+        }
+    }
+}
+
+export function loadOrdersAync() {
+    return async (dispatch, getState) => {
+        const { token } = getState().customer;
+        const result = await loadOrders(token);
+
+        if (result.isResultOk()) {
+            dispatch(ordersLoaded(result.data));
         }
     }
 }
