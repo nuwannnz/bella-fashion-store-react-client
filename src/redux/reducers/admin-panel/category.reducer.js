@@ -6,7 +6,7 @@ const initialState = {
 }
 
 export const category = (state = initialState, action) => {
-    logger.info("Runing category reducer", state);
+    // logger.info("Runing category reducer", state);
     switch (action.type) {
 
         case CATEGORY_ACTION_TYPES.CATEGORY_INFO_LOADED:

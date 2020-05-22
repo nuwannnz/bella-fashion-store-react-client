@@ -13,6 +13,7 @@ import SingleProduct from "./components/customer/SingleProduct";
 import ProductDashboardPage from "./pages/admin-panel/product/AdminProductPage";
 import ProductPage from "./pages/customer/ProductPage";
 import OffersSlider from "./components/customer/OffersSlider";
+import RadioButtons from "./components/customer/RadioButtons";
 
 
 

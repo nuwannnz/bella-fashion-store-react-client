@@ -147,11 +147,12 @@ export const productDeleted = (product) => ({
       if (result.isResultOk() && result.data.success) {
         
         dispatch(productDeleted(id))
-       
+        
+       return true
       } else {
         // display error notification
         console.log("error");
-        return;
+        return false;
       }
     };
   }

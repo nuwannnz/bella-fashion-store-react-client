@@ -13,10 +13,11 @@ export default function ProductPage() {
 
   let { productId } = useParams();
 
-  console.log(productId)
+
 
   useEffect(() => {
     dispatch(productsLoadedAsync());
+    console.log(productId)
   }, []);
 
   return (

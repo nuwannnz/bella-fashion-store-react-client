@@ -9,6 +9,7 @@ import { productLoadedByIDAsync } from "../../redux/actions/admin-panel/product.
 import { brandsLoadedAsync } from "../../redux/actions/admin-panel/brand.actions"
 import AddToCartButton from "./AddToCartButton";
 import '../../styles/common/SelectBox.css';
+import { RadioGroup, RadioButton, ReversedRadioButton } from 'react-radio-buttons';
 
 
 export default function SingleProduct({productId}) {
@@ -20,7 +21,9 @@ export default function SingleProduct({productId}) {
   const[id, setID] = useState("");
   const [brand, setBrand] = useState([]);
   const [brandName, setBrandName] = useState("")
+  const [selectedSize, setSelectedSize] = useState(null);
   const products = useSelector(state => state.product.products);
+  
   
 
   
@@ -33,7 +36,11 @@ export default function SingleProduct({productId}) {
    
   useEffect(()=>{
     setID(productId);
-		const _selectedProduct = products.find(p => p._id === id);
+
+    if(!products || !brands){
+      return;
+    }
+		const _selectedProduct = products.find(p => p._id === productId);
     setSelectedProduct(_selectedProduct);
     setBrandName(selectedProduct && selectedProduct.brand)
     console.log(brandName)
@@ -44,23 +51,21 @@ export default function SingleProduct({productId}) {
     }, [brands, products])
 
 
-  const product = useSelector(state => state.product.singleProduct);
 
-  console.log(product)
+  // useEffect(() => {
 
-  useEffect(() => {
-    dispatch(productsLoadedAsync());
+  //   const id = '5ebad020755b7d2d343581ba';
+  //   // meka usestate ekak dapan
+  //   const _selectedProduct = products.find(p => p._id === id);
+  //   setSelectedProduct(_selectedProduct);
+  //   console.log(selectedProduct)
+  // }, [products])
+  const RadioOnChange = (value) => {
+    setSelectedSize(value);
 
-  }, [])
+  }
 
-  useEffect(() => {
-
-    const id = '5ebad020755b7d2d343581ba';
-    // meka usestate ekak dapan
-    const _selectedProduct = products.find(p => p._id === id);
-    setSelectedProduct(_selectedProduct);
-    console.log(selectedProduct)
-  }, [products])
+  
 
   const checkOffer = (offer) => {
     if (offer > 0) {
@@ -167,28 +172,20 @@ export default function SingleProduct({productId}) {
                 />
               )}
 
-              <label>Select Size</label>
-              <div>
-                <select
-                  className="select-box"
-                  onChange={(e) => {
-                    setSize(e.target.value);
-                    console.log(e.target.value);
-                  }}
-                >
-                  <option value="-1">-pick a size -</option>
-                        {
-							selectedProduct.sizeQty.map(s =>(
-							<option className="default-option" value={s.size}>{s.size}</option>
-							))
-						}
-                </select>
-              </div>
 
+               <RadioGroup onChange={RadioOnChange} horizontal>
+               {selectedProduct.sizeQty.map(s =>(
+                    <ReversedRadioButton pointColor="purple" value={s.size}>
+                        {s.size}
+                    </ReversedRadioButton>
+                    	))
+                    }
+                </RadioGroup>
+                   
               <hr />
               <p>
                 <b>Availability : </b>
-                {selectedProduct.qty} In Stock
+                {selectedSize ? <b style={{color: 'green'}}>In Stock</b> : <b style={{color: 'red'}}>Not Available</b>} 
               </p>
               <p>
                 <b>Condition : </b>New
@@ -213,7 +210,7 @@ export default function SingleProduct({productId}) {
               <AddToCartButton
                 productId={selectedProduct._id}
                 qty={qty}
-                size={selected_size}
+                size={selectedSize}
               />
 
             </div>
