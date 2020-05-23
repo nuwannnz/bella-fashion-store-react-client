@@ -4,6 +4,7 @@ const initialState = {
 }
 
 export const category = (state = initialState, action) => {
+
     switch (action.type) {
 
         case CATEGORY_ACTION_TYPES.CATEGORY_INFO_LOADED:
