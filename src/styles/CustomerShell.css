@@ -43,38 +43,34 @@
   }
 }
 .customer-inquiry-wrapper {
-  position: relative;
-  bottom: 126vh;
-  right: -47%;
+  position: fixed;
+  bottom: 16%;
+  right: -60px;
   transform: rotate(270deg);
 }
 
-.customer-inquiry-wrapper .customer-inquiry-btn {
-  position: fixed;
-}
-
 .inquiry-btn {
-	box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-	background:linear-gradient(to bottom, #8C52FF 5%, rgb(185, 155, 247) 100%);
-	background-color:#8C52FF;
-	border-radius:20px;
+  box-shadow: inset 0px 1px 0px 0px #bbdaf7;
+  background: linear-gradient(to bottom, #8c52ff 5%, rgb(185, 155, 247) 100%);
+  background-color: #8c52ff;
+  border-radius: 20px;
   /* border:1px solid #8C52FF; */
   border: none;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:10px 24px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #8C52FF;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #8c52ff;
 }
 .inquiry-btn:hover {
-	background:linear-gradient(to bottom, rgb(185, 155, 247) 5%, #8C52FF 100%);
-	background-color:#8C52FF;
+  background: linear-gradient(to bottom, rgb(185, 155, 247) 5%, #8c52ff 100%);
+  background-color: #8c52ff;
 }
 .inquiry-btn:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
