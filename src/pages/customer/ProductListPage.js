@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
 import { productsLoadedAsync } from "../../redux/actions/customer/product.actions";
@@ -7,6 +7,7 @@ import { Link, useParams, useHistory } from 'react-router-dom';
 import { ROUTE_PATHS } from '../../constants';
 import AddToCartButton from '../../components/customer/AddToCartButton';
 import { normalizeString } from '../../helpers/input-validation.helper';
+import ProductFilterBar from '../../components/customer/ProductFilterBar';
 
 
 
@@ -67,6 +68,12 @@ export default function ProductListPage() {
 
     const [categoryId, setCategoryId] = useState('');
     const [subCategoryId, setSubCategoryId] = useState('');
+    const [filter, setFilter] = useState({
+        size: [],
+        color: [],
+        brand: [],
+        sort: null
+    })
 
     useEffect(() => {
         if (categories.length === 0) {
@@ -89,7 +96,12 @@ export default function ProductListPage() {
             setSubCategoryId(_subCategoryId._id);
         }
         console.log('setting categories')
-    }, [categories, categoryName, subCategoryName])
+    }, [categories, categoryName, subCategoryName, history])
+
+    const handleFilterChanged = useCallback((newFilter) => {
+        console.log('setting new filter', newFilter);
+        setFilter({ ...newFilter });
+    }, [])
 
     const filterProductForCategory = (product) => {
         if (subCategoryName) {
@@ -105,7 +117,35 @@ export default function ProductListPage() {
         return false;
     }
 
-    // TODO: add category selection
+    const filterProductByColor = (product) => {
+        if (filter.color.length === 0) {
+            return true;
+        }
+        return filter.color.includes(product.colors)
+    }
+
+    const filterProductBySize = (product) => {
+        console.log('size filter', filter.size);
+        if (filter.size.length === 0) {
+            return true;
+        }
+        return product.sizeQty.map(s => s.size).some(s => filter.size.includes(s));
+    }
+
+    const filterProductByBrand = (product) => {
+        if (filter.brand.length === 0) {
+            return true;
+        }
+        return filter.brand.includes(product.brand);
+    }
+
+    const filterProduct = (product) => {
+        return filterProductForCategory(product)
+            && filterProductByColor(product)
+            && filterProductBySize(product)
+            && filterProductByBrand(product)
+
+    }
 
     useEffect(() => {
         dispatch(productsLoadedAsync())
@@ -114,11 +154,13 @@ export default function ProductListPage() {
     return (
         <div className="page" >
             <h1>{categoryName}{subCategoryName && `/${subCategoryName}`}</h1>
+            <ProductFilterBar productList={products.filter(p => filterProductForCategory(p))}
+                onfilterListChanged={handleFilterChanged} />
 
             <div className="product-list-wrapper flex">
 
                 {
-                    products && products.filter(p => filterProductForCategory(p)).map((p, i) => <ProductInfoCard key={i} product={p} />)
+                    products && products.filter(p => filterProduct(p)).map((p, i) => <ProductInfoCard key={i} product={p} />)
                 }
             </div>
         </div>
