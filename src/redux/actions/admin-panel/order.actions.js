@@ -1,5 +1,7 @@
 
 import { deleteOrder, updateOrderStatus, getAllOrders } from "../../../services/admin/order.service";
+import { displayToastAsync } from "../toast.actions";
+import { buildNotification, NOTIFICATION_TYPE } from "../../../services/customer/notification.service";
 
 export const ORDER_ACTION_TYPES = {
     LOAD_ORDERS_REQUEST: 'LOAD_ORDERS_REQUEST',
@@ -26,6 +28,7 @@ export function loadOrdersAsync() {
             dispatch(success(result.data));
         } else {
             dispatch(failure(result.errorMessage));
+            dispatch(displayToastAsync(buildNotification(result.errorMessage, NOTIFICATION_TYPE.ERROR)))
         }
     }
 
@@ -50,9 +53,13 @@ export function deleteOrderAsync(orderId) {
         const result = await deleteOrder(token, orderId);
 
         if (result.isResultOk()) {
-            dispatch(success(result.data));
+            dispatch(success(orderId));
+            dispatch(displayToastAsync(buildNotification("Deleted order successfully", NOTIFICATION_TYPE.SUCCESS)))
+            return true;
         } else {
             dispatch(failure(result.errorMessage));
+            dispatch(displayToastAsync(buildNotification(result.errorMessage, NOTIFICATION_TYPE.ERROR)))
+            return false;
         }
     }
 
@@ -78,8 +85,12 @@ export function updateOrderStatusAsync(orderId, orderStatus) {
 
         if (result.isResultOk()) {
             dispatch(success(result.data));
+            dispatch(displayToastAsync(buildNotification("Updated order status successfully", NOTIFICATION_TYPE.SUCCESS)))
+            return true;
         } else {
             dispatch(failure(result.errorMessage));
+            dispatch(displayToastAsync(buildNotification(result.errorMessage, NOTIFICATION_TYPE.ERROR)))
+            return false
         }
     }
 

@@ -20,6 +20,38 @@ export const order = (state = initialState, action) => {
                 loadingError: action.payload
             }
 
+        case ORDER_ACTION_TYPES.UPDATE_ORDER_REQUEST:
+            return {
+                ...state,
+                updatingStatus: true
+            }
+
+        case ORDER_ACTION_TYPES.UPDATE_ORDER_SUCCESS:
+            return {
+                items: [...state.items.map(item => item._id === action.payload._id ? action.payload : item)]
+            }
+        case ORDER_ACTION_TYPES.UPDATE_ORDER_FAILURE:
+            return {
+                ...state,
+                updateError: action.payload
+            }
+
+        case ORDER_ACTION_TYPES.DELETE_ORDER_REQUEST:
+            return {
+                ...state,
+                deleting: true
+            }
+
+        case ORDER_ACTION_TYPES.DELETE_ORDER_SUCCESS:
+            return {
+                items: [...state.items.filter(item => item._id !== action.payload)]
+            }
+        case ORDER_ACTION_TYPES.DELETE_ORDER_FAILURE:
+            return {
+                ...state,
+                deleteError: action.payload
+            }
+
         default:
             return state
     }
