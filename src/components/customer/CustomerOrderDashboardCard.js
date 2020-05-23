@@ -19,7 +19,8 @@ export default function CustomerOrderDashboardCard({ item, numOfItems }) {
     
     
     const toggleDisplayInquiryForm = () => {
-        dispatch(openPopup(POPUP_KEYS.INQUIRY_POPUP));
+        // dispatch(openPopup(POPUP_KEYS.INQUIRY_POPUP));
+        dispatch(openPopup(POPUP_KEYS.CUSTOMER_INQUIRY_POPUP));
     }
 
     const date = moment(item.createdAt).format("YYYY.MM.DD");
