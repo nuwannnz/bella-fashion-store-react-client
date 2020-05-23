@@ -3,8 +3,8 @@ export const ROUTE_PATHS = {
   CUSTOMER_LOGIN: "/login",
 
   CUSTOMER_PRODUCT: "/product",
-  CUSTOMER_PRODUCT_SINGLE: "/product/:id",
   CUSTOMER_ABOUTUS: "/aboutus",
+  CUSTOMER_PRODUCT_CATEGORY: '/category',
 
   CUSTOMER_CATEGORIES: "/categories/category-name",
   CUSTOMER_CONTACT: "/contact",

@@ -21,3 +21,7 @@ export const isLengthOf = (val, length) => {
 export const isPwdMatch = (newPwd, confirmPwd) => {
     return newPwd !== confirmPwd;
 }
+
+export const normalizeString = (text) => {
+    return text.split(' ').join('-').toLowerCase()
+}
