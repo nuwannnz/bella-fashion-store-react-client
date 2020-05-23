@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import TabHeader from "../../../components/common/TabHeader";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllUsersAsync } from "../../../redux/actions/admin-panel/user-dashboard/user.actions";
-import { getAllRolesAsync } from "../../../redux/actions/admin-panel/user-dashboard/role.actions";
 import UserSection from "./UserSection";
 import RoleSection from "./RoleSection";
 

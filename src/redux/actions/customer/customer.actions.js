@@ -1,12 +1,14 @@
 import * as customerService from "../../../services/customer/customer.service";
 import { displayTimeoutNotificationAsync } from "./notification.actions";
-import { buildNotification } from "../../../services/customer/notification.service";
-import { MSG_STRINGS, MESSAGE_STRINGS } from "../../../resources/Strings";
+import { MSG_STRINGS } from "../../../resources/Strings";
 import { ROUTE_PATHS } from "../../../constants";
 import { saveCustomerTokenToStorage, deleteCustomerTokenFromStorage } from "../../../helpers/token.helper";
 import { uiIsLoading } from "../ui.actions";
-import { USER_DASHBOAR_ACTION_TYPES } from "../admin-panel/user-dashboard/user.actions";
 import { history } from "../../../helpers/navigation.helper";
+import { displayToastAsync } from "../toast.actions";
+import { NOTIFICATION_TYPE, buildNotification } from "../../../helpers/notification.helper";
+import { loadWishlistAsync, wishlistLoaded } from "./wishlist.action";
+import { loadWishlist } from "../../../services/customer/wishlist.service";
 
 export const CUSTOMER_ACTION_TYPES = {
     LOGGED_IN: "LOGGED_IN",
@@ -107,7 +109,7 @@ export function loginAsync(email, password, history) {
             dispatch(loggedIn(result.data.token));
             // set user info
             dispatch(customerLoaded(result.data.customer));
-
+            dispatch(wishlistLoaded(result.data.customer.wishlist));
             history.push(ROUTE_PATHS.CUSTOMER_DASHBOARD);
 
             // save token in local storage
@@ -176,6 +178,7 @@ export function verifyStoredTokenAsync() {
       if (result !== null) {
         // stored token is verified
         dispatch(customerLoaded(result.customerInfo));
+      dispatch(wishlistLoaded(result.customerInfo.wishlist));
         dispatch(loggedIn(result.token));
       }
       dispatch(tokenVerificationCompleted());
@@ -205,9 +208,12 @@ export function addAddressAsync(addressDto) {
 
     if(result.isResultOk()) {
       dispatch(success(result.data));
+      dispatch(displayToastAsync(buildNotification("Added address successfully", NOTIFICATION_TYPE.SUCCESS)))
       return true;
     } else {
       dispatch(failure(result.errorMessage));
+      dispatch(displayToastAsync(buildNotification("Failed to add address. Please try again.", NOTIFICATION_TYPE.ERROR)))
+      return false;
     }
   };
 
@@ -243,8 +249,10 @@ export function deleteAddressAsync(addressId) {
 
     if(result.isResultOk()) {
       dispatch(success(addressId));
+      dispatch(displayToastAsync(buildNotification("Deleted address successfully", NOTIFICATION_TYPE.SUCCESS)))
     } else {
       dispatch(failure(result.errorMessage));
+      dispatch(displayToastAsync(buildNotification("Failed to delete address. Please try again.", NOTIFICATION_TYPE.ERROR)))
     }
   };
 
@@ -279,8 +287,12 @@ export function updateCustomerAddressAsync( addressId, addressDto) {
 
     if(result.isResultOk()) {
       dispatch(success(result.data));
+      dispatch(displayToastAsync(buildNotification("Updated address successfully", NOTIFICATION_TYPE.SUCCESS)))
+      return true;
     } else {
       dispatch(failure(result.errorMessage));
+      dispatch(displayToastAsync(buildNotification("Failed to update address. Please try again.", NOTIFICATION_TYPE.ERROR)))
+      return false;
     }
   };
 
@@ -352,12 +364,11 @@ export function updateCustomerPasswordAsync(currentPwd, newPwd) {
     const result = await customerService.updateCustomerPassword(token, currentPwd, newPwd);
   
     if(result.isResultOk() && result.data) {
+      dispatch(displayToastAsync(buildNotification("Updated password successfully", NOTIFICATION_TYPE.SUCCESS)))
       dispatch(logoutAsync(history));
       dispatch(verifyStoredTokenAsync());
     } else {
-      displayTimeoutNotificationAsync(
-        buildNotification(MSG_STRINGS.CUSTOMER_PASSWORD_UPDATE_FAILED)
-      );
+      dispatch(displayToastAsync(buildNotification("Failed to update password. Please try again", NOTIFICATION_TYPE.ERROR)))
       return;
     }
   };

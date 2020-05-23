@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { addAddressAsync, updateCustomerAddressAsync } from "../../redux/actions/customer/customer.actions";
 import ErrorMessage from "../common/ErrorMessage";
 
-export default function CustomerDashboardAddressForm( {closeFormClickHandler, addressToUpdate} ) {
+export default function CustomerDashboardAddressForm({ addressToUpdate, closePopup }) {
+
 
     const customers = useSelector((state) => state.customer);
     const dispatch = useDispatch();
@@ -20,20 +21,15 @@ export default function CustomerDashboardAddressForm( {closeFormClickHandler, ad
         zip: addressToUpdate ? addressToUpdate.zip : ""
     });
 
-        const [fName, setFname] = useState(addressToUpdate ? addressToUpdate.fName : "");
-        const [lName, setLname] = useState(addressToUpdate ? addressToUpdate.lName : "");
-        const [phone, setPhone] = useState(addressToUpdate ? addressToUpdate.phone : "");
-        const [country, setCountry] = useState("Sri Lanka");
-        const [street, setStreet] = useState(addressToUpdate ? addressToUpdate.street : "");
-        const [town, setTown] = useState(addressToUpdate ? addressToUpdate.town : "");
-        const [zip, setZip] = useState(addressToUpdate ? addressToUpdate.zip : "");
+    const [fName, setFname] = useState(addressToUpdate ? addressToUpdate.fName : "");
+    const [lName, setLname] = useState(addressToUpdate ? addressToUpdate.lName : "");
+    const [phone, setPhone] = useState(addressToUpdate ? addressToUpdate.phone : "");
+    const [country, setCountry] = useState("Sri Lanka");
+    const [street, setStreet] = useState(addressToUpdate ? addressToUpdate.street : "");
+    const [town, setTown] = useState(addressToUpdate ? addressToUpdate.town : "");
+    const [zip, setZip] = useState(addressToUpdate ? addressToUpdate.zip : "");
 
-    // useEffect(() => {
-    //     if(customers.closePopups) {
-    //         closeFormClickHandler();
-    //     }
-    // }, [customers]);
-    
+
     const handleFNameChanged = (e) => {
         address.fName = e.target.value;
         setAddress(address);
@@ -77,13 +73,19 @@ export default function CustomerDashboardAddressForm( {closeFormClickHandler, ad
     };
 
     const handleFormSubmit = () => {
-        if(addressToUpdate){
+        if (addressToUpdate) {
+            dispatch(updateCustomerAddressAsync(addressToUpdate._id, address)).then((success) => {
+               if(success) {
+                closePopup();
+               }
+            });
 
-            dispatch(updateCustomerAddressAsync(addressToUpdate._id, address));
-        }else{
+        } else {
 
-            dispatch(addAddressAsync(address)).then(()=>{
-                // closePopup()
+            dispatch(addAddressAsync(address)).then((success)=>{
+                if(success) {
+                    closePopup();
+                }
             });
         }
     };
@@ -95,7 +97,7 @@ export default function CustomerDashboardAddressForm( {closeFormClickHandler, ad
                     title={
                         addressToUpdate ? "Update Address" : "Add new Address"
                     }
-                    onClosing={closeFormClickHandler}
+                    onClosing={closePopup}
                     onSubmit={handleFormSubmit}
                     primaryActionText={
                         addressToUpdate ? "Update Address" : "Add Address"
@@ -103,31 +105,33 @@ export default function CustomerDashboardAddressForm( {closeFormClickHandler, ad
                     isSubmitting={customers.addingAddress}
 
                 >
-                    <input 
-                        type="text" 
+                    <input
+                        type="text"
                         placeholder="First Name"
                         value={fName}
+
                         onChange={handleFNameChanged} 
+
                     />
-                    <input 
-                        type="text" 
+                    <input
+                        type="text"
                         placeholder="Last Name"
-                        value={lName} 
-                        onChange={handleLNameChanged}    
+                        value={lName}
+                        onChange={handleLNameChanged}
                     />
-                    
+
                     <br />
 
-                    <input 
-                        type="text" 
-                        placeholder="Phone" 
+                    <input
+                        type="text"
+                        placeholder="Phone"
                         value={phone}
-                        onChange={handlePhoneChanged}    
+                        onChange={handlePhoneChanged}
                     />
-                    
-                    <input 
-                        type="text" 
-                        placeholder="Sri Lanka" 
+
+                    <input
+                        type="text"
+                        placeholder="Sri Lanka"
                         value={country}
                         onChange={handleCountryChanged}
                         readOnly
@@ -136,29 +140,31 @@ export default function CustomerDashboardAddressForm( {closeFormClickHandler, ad
                     <br />
 
                     <input
-                        className="street-address" 
-                        type="text" 
+                        className="street-address"
+                        type="text"
                         placeholder="Street Address"
-                        value={street} 
+                        value={street}
                         onChange={handleStreetChanged}
                     />
 
                     <br />
 
-                    <input 
-                        type="text" 
-                        placeholder="Town" 
+                    <input
+                        type="text"
+                        placeholder="Town"
                         value={town}
                         onChange={handleTownChanged}
                     />
-                    <input 
-                        type="text" 
+                    <input
+                        type="text"
                         placeholder="Postcode/Zip"
-                        value={zip} 
+                        value={zip}
                         onChange={handleZipChanged}
                     />
 
+
                     {/* {customers.addAddressError && <ErrorMessage msg={customers.addAddressError} />}                     */}
+
 
                 </OverlayPopup>
             </div>

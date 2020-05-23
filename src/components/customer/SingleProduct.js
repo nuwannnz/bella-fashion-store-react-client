@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 import { productLoadedByIDAsync } from "../../redux/actions/admin-panel/product.actions";
 import { brandsLoadedAsync } from "../../redux/actions/admin-panel/brand.actions"
 import AddToCartButton from "./AddToCartButton";
+import AddToWishlistButton from "./AddToWishlistButton";
 import '../../styles/common/SelectBox.css';
 import { RadioGroup, RadioButton, ReversedRadioButton } from 'react-radio-buttons';
 
@@ -211,6 +212,10 @@ export default function SingleProduct({productId}) {
                 productId={selectedProduct._id}
                 qty={qty}
                 size={selectedSize}
+              />
+
+              <AddToWishlistButton 
+                productId={selectedProduct._id}
               />
 
             </div>

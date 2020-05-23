@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { categoriesAsync } from '../../redux/actions/customer/customer.category.actions'
 import "../../styles/CategoryBar.css";
+import { Link } from "react-router-dom";
+import { ROUTE_PATHS } from "../../constants";
+import { normalizeString } from "../../helpers/input-validation.helper";
 
-const SubCategoryBtn = ({ index, subCategory, onClick, selected }) => {
+const SubCategoryBtn = ({ index, parentCategoryName, subCategory, onClick, selected }) => {
   return (
-    <div
-      onClick={() => onClick(index)}
-      className={`sub-category-btn ${selected && "selected"}`}
-    >
-      {subCategory.name}
-    </div>
+    <Link to={`${ROUTE_PATHS.CUSTOMER_PRODUCT_CATEGORY}/${normalizeString(parentCategoryName)}/${normalizeString(subCategory.name)}`} >
+      <div
+        onClick={() => onClick(index)}
+        className={`sub-category-btn ${selected && "selected"}`}
+      >
+        {subCategory.name}
+      </div>
+    </Link>
   );
 };
+
 
 const CategoryButton = ({
   index,
@@ -33,63 +41,40 @@ const CategoryButton = ({
   }, [selected]);
 
   return (
-    <div
-      className={`category-btn ${selected && "selected"}`}
-      onClick={() => onClickCategory(index)}
-    >
-      <span>{category.name}</span>
+    <Link to={`${ROUTE_PATHS.CUSTOMER_PRODUCT_CATEGORY}/${normalizeString(category.name)}`}>
+      <div
+        className={`category-btn ${selected && "selected"}`}
+        onClick={() => onClickCategory(index)}
+      >
+        <span>{category.name}</span>
 
-      <div className={`sub-category-list`}>
-        {category.subCategories.map((s, i, a) => (
-          <SubCategoryBtn
-            key={i}
-            index={i}
-            subCategory={s}
-            selected={selectedSubCatIndex === i}
-            onClick={onSubCatClick}
-          />
-        ))}
+        <div className={`sub-category-list`}>
+          {category.subcategory.map((s, i, a) => (
+            <SubCategoryBtn
+              key={i}
+              index={i}
+              subCategory={s}
+              parentCategoryName={category.name}
+              selected={selectedSubCatIndex === i}
+              onClick={onSubCatClick}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
 export default function CategoryBar() {
-  const [categories, setCategories] = useState([
-    {
-      name: "women",
-      subCategories: [
-        { name: "Jeans" },
-        { name: "Blouse" },
-        { name: "T-Shirt" },
-      ],
-    },
-    {
-      name: "men",
-      subCategories: [
-        { name: "Trousers" },
-        { name: "Shirt" },
-        { name: "T-Shirt" },
-        { name: "Short" },
-      ],
-    },
-    {
-      name: "kids",
-      subCategories: [
-        { name: "Froks" },
-        { name: "Skirts" },
-        { name: "T-Shirt" },
-      ],
-    },
-    {
-      name: "sports",
-      subCategories: [
-        { name: "Shoes" },
-        { name: "Socks" },
-        { name: "T-Shirts" },
-      ],
-    },
-  ]);
+
+  const dispatch = useDispatch();
+  const categories = useSelector(state => state.category.categories);
+
+
+  useEffect(() => {
+    dispatch(categoriesAsync());
+
+  }, [])
 
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(-1);
   const [selectedSubCategoryIndex, setSelectedSubCategoryIndex] = useState(-1);
@@ -97,7 +82,7 @@ export default function CategoryBar() {
   return (
     <div className="category-bar">
       <div className="category-list">
-        {categories.map((category, i, a) => (
+        {categories && categories.map((category, i, a) => (
           <CategoryButton
             key={i}
             index={i}

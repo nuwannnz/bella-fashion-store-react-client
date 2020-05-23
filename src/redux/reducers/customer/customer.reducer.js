@@ -83,7 +83,7 @@ export const customer = (state = initialState, action) => {
         
       case CUSTOMER_ACTION_TYPES.ADD_ADDRESS_SUCCESS:
         const customerInfo = state.customerInfo;
-        customerInfo.addresses.push(action.payload);
+        customerInfo.addresses = [action.payload, ...customerInfo.addresses];
         return {
           ...state,
           customerInfo,

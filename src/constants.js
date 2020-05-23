@@ -3,8 +3,8 @@ export const ROUTE_PATHS = {
   CUSTOMER_LOGIN: "/login",
 
   CUSTOMER_PRODUCT: "/product",
-  CUSTOMER_PRODUCT_SINGLE: "/product/:id",
   CUSTOMER_ABOUTUS: "/aboutus",
+  CUSTOMER_PRODUCT_CATEGORY: '/category',
 
   CUSTOMER_CATEGORIES: "/categories/category-name",
   CUSTOMER_CONTACT: "/contact",
@@ -28,7 +28,6 @@ export const ROUTE_PATHS = {
   ADMIN_SIGNUP: "/admin/signup",
   ADMIN_CATEGORY_ADD: "/admin/categories",
   ADMIN_UPDATE_TEMP_PWD: "/admin/update-pwd",
-  ADMIN_UPDATE_TEMP_PWD: "/admin/update-pwd"
 
 };
 
@@ -36,6 +35,10 @@ export const POPUP_KEYS = {
   USER_POPUP: 'USER_POPUP',
   ROLE_POPUP: 'ROLE_POPUP',
   ADDRESS_POPUP: 'ADDRESS_POPUP',
+  INQUIRY_POPUP: 'INQUIRY_POPUP',
+  LOGIN_CUSTOMER_INQUIRY_POPUP: 'LOGIN_CUSTOMER_INQUIRY_POPUP',
+  CUSTOMER_INQUIRY_POPUP: 'CUSTOMER_INQUIRY_POPUP',
+  ORDER_INFO_POPUP: 'ORDER_INFO_POPUP'
 
 }
 

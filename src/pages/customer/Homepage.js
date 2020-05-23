@@ -1,22 +1,25 @@
 import React, { useEffect } from "react";
 import { Header } from "../../components/Header";
-
 import "../../styles/CustomerShell.css";
 import CategoryBar from "../../components/customer/CategoryBar";
 import { useSelector, useDispatch } from "react-redux";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
-import { ROUTE_PATHS } from "../../constants";
+import { ROUTE_PATHS, POPUP_KEYS } from "../../constants";
 import CustomerDashboardPage from "./CustomerDashboardPage";
 import CustomerDashboardSideBar from "../../components/customer/CustomerDashboardSideBar";
-import CartPage from "./CartPage";
 import ProductPage from "./ProductPage";
 import { loadCartAsync } from "../../redux/actions/customer/cart.actions";
 import ProductListPage from "./ProductListPage";
 import FloatingCart from "./FloatingCart";
-import Checkout from "./Checkout";
+import Checkout from "./checkout/Checkout";
 import CustomerDashboardAddressPage from "./CustomerDashboardAddressPage";
 import CustomerOrderDashboardPage from "./CustomerOrderDashboardPage";
 import CustomerDashboardDetailsPage from "./CustomerDashboardDetailPage";
+import FloatingWishlist from "./FloatingWishlist";
+import { loadOrdersAync } from "../../redux/actions/customer/order.actions";
+import { openPopup, POPUP_ACTION_TYPES } from "../../redux/actions/popup.actions";
+import { categoriesAsync } from "../../redux/actions/customer/customer.category.actions";
+
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.customer.token);
@@ -43,7 +46,8 @@ function PrivateRoute({ children, ...rest }) {
 export default function Homepage() {
   const token = useSelector((state) => state.customer.token);
   const sideBarOpened = useSelector((state) => state.ui.mobileSideBarOpened);
-  const displayCheckout = useSelector(state => state.ui.displayCheckout)
+  const displayCheckout = useSelector(state => state.ui.displayCheckout);
+  const displayCart = useSelector((state) => state.ui.displayCart);
 
   const location = useLocation();
   const dispatch = useDispatch();
@@ -54,8 +58,19 @@ export default function Homepage() {
       // customer logged in
       // load cart and wishlist
       dispatch(loadCartAsync());
+
+      // load orders of the customer
+      dispatch(loadOrdersAync());
+
+      // load categories
+      dispatch(categoriesAsync());
+
     }
   }, [token]);
+
+  const toggleDisplayInquiryForm = () => {
+    dispatch(openPopup(POPUP_KEYS.INQUIRY_POPUP));
+  }
 
   return (
     <div className="customer-shell flex flex-r">
@@ -75,7 +90,11 @@ export default function Homepage() {
 
           <FloatingCart />
 
+          <FloatingWishlist />
+
           {displayCheckout && <Checkout />}
+
+          {displayCart && <FloatingCart />}
 
           <div className="page-content-wrap">
             <div className="page">
@@ -93,24 +112,33 @@ export default function Homepage() {
                   <CustomerDashboardPage />
                 </PrivateRoute>
 
-                {/* <PrivateRoute path={ROUTE_PATHS.CUSTOMER_CART}>
-                  <CartPage />
-                </PrivateRoute> */}
-
                 <Route path={`${ROUTE_PATHS.CUSTOMER_PRODUCT}/:productId`}>
                   <ProductPage />
                 </Route>
 
-                <Route path={ROUTE_PATHS.CUSTOMER_PRODUCT_SINGLE} name="id">
-                  <ProductPage />
-                </Route>
-
-
-                <Route path="*">
+                <Route path={`${ROUTE_PATHS.CUSTOMER_PRODUCT_CATEGORY}/:categoryName/:subCategoryName`}>
                   <ProductListPage />
                 </Route>
+
+                <Route path={`${ROUTE_PATHS.CUSTOMER_PRODUCT_CATEGORY}/:categoryName`}>
+                  <ProductListPage />
+                </Route>
+
+
+                {/* <Route path="*">
+                  <ProductListPage />
+                </Route> */}
               </Switch>
+                
+              <div className="customer-inquiry-wrapper">
+              <div className="customer-inquiry-btn">
+                <button className="inquiry-btn" onClick={toggleDisplayInquiryForm}>INQUIRY NOW!</button>
+              </div>
             </div>
+
+            </div>
+
+           
 
             <div className="footer-wrap"></div>
           </div>

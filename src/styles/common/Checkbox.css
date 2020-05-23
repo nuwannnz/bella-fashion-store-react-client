@@ -1,0 +1,31 @@
+.checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  cursor: pointer;
+  margin: 5px 0px;
+}
+
+.checkbox .box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid #333;
+  cursor: pointer;
+  font-size: 11px;
+  margin-right: 8px;
+}
+
+.checkbox .box.checked {
+  background-color: var(--accent-color);
+  color: #fff;
+  border-color: var(--accent-color) !important;
+}
+
+.color-checkbox .box {
+  width: 20px;
+  height: 20px;
+}

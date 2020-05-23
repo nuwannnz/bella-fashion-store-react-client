@@ -1,0 +1,51 @@
+.filter-bar-wrapper {
+}
+
+.filter-bar {
+  display: flex;
+}
+
+.filter {
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 8px 15px;
+  margin-right: 10px;
+}
+
+.filter .filter-lable {
+  display: inline-block;
+  cursor: pointer;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+  color: #555;
+}
+
+.filter-lable i {
+  font-size: 12px;
+  margin-right: 5px;
+  color: #444;
+  /* display: none; */
+}
+/* 
+.filter:hover {
+  background-color: #ddd;
+} */
+
+.filter {
+  padding-top: 8px;
+  max-height: 37px;
+  overflow: hidden;
+  transition: max-height 0.7s ease-in-out;
+}
+
+.filter:hover,
+.filter.opened {
+  max-height: 100vh;
+}
+
+.filter-content {
+  padding-top: 8px;
+}

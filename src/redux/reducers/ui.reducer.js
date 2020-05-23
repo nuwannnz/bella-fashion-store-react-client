@@ -5,7 +5,10 @@ const initialState = {
   mobileSideBarOpened: false,
 
   cartBarOpened: false,
-  displayCheckout: false
+  displayCheckout: false,
+
+  wishlistBarOpened: false,
+  displayCart: false
 
 };
 
@@ -36,6 +39,17 @@ export const ui = (state = initialState, action) => {
         displayCheckout: !state.displayCheckout
       }
 
+    case UI_ACTION_TYPES.WISHLIST_BAR_TOGGLE:
+      return {
+        ...state,
+        wishlistBarOpened: !state.wishlistBarOpened
+      }
+
+    case UI_ACTION_TYPES.DISPLAY_CART:
+      return {
+        ...state,
+        displayCart: !state.displayCart
+      }
     default:
       return state;
   }
