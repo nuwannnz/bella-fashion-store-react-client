@@ -24,3 +24,11 @@
   background-color: #8C52FF;
   color: white;
 }
+
+.inquiry-table-wrapper .inquiry-table button{
+    background-color: #8C52FF;
+    border: none;
+    padding: 5px;
+    color: #ffffff;
+    cursor: pointer;
+}

@@ -9,6 +9,10 @@ export default function CustomerOrderDashboardCard({ item, numOfItems }) {
     const dispatch = useDispatch();
     const address = useSelector((state) => state.customer.customerInfo.addresses);
 
+    const [order, setOrder] = useSelector({
+        orderNo: item._id
+    })
+
     const customerAddress = address.find((addr) => 
         addr._id === item.addressId
     );
@@ -33,7 +37,7 @@ export default function CustomerOrderDashboardCard({ item, numOfItems }) {
                 <div className="img">
                 </div>
                 <div className="order-details">
-                        <p>Order No: {item._id}</p>
+                        <p>Order No: {order.orderNo}</p>
                         <p>Date: {date}</p>
                         <p>Status: {status}</p>
                         <p>Order Items: {numOfItems}</p>
