@@ -263,7 +263,6 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
              
              <LoadingScreen
                 loading={loading}
-                bgColor='#f1f1f1'
                 spinnerColor='#8c52ff'
                 textColor='#8c52ff'
                 

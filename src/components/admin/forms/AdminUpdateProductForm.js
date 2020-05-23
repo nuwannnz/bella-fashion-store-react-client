@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ErrorMessage from "../../common/ErrorMessage";
 import { isEmpty } from "../../../helpers/input-validation.helper";
 import TextBox from '../../common/TextBox';
+import Files from 'react-butterfiles';
 import AccentButton from '../../common/AccentButton';
 import { brandsLoadedAsync } from '../../../redux/actions/admin-panel/brand.actions';
 import { categoriesAsync } from '../../../redux/actions/admin-panel/category.actions'
@@ -10,7 +11,7 @@ import { clearProductsUpdatedSuccessMsg } from '../../../redux/actions/admin-pan
 import SuccessMessage from '../../common/SuccessMessage';
 import { ChromePicker } from 'react-color'
 import '../../../styles/common/SelectBox.css'
-
+import '../../../styles/product.css'
 import '../../../styles/common/IconButton.css'
 import { sizesLoadedAsync } from '../../../redux/actions/admin-panel/size.actions';
 
@@ -45,7 +46,8 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
     const [colors, setColors] = useState("");
     const [tags, setTags] = useState("");
     const [description, setDescription] = useState("");
-    const [subSelectedCategories, setSubCategories] = useState([{_id:'', subcategory:[{_id:'', name:''}], name: ''}]);
+    const [images, setImages] = useState(model.images.map(i=>({src:{base64:i}}))); 
+    const [subSelectedCategories, setSubCategories] = useState([]);
 
     const [bname, setBrandname] = useState("");
 
@@ -98,6 +100,11 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
         product.category = category
         setProduct({...product});
     } 
+
+    const handleSubCategoryChanged = (subCat) => {
+        product.subCategory = subCat
+        setProduct({...product});
+    } 
    
 
     const handlePriceChanged = (price) => {
@@ -145,7 +152,6 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
 
     useEffect(()=>{
         if(selectedProduct){
-
             const sizeInf = selectedProduct.sizeQty.map(sq => ({size: sq.size, qty: sq.qty}));
             setSizeQty(sizeInf)
         }
@@ -175,10 +181,34 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
         dispatch(categoriesAsync())
     }, [])
 
+    useEffect(()=>{
+        if(categories && categories.length > 0){
+            const cat = categories.find(c => c._id === model.category);
+            setSubCategories(cat.subcategory)
+        }
+    }, [categories])
+
     useEffect(() => {
         dispatch(sizesLoadedAsync())
     }, [])
 
+    const handleImages = (image, index) => {
+        if (index === images.length) {
+            setImages([...images, ...image]);
+        } else {
+            let updatedImages = [...images.slice(0, index - 1), ...image, ...images.slice(index + 1)]
+            setImages(updatedImages)
+        }
+
+    }
+    const removeImage = (index) => {
+        images.splice(index, 1);
+        setImages([...images]);
+    }
+
+    const handleImageErrors = (error) => {
+        console.log(error);
+    }
    
 
 
@@ -226,18 +256,26 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
         }
          else {
             setInvalidInput("");
+            const formData = new FormData();
+
+            formData.append('name', name)
+
+            formData.append('sizeQty', JSON.stringify(sizeQty));
+
+            formData.append('brand', brand)
+            formData.append('category', category)
+            formData.append('subCategory', subCategory)
+            formData.append('price', price)
+            formData.append('discount', discount)
+            formData.append('colors', colors)
+            formData.append('tags', tags)
+            formData.append('description', description)
+
+            images.forEach((image, i, a) => {
+                formData.append(`images[]`, image.src.file);
+            })
             onUpdateProductClick(
-                _id,
-                name,
-                sizeQty,
-                brand,
-                category,
-                subCategory,
-                price,
-                discount,
-                colors,
-                tags,
-                description
+               formData
                 
             );
             setValidInput(successMsg);
@@ -360,13 +398,12 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
                 <div className="col-md-6"> 
                     <label>Sub-Category</label>
                     <div className="select-box">
-                    <select id="leave" onChange={e => {setSubCategory(e.target.value); console.log(e.target.value)}}>
-                    <option className="default-option"  value="-1">- pick a sub category -</option>
-                        {/* {
-                                  categories &&  category !== '-1' && categories.find(c=>c._id === category).subcategory.map(subcat => (
-                                        <option value={subcat._id}>{subcat.name}</option>
+                    <select id="leave"  onChange={handleSubCategoryChanged}>
+                        {
+                                  subSelectedCategories.map(subcat => (
+                                        <option value={subcat._id} selected={subcat._id === model.subCategory} >{subcat.name}</option>
                                    ))
-                                } */}
+                                }
 \
                     </select>
                     </div>
@@ -421,6 +458,63 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
              type="textarea"
              value={product.description}
              onTextChange={handleDescriptionChanged} />
+
+<div className="row">
+                    <div class="col">
+
+                        <div>
+                            <Files
+                                multiple
+                                convertToBase64
+                                accept={["image/jpg", "image/jpeg", "image/png"]}
+                                onError={handleImageErrors}
+                                onSuccess={files =>
+                                    // Will append images at the end of the list.
+                                    this.handleImages(files, images.length)
+                                }
+                            >
+                                {({ browseFiles, getDropZoneProps }) => (
+                                    <div
+
+                                    >
+                                        <p>Product images (Max 3 images)</p>
+                                        <div className="image-upload-list">
+                                            {images.map((image, index) => (
+                                                <li className="image-item"
+                                                    style={{ width: '100px', height: '120px' }}
+                                                    key={index}
+
+                                                >
+                                                    <span onClick={() => removeImage(index)} className="remove-image-btn">X</span>
+                                                    <img alt="product image" src={image.src.base64} style={{ width: '100%' }} />
+                                                </li>
+                                            ))}
+                                            <li
+                                                className="new-image"
+                                                onClick={() => {
+                                                    browseFiles({
+                                                        onErrors: handleImageErrors,
+                                                        onSuccess: files => {
+
+                                                            handleImages(
+                                                                files,
+                                                                images.length
+                                                            );
+                                                        }
+                                                    });
+                                                }}
+                                            >
+                                                <div>+</div>
+                                            </li>
+                                        </div>
+                                    </div>
+                                )}
+                            </Files>
+
+                        </div>
+
+                    </div>
+                </div>
 
 {
                 invalidInput !== null && invalidInput.length > 0 ?

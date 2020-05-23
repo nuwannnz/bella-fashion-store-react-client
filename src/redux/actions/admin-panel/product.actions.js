@@ -178,30 +178,10 @@ export const productDeleted = (product) => ({
 
 
   export function updateProductAsync( 
-    _id,
-    name,
-    sizeQty,
-    brand,
-    category,
-    subCategory,
-    price,
-    discount,
-    colors,
-    tags,
-    description) {
+    formData) {
     return async (dispatch, getState) => {
   
-      console.log( _id,
-        name,
-        sizeQty,
-        brand,
-        category,
-        subCategory,
-        price,
-        discount,
-        colors,
-        tags,
-        description)
+      console.log(formData)
         dispatch(productsLoading(true))
       // get state from the state
       const { token } = getState().staffLogin.auth;
@@ -212,17 +192,7 @@ export const productDeleted = (product) => ({
   
       const result = await productService.updateProduct(
         token,
-        _id,
-        name,
-        sizeQty,
-        brand,
-        category,
-        subCategory,
-        price,
-        discount,
-        colors,
-        tags,
-        description);
+        formData);
 
       if (result.isResultOk()) {
         // fetch user again again

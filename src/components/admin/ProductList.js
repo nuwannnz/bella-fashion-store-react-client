@@ -69,15 +69,16 @@ export default function ProductList(){
           
   
         return (
-          <LoadingScreen
-          loading={loading}
-          bgColor='#f1f1f1'
-          spinnerColor='#8c52ff'
-          textColor='#8c52ff'
-          
-          text='Loading.. Please wait'
-      > 
+        
             <div class="table-responsive"> 
+              <LoadingScreen
+                loading={loading}
+               
+                spinnerColor='#8c52ff'
+                textColor='#8c52ff'
+                
+                text='Loading.. Please wait'
+      > 
                <table class="table table-bordered">
                 <thead class="thead-light">
                    <tr>
@@ -130,30 +131,10 @@ export default function ProductList(){
                                   
                                   <div><AdminUpdateProductForm 
                                 onUpdateProductClick={( 
-                                    _id,
-                                    name,
-                                    sizeQty,
-                                    brand,
-                                    category,
-                                    subCategory,
-                                    price,
-                                    discount,
-                                    colors,
-                                    tags,
-                                    description
+                                  formData
                                 ) =>
                                 dispatch(updateProductAsync(
-                                    _id,
-                                    name,
-                                    sizeQty,
-                                    brand,
-                                    category,
-                                    subCategory,
-                                    price,
-                                    discount,
-                                    colors,
-                                    tags,
-                                    description, history
+                                    formData, history
                                 )).then(success => { 
                                   if(success){
                                     setOpen(false)
@@ -171,8 +152,9 @@ export default function ProductList(){
                                        <ViewProduct pid = {selectedId}/>
                                      </div>
                                    </Modal>
+                                   </LoadingScreen>
             </div>
-            </LoadingScreen>
+          
         )
     
 }

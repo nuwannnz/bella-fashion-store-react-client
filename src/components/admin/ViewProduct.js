@@ -36,12 +36,15 @@ export default function ViewProduct({pid}) {
 		const _selectedbrand = brands.find(b => b.name === brandName);
         setBrand(_selectedbrand);
     }, [brands, products]);
-
+    
     useEffect(()=>{
-       setSelectedCategory(categories.find(c => c._id === selectedProduct.category));
+        if(selectedProduct){
+
+            setSelectedCategory(categories.find(c => c._id === selectedProduct.category));
+        }
         
         
-     },[categories])
+     },[selectedProduct])
 
      useEffect(()=>{
         

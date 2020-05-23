@@ -21,7 +21,7 @@ export default function SingleProduct({productId}) {
   const[id, setID] = useState("");
   const [brand, setBrand] = useState([]);
   const [brandName, setBrandName] = useState("")
-  const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedSize, setSelectedSize] = useState([]);
   const products = useSelector(state => state.product.products);
   
   
@@ -61,7 +61,7 @@ export default function SingleProduct({productId}) {
   //   console.log(selectedProduct)
   // }, [products])
   const RadioOnChange = (value) => {
-    setSelectedSize(value);
+    setSelectedSize(selectedProduct.sizeQty.find(s => s.size == value));
 
   }
 
@@ -185,7 +185,7 @@ export default function SingleProduct({productId}) {
               <hr />
               <p>
                 <b>Availability : </b>
-                {selectedSize ? <b style={{color: 'green'}}>In Stock</b> : <b style={{color: 'red'}}>Not Available</b>} 
+                  {selectedSize.qty > 0 ? <b style={{color: 'green'}}>{selectedSize && selectedSize.qty} In Stock</b> : <b style={{color: 'red'}}>Not Available</b>} 
               </p>
               <p>
                 <b>Condition : </b>New
