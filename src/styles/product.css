@@ -1,6 +1,5 @@
 .container-fluid {
   margin-top: 60px;
-
 }
 
 .color-picker {
@@ -36,9 +35,6 @@
   color: #555;
 }
 
-.stars {
-  height: 15px;
-}
 .price {
   color: purple;
   font-size: 26px;
@@ -62,7 +58,7 @@
 }
 
 .button {
-  background-color: var(--accent-color); 
+  background-color: var(--accent-color);
   border: none;
   border-radius: 1em;
   color: white;
