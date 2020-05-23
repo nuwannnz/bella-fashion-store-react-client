@@ -1,0 +1,138 @@
+.product-list-wrapper {
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.product-card-link {
+  text-decoration: none !important;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-info-card {
+  width: 200px;
+  height: 299px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #eee;
+  margin: 10px;
+  position: relative;
+  transition: box-shadow 0.1s ease-in;
+}
+
+.product-info-card:hover {
+  box-shadow: 0px 0px 5px #ddd;
+}
+
+.product-info-card .product-image-wrapper {
+  height: 85%;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.product-image-wrapper img {
+  width: 100%;
+}
+
+.product-info-card .product-info-wrapper {
+  height: 28%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.product-info-wrapper .product-name,
+.product-info-wrapper .product-price {
+  text-decoration: none !important;
+  color: #333;
+  margin: 0px;
+  width: 100%;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.product-name {
+  font-weight: 500;
+  text-transform: lowercase;
+}
+.product-price {
+  font-weight: 400;
+}
+
+.prdouct-discount {
+  font-weight: 400;
+  color: var(--accent-color);
+}
+
+.product-info-wrapper span::first-letter {
+  text-transform: capitalize;
+}
+
+.product-info-card .wishlist-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #eee;
+  border-radius: 50%;
+  border: none;
+  width: 30px;
+  height: 30px;
+  color: #555;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wishlist-btn .on-hover {
+  display: none;
+  color: #8c52ff;
+}
+
+.wishlist-btn:hover {
+  color: #8c52ff;
+  background-color: #ddd;
+}
+
+.wishlist-btn:hover .on-hover {
+  display: inline-block;
+}
+.wishlist-btn:hover .default {
+  display: none;
+}
+
+.add-to-cart-btn {
+  border: none;
+  background-color: #eee;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #ddd;
+  color: #8c52ff;
+}
+
+.add-to-cart-btn-wrap {
+  position: absolute;
+  right: 10px;
+  bottom: 65px;
+  display: none;
+}
+
+.product-info-card:hover .add-to-cart-btn-wrap {
+  display: inline-block;
+}

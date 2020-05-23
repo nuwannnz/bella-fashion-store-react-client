@@ -4,12 +4,14 @@ import SideBar from "../../components/admin/dashboard/SideBar";
 import HeaderBar from "../../components/admin/dashboard/HeaderBar";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { ROUTE_PATHS } from "../../constants";
-import UserDashboard from "./UserDashboard";
-import OrderDashboard from "./OrderDashboard";
+import UserDashboardPage from "./user-dashboard/UserDashboardPage";
 import { useDispatch } from "react-redux";
 import { getAdminPanelMenuItems } from "../../helpers/menu.helper";
 import { useUserRole, useAuthUser } from "../../hooks/admin-panel/Auth.hooks";
 import { uiIsLoading } from "../../redux/actions/ui.actions";
+import ProductDashboardPage from "./product/ProductDashboardPage";
+import { CategoriesAdmin } from "./staff/CategoriesAdmin";
+import OrderDashboardPage from "./order-dashboard/OrderDashboardPage";
 
 export default function Dashboard() {
 
@@ -20,7 +22,6 @@ export default function Dashboard() {
 
 
   const [menuItems, setMenuItems] = useState([])
-
 
   useEffect(() => {
     console.log('dashboard page');
@@ -59,12 +60,21 @@ export default function Dashboard() {
 
               <Switch>
                 <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_USER} >
-                  <UserDashboard />
+                  <UserDashboardPage />
                 </Route>
 
                 <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_ORDER}>
-                  <OrderDashboard />
+                  <OrderDashboardPage />
                 </Route>
+
+                <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_PRODUCT}>
+                  <ProductDashboardPage />
+                </Route>
+
+                <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_CATEGORY}>
+                  <CategoriesAdmin />
+                </Route>
+
               </Switch>
             </div>
           </div>

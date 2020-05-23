@@ -35,7 +35,7 @@ export default function CustomerLoginForm({onLoginClick, forgotPwdUrl, hasError,
     return (
         <div className="customer-login-form-wrapper">
             <div className="login-form">
-                <h1>Sign in to Bella Fashion Store</h1>
+                <p>Sign in to Bella Fashion Store</p>
                 <div className="login-page-logo">
                     <img src={getAssetUrl("logo/logo.png")} alt="Bella logo"/>
                 </div>

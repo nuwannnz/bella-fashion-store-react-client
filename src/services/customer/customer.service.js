@@ -102,3 +102,124 @@ export const verifyStoredToken = async () => {
         return null;
     }
 };
+
+export const addAddress = async (token, addressDto) => {
+    const path = `${API_HOST}/customer/address`;
+    const data = { addressDto };
+    const config = getAuthHeader(token);
+
+    const result = new APIResult();
+
+    try {
+        const response = await axios.post(path, data, config);
+
+        result.data = response.data;
+        return result;
+    } catch(error) {
+        logger.error(`Error in API call => ${path}`);
+        result.setError(error);
+        return result;
+    }
+};
+/**
+ * 
+ * const a = {id: 1, name:'hkgjh'}
+ * 
+ * const b = {...a}
+ * b = { id: 1, name:'hkgjh'}
+ * 
+ * 
+ * const b = {a}
+ * 
+ * b{
+ *   a:{id: 1, name:'hkgjh'}
+ * }
+ */
+export const updateCustomerAddress = async (token, addressId, addressDto) => {
+    const path = `${API_HOST}/customer/address/${addressId}`;
+    const config = getAuthHeader(token);
+    const data = { addressDto };
+    const result = new APIResult();
+
+    try {
+        const response = await axios.put(path, data, config);
+
+        result.data = response.data;
+        return result;
+    } catch(error) {
+        logger.error(`Error in API call => ${path}`);
+        result.setError(error);
+        return result;
+    }
+};
+
+export const deleteCustomerAddress = async (token, addressId) => {
+    const path = `${API_HOST}/customer/address/${addressId}`;
+    const config = getAuthHeader(token);
+    const result = new APIResult();
+
+    try {
+        const response = await axios.delete(path, config);
+
+        result.data = response.data;
+        return result;
+    } catch (error) {
+        logger.error(`Error in API call => ${path}`);
+        result.setError(error);
+        return result;
+      }
+};
+
+export const updateCustomerInfo = async (token, customerInfoToUpdate) => {
+    console.log("HI I'm front service");
+
+    const path = `${API_HOST}/customer`;
+    console.log("Hi, I'm path");
+    console.log(path);
+
+    const data = { customerInfoToUpdate };
+    
+    const config = getAuthHeader(token);
+    console.log("Hi, I'm config");
+    console.log(config);
+
+    const result = new APIResult();
+    console.log("Hi, I'm result");
+    console.log(result);
+
+    try {
+        console.log("Hi, I'm data");
+        console.log(data);
+        const response = await axios.patch(path, data, config);
+        console.log("Hi, I'm response");
+        console.log(response);
+
+        result.data = response.data;
+        
+        return result;
+    } catch(error) {
+        logger.error(`Error in API call => ${path}`);
+        result.setError(error);
+        return result;
+    }
+};
+
+export const updateCustomerPassword = async (token, currentPwd, newPwd) => {
+    const path = `${API_HOST}/customer/pwd`;
+    const data = { currentPwd, newPwd };
+    
+    const config = getAuthHeader(token);
+
+    const result = new APIResult();
+    
+    try {
+        const response = await axios.patch(path, data, config);
+
+        result.data = response.data;
+        return result;
+    } catch(error) {
+        logger.error(`Error in API call => ${path}`);
+        result.setError(error);
+        return result;
+    }
+};

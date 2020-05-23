@@ -1,0 +1,20 @@
+.select-box {
+}
+
+.select-box label {
+  display: block;
+}
+
+.select-box select {
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: 5px;
+  outline: none;
+  border: 1.5px solid #ddd;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.select-box select:focus {
+  border-color: #8c52ff;
+}

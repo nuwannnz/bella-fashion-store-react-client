@@ -1,24 +1,37 @@
 import React, { useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { ROUTE_PATHS } from "../../constants";
+import { ROUTE_PATHS, POPUP_KEYS } from "../../constants";
 import Homepage from "./Homepage";
 import CustomerLoginPage from "./CustomerLoginPage";
 import CustomerSignUpPage from "./CustomerSignUpPage";
+import AboutUs from "./AboutUs";
 import { useDispatch, useSelector } from "react-redux";
 import {
   verifyStoredTokenAsync,
   checkHasCustomerAsync,
 } from "../../redux/actions/customer/customer.actions";
 import { uiIsLoading } from "../../redux/actions/ui.actions";
-import CustomerDashboardPage from "./CustomerDashboardPage";
+import { usePopup } from "../../hooks/Popup.hooks";
+import CustomerDashboardAddressForm from "../../components/customer/CustomerDashboardAddressForm";
+import CustomerDashboardInquiryForm from "../../components/customer/CustomerDashboardInquiryForm";
+import CustomerInquiryForm from "../../components/customer/CustomerInquiryForm";
 
 export default function CustomerShell() {
   const dispatch = useDispatch();
+  const { registerPopup } = usePopup()
+
 
   const hasCustomerChecked = useSelector(
     (state) => state.customer.checkedHasCustomer
   );
   const verifyedToken = useSelector((state) => state.customer.tokenVerified);
+
+  useEffect(() => {
+    registerPopup(POPUP_KEYS.ADDRESS_POPUP, CustomerDashboardAddressForm);
+    registerPopup(POPUP_KEYS.INQUIRY_POPUP, CustomerDashboardInquiryForm);
+    registerPopup(POPUP_KEYS.CUSTOMER_INQUIRY_POPUP, CustomerInquiryForm);
+
+  }, [])
 
   useEffect(() => {
     // set ui to loading
@@ -42,6 +55,10 @@ export default function CustomerShell() {
     }
   });
 
+  useEffect(() => {
+    registerPopup(POPUP_KEYS.ADDRESS_POPUP, CustomerDashboardAddressForm);
+  }, [])
+
   return (
     <div className="flex w-100 h-100">
       <Switch>
@@ -51,6 +68,10 @@ export default function CustomerShell() {
 
         <Route path={ROUTE_PATHS.CUSTOMER_SIGNUP}>
           <CustomerSignUpPage />
+        </Route>
+
+        <Route path={ROUTE_PATHS.CUSTOMER_ABOUTUS}>
+          <AboutUs />
         </Route>
 
         <Route path={ROUTE_PATHS.CUSTOMER_SHELL}>

@@ -1,10 +1,14 @@
 import * as customerService from "../../../services/customer/customer.service";
 import { displayTimeoutNotificationAsync } from "./notification.actions";
-import { buildNotification } from "../../../services/customer/notification.service";
 import { MSG_STRINGS } from "../../../resources/Strings";
 import { ROUTE_PATHS } from "../../../constants";
 import { saveCustomerTokenToStorage, deleteCustomerTokenFromStorage } from "../../../helpers/token.helper";
 import { uiIsLoading } from "../ui.actions";
+import { history } from "../../../helpers/navigation.helper";
+import { displayToastAsync } from "../toast.actions";
+import { NOTIFICATION_TYPE, buildNotification } from "../../../helpers/notification.helper";
+import { loadWishlistAsync, wishlistLoaded } from "./wishlist.action";
+import { loadWishlist } from "../../../services/customer/wishlist.service";
 
 export const CUSTOMER_ACTION_TYPES = {
     LOGGED_IN: "LOGGED_IN",
@@ -17,7 +21,27 @@ export const CUSTOMER_ACTION_TYPES = {
     HAS_CUSTOMER: "HAS_CUSTOMER",
     IS_LOADING: 'IS_LOADING',
     TOKEN_VERIFICATION_COMPLETED: "TOKEN_VERIFICATION_COMPLETED",
-    HAS_CUSTOMER_CHECK_COMPLETED: "HAS_CUSTOMER_CHECK_COMPLETED"
+    HAS_CUSTOMER_CHECK_COMPLETED: "HAS_CUSTOMER_CHECK_COMPLETED",
+
+    ADD_ADDRESS_REQUEST: "ADD_ADDRESS_REQUEST",
+    ADD_ADDRESS_SUCCESS: "ADD_ADDRESS_SUCCESS",
+    ADD_ADDRESS_FAILURE: "ADD_ADDRESS_FAILURE",
+
+    DELETE_ADDRESS_REQUEST: "DELETE_ADDRESS_REQUEST",
+    DELETE_ADDRESS_SUCCESS: "DELETE_ADDRESS_SUCCESS",
+    DELETE_ADDRESS_FAILURE: "DELETE_ADDRESS_FAILURE",
+
+    UPDATE_ADDRESS_REQUEST: "UPDATE_ADDRESS_REQUEST",
+    UPDATE_ADDRESS_SUCCESS: "UPDATE_ADDRESS_SUCCESS",
+    UPDATE_ADDRESS_FAILURE: "UPDATE_ADDRESS_FAILURE",
+
+    UPDATE_CUSTOMER_INFO_REQUEST: "UPDATE_CUSTOMER_INFO_REQUEST",
+    UPDATE_CUSTOMER_INFO_SUCCESS: "UPDATE_CUSTOMER_INFO_SUCCESS",
+    UPDATE_CUSTOMER_INFO_FAILURE: "UPDATE_CUSTOMER_INFO_FAILURE",
+
+    UPDATE_CUSTOMER_PASSWORD_REQUEST: "UPDATE_CUSTOMER_PASSWORD_REQUEST",
+    UPDATE_CUSTOMER_PASSWORD_SUCCESS: "UPDATE_CUSTOMER_PASSWORD_SUCCESS",
+    UPDATE_CUSTOMER_PASSWORD_FAILURE: "UPDATE_CUSTOMER_PASSWORD_FAILURE" 
 };
 
 // action creators
@@ -85,7 +109,7 @@ export function loginAsync(email, password, history) {
             dispatch(loggedIn(result.data.token));
             // set user info
             dispatch(customerLoaded(result.data.customer));
-
+            dispatch(wishlistLoaded(result.data.customer.wishlist));
             history.push(ROUTE_PATHS.CUSTOMER_DASHBOARD);
 
             // save token in local storage
@@ -154,6 +178,7 @@ export function verifyStoredTokenAsync() {
       if (result !== null) {
         // stored token is verified
         dispatch(customerLoaded(result.customerInfo));
+      dispatch(wishlistLoaded(result.customerInfo.wishlist));
         dispatch(loggedIn(result.token));
       }
       dispatch(tokenVerificationCompleted());
@@ -171,3 +196,180 @@ export function checkHasCustomerAsync() {
       dispatch(hasCustomerChecked());
     }
 };
+
+export function addAddressAsync(addressDto) {
+  console.log(addressDto);
+  
+  return async (dispatch, getState) => {
+    dispatch(request());
+    const { token } = getState().customer;
+
+    const result = await customerService.addAddress(token, addressDto);
+
+    if(result.isResultOk()) {
+      dispatch(success(result.data));
+      dispatch(displayToastAsync(buildNotification("Added address successfully", NOTIFICATION_TYPE.SUCCESS)))
+      return true;
+    } else {
+      dispatch(failure(result.errorMessage));
+      dispatch(displayToastAsync(buildNotification("Failed to add address. Please try again.", NOTIFICATION_TYPE.ERROR)))
+      return false;
+    }
+  };
+
+  function request() {
+    return {
+      type: CUSTOMER_ACTION_TYPES.ADD_ADDRESS_REQUEST
+    };
+  }
+
+  function success(payload) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.ADD_ADDRESS_SUCCESS,
+      payload
+    };
+  }
+
+  function failure(errorMsg) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.ADD_ADDRESS_FAILURE,
+      payload: errorMsg
+    };
+  }
+};
+
+export function deleteAddressAsync(addressId) {
+  console.log("Delete" + addressId);
+  
+  return async (dispatch, getState) => {
+    dispatch(request({ id: addressId }));
+    const { token } = getState().customer;
+
+    const result = await customerService.deleteCustomerAddress(token, addressId);
+
+    if(result.isResultOk()) {
+      dispatch(success(addressId));
+      dispatch(displayToastAsync(buildNotification("Deleted address successfully", NOTIFICATION_TYPE.SUCCESS)))
+    } else {
+      dispatch(failure(result.errorMessage));
+      dispatch(displayToastAsync(buildNotification("Failed to delete address. Please try again.", NOTIFICATION_TYPE.ERROR)))
+    }
+  };
+
+  function request(payload) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.DELETE_ADDRESS_REQUEST, 
+      payload
+    };
+  }
+  
+  function success(payload) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.DELETE_ADDRESS_SUCCESS,
+      payload
+    };
+  } 
+
+  function failure(errorMsg) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.DELETE_ADDRESS_FAILURE,
+      payload: errorMsg
+    };
+  }
+};
+
+export function updateCustomerAddressAsync( addressId, addressDto) {
+  return async (dispatch, getState) => {
+    dispatch(request(addressId));
+    const { token } = getState().customer;
+
+    const result = await customerService.updateCustomerAddress(token, addressId, addressDto);
+
+    if(result.isResultOk()) {
+      dispatch(success(result.data));
+      dispatch(displayToastAsync(buildNotification("Updated address successfully", NOTIFICATION_TYPE.SUCCESS)))
+      return true;
+    } else {
+      dispatch(failure(result.errorMessage));
+      dispatch(displayToastAsync(buildNotification("Failed to update address. Please try again.", NOTIFICATION_TYPE.ERROR)))
+      return false;
+    }
+  };
+
+  function request(payload) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_REQUEST,
+      payload
+    };
+  }
+
+  function success(payload) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_SUCCESS,
+      payload
+    };
+  }
+
+  function failure(errorMsg) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_FAILURE,
+      payload: errorMsg
+    };
+  }
+};
+
+export function updateCustomerInfoAsync(customerInfo) {
+  return async (dispatch, getState) => {
+    dispatch(request());
+    const { token } = getState().customer;
+
+    const result = await customerService.updateCustomerInfo(token, customerInfo);
+
+    if(result.isResultOk()) {
+      dispatch(success(result.data));
+    } else {
+      dispatch(failure(result.errorMessage));
+    }
+  };
+
+  function request() {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_CUSTOMER_INFO_REQUEST
+    };
+  }
+
+  function success(payload) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_CUSTOMER_INFO_SUCCESS,
+      payload
+    };
+  }
+
+  function failure(errorMsg) {
+    return {
+      type: CUSTOMER_ACTION_TYPES.UPDATE_CUSTOMER_INFO_FAILURE,
+      payload: errorMsg
+    };
+  }
+};
+
+export function updateCustomerPasswordAsync(currentPwd, newPwd) {
+  return async (dispatch, getState) => {
+    const { token } = getState().customer;
+
+    if(!token) {
+      return;
+    }
+
+    const result = await customerService.updateCustomerPassword(token, currentPwd, newPwd);
+  
+    if(result.isResultOk() && result.data) {
+      dispatch(displayToastAsync(buildNotification("Updated password successfully", NOTIFICATION_TYPE.SUCCESS)))
+      dispatch(logoutAsync(history));
+      dispatch(verifyStoredTokenAsync());
+    } else {
+      dispatch(displayToastAsync(buildNotification("Failed to update password. Please try again", NOTIFICATION_TYPE.ERROR)))
+      return;
+    }
+  };
+}

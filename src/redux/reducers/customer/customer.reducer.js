@@ -9,7 +9,7 @@ const initialState = {
   customerSignUpSuccess: false,
   isLoading: false,
   hasCustomer: true,
-  checkedHasCustomer: false
+  checkedHasCustomer: false,
 };
 
 export const customer = (state = initialState, action) => {
@@ -73,7 +73,97 @@ export const customer = (state = initialState, action) => {
         return {
           ...state,
           checkedHasCustomer: true
-        }  
+        } 
+
+      case CUSTOMER_ACTION_TYPES.ADD_ADDRESS_REQUEST:
+        return {
+          ...state,
+          addingAddress: true
+        };
+        
+      case CUSTOMER_ACTION_TYPES.ADD_ADDRESS_SUCCESS:
+        const customerInfo = state.customerInfo;
+        customerInfo.addresses = [action.payload, ...customerInfo.addresses];
+        return {
+          ...state,
+          customerInfo,
+          closePopups: true
+        };
+
+      case CUSTOMER_ACTION_TYPES.ADD_ADDRESS_FAILURE:
+        return {
+          ...state,
+          addAddressError: action.payload
+        };
+       
+      case CUSTOMER_ACTION_TYPES.DELETE_ADDRESS_REQUEST:
+        return {
+          ...state,
+          deletingAddress: action.payload
+        }; 
+      
+      case CUSTOMER_ACTION_TYPES.DELETE_ADDRESS_SUCCESS:
+        const info = state.customerInfo;
+        info.addresses = info.addresses.filter(addr => addr._id !== action.payload);
+        return {
+          ...state,
+          info
+        };
+
+      case CUSTOMER_ACTION_TYPES.DELETE_ADDRESS_FAILURE:
+        return {
+          ...state,
+          deleteAddressError: action.payload
+        }; 
+      
+      case CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_REQUEST:
+        return {
+          ...state,
+          updatingAddressId: action.payload
+        };
+        
+      case CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_SUCCESS:     
+      const customerInfoToUpdate = state.customerInfo;
+      customerInfoToUpdate.addresses = customerInfoToUpdate.addresses.map(addr => {
+        if(addr._id === action.payload._id){
+          return action.payload
+        }
+        return addr
+      })
+        return {
+          ...state,
+          customerInfo: customerInfoToUpdate
+        }; 
+      
+      case CUSTOMER_ACTION_TYPES.UPDATE_ADDRESS_FAILURE: 
+        return {
+          ...state,
+          updateErrorMsg: action.payload
+      };  
+
+      case CUSTOMER_ACTION_TYPES.UPDATE_CUSTOMER_INFO_REQUEST:
+        return {
+          ...state,
+          updatingCustomerInfo: true
+        };
+
+      case CUSTOMER_ACTION_TYPES.UPDATE_CUSTOMER_INFO_SUCCESS:
+        const customerToUpdate = state.customerInfo;
+        customerToUpdate.fName = action.payload.fName;
+        customerToUpdate.lName = action.payload.lName;
+        customerToUpdate.email = action.payload.email;
+        return {
+            ...state,
+            updatingCustomerInfo: false,
+            customerInfo: customerToUpdate
+        };
+        
+      case CUSTOMER_ACTION_TYPES.UPDATE_CUSTOMER_INFO_FAILURE:
+        return {
+          ...state,
+          updatingCustomerInfo: false,
+          customerUpdatingError: action.payload
+        };
       default:
         return state;
     }

@@ -8,7 +8,7 @@ export default function CustomerLoginMsg() {
     return (
         <div className="login-msg-wrapper">
             <div className="login-msg">
-                <h2>Welcome Back!</h2>
+                <p>Welcome Back!</p>
                 <p>
                     Enter your personal details 
                     and start journey with us.

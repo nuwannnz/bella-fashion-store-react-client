@@ -1,0 +1,50 @@
+.category-card {
+  min-height: 550px;
+  border: 1px solid var(--accent-color);
+  border-radius: 4px;
+  padding: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 10px;
+}
+
+
+.slider-btn {
+  transition-duration: 0.9s;
+  border-radius: 1em;
+  background-color: white; 
+  color: black; 
+  border: 2px solid var(--accent-color);
+  min-height: 60px;
+}
+
+.slider-btn:hover {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+
+.card-price {
+  color: var(--accent-color);
+  font-weight: bold;
+  font-size:1.2em ;
+}
+
+.card-img {
+  min-height: 400px;
+  min-width: 336px;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+
+.category-card .card-img:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+  opacity: 0.7;
+}
+
+.category-card h5,
+.category-card h6 {
+  font-family: "Trebuchet MS";
+}

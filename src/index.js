@@ -7,6 +7,10 @@ import "./styles/common/common.css";
 import "./styles/common/buttons.css";
 import "./styles/common/common-forms.css";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import "./styles/scrollbars.css";
+
 ReactDOM.render(
   <AppShell />,
 

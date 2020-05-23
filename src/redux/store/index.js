@@ -17,3 +17,4 @@ export const adminPanelStore = createStore(
   adminPanelReducer,
   composeEnhancers(applyMiddleware(thunk))
 );
+
