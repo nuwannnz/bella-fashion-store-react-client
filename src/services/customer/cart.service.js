@@ -122,7 +122,7 @@ export const placeOrder = async (token, orderDto) => {
 
 
 export const loadOrders = async (token) => {
-  const path = `${API_HOST}/orders`;
+  const path = `${API_HOST}/customer/orders`;
   const config = getAuthHeader(token);
 
   const result = new APIResult();

@@ -15,6 +15,7 @@ import { size } from "./admin-panel/size.reducer"
 import { popup } from "./popup.reducer";
 import { toast } from "./toast.reducer";
 import { order } from "./customer/order.reducer";
+import { order as adminOrder } from "./admin-panel/order.reducer";
 import { category as customerCat } from "./customer/customer.category.reducer"
 
 
@@ -40,8 +41,7 @@ export const adminPanelReducer = combineReducers({
   userDashboard,
   product,
   brand,
-
-  category,
+  order: adminOrder,
   size,
 
   popup,
