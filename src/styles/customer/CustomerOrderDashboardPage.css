@@ -71,6 +71,7 @@
   left: 0%;
   transform: translate(-18%, -50%);
   border-radius: 20px;
+  overflow: hidden;
 }
 
 .order-card-wrapper .order-details {
