@@ -9,7 +9,9 @@ import { ui } from "./ui.reducer";
 import { brand } from "./admin-panel/brand.reducer";
 import { customer } from "./customer/customer.reducer";
 
-import { category } from "./admin-panel/category.reducer"
+import { wishlist } from "./customer/wishlist.reducer";
+import {category} from "./admin-panel/category.reducer"
+
 import { size } from "./admin-panel/size.reducer"
 
 import { popup } from "./popup.reducer";
@@ -24,7 +26,7 @@ export const customerReducer = combineReducers({
   cart,
   ui,
   brand,
-
+  wishlist,
   product: customerProducts,
   popup,
   toast,
@@ -43,7 +45,6 @@ export const adminPanelReducer = combineReducers({
   brand,
   order: adminOrder,
   size,
-
   popup,
   toast
 

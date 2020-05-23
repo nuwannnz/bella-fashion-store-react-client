@@ -13,10 +13,13 @@ import {
 import { uiIsLoading } from "../../redux/actions/ui.actions";
 import { usePopup } from "../../hooks/Popup.hooks";
 import CustomerDashboardAddressForm from "../../components/customer/CustomerDashboardAddressForm";
+import CustomerDashboardInquiryForm from "../../components/customer/CustomerDashboardInquiryForm";
+import CustomerInquiryForm from "../../components/customer/CustomerInquiryForm";
 
 export default function CustomerShell() {
   const dispatch = useDispatch();
   const { registerPopup } = usePopup()
+
 
   const hasCustomerChecked = useSelector(
     (state) => state.customer.checkedHasCustomer
@@ -25,6 +28,9 @@ export default function CustomerShell() {
 
   useEffect(() => {
     registerPopup(POPUP_KEYS.ADDRESS_POPUP, CustomerDashboardAddressForm);
+    registerPopup(POPUP_KEYS.INQUIRY_POPUP, CustomerDashboardInquiryForm);
+    registerPopup(POPUP_KEYS.CUSTOMER_INQUIRY_POPUP, CustomerInquiryForm);
+
   }, [])
 
   useEffect(() => {
@@ -48,6 +54,10 @@ export default function CustomerShell() {
       dispatch(uiIsLoading(false));
     }
   });
+
+  useEffect(() => {
+    registerPopup(POPUP_KEYS.ADDRESS_POPUP, CustomerDashboardAddressForm);
+  }, [])
 
   return (
     <div className="flex w-100 h-100">

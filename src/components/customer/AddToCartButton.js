@@ -4,13 +4,16 @@ import { useHistory } from "react-router-dom";
 import { ROUTE_PATHS } from "../../constants";
 import { addProductToCartAsync } from "../../redux/actions/customer/cart.actions";
 
-export default function AddToCartButton({ productId, size, qty }) {
+export default function AddToCartButton({ productId, size, qty, onAddToCart }) {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.customer);
   const history = useHistory();
 
   const onClickHandler = () => {
 
+    if(onAddToCart){
+      onAddToCart()
+    }
     // if only product id is given navigate to the product page
     if (!size || !qty) {
       history.push(`${ROUTE_PATHS.CUSTOMER_PRODUCT}/${productId}`);

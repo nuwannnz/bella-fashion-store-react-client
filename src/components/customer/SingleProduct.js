@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 import { productLoadedByIDAsync } from "../../redux/actions/admin-panel/product.actions";
 import { brandsLoadedAsync } from "../../redux/actions/admin-panel/brand.actions"
 import AddToCartButton from "./AddToCartButton";
+import AddToWishlistButton from "./AddToWishlistButton";
 import '../../styles/common/SelectBox.css';
 
 
@@ -214,6 +215,10 @@ export default function SingleProduct({productId}) {
                 productId={selectedProduct._id}
                 qty={qty}
                 size={selected_size}
+              />
+
+              <AddToWishlistButton 
+                productId={selectedProduct._id}
               />
 
             </div>

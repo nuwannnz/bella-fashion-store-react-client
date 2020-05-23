@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { addAddressAsync, updateCustomerAddressAsync } from "../../redux/actions/customer/customer.actions";
 import ErrorMessage from "../common/ErrorMessage";
 
-export default function CustomerDashboardAddressForm({ closeFormClickHandler, addressToUpdate, closePopup }) {
+export default function CustomerDashboardAddressForm({ addressToUpdate, closePopup }) {
+
 
     const customers = useSelector((state) => state.customer);
     const dispatch = useDispatch();
@@ -28,11 +29,6 @@ export default function CustomerDashboardAddressForm({ closeFormClickHandler, ad
     const [town, setTown] = useState(addressToUpdate ? addressToUpdate.town : "");
     const [zip, setZip] = useState(addressToUpdate ? addressToUpdate.zip : "");
 
-    // useEffect(() => {
-    //     if(customers.closePopups) {
-    //         closeFormClickHandler();
-    //     }
-    // }, [customers]);
 
     const handleFNameChanged = (e) => {
         address.fName = e.target.value;
@@ -78,12 +74,18 @@ export default function CustomerDashboardAddressForm({ closeFormClickHandler, ad
 
     const handleFormSubmit = () => {
         if (addressToUpdate) {
+            dispatch(updateCustomerAddressAsync(addressToUpdate._id, address)).then((success) => {
+               if(success) {
+                closePopup();
+               }
+            });
 
-            dispatch(updateCustomerAddressAsync(addressToUpdate._id, address));
         } else {
 
-            dispatch(addAddressAsync(address)).then(()=>{
-                // closePopup()
+            dispatch(addAddressAsync(address)).then((success)=>{
+                if(success) {
+                    closePopup();
+                }
             });
         }
     };
