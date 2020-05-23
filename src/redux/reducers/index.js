@@ -8,13 +8,17 @@ import { product as customerProducts } from "./customer/product.reducer";
 import { ui } from "./ui.reducer";
 import { brand } from "./admin-panel/brand.reducer";
 import { customer } from "./customer/customer.reducer";
+
 import { wishlist } from "./customer/wishlist.reducer";
 import {category} from "./admin-panel/category.reducer"
+
 import { size } from "./admin-panel/size.reducer"
 
 import { popup } from "./popup.reducer";
 import { toast } from "./toast.reducer";
 import { order } from "./customer/order.reducer";
+import { order as adminOrder } from "./admin-panel/order.reducer";
+import { category as customerCat } from "./customer/customer.category.reducer"
 
 
 export const customerReducer = combineReducers({
@@ -23,25 +27,24 @@ export const customerReducer = combineReducers({
   ui,
   brand,
   wishlist,
-
   product: customerProducts,
   popup,
   toast,
-  order
+  order,
+  category: customerCat
 
 });
 
 export const adminPanelReducer = combineReducers({
   staffLogin,
   notification,
+  category,
   ui,
   userDashboard,
   product,
   brand,
-
-  category,
+  order: adminOrder,
   size,
-
   popup,
   toast
 

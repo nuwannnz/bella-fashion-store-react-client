@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { ROUTE_PATHS, POPUP_KEYS } from "../../constants";
 import Homepage from "./Homepage";
 import CustomerLoginPage from "./CustomerLoginPage";
@@ -18,7 +18,8 @@ import CustomerInquiryForm from "../../components/customer/CustomerInquiryForm";
 
 export default function CustomerShell() {
   const dispatch = useDispatch();
-  const { registerPopup } = usePopup();
+  const { registerPopup } = usePopup()
+
 
   const hasCustomerChecked = useSelector(
     (state) => state.customer.checkedHasCustomer
@@ -29,6 +30,7 @@ export default function CustomerShell() {
     registerPopup(POPUP_KEYS.ADDRESS_POPUP, CustomerDashboardAddressForm);
     registerPopup(POPUP_KEYS.INQUIRY_POPUP, CustomerDashboardInquiryForm);
     registerPopup(POPUP_KEYS.CUSTOMER_INQUIRY_POPUP, CustomerInquiryForm);
+
   }, [])
 
   useEffect(() => {

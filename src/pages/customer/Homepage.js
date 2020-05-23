@@ -18,6 +18,8 @@ import CustomerDashboardDetailsPage from "./CustomerDashboardDetailPage";
 import FloatingWishlist from "./FloatingWishlist";
 import { loadOrdersAync } from "../../redux/actions/customer/order.actions";
 import { openPopup, POPUP_ACTION_TYPES } from "../../redux/actions/popup.actions";
+import { categoriesAsync } from "../../redux/actions/customer/customer.category.actions";
+
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.customer.token);
@@ -56,10 +58,13 @@ export default function Homepage() {
       // customer logged in
       // load cart and wishlist
       dispatch(loadCartAsync());
-      // dispatch(loadWishlistAsync());
 
       // load orders of the customer
       dispatch(loadOrdersAync());
+
+      // load categories
+      dispatch(categoriesAsync());
+
     }
   }, [token]);
 
@@ -107,22 +112,22 @@ export default function Homepage() {
                   <CustomerDashboardPage />
                 </PrivateRoute>
 
-                {/* <PrivateRoute path={ROUTE_PATHS.CUSTOMER_CART}>
-                  <CartPage />
-                </PrivateRoute> */}
-
                 <Route path={`${ROUTE_PATHS.CUSTOMER_PRODUCT}/:productId`}>
                   <ProductPage />
                 </Route>
 
-                <Route path={ROUTE_PATHS.CUSTOMER_PRODUCT_SINGLE} name="id">
-                  <ProductPage />
-                </Route>
-
-
-                <Route path="*">
+                <Route path={`${ROUTE_PATHS.CUSTOMER_PRODUCT_CATEGORY}/:categoryName/:subCategoryName`}>
                   <ProductListPage />
                 </Route>
+
+                <Route path={`${ROUTE_PATHS.CUSTOMER_PRODUCT_CATEGORY}/:categoryName`}>
+                  <ProductListPage />
+                </Route>
+
+
+                {/* <Route path="*">
+                  <ProductListPage />
+                </Route> */}
               </Switch>
                 
               <div className="customer-inquiry-wrapper">

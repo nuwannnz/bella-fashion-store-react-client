@@ -16,6 +16,7 @@ import { uiIsLoading } from "../../redux/actions/ui.actions";
 import Dashboard from "./Dashboard";
 import { usePopup } from "../../hooks/Popup.hooks";
 import { UserForm } from "./user-dashboard/UserForm";
+import ViewOrderForm from "./order-dashboard/ViewOrderForm";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.staffLogin.auth.token);
@@ -75,7 +76,7 @@ export default function AdminPanelShell() {
   useEffect(() => {
 
     registerPopup(POPUP_KEYS.USER_POPUP, UserForm);
-
+    registerPopup(POPUP_KEYS.ORDER_INFO_POPUP, ViewOrderForm);
 
   }, [])
 

@@ -11,6 +11,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
+    maxHeight: '90vh'
   },
   wrapperFromCenter: {
     top: "50%",
@@ -34,6 +35,8 @@ const styles = {
   },
   formWrapper: {
     padding: "10px",
+    maxHeight: '100%',
+    overflow: 'auto'
   },
 
   overlayPanel: {
@@ -64,6 +67,7 @@ export default function OverlayPopup({
   isSubmitting = false,
   onClosing = null,
   onSubmit = null,
+  displayActions = true
 }) {
   const closeClickHandler = () => {
     if (onClosing) {
@@ -90,7 +94,7 @@ export default function OverlayPopup({
           {children}
         </div>
 
-        <div className="action-wrapper" style={styles.actionWrapper}>
+        {displayActions && <div className="action-wrapper" style={styles.actionWrapper}>
           <div style={{ marginRight: "5px" }}>
             <AccentButton
               text={secondaryActionText}
@@ -105,7 +109,7 @@ export default function OverlayPopup({
               isLoading={isSubmitting}
             />
           </div>
-        </div>
+        </div>}
       </div>
     </div>
   );
