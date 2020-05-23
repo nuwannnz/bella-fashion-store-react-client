@@ -1,0 +1,26 @@
+.inquiry-table-wrapper .inquiry-table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.inquiry-table-wrapper .inquiry-table td, .inquiry-table-wrapper .inquiry-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.inquiry-table-wrapper .inquiry-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.inquiry-table-wrapper .inquiry-table tr:hover {
+    background-color: #ddd;
+}
+
+.inquiry-table-wrapper .inquiry-table th {
+    padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #8C52FF;
+  color: white;
+}
