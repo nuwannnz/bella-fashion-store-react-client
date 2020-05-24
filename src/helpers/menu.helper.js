@@ -32,9 +32,9 @@ const dashboardMenuItems = [
     },
     {
         index: 4,
-        label: 'Customers',
-        permission: 'customer',
-        link: ROUTE_PATHS.ADIMN_DASHBOARD_CUSTOMER,
+        label: 'Homepage',
+        permission: 'user',
+        link: ROUTE_PATHS.ADIMN_DASHBOARD_HOMEPAGE,
         icon: 'fas fa-user-alt'
     },
     {
@@ -44,13 +44,7 @@ const dashboardMenuItems = [
         link: ROUTE_PATHS.ADIMN_DASHBOARD_INQUIRY,
         icon: 'far fa-question-circle'
     },
-    {
-        index: 6,
-        label: 'Sales',
-        permission: 'sales',
-        link: ROUTE_PATHS.ADIMN_DASHBOARD_SALES,
-        icon: 'fas fa-money-check-alt'
-    },
+
 ]
 
 export const getAdminPanelMenuItems = (userPermissions) => {

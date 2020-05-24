@@ -28,4 +28,5 @@
 .color-checkbox .box {
   width: 20px;
   height: 20px;
+  border-color: #ddd !important;
 }

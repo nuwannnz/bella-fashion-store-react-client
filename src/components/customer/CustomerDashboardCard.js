@@ -1,58 +1,115 @@
-import React, { useState } from "react";
-import { FaRegCircle } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
 import "../../styles/customer/CustomerDashboardPage.css";
+import { useDispatch } from "react-redux";
+import moment from "moment";
 
-const Dot = ({ index, onClickHandler }) => {
-    return (
-      <div className="dot" onClick={() => onClickHandler(index)}>
-        <FaRegCircle size="1em" />
-      </div>
-    );
-};
+export default function CustomerDashboardCard({ item }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-// const OrderImageSlider = ({ imageLinks }) => {
-//     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  
-//     const handleDotClick = (index) => {
-//       setCurrentImageIndex(index);
-//     };
-  
-//     return (
-//       <div className="image-slider-wrap">
-//         {/* actual image */}
-//         {/* <img src={imageLinks[currentImageIndex]} /> */}
-  
-//         {/* Dots per each image */}
-  
-//         {imageLinks.map((link, index, array) => (
-//           <Dot key={index} index={index} onClickHandler={handleDotClick} />
-//         ))}
-//       </div>
-//     );
-//   };
+  const date = moment(item.createdAt).format("YYYY.MM.DD");
 
+  const status = item.isCompleted ? "Completed" : "Pending";
 
-export default function CustomerDashboardCard() {
-    return (
-        <div>
-            <div className="dashboard-order-card-wrapper">
-                <div className="order-card">
-                    <div className="order-img">
-                        <h4 style={{textAlign:"center"}}>Image</h4>
-                        <div className="dot">
-                            {/* <OrderImageSlider /> */}
-                        </div>
-                    </div>
-                    <div className="order-details">
-                        <p>Order No: 1000013250</p>
-                        <p>Date: 2020.03.25</p>
-                        <p>Status: Pending</p>
-                    </div>
-                    <div className="total-price">
-                        <h1>$150</h1>
-                    </div>
-                </div>
-            </div>
+  const handleImageIndexChange = (newIndex) => {
+    setCurrentIndex(newIndex);
+  };
+
+  return (
+    <div>
+      <div className="dashboard-order-card-wrapper">
+        <div className="order-card">
+          <div className="order-img">
+            <OrderItemImages
+              imageList={item.items.map((i) => i.product?.images[0])}
+              onIndexChange={handleImageIndexChange}
+            />
+          </div>
+          <div className="order-details">
+            <p>Order No: {item._id}</p>
+            <p>Date: {date}</p>
+            <p>Status: {status}</p>
+          </div>
+          <div className="total-price">
+            <h1>LKR {item.totalValue}</h1>
+          </div>
         </div>
-    )
+      </div>
+    </div>
+  );
+}
+
+function OrderItemImages({ imageList, onIndexChange }) {
+  const styles = {
+    imgWrapper: {
+      width: "100%",
+      height: "100%",
+      position: "relative",
+      overflow: "hidden",
+      borderRadius: "20px",
+    },
+    image: {
+      width: "100%",
+    },
+    btn: {
+      position: "absolute",
+      top: "50%",
+      transform: "translateY(-50%)",
+    },
+    btnNext: {
+      right: "10px",
+    },
+    btnPrevious: {
+      left: "10px",
+    },
+  };
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNextClick = () => {
+    if (currentIndex + 1 === imageList.length) {
+      // end of the list
+      // do nothing
+      return;
+    }
+    setCurrentIndex(currentIndex + 1);
+  };
+
+  const handlePrevClick = () => {
+    if (currentIndex === 0) {
+      // start of the list
+      // do nothing
+      return;
+    }
+    setCurrentIndex(currentIndex - 1);
+  };
+
+  useEffect(() => {
+    onIndexChange(currentIndex);
+  }, [currentIndex]);
+
+  return (
+    <div className="img-wrapper" style={styles.imgWrapper}>
+      <img
+        src={imageList[currentIndex]}
+        alt="Product images"
+        style={styles.image}
+      />
+      <button
+        className="next-btn btn btn-light btn-sm"
+        style={{ ...styles.btn, ...styles.btnNext }}
+        onClick={handleNextClick}
+        disabled={currentIndex + 1 === imageList.length}
+      >
+        <i className="fas fa-chevron-right"></i>
+      </button>
+      <button
+        className="previous-btn btn btn-light btn-sm"
+        style={{ ...styles.btn, ...styles.btnPrevious }}
+        onClick={handlePrevClick}
+        disabled={currentIndex === 0}
+      >
+        <i className="fas fa-chevron-left"></i>
+      </button>
+    </div>
+  );
 }

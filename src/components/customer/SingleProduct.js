@@ -1,5 +1,5 @@
 
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import '../../styles/product.css'
 import { productsLoadedAsync } from '../../redux/actions/customer/product.actions'
@@ -14,43 +14,43 @@ import { RadioGroup, RadioButton, ReversedRadioButton } from 'react-radio-button
 import TextBox from '../common/TextBox';
 
 
-export default function SingleProduct({productId}) {
+export default function SingleProduct({ productId }) {
   const [selected_size, setSize] = useState("");
   const [qty, setQty] = useState(0);
 
   const [selectedProduct, setSelectedProduct] = useState(null);
   const dispatch = useDispatch();
-  const[id, setID] = useState("");
+  const [id, setID] = useState("");
   const [brand, setBrand] = useState([]);
   const [brandName, setBrandName] = useState("")
   const [selectedSize, setSelectedSize] = useState(null);
   const products = useSelector(state => state.product.products);
-  
-  
 
-  
-	useEffect(()=>{
-		dispatch(productsLoadedAsync());
+
+
+
+  useEffect(() => {
+    dispatch(productsLoadedAsync());
     dispatch(brandsLoadedAsync());
-  },[])
- 
+  }, [])
+
   const brands = useSelector(state => state.brand.brands);
-   
-  useEffect(()=>{
+
+  useEffect(() => {
     setID(productId);
 
-    if(!products || !brands){
+    if (!products || !brands) {
       return;
     }
-		const _selectedProduct = products.find(p => p._id === productId);
+    const _selectedProduct = products.find(p => p._id === productId);
     setSelectedProduct(_selectedProduct);
     setBrandName(selectedProduct && selectedProduct.brand)
     console.log(brandName)
     const _brand = brands.find(b => b.name === brandName);
     console.log(_brand)
-		setBrand(_brand);
-		
-    }, [brands, products])
+    setBrand(_brand);
+
+  }, [brands, products])
 
 
 
@@ -67,7 +67,7 @@ export default function SingleProduct({productId}) {
 
   }
 
-  
+
 
   const checkOffer = (offer) => {
     if (offer > 0) {
@@ -82,16 +82,15 @@ export default function SingleProduct({productId}) {
     const difference = Math.floor(msDiff / (1000 * 60 * 60 * 24));
 
 
-		if(difference > 7) {
-			return false;
-		} else {
-			return true;
-		}
+    if (difference > 7) {
+      return false;
+    } else {
+      return true;
+    }
   }
-  
+  const totalPrice = (discount, price) => {
+    return price - discount;
 
-	const totalPrice =(discount, price) => {
-		return price - discount;
   }
 
   return (
@@ -107,8 +106,9 @@ export default function SingleProduct({productId}) {
             <div class="col-md-5">
 
 
-              <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style={{maxHeight: '800px',maxWidth: '500px', borderRadius: '1em'}}>
+              <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style={{ maxHeight: '800px', maxWidth: '500px', borderRadius: '1em' }}>
                 <div class="carousel-inner" >
+
 
                 <div class="carousel-item active">
                   <img className="single-img" style={{maxHeight: '800px',maxWidth: '500px', borderRadius: '1em'}} src={selectedProduct.images[0]} class="d-block w-100" alt={selectedProduct.name} />
@@ -121,8 +121,7 @@ export default function SingleProduct({productId}) {
                   <img className="single-img"  style={{maxHeight: '800px',maxWidth: '500px' , borderRadius: '1em'}}src={selectedProduct.images[2]} class="d-block w-100" alt="..." /> 
                 </div> : ""}
                 
-                  
-                  
+ 
                 </div>
 
                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -140,15 +139,14 @@ export default function SingleProduct({productId}) {
               {checkNew(selectedProduct.addedDate) ? (
                 <p class="newarrival text-center">NEW</p>
               ) : (
-                ""
-              )}
+                  ""
+                )}
 
-              <h2 style={{textTransform: 'uppercase'}}>{selectedProduct.name}</h2>
+              <h2 style={{ textTransform: 'uppercase' }}>{selectedProduct.name}</h2>
 
               <p>product code: {selectedProduct._id}</p>
               <p>{selectedProduct.description}</p>
 
-              <img src={require('../../assets/stars.png')} class="stars" />
 
 
               {checkOffer(selectedProduct.discount) ? (
@@ -168,29 +166,31 @@ export default function SingleProduct({productId}) {
                   )}
                 />
               ) : (
-                <CurrencyFormat
-                  value={selectedProduct.price}
-                  displayType={"text"}
-                  thousandSeparator={true}
-                  prefix={""}
-                  renderText={(value) => <p class="price">LKR. {value} </p>}
-                />
-              )}
+                  <CurrencyFormat
+                    value={selectedProduct.price}
+                    displayType={"text"}
+                    thousandSeparator={true}
+                    prefix={""}
+                    renderText={(value) => <p class="price">LKR. {value} </p>}
+                  />
+                )}
 
 
-               <RadioGroup onChange={RadioOnChange} horizontal>
-               {selectedProduct.sizeQty.map(s =>(
-                    <ReversedRadioButton pointColor="purple" value={s.size}>
-                        {s.size}
-                    </ReversedRadioButton>
-                    	))
-                    }
-                </RadioGroup>
-                   
+              <RadioGroup onChange={RadioOnChange} horizontal>
+                {selectedProduct.sizeQty.map(s => (
+                  <ReversedRadioButton pointColor="purple" value={s.size}>
+                    {s.size}
+                  </ReversedRadioButton>
+                ))
+                }
+              </RadioGroup>
+
               <hr />
               <p>
+
                 <b>Availability : </b>{" "}
                   {selectedSize === null ? <b>Please select a size</b> : <p>{selectedSize.qty > 0 ? <b style={{color: 'green'}}>{selectedSize && selectedSize.qty} In Stock</b> : <b style={{color: 'red'}}>Not Available</b>}</p> }
+
               </p>
               <p>
                 <b>Tags : </b>{" "}{selectedProduct.tags}
@@ -215,10 +215,10 @@ export default function SingleProduct({productId}) {
               <AddToCartButton
                 productId={selectedProduct._id}
                 qty={qty}
-                size={selectedSize}
+                size={selectedSize?.size}
               />
 
-              <AddToWishlistButton 
+              <AddToWishlistButton
                 productId={selectedProduct._id}
               />
 

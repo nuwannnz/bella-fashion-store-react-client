@@ -6,10 +6,10 @@ const initialState = {
   token: null,
   tokenVerified: false,
   customerInfo: null,
-  customerSignUpSuccess: false,
   isLoading: false,
   hasCustomer: true,
   checkedHasCustomer: false,
+  inquiries: []
 };
 
 export const customer = (state = initialState, action) => {
@@ -164,8 +164,44 @@ export const customer = (state = initialState, action) => {
           updatingCustomerInfo: false,
           customerUpdatingError: action.payload
         };
+
+      case CUSTOMER_ACTION_TYPES.GETALL_INQUIRIES_REQUEST:
+        return {
+          loading: true
+        };
+  
+      case CUSTOMER_ACTION_TYPES.GETALL_INQUIRIES_SUCCESS:
+          return {
+            inquiries: action.payload
+          };
+
+      case CUSTOMER_ACTION_TYPES.GETALL_INQUIRIES_FAILURE:
+        return {
+          error: action.payload
+        };
+
+      case CUSTOMER_ACTION_TYPES.ADD_INQUIRY_REQUEST:
+        return {
+          ...state,
+          addingInquiry: true
+        };
+
+      case CUSTOMER_ACTION_TYPES.ADD_INQUIRY_SUCCESS:
+        return {
+            inquiries: [...state.inquiries, action.payload],
+            closePopups: true
+        };
+
+      case CUSTOMER_ACTION_TYPES.ADD_INQUIRY_FAILURE:
+        return {
+          inquiries: state.inquiries,
+          addInquiryError: action.payload
+        };
+
       default:
         return state;
     }
+
+     
 
   };

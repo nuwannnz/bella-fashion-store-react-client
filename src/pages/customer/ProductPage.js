@@ -7,7 +7,11 @@ import {
   productsLoadedAsync,
 } from "../../redux/actions/admin-panel/product.actions";
 import { useParams } from "react-router-dom";
+
 import SliderOffers from "../../components/customer/SliderOffers";
+
+import ProductReviewList from "./product-review/ProductReviewList";
+
 
 export default function ProductPage() {
   const dispatch = useDispatch();
@@ -23,9 +27,13 @@ export default function ProductPage() {
 
   return (
     <div className="container-fluid">
-      <SingleProduct productId = {productId}/>
-      <br />
+
+      <SingleProduct productId={productId} />
+      <ProductReviewList productId={productId} />
+  
+     <br />
       <SliderOffers />
+
     </div>
   );
 }

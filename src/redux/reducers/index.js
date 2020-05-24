@@ -11,7 +11,7 @@ import { brand as customerBrands } from "./customer/brand.reducer";
 import { customer } from "./customer/customer.reducer";
 
 import { wishlist } from "./customer/wishlist.reducer";
-import {category} from "./admin-panel/category.reducer"
+import { category } from "./admin-panel/category.reducer"
 
 import { size } from "./admin-panel/size.reducer"
 import { size as customerSizes } from "./customer/size.reducer";
@@ -20,7 +20,13 @@ import { popup } from "./popup.reducer";
 import { toast } from "./toast.reducer";
 import { order } from "./customer/order.reducer";
 import { order as adminOrder } from "./admin-panel/order.reducer";
+
+import { inquiry } from "./inquiry.reducer";
+
 import { category as customerCat } from "./customer/customer.category.reducer"
+import { review } from "./customer/review.reducer"
+import { homepage } from "./homepage.reducer";
+
 
 
 export const customerReducer = combineReducers({
@@ -35,7 +41,13 @@ export const customerReducer = combineReducers({
   popup,
   toast,
   order,
-  category: customerCat
+  category: customerCat,
+
+  inquiry,
+
+  review,
+  homepage
+
 
 });
 
@@ -50,7 +62,12 @@ export const adminPanelReducer = combineReducers({
   order: adminOrder,
   size,
   popup,
-  toast
+  toast,
+
+  inquiry,
+
+  homepage,
+
 
 });
 

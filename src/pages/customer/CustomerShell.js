@@ -15,11 +15,15 @@ import { usePopup } from "../../hooks/Popup.hooks";
 import CustomerDashboardAddressForm from "../../components/customer/CustomerDashboardAddressForm";
 import CustomerDashboardInquiryForm from "../../components/customer/CustomerDashboardInquiryForm";
 import CustomerInquiryForm from "../../components/customer/CustomerInquiryForm";
+import ReplyCustomerInquiryForm from "../../components/customer/ReplyCustomerInquiryForm";
+import ForgotPwdEmailPage from "./ForgotPwdEmailPage";
+import ForgotPwdVerifyPage from "./ForgotPwdVerifyPage";
+import ForgotPwdNewPwdPage from "./ForgotPwdNewPwdPage";
+import ProductReviewForm from "./product-review/ProductReviewForm";
 
 export default function CustomerShell() {
   const dispatch = useDispatch();
-  const { registerPopup } = usePopup()
-
+  const { registerPopup } = usePopup();
 
   const hasCustomerChecked = useSelector(
     (state) => state.customer.checkedHasCustomer
@@ -30,6 +34,7 @@ export default function CustomerShell() {
     registerPopup(POPUP_KEYS.ADDRESS_POPUP, CustomerDashboardAddressForm);
     registerPopup(POPUP_KEYS.INQUIRY_POPUP, CustomerDashboardInquiryForm);
     registerPopup(POPUP_KEYS.CUSTOMER_INQUIRY_POPUP, CustomerInquiryForm);
+    registerPopup(POPUP_KEYS.PRODUCT_REVIEW_POPUP, ProductReviewForm);
 
   }, [])
 
@@ -57,13 +62,25 @@ export default function CustomerShell() {
 
   useEffect(() => {
     registerPopup(POPUP_KEYS.ADDRESS_POPUP, CustomerDashboardAddressForm);
-  }, [])
+  }, []);
 
   return (
     <div className="flex w-100 h-100">
       <Switch>
         <Route path={ROUTE_PATHS.CUSTOMER_LOGIN}>
           <CustomerLoginPage />
+        </Route>
+
+        <Route path={ROUTE_PATHS.CUSTOMER_FORGOT_PWD_EMAIL}>
+          <ForgotPwdEmailPage />
+        </Route>
+
+        <Route path={`${ROUTE_PATHS.CUSTOMER_FORGOT_PWD_VERIFY}/:email`}>
+          <ForgotPwdVerifyPage />
+        </Route>
+
+        <Route path={ROUTE_PATHS.CUSTOMER_FORGOT_PWD_NEW_PWD}>
+          <ForgotPwdNewPwdPage />
         </Route>
 
         <Route path={ROUTE_PATHS.CUSTOMER_SIGNUP}>

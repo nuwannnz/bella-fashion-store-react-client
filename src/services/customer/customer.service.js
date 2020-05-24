@@ -223,3 +223,4 @@ export const updateCustomerPassword = async (token, currentPwd, newPwd) => {
         return result;
     }
 };
+

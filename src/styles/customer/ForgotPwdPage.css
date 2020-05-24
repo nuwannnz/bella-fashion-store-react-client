@@ -1,0 +1,80 @@
+.forgot-pwd-wrapper .forgot-pwd-card .email input,
+.verify-code input,
+.pwd input {
+  margin-bottom: 10px;
+  width: 345px;
+  height: 45px;
+  border-radius: 10px;
+  border: 1px solid #8c52ff;
+  background-color: #ffffff;
+  padding-left: 35px;
+}
+
+.forgot-pwd-wrapper .forgot-pwd-card .send-btn button,
+.next-btn button,
+.change-pwd-btn button {
+  width: 125px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #8c52ff;
+  border: 2px solid #ffff;
+  color: #ffff;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: medium;
+  cursor: pointer;
+  box-shadow: 0 4px 15px 0px #8c52ff;
+}
+
+.forgot-pwd-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.forgot-pwd-wrapper .forgot-pwd-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 33%;
+  height: 75%;
+  border: 2px solid #8c52ff;
+  padding: 30px 50px;
+  border-radius: 50px;
+}
+
+.forgot-pwd-wrapper .forgot-pwd-card .logo img {
+  width: 45%;
+  margin: 10px;
+}
+
+.forgot-pwd-wrapper .forgot-pwd-card .title h2 {
+  text-align: center;
+}
+
+.forgot-pwd-wrapper .forgot-pwd-card .send-btn,
+.next-btn,
+.change-pwd-btn {
+  float: right;
+}
+
+.forgot-pwd-wrapper .forgot-pwd-new-pwd-card .change-pwd-btn button {
+  width: 155px;
+}
+
+.forgot-pwd-wrapper .forgot-pwd-new-pwd-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 33%;
+  height: 85%;
+  border: 2px solid #8c52ff;
+  padding: 30px 50px;
+  border-radius: 50px;
+}
+
+.forgot-pwd-wrapper .forgot-pwd-new-pwd-card .logo img {
+  width: 45%;
+  margin: 10px;
+}
