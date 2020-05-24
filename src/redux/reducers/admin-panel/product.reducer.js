@@ -48,7 +48,7 @@ export const product = (state = initialState, action) => {
                 case PRODUCT_ACTION_TYPES.PRODUCT_UPDATED:
                     return {
                         products: state.products.map((product) =>
-                        product._id === action.payload.product._id ? action.payload : product
+                        product._id === action.payload._id ? action.payload : product
                       ),
                     
                     }

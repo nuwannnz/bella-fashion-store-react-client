@@ -26,13 +26,12 @@ export default function SingleProduct({ productId }) {
   const [selectedSize, setSelectedSize] = useState(null);
   const products = useSelector(state => state.product.products);
 
-
-
-
   useEffect(() => {
     dispatch(productsLoadedAsync());
     dispatch(brandsLoadedAsync());
-  }, [])
+  }, [productId])
+
+
 
   const brands = useSelector(state => state.brand.brands);
 

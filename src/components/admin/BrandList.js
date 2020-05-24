@@ -9,17 +9,13 @@ import LoadingScreen from 'react-loading-screen';
 export default function BrandList() {
 
     const dispatch = useDispatch();
-    const history = useHistory();
-
+  
+    //from redux state
     const brands = useSelector(state => state.brand.brands);
     const loading = useSelector(state => state.brand.loading);
 
-    const[open,setOpen] = useState("");
-    const[openView,setOpenView] = useState("");
-    const[selectedId, setSelectedId] = useState("");
-
-    
-    const deleteProducts = (pid) => {
+    //delete products with confirm alert
+    const deleteBrands = (bid) => {
       
         confirmAlert({
           title: 'Confirm to Delete the brand',
@@ -27,7 +23,7 @@ export default function BrandList() {
           buttons: [
             {
               label: 'Yes',
-              onClick: () => {dispatch(deleteBrandByID(pid))}
+              onClick: () => {dispatch(deleteBrandByID(bid))}
             },
             {
               label: 'No',
@@ -37,23 +33,6 @@ export default function BrandList() {
         });
       };
   
-    
-    const onOpenUpdateModal = (id) => {
-        setOpen(true);
-        setSelectedId(id);
-      };
-
-    const onOpenViewModal = (id) => {
-      setOpenView(true);
-      setSelectedId(id);
-    }
-     const onCloseUpdateModal = () => {
-        setOpen(false);
-      };
-
-     const onCloseViewModal = () => {
-       setOpenView(false);
-     }
     
     useEffect(()=>{
         dispatch(brandsLoadedAsync())
@@ -89,7 +68,7 @@ export default function BrandList() {
                                    <td>{brands.name}</td>
                                
                                    <td>
-                                    <button class="button buttonDelete" onClick={() => deleteProducts(brands._id)} ><i className="fa fa-trash"></i> DELETE</button>     
+                                    <button class="button buttonDelete" onClick={() => deleteBrands(brands._id)} ><i className="fa fa-trash"></i></button>     
                                     </td>
                                </tr> 
                            ))
