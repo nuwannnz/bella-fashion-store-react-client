@@ -26,11 +26,15 @@ export default function ForgotPwdVerifyPage() {
     const result = await checkCode(email, code);
 
     if (result) {
-      history.push(ROUTE_PATHS.CUSTOMER_FORGOT_PWD_NEW_PWD);
+      history.push(ROUTE_PATHS.CUSTOMER_FORGOT_PWD_NEW_PWD + "/" + email);
     } else {
       throw setError(true);
     }
   };
+
+  //   const handleForgotPwdVerifyCode = () => {
+  //     history.push(ROUTE_PATHS.CUSTOMER_FORGOT_PWD_NEW_PWD);
+  //   };
 
   return (
     <div className="forgot-pwd-wrapper">

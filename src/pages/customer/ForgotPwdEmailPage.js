@@ -6,11 +6,13 @@ import { useHistory } from "react-router-dom";
 import { ROUTE_PATHS } from "../../constants";
 import { checkHasCustomerAsync } from "../../redux/actions/customer/customer.actions";
 import { checkEmail } from "../../services/customer/customerForgotPassword.service";
+import ErrorMessage from "../../components/common/ErrorMessage";
 
 export default function ForgotPwdEmailPage() {
   const history = useHistory();
 
   const [email, setEmail] = useState("");
+  const [error, setError] = useState(false);
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -21,6 +23,8 @@ export default function ForgotPwdEmailPage() {
 
     if (result.isResultOk()) {
       history.push(ROUTE_PATHS.CUSTOMER_FORGOT_PWD_VERIFY + "/" + email);
+    } else {
+      throw setError(true);
     }
   };
 
@@ -42,6 +46,10 @@ export default function ForgotPwdEmailPage() {
           </div>
           <input type="email" placeholder="Email" onChange={handleEmail} />
         </div>
+
+        {error ? (
+          <ErrorMessage msg="Email is wrong. Please enter valid email." />
+        ) : null}
 
         <div className="send-btn">
           <button onClick={handleForgotPwdEmail}>Send</button>
