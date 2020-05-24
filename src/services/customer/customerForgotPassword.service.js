@@ -38,3 +38,21 @@ export const checkCode = async (email, code) => {
     return result;
   }
 };
+
+export const checkPassword = async (email, newPwd) => {
+  const path = `${API_HOST}/forgot-pwd/step-3`;
+  const result = new APIResult();
+
+  try {
+    const response = await axios.post(path, { email, newPwd });
+
+    logger.info(`Received result => ${path}`, response);
+
+    result.data = response.data;
+    return result;
+  } catch (error) {
+    logger.error(`Error in API call => ${path}`);
+    result.setError(error);
+    return result;
+  }
+};

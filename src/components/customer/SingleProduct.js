@@ -1,14 +1,14 @@
-
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import '../../styles/product.css'
-import { productsLoadedAsync } from '../../redux/actions/customer/product.actions'
-import CurrencyFormat from 'react-currency-format';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import "../../styles/product.css";
+import { productsLoadedAsync } from "../../redux/actions/customer/product.actions";
+import CurrencyFormat from "react-currency-format";
+import { useLocation } from "react-router-dom";
 import { productLoadedByIDAsync } from "../../redux/actions/admin-panel/product.actions";
-import { brandsLoadedAsync } from "../../redux/actions/admin-panel/brand.actions"
+import { brandsLoadedAsync } from "../../redux/actions/admin-panel/brand.actions";
 import AddToCartButton from "./AddToCartButton";
 import AddToWishlistButton from "./AddToWishlistButton";
+
 import '../../styles/common/SelectBox.css';
 import { RadioGroup, RadioButton, ReversedRadioButton } from 'react-radio-buttons';
 import TextBox from '../common/TextBox';
@@ -22,6 +22,7 @@ export default function SingleProduct({ productId }) {
   const dispatch = useDispatch();
   const [id, setID] = useState("");
   const [brand, setBrand] = useState([]);
+
   const [brandName, setBrandName] = useState("")
   const [selectedSize, setSelectedSize] = useState(null);
   const products = useSelector(state => state.product.products);
@@ -32,9 +33,9 @@ export default function SingleProduct({ productId }) {
   useEffect(() => {
     dispatch(productsLoadedAsync());
     dispatch(brandsLoadedAsync());
-  }, [])
+  }, []);
 
-  const brands = useSelector(state => state.brand.brands);
+  const brands = useSelector((state) => state.brand.brands);
 
   useEffect(() => {
     setID(productId);
@@ -42,17 +43,14 @@ export default function SingleProduct({ productId }) {
     if (!products || !brands) {
       return;
     }
-    const _selectedProduct = products.find(p => p._id === productId);
+    const _selectedProduct = products.find((p) => p._id === productId);
     setSelectedProduct(_selectedProduct);
-    setBrandName(selectedProduct && selectedProduct.brand)
-    console.log(brandName)
-    const _brand = brands.find(b => b.name === brandName);
-    console.log(_brand)
+    setBrandName(selectedProduct && selectedProduct.brand);
+    console.log(brandName);
+    const _brand = brands.find((b) => b.name === brandName);
+    console.log(_brand);
     setBrand(_brand);
-
-  }, [brands, products])
-
-
+  }, [brands, products]);
 
   // useEffect(() => {
 
@@ -63,11 +61,8 @@ export default function SingleProduct({ productId }) {
   //   console.log(selectedProduct)
   // }, [products])
   const RadioOnChange = (value) => {
-    setSelectedSize(selectedProduct.sizeQty.find(s => s.size == value));
-
-  }
-
-
+    setSelectedSize(selectedProduct.sizeQty.find((s) => s.size == value));
+  };
 
   const checkOffer = (offer) => {
     if (offer > 0) {
@@ -78,18 +73,18 @@ export default function SingleProduct({ productId }) {
   };
   
   const checkNew = (date) => {
-    const msDiff = new Date().getTime() - new Date(date).getTime();   //Future date - current date
+    const msDiff = new Date().getTime() - new Date(date).getTime(); //Future date - current date
     const difference = Math.floor(msDiff / (1000 * 60 * 60 * 24));
-
 
     if (difference > 7) {
       return false;
     } else {
       return true;
     }
-  }
+  };
   const totalPrice = (discount, price) => {
     return price - discount;
+
 
   }
 
@@ -98,11 +93,7 @@ export default function SingleProduct({ productId }) {
 
       {selectedProduct && (
         <div>
-
-
-
           <div class="row">
-
             <div class="col-md-5">
 
 
@@ -120,34 +111,48 @@ export default function SingleProduct({ productId }) {
                 {selectedProduct.images[2] ? <div class="carousel-item">
                   <img className="single-img"  style={{maxHeight: '800px',maxWidth: '500px' , borderRadius: '1em'}}src={selectedProduct.images[2]} class="d-block w-100" alt="..." /> 
                 </div> : ""}
-                
- 
+   
                 </div>
 
-                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <a
+                  class="carousel-control-prev"
+                  href="#carouselExampleControls"
+                  role="button"
+                  data-slide="prev"
+                >
+                  <span
+                    class="carousel-control-prev-icon"
+                    aria-hidden="true"
+                  ></span>
                   <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <a
+                  class="carousel-control-next"
+                  href="#carouselExampleControls"
+                  role="button"
+                  data-slide="next"
+                >
+                  <span
+                    class="carousel-control-next-icon"
+                    aria-hidden="true"
+                  ></span>
                   <span class="sr-only">Next</span>
                 </a>
               </div>
             </div>
             <div class="col-md-7">
-
               {checkNew(selectedProduct.addedDate) ? (
                 <p class="newarrival text-center">NEW</p>
               ) : (
-                  ""
-                )}
+                ""
+              )}
 
-              <h2 style={{ textTransform: 'uppercase' }}>{selectedProduct.name}</h2>
+              <h2 style={{ textTransform: "uppercase" }}>
+                {selectedProduct.name}
+              </h2>
 
               <p>product code: {selectedProduct._id}</p>
               <p>{selectedProduct.description}</p>
-
-
 
               {checkOffer(selectedProduct.discount) ? (
                 <CurrencyFormat
@@ -166,23 +171,21 @@ export default function SingleProduct({ productId }) {
                   )}
                 />
               ) : (
-                  <CurrencyFormat
-                    value={selectedProduct.price}
-                    displayType={"text"}
-                    thousandSeparator={true}
-                    prefix={""}
-                    renderText={(value) => <p class="price">LKR. {value} </p>}
-                  />
-                )}
-
+                <CurrencyFormat
+                  value={selectedProduct.price}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  prefix={""}
+                  renderText={(value) => <p class="price">LKR. {value} </p>}
+                />
+              )}
 
               <RadioGroup onChange={RadioOnChange} horizontal>
-                {selectedProduct.sizeQty.map(s => (
+                {selectedProduct.sizeQty.map((s) => (
                   <ReversedRadioButton pointColor="purple" value={s.size}>
                     {s.size}
                   </ReversedRadioButton>
-                ))
-                }
+                ))}
               </RadioGroup>
 
               <hr />
@@ -217,19 +220,19 @@ export default function SingleProduct({ productId }) {
                 qty={qty}
                 size={selectedSize?.size}
               />
-
-              <AddToWishlistButton
-                productId={selectedProduct._id}
-              />
-
+              <div className="wish-list-wrapper">
+                <button className="wish-list-wrap-btn">
+                  <AddToWishlistButton
+                    className="wish-list"
+                    productId={selectedProduct._id}
+                  />
+                  {"Add to Wishlist"}
+                </button>
+              </div>
             </div>
-
           </div>
-
         </div>
-
       )}
     </div>
-  )
-
+  );
 }
