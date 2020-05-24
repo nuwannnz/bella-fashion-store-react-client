@@ -16,6 +16,7 @@ export default function AccentButton({
         }
       }}
     >
+      {isLoading && <span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>}
       <span>{text}</span>
     </button>
   );

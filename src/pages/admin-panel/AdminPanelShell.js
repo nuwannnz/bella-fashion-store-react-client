@@ -17,6 +17,7 @@ import Dashboard from "./Dashboard";
 import { usePopup } from "../../hooks/Popup.hooks";
 import { UserForm } from "./user-dashboard/UserForm";
 import ViewOrderForm from "./order-dashboard/ViewOrderForm";
+import RoleForm from "./user-dashboard/RoleForm";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.staffLogin.auth.token);
@@ -76,7 +77,7 @@ export default function AdminPanelShell() {
   useEffect(() => {
 
     registerPopup(POPUP_KEYS.USER_POPUP, UserForm);
-    registerPopup(POPUP_KEYS.ORDER_INFO_POPUP, ViewOrderForm);
+    registerPopup(POPUP_KEYS.ROLE_POPUP, RoleForm);
 
   }, [])
 
