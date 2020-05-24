@@ -217,7 +217,7 @@ export default function SingleProduct({ productId }) {
 
               <AddToCartButton
                 productId={selectedProduct._id}
-                qty={qty}
+                qty={selectedSize?.qty}
                 size={selectedSize?.size}
               />
               <div className="wish-list-wrapper">
