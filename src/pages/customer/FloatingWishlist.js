@@ -9,30 +9,30 @@ import { closePopup } from '../../redux/actions/popup.actions';
 const WishlistItem = ({ product, size, qty }) => {
     const dispatch = useDispatch();
     const [hasStock, setHasStock] = useState(false);
-    
+
     useEffect(() => {
         let qty = 0;
 
-        product.sizeQty.forEach(s=> qty += parseInt(s.qty));
+        product.sizeQty.forEach(s => qty += parseInt(s.qty));
         setHasStock(qty > 0);
     }, [])
 
-    
+
 
     return (
         <div className="wishlist-item">
             <div className="cart-btn">
-                <AddToCartButton productId={product._id} onAddToCart={()=> {dispatch(toggleWishlistBar())}} />
+                <AddToCartButton productId={product._id} onAddToCart={() => { dispatch(toggleWishlistBar()) }} expandedMode={false} />
             </div>
-            
+
             <div className="wishlist-item-image">
                 <img src={product.images[0]} alt='product images' />
             </div>
             <div className="wishlist-item-info">
                 <div className="flex align-items-center">
                     <span className="product-qty">{hasStock ? "In Stock" : "Out of Stock"}</span>
-                <div>
-                    <span className="product-name-span" >{`${product.name} `}</span>
+                    <div>
+                        <span className="product-name-span" >{`${product.name} `}</span>
                     </div>
                 </div>
 
@@ -46,11 +46,11 @@ const WishlistItem = ({ product, size, qty }) => {
 }
 
 const WishlistContent = ({ items }) => {
-    return(
+    return (
         <div className="wishlist-content-wrap">
             <div className="wishlist-item-list">
                 {
-                   items && items.map((item, i) => <WishlistItem key={i} {...item} />)
+                    items && items.map((item, i) => <WishlistItem key={i} {...item} />)
                 }
             </div>
         </div>
@@ -71,7 +71,7 @@ export default function FloatingWishlist() {
         dispatch(toggleWishlistBar());
     }
 
-    return(
+    return (
         <div>
             {
                 wishlistBarOpened && <div className="floating-overlay" onClick={handleClickOnFloatingOverlay} ></div>
