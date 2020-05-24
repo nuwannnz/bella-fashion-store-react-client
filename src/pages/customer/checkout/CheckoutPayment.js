@@ -109,19 +109,7 @@ export const CheckoutPayment = ({ paymentMethodSelected, backClickHandler }) => 
                     </div>
                 </div>
             }
-            <div className="coupon-code-wrapper d-flex">
-                <div className="coupon-code-text-wrapper mr-1">
 
-                    <TextBox
-                        label="Coupon code"
-                        placeholder="Enter coupon code here"
-                    />
-
-                </div>
-                <div className="apply-btn-wrapper form-element-wrapper">
-                    <AccentButton text={'Apply coupon code'} />
-                </div>
-            </div>
             <div className="d-flex">
                 <button className="continue-button secondary mr-1"
                     onClick={backClickHandler}
