@@ -19,6 +19,7 @@ import FloatingWishlist from "./FloatingWishlist";
 import { loadOrdersAync } from "../../redux/actions/customer/order.actions";
 import { openPopup, POPUP_ACTION_TYPES } from "../../redux/actions/popup.actions";
 import { categoriesAsync } from "../../redux/actions/customer/customer.category.actions";
+import Footer from "../../components/customer/Footer";
 
 
 function PrivateRoute({ children, ...rest }) {
@@ -129,18 +130,20 @@ export default function Homepage() {
                   <ProductListPage />
                 </Route> */}
               </Switch>
-                
+
               <div className="customer-inquiry-wrapper">
-              <div className="customer-inquiry-btn">
-                <button className="inquiry-btn" onClick={toggleDisplayInquiryForm}>INQUIRY NOW!</button>
+                <div className="customer-inquiry-btn">
+                  <button className="inquiry-btn" onClick={toggleDisplayInquiryForm}>INQUIRY NOW!</button>
+                </div>
               </div>
-            </div>
 
             </div>
 
-           
 
-            <div className="footer-wrap"></div>
+
+            <div className="footer-wrap">
+              <Footer />
+            </div>
           </div>
         </div>
       </div>
