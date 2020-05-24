@@ -3,6 +3,10 @@
   padding: 20px 10px;
 }
 
+.category-bar a {
+  text-decoration: none;
+}
+
 .category-list {
   display: flex;
   flex-direction: column;
@@ -30,10 +34,11 @@
   margin: 10px 0px;
   overflow: hidden;
   max-height: 50px;
+  color: #333 !important;
 }
 
 .category-btn.selected {
-  color: #8c52ff;
+  color: #8c52ff !important;
   max-height: 100vh;
 }
 

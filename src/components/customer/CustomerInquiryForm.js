@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../styles/customer/CustomerInquiry.css";
 import OverlayPopup from "../common/OverlayPopup";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addInquiryAsync } from "../../redux/actions/inquiry.actions";
 
 export default function CustomerInquiryForm({ closePopup }) {
-    const [inquiry, setInquiry] = useSelector({
+    const dispatch = useDispatch();
+
+    const [inquiry, setInquiry] = useState({
         name: "",
         email: "",
         phone: "",
@@ -38,7 +41,11 @@ export default function CustomerInquiryForm({ closePopup }) {
     };
 
     const handleFormSubmit = () => {
-
+        dispatch(addInquiryAsync(inquiry)).then((success) => {
+            if(success) {
+                closePopup();
+            }
+        });
     };
 
     return(

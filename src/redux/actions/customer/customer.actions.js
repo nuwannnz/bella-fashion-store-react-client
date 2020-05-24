@@ -43,13 +43,7 @@ export const CUSTOMER_ACTION_TYPES = {
     UPDATE_CUSTOMER_PASSWORD_SUCCESS: "UPDATE_CUSTOMER_PASSWORD_SUCCESS",
     UPDATE_CUSTOMER_PASSWORD_FAILURE: "UPDATE_CUSTOMER_PASSWORD_FAILURE",
     
-    GETALL_INQUIRIES_REQUEST: "GETALL_INQUIRIES_REQUEST",
-    GETALL_INQUIRIES_SUCCESS: "GETALL_INQUIRIES_SUCCESS",
-    GETALL_INQUIRIES_FAILURE: "GETALL_INQUIRIES_FAILURE",
-
-    ADD_INQUIRY_REQUEST: "ADD_INQUIRY_REQUEST",
-    ADD_INQUIRY_SUCCESS: "ADD_INQUIRY_SUCCESS",
-    ADD_INQUIRY_FAILURE: "ADD_INQUIRY_FAILURE" 
+    
 };
 
 // action creators
@@ -381,78 +375,4 @@ export function updateCustomerPasswordAsync(currentPwd, newPwd) {
     }
   };
 };
-
-export function addInquiryAsync(inquiryDto) {
-  return async (dispatch, getState) => {
-    dispatch(request());
-    const { token } = getState().customer;
-
-    const result = await customerService.addInquiry(token, inquiryDto);
-
-    if(result.isResultOk()) {
-      dispatch(success(result.data));
-      dispatch(displayToastAsync(buildNotification("Added inquiry successfully", NOTIFICATION_TYPE.SUCCESS)));
-      return true;
-    } else {
-      dispatch(failure(result.errorMessage));
-      dispatch(displayToastAsync(buildNotification("Failed to add inquiry. Please try again", NOTIFICATION_TYPE.ERROR)));
-      return false;
-    }
-  };
-
-  function request() {
-    return {
-      type: CUSTOMER_ACTION_TYPES.ADD_INQUIRY_REQUEST
-    };
-  }
-
-  function success(payload) {
-    return {
-      type: CUSTOMER_ACTION_TYPES.ADD_INQUIRY_SUCCESS,
-      payload
-    };
-  }
-
-  function failure(errorMsg) {
-    return {
-      type: CUSTOMER_ACTION_TYPES.ADD_INQUIRY_FAILURE,
-      payload: errorMsg
-    };
-  }
-};
-
-export function getAllInquiryAsync() {
-  return async (dispatch, getState) => {
-    dispatch(request());
-    const { token } = getState().customer;
-
-    const result = await customerService.getAllInquiry(token);
-
-    if(result.isResultOk()) {
-      dispatch(success(result.data));
-    } else {
-      failure(result.errorMessage);
-    }
-  };
-
-  function request() {
-    return {
-      type: CUSTOMER_ACTION_TYPES.GETALL_INQUIRIES_REQUEST
-    };
-  }
-
-  function success(inquiries) {
-    return {
-      type: CUSTOMER_ACTION_TYPES.GETALL_INQUIRIES_SUCCESS,
-      payload: inquiries
-    };
-  }
-
-  function failure(errorMsg) {
-    return {
-      type: CUSTOMER_ACTION_TYPES.GETALL_INQUIRIES_FAILURE,
-      payload: errorMsg
-    };
-  }
-}
 

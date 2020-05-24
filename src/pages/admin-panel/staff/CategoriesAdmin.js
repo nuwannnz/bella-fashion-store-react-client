@@ -54,8 +54,8 @@ const submitForm = () => {
             <div className="content-wrapper">
 
                 <Title title = "Categories Admin Panel" subtitle="In here you can add a new category to the system or customize the existing categories or delete them" />
-                <Card className="text-center">
-                <Card.Header><h4>Add New Category</h4></Card.Header>
+                <div className="card border-secondary mb-3 ">
+                <div class="card-header"><h4>Add New Category</h4></div>
                 <Card.Body>
                 <Form>
                 <Form.Group>
@@ -67,9 +67,9 @@ const submitForm = () => {
                 />
                 </Form.Group>
                 </Form>
-                <Button variant="primary" type="submit" onClick={submitForm} >Submit</Button>
+                <Button variant="success" id="add-category-btn" type="submit" onClick={submitForm} >Submit</Button>
                 </Card.Body>
-                </Card>
+                </div>
                 {categories.map(category => 
                 <NewCategoryAdmin category={category} />
                     )}

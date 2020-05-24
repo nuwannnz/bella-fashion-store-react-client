@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { ROUTE_PATHS, POPUP_KEYS } from "../../constants";
 import Homepage from "./Homepage";
 import CustomerLoginPage from "./CustomerLoginPage";
@@ -15,6 +15,10 @@ import { usePopup } from "../../hooks/Popup.hooks";
 import CustomerDashboardAddressForm from "../../components/customer/CustomerDashboardAddressForm";
 import CustomerDashboardInquiryForm from "../../components/customer/CustomerDashboardInquiryForm";
 import CustomerInquiryForm from "../../components/customer/CustomerInquiryForm";
+import ReplyCustomerInquiryForm from "../../components/customer/ReplyCustomerInquiryForm";
+import ForgotPwdEmailPage from "./ForgotPwdEmailPage";
+import ForgotPwdVerifyPage from "./ForgotPwdVerifyPage";
+import ForgotPwdNewPwdPage from "./ForgotPwdNewPwdPage";
 
 export default function CustomerShell() {
   const dispatch = useDispatch();
@@ -29,7 +33,7 @@ export default function CustomerShell() {
     registerPopup(POPUP_KEYS.ADDRESS_POPUP, CustomerDashboardAddressForm);
     registerPopup(POPUP_KEYS.INQUIRY_POPUP, CustomerDashboardInquiryForm);
     registerPopup(POPUP_KEYS.CUSTOMER_INQUIRY_POPUP, CustomerInquiryForm);
-  }, [])
+  }, []);
 
   useEffect(() => {
     // set ui to loading
@@ -55,13 +59,25 @@ export default function CustomerShell() {
 
   useEffect(() => {
     registerPopup(POPUP_KEYS.ADDRESS_POPUP, CustomerDashboardAddressForm);
-  }, [])
+  }, []);
 
   return (
     <div className="flex w-100 h-100">
       <Switch>
         <Route path={ROUTE_PATHS.CUSTOMER_LOGIN}>
           <CustomerLoginPage />
+        </Route>
+
+        <Route path={ROUTE_PATHS.CUSTOMER_FORGOT_PWD_EMAIL}>
+          <ForgotPwdEmailPage />
+        </Route>
+
+        <Route path={ROUTE_PATHS.CUSTOMER_FORGOT_PWD_VERIFY}>
+          <ForgotPwdVerifyPage />
+        </Route>
+
+        <Route path={ROUTE_PATHS.CUSTOMER_FORGOT_PWD_NEW_PWD}>
+          <ForgotPwdNewPwdPage />
         </Route>
 
         <Route path={ROUTE_PATHS.CUSTOMER_SIGNUP}>

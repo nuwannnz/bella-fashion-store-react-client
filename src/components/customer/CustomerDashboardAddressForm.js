@@ -7,6 +7,7 @@ import ErrorMessage from "../common/ErrorMessage";
 
 export default function CustomerDashboardAddressForm({ addressToUpdate, closePopup }) {
 
+
     const customers = useSelector((state) => state.customer);
     const dispatch = useDispatch();
 
@@ -27,6 +28,7 @@ export default function CustomerDashboardAddressForm({ addressToUpdate, closePop
     const [street, setStreet] = useState(addressToUpdate ? addressToUpdate.street : "");
     const [town, setTown] = useState(addressToUpdate ? addressToUpdate.town : "");
     const [zip, setZip] = useState(addressToUpdate ? addressToUpdate.zip : "");
+
 
     const handleFNameChanged = (e) => {
         address.fName = e.target.value;
@@ -72,12 +74,12 @@ export default function CustomerDashboardAddressForm({ addressToUpdate, closePop
 
     const handleFormSubmit = () => {
         if (addressToUpdate) {
-
             dispatch(updateCustomerAddressAsync(addressToUpdate._id, address)).then((success) => {
                if(success) {
                 closePopup();
                }
             });
+
         } else {
 
             dispatch(addAddressAsync(address)).then((success)=>{

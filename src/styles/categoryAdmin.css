@@ -1,3 +1,19 @@
-#category-heading h1{
-    margin-right: 70%;
+#category-heading button#edit-btn.btn-outline-secondary{
+    margin-left: 65%;
+}
+
+#category-heading button#edit-btn.btn-outline-secondary{
+    margin-right: 1%;
+}
+.border-secondary.mb-3 .card-header{
+    text-align: center;
+}
+
+.card-body button#add-category-btn.btn.btn-success{
+    background-color: rgb(85, 2, 141);
+    margin-left: 45%;
+}
+
+ button.btn.btn-success{
+    background-color: rgb(85, 2, 141);
 }

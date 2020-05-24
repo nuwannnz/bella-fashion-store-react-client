@@ -1,164 +1,164 @@
 .customer-dashboard-wrapper {
-    margin-left: 41px;
-    margin-right: 10px;
+  margin-left: 41px;
+  margin-right: 10px;
 }
 
 .customer-dashboard-wrapper .title {
-    margin-bottom: 20px;
-    display: flex;
+  margin-bottom: 20px;
+  display: flex;
 }
 
-.customer-dashboard-greeing-wrapper{
-    position: relative;
-    top: 18%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.customer-dashboard-greeing {
+  position: relative;
+  top: 10vh;
+}
+
+.customer-dashboard-greeing-wrapper {
+  position: relative;
+  top: 18%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .greeting-to-customer p {
-    text-align: center;
-    font-weight: bold;
+  text-align: center;
+  font-weight: bold;
+  font-size: 25px;
+  padding-bottom: 50px;
 }
 
 .dashboard-cover-img img {
-    height: 500px;
-    opacity: 0.7;
+  height: 500px;
+  opacity: 0.7;
 }
 
 .dashboard-cover-img {
-    position: absolute;
-    top: 10%;
-    right: 0%;
+  position: absolute;
+  top: 10%;
+  right: 0%;
 }
 
 .customer-dashboard-msg {
-    position: absolute;
-    top: 38%;
-    left: 50%;
-    z-index: 99999;
-    width: 61%;
-    transform: translate(-50%, 0%);
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  z-index: 99999;
+  width: 100%;
+  transform: translate(-50%, 0%);
 }
 
 .customer-dashboard-msg p {
-    font-size: 18px;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .dashboard-filter-cards {
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
 }
 
 .dashboard-filter-cards .pending-card {
-    border: none;
-    background-color: #8C52FF;
-    color: white;
-    border-radius: 5px;
-    box-shadow: 0 8px 6px -6px black;
-    transition: 0.3s;
-    margin-right: 10px;
+  border: none;
+  background-color: #8c52ff;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0 4px 15px 0px #8c52ff;
+  transition: 0.3s;
+  margin-right: 10px;
 }
 
 .dashboard-filter-cards .completed-card {
-    border: none;
-    background-color: #8C52FF;
-    color: white;
-    border-radius: 5px;
-    box-shadow: 0 8px 6px -6px black;
-    transition: 0.3s;
+  border: none;
+  background-color: #8c52ff;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0 4px 15px 0px #8c52ff;
+  transition: 0.3s;
 }
 
 .filer-card-wrap {
-   display: flex;
+  display: flex;
 }
 
 .pending {
-    display: flex;
-    text-align: center;
-    padding: 10px;
+  display: flex;
+  text-align: center;
+  padding: 10px;
 }
 
 .pending-card p {
-    margin: 0px;
-    text-shadow: 2px 2px #333;
+  margin: 0px;
 }
 
 .completed {
-    display: flex;
-    text-align: center;
-    padding: 10px;
+  display: flex;
+  text-align: center;
+  padding: 10px;
 }
 
 .completed-card p {
-    margin: 0px;
-    text-shadow: 2px 2px #333;
+  margin: 0px;
 }
 
 .pending-card h5 {
-    margin: 0px;
-    text-shadow: 2px 2px #333;
-    margin-left: 10px;
+  margin: 0px;
+  margin-left: 10px;
 }
 
 .completed-card h5 {
-    margin: 0px;
-    text-shadow: 2px 2px #333;
-    margin-left: 10px;
+  margin: 0px;
+  margin-left: 10px;
 }
 
 .dashboard-order-card-wrapper {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .order-card {
-    width: 80vw;
-    height: 30vh;
-    border: none;
-    background-color: #efefef;
-    border-radius: 20px;
-    display: flex;
-    position: relative;
+  width: 80vw;
+  height: 30vh;
+  border: none;
+  background-color: #efefef;
+  border-radius: 20px;
+  display: flex;
+  position: relative;
 }
 
 .pending span {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .completed span {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .order-card .order-img {
-    width: 14vw;
-    height: 30vh;
-    background-color: blueviolet;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
+  width: 14vw;
+  height: 30vh;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
 }
 
 .order-card .order-details {
-    position: absolute;
-    top: 50%;
-    left: 24%;
-    transform: translate(-24%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 24%;
+  transform: translate(-24%, -50%);
+  margin-left: 25px;
 }
 
 .order-details p {
-    margin: 0px;
-    font-weight: bold;
+  margin: 0px;
+  font-weight: bold;
 }
 
 .order-card .total-price h1 {
-    text-shadow: 2px 2px #ddd;
+  text-shadow: 2px 2px #ddd;
 }
 
 .order-card .total-price {
-    display: flex;
-    width: 81%;
-    justify-content: flex-end;
-}
-
-.dot {
-    
+  display: flex;
+  width: 81%;
+  justify-content: flex-end;
 }

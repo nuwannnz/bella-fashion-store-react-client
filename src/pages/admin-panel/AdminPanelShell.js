@@ -16,6 +16,8 @@ import { uiIsLoading } from "../../redux/actions/ui.actions";
 import Dashboard from "./Dashboard";
 import { usePopup } from "../../hooks/Popup.hooks";
 import { UserForm } from "./user-dashboard/UserForm";
+import ViewOrderForm from "./order-dashboard/ViewOrderForm";
+import ReplyCustomerInquiryForm from "../../components/customer/ReplyCustomerInquiryForm";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.staffLogin.auth.token);
@@ -27,13 +29,13 @@ function PrivateRoute({ children, ...rest }) {
         token !== null ? (
           children
         ) : (
-            <Redirect
-              to={{
-                pathname: ROUTE_PATHS.ADMIN_LOGIN,
-                state: { from: location },
-              }}
-            />
-          )
+          <Redirect
+            to={{
+              pathname: ROUTE_PATHS.ADMIN_LOGIN,
+              state: { from: location },
+            }}
+          />
+        )
       }
     />
   );
@@ -73,11 +75,10 @@ export default function AdminPanelShell() {
   });
 
   useEffect(() => {
-
     registerPopup(POPUP_KEYS.USER_POPUP, UserForm);
-
-
-  }, [])
+    registerPopup(POPUP_KEYS.ORDER_INFO_POPUP, ViewOrderForm);
+    registerPopup(POPUP_KEYS.REPLY_INQUIRY_POPUP, ReplyCustomerInquiryForm);
+  }, []);
 
   return (
     <div id="adminPanelShell" className="admin-panel-wrap">
@@ -102,4 +103,3 @@ export default function AdminPanelShell() {
     </div>
   );
 }
-
