@@ -1,7 +1,8 @@
 import { SIZE_ACTION_TYPES } from "../../actions/admin-panel/size.actions";
 
 const initialState = {
-    sizes: []
+    sizes: [],
+    loading: false
 }
 
 export const size = (state = initialState, action) => {
@@ -10,6 +11,11 @@ export const size = (state = initialState, action) => {
             return {
                 ...state,
                 sizes: action.payload
+            }
+            case SIZE_ACTION_TYPES.SIZE_LOADING:
+            return {
+                ...state,
+                loading: action.payload
             }
             case SIZE_ACTION_TYPES.SIZE_ADDED:
                 return {

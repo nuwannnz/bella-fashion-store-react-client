@@ -22,6 +22,8 @@ import {
   POPUP_ACTION_TYPES,
 } from "../../redux/actions/popup.actions";
 import { categoriesAsync } from "../../redux/actions/customer/customer.category.actions";
+import Footer from "../../components/customer/Footer";
+import WelcomePage from "./WelcomePage";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.customer.token);
@@ -135,24 +137,34 @@ export default function Homepage() {
                   <ProductListPage />
                 </Route>
 
-                {/* <Route path="*">
-                  <ProductListPage />
-                </Route> */}
+                <Route path="*">
+                  <WelcomePage />
+                </Route>
+
               </Switch>
 
               <div className="customer-inquiry-wrapper">
                 <div className="customer-inquiry-btn">
+
                   <button
                     className="inquiry-btn"
                     onClick={toggleDisplayInquiryForm}
                   >
                     INQUIRY NOW!
                   </button>
+
                 </div>
               </div>
+
+
             </div>
 
-            <div className="footer-wrap"></div>
+
+
+            <div className="footer-wrap">
+              <Footer />
+            </div>
+
           </div>
         </div>
       </div>

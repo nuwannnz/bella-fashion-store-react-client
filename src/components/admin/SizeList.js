@@ -4,15 +4,16 @@ import { useHistory } from "react-router-dom";
 import { deleteSizeByID, sizesLoadedAsync } from "../../redux/actions/admin-panel/size.actions";
 import { confirmAlert } from 'react-confirm-alert'; 
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import LoadingScreen from 'react-loading-screen';
+
 
 export default function SizeList() {
-
-
 
     const dispatch = useDispatch();
     const history = useHistory();
 
     const sizes = useSelector(state => state.size.sizes);
+    const loading = useSelector(state => state.size.loading);
 
     const[open,setOpen] = useState("");
     const[openView,setOpenView] = useState("");
@@ -43,7 +44,14 @@ export default function SizeList() {
    
     
         return (
+          <LoadingScreen
+            loading={loading}
+            bgColor='#f1f1f1'
+            spinnerColor='#8c52ff'
+            textColor='#8c52ff'
             
+            text='Loading.. Please wait'
+          > 
                 <div class="table-responsive"> 
                     <table class="table table-bordered">
                     <thead class="thead-light">
@@ -75,6 +83,7 @@ export default function SizeList() {
            
              
          </div>
+         </LoadingScreen>
             
             
         )

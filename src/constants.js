@@ -21,13 +21,13 @@ export const ROUTE_PATHS = {
   CUSTOMER_WISHLIST: "/wishlist",
   ADMIN_SHELL: "/admin",
   ADMIN_DASHBOARD: "/admin/",
-  ADIMN_DASHBOARD_USER: "/admin/user",
-  ADIMN_DASHBOARD_ORDER: "/admin/order",
-  ADIMN_DASHBOARD_CATEGORY: "/admin/categories",
-  ADIMN_DASHBOARD_PRODUCT: "/admin/product",
-  ADIMN_DASHBOARD_CUSTOMER: "/admin/customer",
-  ADIMN_DASHBOARD_INQUIRY: "/admin/inquiry",
-  ADIMN_DASHBOARD_SALES: "/admin/sales",
+  ADIMN_DASHBOARD_USER: '/admin/user',
+  ADIMN_DASHBOARD_ORDER: '/admin/order',
+  ADIMN_DASHBOARD_CATEGORY: '/admin/categories',
+  ADIMN_DASHBOARD_PRODUCT: '/admin/product',
+  ADIMN_DASHBOARD_HOMEPAGE: '/admin/homepage',
+  ADIMN_DASHBOARD_INQUIRY: '/admin/inquiry',
+  ADIMN_DASHBOARD_SALES: '/admin/sales',
   ADMIN_LOGIN: "/admin/login",
   ADMIN_SIGNUP: "/admin/signup",
   ADMIN_CATEGORY_ADD: "/admin/categories",
@@ -43,6 +43,11 @@ export const POPUP_KEYS = {
   CUSTOMER_INQUIRY_POPUP: "CUSTOMER_INQUIRY_POPUP",
   REPLY_INQUIRY_POPUP: "REPLY_INQUIRY_POPUP",
   ORDER_INFO_POPUP: "ORDER_INFO_POPUP",
-};
+  PRODUCT_REVIEW_POPUP: 'PRODUCT_REVIEW_POPUP',
+  ADD_BANNER_POPUP: 'ADD_BANNER_POPUP',
+  ADD_CAT_BANNER_POPUP: 'ADD_CAT_BANNER_POPUP',
+
+}
+
 
 export const API_HOST = process.env.REACT_APP_API_URL;

@@ -6,6 +6,7 @@ import ErrorMessage from "../common/ErrorMessage";
 import { isEmpty, isValidEmail } from "../../helpers/input-validation.helper";
 import { useHistory } from "react-router-dom";
 import { ROUTE_PATHS } from "../../constants";
+import AccentButton from "../common/AccentButton";
 
 export default function CustomerLoginForm({
   onLoginClick,
@@ -18,6 +19,7 @@ export default function CustomerLoginForm({
   const [invalidInput, setInvalidInput] = useState("");
   const history = useHistory();
 
+
   const submitForm = () => {
     if (!isValidEmail(email)) {
       setInvalidInput("Invalid email address");
@@ -26,6 +28,7 @@ export default function CustomerLoginForm({
     } else {
       setInvalidInput("");
       onLoginClick(email, password);
+
     }
   };
 
@@ -36,6 +39,7 @@ export default function CustomerLoginForm({
   const onPwdChange = (e) => {
     setPassword(e.target.value);
   };
+
 
   const handleForgotPwdEmail = () => {
     history.push(ROUTE_PATHS.CUSTOMER_FORGOT_PWD_EMAIL);

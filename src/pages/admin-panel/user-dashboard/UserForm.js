@@ -22,6 +22,8 @@ export function UserForm({ closeFormClickHandler, userToUpdate, closePopup }) {
     roleId: userToUpdate ? userToUpdate.roleId : "",
   });
 
+  const [submitting, setSubmitting] = useState(false);
+
   useEffect(() => {
     dispatch(getAllRolesAsync());
   }, []);
@@ -53,10 +55,15 @@ export function UserForm({ closeFormClickHandler, userToUpdate, closePopup }) {
   };
 
   const handleFormSubmit = () => {
+    setSubmitting(true)
     if (userToUpdate) {
       // update user
-      dispatch(updateUserAsync(userToUpdate._id, user)).then(() => {
-        closePopup();
+      dispatch(updateUserAsync(userToUpdate._id, user)).then((success) => {
+        if (success) {
+          closePopup();
+        } else {
+          setSubmitting(false)
+        }
       })
     } else {
       // add user
@@ -72,7 +79,7 @@ export function UserForm({ closeFormClickHandler, userToUpdate, closePopup }) {
       onClosing={closePopup}
       onSubmit={handleFormSubmit}
       primaryActionText={userToUpdate ? "Update user" : "Add user"}
-      isSubmitting={users.addingItem}
+      isSubmitting={submitting}
     >
       <div>
         <TextBox
@@ -103,6 +110,7 @@ export function UserForm({ closeFormClickHandler, userToUpdate, closePopup }) {
             title="Role"
             onItemSelected={handleRoleSelected}
             optionValues={roles.items.map((role) => role.name)}
+            selectedItem={userToUpdate ? userToUpdate.role?.name : null}
             placeholder="Select a role"
           />
         )}

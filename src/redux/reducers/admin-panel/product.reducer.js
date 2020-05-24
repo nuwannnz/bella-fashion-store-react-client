@@ -3,7 +3,8 @@ import { PRODUCT_ACTION_TYPES } from "../../actions/admin-panel/product.actions"
 const initialState = {
     products: [],
     successMsg:'',
-    errorMsg:''
+    errorMsg:'',
+    loading: false
 }
 
 export const product = (state = initialState, action) => {
@@ -12,6 +13,11 @@ export const product = (state = initialState, action) => {
             return {
                 ...state,
                 products: action.payload
+            }
+            case PRODUCT_ACTION_TYPES.PODUCT_LOADING:
+            return {
+                ...state,
+                loading: action.payload
             }
 
                 case PRODUCT_ACTION_TYPES.PRODUCT_ADDED:

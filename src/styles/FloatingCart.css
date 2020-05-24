@@ -3,7 +3,7 @@
   right: 0px;
   bottom: 0px;
   top: 0px;
-  z-index: 99999;
+  z-index: 999;
   transform: translateX(0);
   transition: transform 0.2s ease-in-out;
 }
@@ -116,6 +116,10 @@
   margin-left: 10px;
   font-weight: 500;
   max-width: 200px;
+}
+
+.product-size-span {
+  text-transform: uppercase !important;
 }
 
 .cart-item .product-name-span::first-letter {

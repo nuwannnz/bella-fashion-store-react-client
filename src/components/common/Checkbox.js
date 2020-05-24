@@ -5,6 +5,10 @@ export default function Checkbox({ text, onCheck, isChecked = false }) {
     const [selected, setSelected] = useState(isChecked);
 
     useEffect(() => {
+        setSelected(isChecked);
+    }, [isChecked])
+
+    useEffect(() => {
         if (onCheck) { onCheck(selected) };
     }, [selected])
 

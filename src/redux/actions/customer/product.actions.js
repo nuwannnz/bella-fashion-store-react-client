@@ -16,12 +16,18 @@ export const PRODUCT_ACTION_TYPES = {
 
   export function productsLoadedAsync() {
     return async (dispatch, getState)=> {
-      fetch('http://localhost:5000/api/v1/products').then(response => response.json())
-      .then(json => {
-        dispatch(productsLoaded(json))
-         return json;
-      })
-
+      
+      const result = await productService.getProducts();
+      
+        if(result.isResultOk) {
+          console.log("product loaded")
+          dispatch(productsLoaded(result.data));
+         
+        } else {
+          console.log("error in product loaded");
+          
+        }
       }
+
   }
 

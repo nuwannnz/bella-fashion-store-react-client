@@ -14,7 +14,7 @@ export const getCategory = async () => {
   try {
     const response = await axios.get(path);
 
-    logger.info(`Received result => ${path}`, response);
+    // logger.info(`Received result => ${path}`, response);
 
     result.data = response.data;
     return result;
@@ -32,7 +32,7 @@ export const newCategory = async (categoryName) => {
   const result = new APIResult();
   try {
     const response = await axios.post(path, data);
-    logger.info(`Received result => ${path}`, response);
+    // logger.info(`Received result => ${path}`, response);
 
     result.data = response.data;
     return result;

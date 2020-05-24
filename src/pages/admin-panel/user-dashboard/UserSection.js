@@ -12,6 +12,8 @@ import {
 import { openPopup } from "../../../redux/actions/popup.actions";
 import { POPUP_KEYS } from "../../../constants";
 import { usePopup } from "../../../hooks/Popup.hooks";
+import { capitalizeString } from "../../../helpers/string.helper";
+import AccentButton from "../../../components/common/AccentButton";
 
 const UserEntry = ({
   user,
@@ -42,32 +44,38 @@ const UserEntry = ({
   };
 
   return (
-    <div className="card" style={styles.card}>
-      <div className="flex justify-content-between align-items-center">
-        <div>
-          <span className="role-name" style={styles.roleName}>
-            {user.role.name}
-          </span>
-          <h4>{`${user.fName} ${user.lName}`}</h4>
-        </div>
-        {!isCurrentAdmin && (
-          <div className="action-group ">
-            <button onClick={handleUpdateClick} className="btn btn-info">
-              <i className="fas fa-pen"></i>
-            </button>
-            <button onClick={handleDeleteClick} className="btn btn-info ml-1">
-              <i className="far fa-trash-alt"></i>
-            </button>
-          </div>
-        )}
-      </div>
 
-      {user.deleting && (
-        <div>
-          <span>Deleting user</span>
-        </div>
-      )}
-    </div>
+    <tr>
+      <td>
+        {user._id}
+      </td>
+      <td>
+        {`${user.fName} ${user.lName}`}
+      </td>
+      <td>
+        {user.email}
+      </td>
+      <td>
+        <span class="badge badge-info">{capitalizeString(user.role.name)}</span>
+      </td>
+      <td>
+        <button className="btn btn-sm btn-light mr-1" onClick={handleUpdateClick}>
+
+          <i className="fas fa-pen"></i>
+
+
+        </button>
+
+        <button className="btn btn-sm btn-danger" onClick={handleDeleteClick}>
+          {!user.deleting &&
+            <i className="far fa-trash-alt"></i>
+          }
+          {user.deleting && (
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          )}
+        </button>
+      </td>
+    </tr>
   );
 };
 
@@ -100,21 +108,39 @@ export default function UserSection() {
 
   return (
     <div className="tab-page">
-      <button onClick={toggleDisplayUserForm}>Add user</button>
+      <div className="d-flex justify-content-end mb-3">
+        <div style={{ width: '20%' }}>
+
+          <AccentButton
+            text="Add user"
+            onButtonClick={toggleDisplayUserForm} />
+        </div>
+      </div>
 
       {users.loading && <span>Loading</span>}
 
-      {users.items &&
-        users.items.map((user, i, a) => (
-          <UserEntry
-            key={i}
-            user={user}
-            onDeleteClick={handleDeleteClick}
-            onEditClick={handleUpdateClick}
-            isCurrentAdmin={user._id === loggedInUserId}
-          />
-        ))}
 
+      <table className="orders-table table table-hover">
+
+        <tr>
+          <th scope="col">User id</th>
+          <th scope="col">Full name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Role</th>
+          <th scope="col">Actions</th>
+        </tr>
+
+        {users.items &&
+          users.items.map((user, i, a) => (
+            <UserEntry
+              key={i}
+              user={user}
+              onDeleteClick={handleDeleteClick}
+              onEditClick={handleUpdateClick}
+              isCurrentAdmin={user._id === loggedInUserId}
+            />
+          ))}
+      </table>
 
     </div>
   );

@@ -7,6 +7,7 @@ import AddToCartButton from "../../components/customer/AddToCartButton";
 import { closePopup } from "../../redux/actions/popup.actions";
 
 const WishlistItem = ({ product, size, qty }) => {
+
   const dispatch = useDispatch();
   const [hasStock, setHasStock] = useState(false);
 
@@ -28,6 +29,7 @@ const WishlistItem = ({ product, size, qty }) => {
         />
       </div>
 
+
       <div className="wishlist-item-image">
         <img src={product.images[0]} alt="product images" />
       </div>
@@ -40,6 +42,7 @@ const WishlistItem = ({ product, size, qty }) => {
             <span className="product-name-span">{`${product.name} `}</span>
           </div>
         </div>
+
 
         <span className="product-price">LKR {product.price}</span>
       </div>
@@ -71,6 +74,7 @@ export default function FloatingWishlist() {
   const handleWishlistCloseBtnClick = () => {
     dispatch(toggleWishlistBar());
   };
+
 
   const handleClickOnFloatingOverlay = () => {
     dispatch(toggleWishlistBar());

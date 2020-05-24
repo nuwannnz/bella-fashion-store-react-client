@@ -8,7 +8,7 @@ import { ROUTE_PATHS } from '../../constants';
 import AddToCartButton from '../../components/customer/AddToCartButton';
 import AddToWishlistButton from '../../components/customer/AddToWishlistButton';
 import { normalizeString } from '../../helpers/input-validation.helper';
-import ProductFilterBar from '../../components/customer/ProductFilterBar';
+import ProductFilterBar, { SORT_TYPE } from '../../components/customer/ProductFilterBar';
 
 
 
@@ -33,7 +33,7 @@ export const ProductInfoCard = ({ product }) => {
                 {/* IMPORTANT TODO: 
                     In here the size and qty is only given for testing, remove them in production   
                     */}
-                <AddToCartButton productId={product._id} size="S" qty={2} />
+                <AddToCartButton productId={product._id} expandedMode={false} />
 
             </div>
 
@@ -137,6 +137,18 @@ export default function ProductListPage() {
         return filter.brand.includes(product.brand);
     }
 
+    const sortProducts = (products) => {
+        if (!filter.sort) {
+            return products;
+        }
+
+        if (filter.sort === SORT_TYPE.PRICE_HIGH_TO_LOW) {
+            return products.sort((a, b) => b.price - a.price)
+        } else if (filter.sort === SORT_TYPE.PRICE_LOW_TO_HIGH) {
+            return products.sort((a, b) => a.price - b.price)
+        }
+    }
+
     const filterProduct = (product) => {
         return filterProductForCategory(product)
             && filterProductByColor(product)
@@ -158,7 +170,7 @@ export default function ProductListPage() {
             <div className="product-list-wrapper flex">
 
                 {
-                    products && products.filter(p => filterProduct(p)).map((p, i) => <ProductInfoCard key={i} product={p} />)
+                    products && sortProducts(products).filter(p => filterProduct(p)).map((p, i) => <ProductInfoCard key={i} product={p} />)
                 }
             </div>
         </div>
