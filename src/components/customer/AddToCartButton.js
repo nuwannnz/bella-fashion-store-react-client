@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ROUTE_PATHS } from "../../constants";
@@ -12,6 +12,7 @@ export default function AddToCartButton({ productId, size, qty, onAddToCart, exp
   const { token } = useSelector((state) => state.customer);
   const history = useHistory();
 
+  const [isLoading, setIsLoading] = useState(false)
   const onClickHandler = () => {
 
     if (onAddToCart) {
@@ -37,17 +38,18 @@ export default function AddToCartButton({ productId, size, qty, onAddToCart, exp
       return;
     }
 
-    dispatch(addProductToCartAsync(productId, size, parseInt(qty)));
+    setIsLoading(true);
+    dispatch(addProductToCartAsync(productId, size, parseInt(qty))).then(() => setIsLoading(false));
   };
 
   return (
     expandedMode ? (
       <div style={{ width: '150px', margin: '10px 0px' }}>
 
-        <AccentButton onButtonClick={onClickHandler}>
+        <AccentButton onButtonClick={onClickHandler} isLoading={isLoading}>
           <>
             <span>
-              <i class="fas fa-shopping-cart mr-2"></i>
+              {!isLoading && <i class="fas fa-shopping-cart mr-2"></i>}
           Add to Cart
         </span>
           </>

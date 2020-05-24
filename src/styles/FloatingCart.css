@@ -118,6 +118,10 @@
   max-width: 200px;
 }
 
+.product-size-span {
+  text-transform: uppercase !important;
+}
+
 .cart-item .product-name-span::first-letter {
   text-transform: uppercase !important;
 }
