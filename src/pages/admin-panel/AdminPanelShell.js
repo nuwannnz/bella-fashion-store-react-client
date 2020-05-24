@@ -18,6 +18,7 @@ import { usePopup } from "../../hooks/Popup.hooks";
 import { UserForm } from "./user-dashboard/UserForm";
 import ViewOrderForm from "./order-dashboard/ViewOrderForm";
 import RoleForm from "./user-dashboard/RoleForm";
+import BannerForm from "./homepage-dashboard/BannerForm";
 
 function PrivateRoute({ children, ...rest }) {
   const token = useSelector((state) => state.staffLogin.auth.token);
@@ -78,6 +79,7 @@ export default function AdminPanelShell() {
 
     registerPopup(POPUP_KEYS.USER_POPUP, UserForm);
     registerPopup(POPUP_KEYS.ROLE_POPUP, RoleForm);
+    registerPopup(POPUP_KEYS.ADD_BANNER_POPUP, BannerForm);
 
   }, [])
 

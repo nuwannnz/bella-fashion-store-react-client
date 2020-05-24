@@ -12,6 +12,7 @@ import { uiIsLoading } from "../../redux/actions/ui.actions";
 import ProductDashboardPage from "./product/ProductDashboardPage";
 import { CategoriesAdmin } from "./staff/CategoriesAdmin";
 import OrderDashboardPage from "./order-dashboard/OrderDashboardPage";
+import HomepageDashboard from "./homepage-dashboard/HomepageDashboard";
 
 export default function Dashboard() {
 
@@ -69,6 +70,10 @@ export default function Dashboard() {
 
                 <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_PRODUCT}>
                   <ProductDashboardPage />
+                </Route>
+
+                <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_HOMEPAGE}>
+                  <HomepageDashboard />
                 </Route>
 
                 <Route path={ROUTE_PATHS.ADIMN_DASHBOARD_CATEGORY}>

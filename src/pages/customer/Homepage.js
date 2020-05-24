@@ -20,6 +20,7 @@ import { loadOrdersAync } from "../../redux/actions/customer/order.actions";
 import { openPopup, POPUP_ACTION_TYPES } from "../../redux/actions/popup.actions";
 import { categoriesAsync } from "../../redux/actions/customer/customer.category.actions";
 import Footer from "../../components/customer/Footer";
+import WelcomePage from "./WelcomePage";
 
 
 function PrivateRoute({ children, ...rest }) {
@@ -126,9 +127,9 @@ export default function Homepage() {
                 </Route>
 
 
-                {/* <Route path="*">
-                  <ProductListPage />
-                </Route> */}
+                <Route path="*">
+                  <WelcomePage />
+                </Route>
               </Switch>
 
               <div className="customer-inquiry-wrapper">

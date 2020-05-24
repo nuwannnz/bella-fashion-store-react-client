@@ -73,3 +73,50 @@
   position: relative;
   top: 1px;
 }
+
+.bella-slider-item {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cat-banner {
+  width: 100%;
+  margin: 50px 0px;
+}
+
+.cat-banner-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cat-banner-img {
+  width: 75%;
+  border-radius: 10px;
+}
+
+.cat-banner-info {
+  background-color: #8c52ff;
+  width: 50%;
+  color: #fff;
+  height: 290px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.cat-banner-info.to-left {
+  transform: translateX(30px);
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.cat-banner-info.to-right {
+  transform: translateX(-30px);
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.cat-banner-info span {
+}
