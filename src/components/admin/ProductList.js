@@ -82,12 +82,12 @@ export default function ProductList(){
                <table class="table table-bordered">
                 <thead class="thead-light">
                    <tr>
-                       <td>Item ID</td>
-                        <td>ItemName</td>
+                       <td><b>Item ID</b></td>
+                        <td><b>Item Name</b></td>
                         
-                        <td colSpan="2">Sizes and quantites</td>
+                        <td colSpan="2"><b>Sizes and Quantites</b></td>
                      
-                        <td>Actions</td>
+                        <td><b>Actions</b></td>
 
                      </tr>
 
