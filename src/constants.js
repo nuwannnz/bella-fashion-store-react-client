@@ -7,6 +7,7 @@ export const ROUTE_PATHS = {
 
   CUSTOMER_PRODUCT: "/product",
   CUSTOMER_ABOUTUS: "/aboutus",
+  CUSTOMER_CONTACT: "/contact",
   CUSTOMER_SIGNUP: "/signup",
   CUSTOMER_DASHBOARD: "/dashboard",
   CUSTOMER_DASHBOARD_ORDER: "/dashboard/order",

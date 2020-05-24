@@ -10,6 +10,7 @@ import CustomerDashboardPage from "./CustomerDashboardPage";
 import CustomerDashboardSideBar from "../../components/customer/CustomerDashboardSideBar";
 import CartPage from "./CartPage";
 import ProductPage from "./ProductPage";
+import ContactPage from "./ContactUs"
 import { loadCartAsync } from "../../redux/actions/customer/cart.actions";
 
 function PrivateRoute({ children, ...rest }) {
@@ -77,6 +78,10 @@ export default function Homepage() {
                 <PrivateRoute path={ROUTE_PATHS.CUSTOMER_CART}>
                   <CartPage />
                 </PrivateRoute>
+
+                <Route path={ROUTE_PATHS.CUSTOMER_CONTACT}>
+                  <ContactPage />
+                </Route>
 
                 <Route path={ROUTE_PATHS.CUSTOMER_PRODUCT}>
                   <ProductPage />

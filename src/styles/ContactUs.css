@@ -1,12 +1,12 @@
   
-  .contactUsHero{
-    min-height: 50%;
-    background:  url("../images/ContactHero.png") center/cover no-repeat;
+  img{
+    width:15%
   }
 
   contact-top{
     margin-left: 10%;
   }
+
 
 
   .contact-details{
@@ -16,6 +16,7 @@
     font-family: "Trebuchet MS", Helvetica, sans-serif; 
     order: 1;
     flex-grow:1;
+    background-color: rgb(173, 155, 185);
   }
 
   .contact-details h4{
@@ -23,7 +24,7 @@
     font-size: 22px;
     letter-spacing: -0.2px;
     word-spacing: 1px;
-    color: #949516;
+    color: #6d1695;
     font-weight: 700;
     text-decoration: none;
     font-style: normal;

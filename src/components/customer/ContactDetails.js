@@ -15,8 +15,8 @@ export default class ContactDetails extends Component {
                 <Card.Header><h4>Company information</h4></Card.Header>
                 <Card.Body>
                     <Card.Text>
-                    <p>Cooperate Fashionz (Pvt) Ltd
-                    Trending Bella's Stores
+                    <p>Cooperate Fashionz (Pvt) Ltd<br/>
+                    Trending Bella's Stores<br/>
                     Reg Number 2478698</p>
                     <h5>info@bellafashions.lk</h5>
                     </Card.Text>
