@@ -14,9 +14,9 @@ export default function CustomerDashboardPage() {
       <div className="title">
         <h1>Dashboard</h1>
         {items &&
-          items.map((item, i) => (
-            <CustomerDashboardFilterCards key={i} item={item} />
-          ))}
+
+          <CustomerDashboardFilterCards pending={items.filter(i => !i.isCompleted).length} completed={items.filter(i => i.isCompleted).length} />
+        }
       </div>
 
       {items.length === 0 && <CustomerDashboardGreeting />}

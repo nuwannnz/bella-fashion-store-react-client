@@ -6,6 +6,7 @@ import { addInquiryAsync } from "../../redux/actions/inquiry.actions";
 
 export default function CustomerDashboardInquiryForm({ closePopup }) {
   const dispatch = useDispatch();
+  const [submitting, setSubmitting] = useState(false)
 
   const customer = useSelector((state) => state.customer.customerInfo);
 
@@ -33,10 +34,12 @@ export default function CustomerDashboardInquiryForm({ closePopup }) {
   };
 
   const handleFormSubmit = () => {
+    setSubmitting(true)
     dispatch(addInquiryAsync(inquiry)).then((success) => {
       if (success) {
         closePopup();
       }
+      setSubmitting(false)
     });
   };
 
@@ -46,7 +49,7 @@ export default function CustomerDashboardInquiryForm({ closePopup }) {
       onClosing={closePopup}
       onSubmit={handleFormSubmit}
       primaryActionText="Submit"
-      isSubmitting
+      isSubmitting={submitting}
     >
       <div className="inquiry-form">
         <input

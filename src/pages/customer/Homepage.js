@@ -35,13 +35,13 @@ function PrivateRoute({ children, ...rest }) {
         token !== null ? (
           children
         ) : (
-          <Redirect
-            to={{
-              pathname: ROUTE_PATHS.CUSTOMER_LOGIN,
-              state: { from: location },
-            }}
-          />
-        )
+            <Redirect
+              to={{
+                pathname: ROUTE_PATHS.CUSTOMER_LOGIN,
+                state: { from: location },
+              }}
+            />
+          )
       }
     />
   );
@@ -91,8 +91,8 @@ export default function Homepage() {
             {location.pathname.includes(ROUTE_PATHS.CUSTOMER_DASHBOARD) ? (
               <CustomerDashboardSideBar />
             ) : (
-              <CategoryBar />
-            )}
+                <CategoryBar />
+              )}
           </div>
 
           <FloatingCart />
@@ -125,6 +125,8 @@ export default function Homepage() {
                   <ProductPage />
                 </Route>
 
+
+
                 <Route
                   path={`${ROUTE_PATHS.CUSTOMER_PRODUCT_CATEGORY}/:categoryName/:subCategoryName`}
                 >
@@ -136,6 +138,13 @@ export default function Homepage() {
                 >
                   <ProductListPage />
                 </Route>
+
+                <Route exact
+                  path={ROUTE_PATHS.CUSTOMER_PRODUCT_SEARCH}
+                >
+                  <ProductListPage />
+                </Route>
+
 
                 <Route path="*">
                   <WelcomePage />

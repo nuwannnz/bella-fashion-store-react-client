@@ -19,6 +19,9 @@ export default function LoginPage() {
   const { from } = location.state || { from: { pathname: ROUTE_PATHS.ADMIN_DASHBOARD } };
 
   const token = useSelector(state => state.staffLogin.auth.token);
+  const hasAdmin = useSelector(state => state.staffLogin.ui.hasAdmin);
+
+
 
   return (
 
@@ -27,24 +30,26 @@ export default function LoginPage() {
         <Redirect to={from.pathname} />
       ) : (
 
+        !hasAdmin ? (<Redirect to={ROUTE_PATHS.ADMIN_SIGNUP} />) :
 
-        <div className="page login-page-wrap flex align-center flex-c">
-          <div className="logo">
-            <img src={getAssetUrl("logo/logo.png")} alt="Bella logo" />
-          </div>
-          <h2>Login to Bella Admin Panel</h2>
 
-          {successMsg.length > 0 ? <SuccessMessage msg={successMsg} /> : null}
+          (<div className="page login-page-wrap flex align-center flex-c">
+            <div className="logo">
+              <img src={getAssetUrl("logo/logo.png")} alt="Bella logo" />
+            </div>
+            <h2>Login to Bella Admin Panel</h2>
 
-          <LoginForm
-            forgotPwdUrl={"#"}
-            errorMsg={errorMsg}
-            isLoading={isLoading}
-            onLoginClick={(email, password) =>
-              dispatch(loginAsync(email, password))
-            }
-          />
-        </div >
+            {successMsg.length > 0 ? <SuccessMessage msg={successMsg} /> : null}
+
+            <LoginForm
+              forgotPwdUrl={"#"}
+              errorMsg={errorMsg}
+              isLoading={isLoading}
+              onLoginClick={(email, password) =>
+                dispatch(loginAsync(email, password))
+              }
+            />
+          </div >)
       )
   );
 }

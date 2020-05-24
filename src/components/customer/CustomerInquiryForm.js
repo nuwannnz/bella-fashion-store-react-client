@@ -6,7 +6,7 @@ import { addInquiryAsync } from "../../redux/actions/inquiry.actions";
 
 export default function CustomerInquiryForm({ closePopup }) {
     const dispatch = useDispatch();
-
+    const [submitting, setSubmitting] = useState(false)
     const [inquiry, setInquiry] = useState({
         name: "",
         email: "",
@@ -41,59 +41,60 @@ export default function CustomerInquiryForm({ closePopup }) {
     };
 
     const handleFormSubmit = () => {
+        setSubmitting(true);
         dispatch(addInquiryAsync(inquiry)).then((success) => {
-            if(success) {
+            if (success) {
                 closePopup();
             }
         });
     };
 
-    return(
+    return (
         <OverlayPopup
             title="Your Inquiry"
             onClosing={closePopup}
             onSubmit={handleFormSubmit}
+            isSubmitting={submitting}
             primaryActionText="Submit"
-            isSubmitting
         >
-            <div className="customer-inquiry-form"> 
-                <input 
+            <div className="customer-inquiry-form">
+                <input
                     type="text"
                     placeholder="Name"
                     onChange={handleNameChanged}
                 />
                 <br />
 
-                <input 
+                <input
                     type="email"
                     placeholder="Email"
                     onChange={handleEmailChnaged}
                 />
                 <br />
 
-                <input 
+                <input
                     type="number"
                     placeholder="Phone"
                     onChange={handlePhoneChanged}
                 />
                 <br />
 
-                <input 
+                <input
                     type="text"
                     placeholder="Subject"
                     onChange={handleSubjectChanged}
                 />
                 <br />
 
-                <textarea 
+                <textarea
                     type="text"
                     placeholder="Description"
                     onChange={handleDescriptionChanged}
                 />
 
-                
+
             </div>
         </OverlayPopup>
-        
+
     )
 }
