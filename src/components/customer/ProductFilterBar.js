@@ -53,6 +53,10 @@ export default function ProductFilterBar({ productList = [], onfilterListChanged
         setFilterList({ ...filterList, brand: newBrandFilter })
     }
 
+    const handleSortFilterChanged = (newSortFilter) => {
+        setFilterList({ ...filterList, sort: newSortFilter })
+    }
+
 
 
     useEffect(() => {
@@ -66,7 +70,7 @@ export default function ProductFilterBar({ productList = [], onfilterListChanged
                 <SizeFilter sizeList={sizes} sizeFilterListChangeHandler={handleSizeFilterChanged} />
                 <ColorFilter colorList={colors} colorFilterListChangeHandler={handleColorFilterChanged} />
                 <BrandFilter brandList={brands} brandFilterListChangeHandler={handleBrandFilterChanged} />
-                <SortFilter />
+                <SortFilter sortFilterChangeHandler={handleSortFilterChanged} />
             </div>
         </div>
     )
@@ -118,12 +122,12 @@ function ColorFilter({ colorList = [], colorFilterListChangeHandler, expanded = 
     }, [selectedColors])
 
     return (
-        <div className={`filter ${opened && 'opened'}`} onClick={() => setOpened(!opened)}>
+        <div className={`filter ${opened && 'opened'}`} style={{ maxWidth: '200px' }} onClick={() => setOpened(!opened)}>
             <div className="filter-lable">
                 <span><i className="fas fa-tint"></i></span>
                 <span>Color</span>
             </div>
-            <div className="filter-content d-flex">
+            <div className="filter-content d-flex flex-wrap">
                 {
                     colorList.map((color, i) => <ColorCheckbox key={i} color={color}
                         onCheck={(checked) => {
@@ -174,8 +178,27 @@ function BrandFilter({ brandList = [], brandFilterListChangeHandler, expanded = 
     )
 }
 
+const sortTypeList = [
+    {
+        type: SORT_TYPE.PRICE_HIGH_TO_LOW,
+        text: 'Price High to Low',
+    },
+    {
+        type: SORT_TYPE.PRICE_LOW_TO_HIGH,
+        text: 'Price Low to High',
+    }
+]
 function SortFilter({ sortFilterChangeHandler, expanded = false }) {
     const [opened, setOpened] = useState(expanded)
+    const [selectedSortType, setSelectedSortType] = useState(SORT_TYPE.RELEVANCE);
+    const [sortTypes, setSortTypes] = useState(sortTypeList)
+
+    useEffect(() => {
+        if (sortFilterChangeHandler) {
+            sortFilterChangeHandler(sortTypes.find(s => s.checked)?.type)
+        }
+    }, [sortTypes])
+
     return (
         <div className={`filter ${opened && 'opened'}`} onClick={() => setOpened(!opened)}>
             <div className="filter-lable">
@@ -183,9 +206,31 @@ function SortFilter({ sortFilterChangeHandler, expanded = false }) {
                 <span>Sort</span>
             </div>
             <div className="filter-content">
-
-                <Checkbox text="Price Low to High" />
-                <Checkbox text="Price High to Low" />
+                {
+                    sortTypes.map((s, i) => (
+                        <Checkbox key={i} text={s.text} isChecked={s.checked}
+                            onCheck={(checked) => {
+                                if (checked) {
+                                    setSortTypes([...sortTypes.map(so => {
+                                        if (s.type === so.type) {
+                                            so.checked = true;
+                                        } else {
+                                            so.checked = false;
+                                        }
+                                        return so;
+                                    })])
+                                } else {
+                                    setSortTypes([...sortTypes.map(so => {
+                                        if (so.type === s.type) {
+                                            so.checked = false;
+                                        }
+                                        return so;
+                                    })])
+                                }
+                            }}
+                        />
+                    ))
+                }
 
             </div>
         </div>
