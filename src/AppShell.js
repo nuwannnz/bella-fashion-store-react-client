@@ -16,6 +16,7 @@ import RadioButtons from "./components/customer/RadioButtons";
 
 import PopupContainer from "./components/common/PopupContainer";
 import ToastManger from "./components/common/ToastManager";
+import SliderOffers from "./components/customer/SliderOffers";
 
 
 function AppShell() {

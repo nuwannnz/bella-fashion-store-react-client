@@ -11,6 +11,7 @@ import AddToCartButton from "./AddToCartButton";
 import AddToWishlistButton from "./AddToWishlistButton";
 import '../../styles/common/SelectBox.css';
 import { RadioGroup, RadioButton, ReversedRadioButton } from 'react-radio-buttons';
+import TextBox from '../common/TextBox';
 
 
 export default function SingleProduct({productId}) {
@@ -22,7 +23,7 @@ export default function SingleProduct({productId}) {
   const[id, setID] = useState("");
   const [brand, setBrand] = useState([]);
   const [brandName, setBrandName] = useState("")
-  const [selectedSize, setSelectedSize] = useState([]);
+  const [selectedSize, setSelectedSize] = useState(null);
   const products = useSelector(state => state.product.products);
   
   
@@ -91,7 +92,7 @@ export default function SingleProduct({productId}) {
   }
 
   return (
-    <div class="container-fluid">
+    <div class="container-fluid" style={{position: 'relative'}}>
 
       {selectedProduct && (
         <div>
@@ -185,28 +186,28 @@ export default function SingleProduct({productId}) {
                    
               <hr />
               <p>
-                <b>Availability : </b>
-                  {selectedSize.qty > 0 ? <b style={{color: 'green'}}>{selectedSize && selectedSize.qty} In Stock</b> : <b style={{color: 'red'}}>Not Available</b>} 
+                <b>Availability : </b>{" "}
+                  {selectedSize === null ? <b>Please select a size</b> : <p>{selectedSize.qty > 0 ? <b style={{color: 'green'}}>{selectedSize && selectedSize.qty} In Stock</b> : <b style={{color: 'red'}}>Not Available</b>}</p> }
               </p>
               <p>
-                <b>Condition : </b>New
+                <b>Tags : </b>{" "}{selectedProduct.tags}
               </p>
               <p>
-                <b>Brand : </b>
+                <b>Brand : </b>{" "}
                 <img className="viewimg" src={brand && brand.images} />
                 {}
               </p>
               <label>
                 <b>Quantitiy : </b>{" "}
               </label>
-              <input
-                type="number"
-                value="1"
-                onChange={(e) => setQty(e.target.value)}
-              />
-              {/* <button type="button" class="btn btn-default cart">
-                Add to Cart
-              </button> */}
+              <div className="col-md-2">
+                  <TextBox 
+                  type="number"
+                  placeholder="QTY"
+                  onChange={(e) => setQty(e.target.value)}
+                  />
+                </div>
+           
 
               <AddToCartButton
                 productId={selectedProduct._id}

@@ -181,7 +181,7 @@ export const productDeleted = (product) => ({
     formData) {
     return async (dispatch, getState) => {
   
-      console.log(formData)
+      console.log(formData.get('images[]'));
         dispatch(productsLoading(true))
       // get state from the state
       const { token } = getState().staffLogin.auth;
