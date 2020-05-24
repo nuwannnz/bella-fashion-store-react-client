@@ -19,6 +19,7 @@ import ReplyCustomerInquiryForm from "../../components/customer/ReplyCustomerInq
 import ForgotPwdEmailPage from "./ForgotPwdEmailPage";
 import ForgotPwdVerifyPage from "./ForgotPwdVerifyPage";
 import ForgotPwdNewPwdPage from "./ForgotPwdNewPwdPage";
+import ProductReviewForm from "./product-review/ProductReviewForm";
 
 export default function CustomerShell() {
   const dispatch = useDispatch();
@@ -33,7 +34,9 @@ export default function CustomerShell() {
     registerPopup(POPUP_KEYS.ADDRESS_POPUP, CustomerDashboardAddressForm);
     registerPopup(POPUP_KEYS.INQUIRY_POPUP, CustomerDashboardInquiryForm);
     registerPopup(POPUP_KEYS.CUSTOMER_INQUIRY_POPUP, CustomerInquiryForm);
-  }, []);
+    registerPopup(POPUP_KEYS.PRODUCT_REVIEW_POPUP, ProductReviewForm);
+
+  }, [])
 
   useEffect(() => {
     // set ui to loading

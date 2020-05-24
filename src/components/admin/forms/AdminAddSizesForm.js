@@ -7,12 +7,14 @@ import AccentButton from '../../common/AccentButton';
 import { sizesLoadedAsync } from '../../../redux/actions/admin-panel/size.actions';
 import { clearProductsAddedSuccessMsg } from '../../../redux/actions/admin-panel/product.actions';
 import SuccessMessage from '../../common/SuccessMessage';
+import LoadingScreen from 'react-loading-screen';
 
 export default function AdminAddSizesForm({onAddSizeClick}) {
     const dispatch = useDispatch();
 
     const errorMsg = useSelector(state => state.product.errorMsg);
     const successMsg = useSelector(state => state.product.successMsg)
+    const loading = useSelector(state => state.size.loading);
 
     console.log(successMsg)
   
@@ -56,6 +58,14 @@ export default function AdminAddSizesForm({onAddSizeClick}) {
     }
         return (
             <div className="modal-style">
+                <LoadingScreen
+                        loading={loading}
+                        bgColor='#f1f1f1'
+                        spinnerColor='#8c52ff'
+                        textColor='#8c52ff'
+                        
+                        text='Loading.. Please wait'
+                        > 
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-12">
@@ -105,7 +115,7 @@ export default function AdminAddSizesForm({onAddSizeClick}) {
             }</div>
 
             <AccentButton onButtonClick={submitForm} text="ADD" />
-
+            </LoadingScreen>
             </div>
         )
     

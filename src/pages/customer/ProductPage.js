@@ -7,21 +7,24 @@ import {
   productsLoadedAsync,
 } from "../../redux/actions/admin-panel/product.actions";
 import { useParams } from "react-router-dom";
+import ProductReviewList from "./product-review/ProductReviewList";
 
 export default function ProductPage() {
   const dispatch = useDispatch();
 
   let { productId } = useParams();
 
-  console.log(productId)
+
 
   useEffect(() => {
     dispatch(productsLoadedAsync());
+    console.log(productId)
   }, []);
 
   return (
     <div className="container-fluid">
-      <SingleProduct productId = {productId}/>
+      <SingleProduct productId={productId} />
+      <ProductReviewList productId={productId} />
       <OffersSlider />
     </div>
   );

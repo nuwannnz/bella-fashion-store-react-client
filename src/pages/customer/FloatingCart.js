@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import '../../styles/FloatingCart.css';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { capitalizeString } from "../../helpers/string.helper";
 import { toggleCartBar, toggleDisplayCheckout } from '../../redux/actions/ui.actions';
 import { removeProductFromCartAsync } from "../../redux/actions/customer/cart.actions";
 
@@ -25,7 +25,7 @@ export const CartItem = ({ product, size, qty }) => {
                     <span style={{ fontWeight: '500' }} >x</span>
                     <div>
 
-                        <span className="product-name-span" >{`${product.name} (${size})`}</span>
+                        <span className="product-name-span" >{`${product.name}`} <span className="product-size-span">{`(${capitalizeString(size)})`}</span></span>
 
                     </div>
                 </div>

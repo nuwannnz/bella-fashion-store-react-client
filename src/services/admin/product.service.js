@@ -53,46 +53,17 @@ export const addProduct = async (
   //update products
   export const updateProduct = async ( 
     token,
-    _id,
-    name,
-    sizeQty,
-    brand,
-    category,
-    subCategory,
-    price,
-    discount,
-    colors,
-    tags,
-    description) => {
+    formData) => {
       
-      console.log(_id,
-        name,
-        sizeQty,
-        brand,
-        category,
-        subCategory,
-        price,
-        discount,
-        colors,
-        tags,
-        description)
+      console.log(formData)
 
     const config = getAuthHeader(token)
     const path = `${API_HOST}/products`;
-    const data = { _id,
-      name,
-      sizeQty,
-      brand,
-      category,
-      subCategory,
-      price,
-      discount,
-      colors,
-      tags,
-      description };
+    const data = {formData};
     //const config = getAuthHeader(token);
       console.log(data)
     const result = new APIResult();
+    config.headers['Content-Type'] = 'multipart/form-data'
   
     try {
       const response = await axios.put(path, data, config);
