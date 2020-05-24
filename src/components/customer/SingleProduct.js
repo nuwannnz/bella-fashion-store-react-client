@@ -210,7 +210,7 @@ export default function SingleProduct({ productId }) {
               <AddToCartButton
                 productId={selectedProduct._id}
                 qty={qty}
-                size={selectedSize}
+                size={selectedSize?.size}
               />
 
               <AddToWishlistButton

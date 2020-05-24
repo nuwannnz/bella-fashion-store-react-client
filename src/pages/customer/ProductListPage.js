@@ -33,7 +33,7 @@ export const ProductInfoCard = ({ product }) => {
                 {/* IMPORTANT TODO: 
                     In here the size and qty is only given for testing, remove them in production   
                     */}
-                <AddToCartButton productId={product._id} size="S" qty={2} />
+                <AddToCartButton productId={product._id} expandedMode={false} />
 
             </div>
 

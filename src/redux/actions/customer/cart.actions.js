@@ -6,6 +6,8 @@ import {
   clearCart,
   checkoutCart,
 } from "../../../services/customer/cart.service";
+import { displayToastAsync } from "../toast.actions";
+import { buildNotification, NOTIFICATION_TYPE } from "../../../services/customer/notification.service";
 
 export const CART_ACTION_TYPES = {
   CART_ITEMS_LOAD_REQUEST: "CART_ITEMS_LOAD_REQUEST",
@@ -67,8 +69,12 @@ export function addProductToCartAsync(productId, size, qty) {
 
     if (result.isResultOk()) {
       dispatch(success(result.data.addedEntry));
+      dispatch(displayToastAsync(buildNotification("Item added to the cart successfully", NOTIFICATION_TYPE.SUCCESS)))
+      return true;
     } else {
       dispatch(failure(result.errorMessage));
+      dispatch(displayToastAsync(buildNotification(result.errorMessage, NOTIFICATION_TYPE.ERROR)))
+      return false;
     }
   };
 
@@ -123,8 +129,12 @@ export function removeProductFromCartAsync(productId, size) {
 
     if (result.isResultOk()) {
       dispatch(success(productId));
+      dispatch(displayToastAsync(buildNotification("Removed item from cart successfully", NOTIFICATION_TYPE.SUCCESS)))
+      return true;
     } else {
       dispatch(failure(result.errorMessage));
+      dispatch(displayToastAsync(buildNotification("Failed to remove item from the cart", NOTIFICATION_TYPE.ERROR)))
+      return false;
     }
   };
 
