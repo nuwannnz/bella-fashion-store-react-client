@@ -59,7 +59,7 @@ const UserEntry = ({
         <span class="badge badge-info">{capitalizeString(user.role.name)}</span>
       </td>
       <td>
-        <button className="btn btn-sm btn-light" onClick={handleUpdateClick}>
+        <button className="btn btn-sm btn-light mr-1" onClick={handleUpdateClick}>
 
           <i className="fas fa-pen"></i>
 

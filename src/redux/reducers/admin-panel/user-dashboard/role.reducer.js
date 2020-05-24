@@ -31,7 +31,7 @@ export const roles = (state = initialState, action) => {
 
     case ROLE_ACTION_TYPES.ADD_SUCCESS:
       return {
-        items: [action.payload, ...state.items.filter((item) => !item.adding)],
+        items: [...state.items, action.payload],
       };
 
     case ROLE_ACTION_TYPES.ADD_FAILURE:

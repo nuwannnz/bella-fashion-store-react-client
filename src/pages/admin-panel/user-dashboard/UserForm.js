@@ -103,6 +103,7 @@ export function UserForm({ closeFormClickHandler, userToUpdate, closePopup }) {
             title="Role"
             onItemSelected={handleRoleSelected}
             optionValues={roles.items.map((role) => role.name)}
+            selectedItem={userToUpdate ? userToUpdate.role?.name : null}
             placeholder="Select a role"
           />
         )}
