@@ -44,7 +44,7 @@ export default function SliderOffers () {
     dots: true,
   infinite: false,
   speed: 300,
-  slidesToShow: 4,
+  slidesToShow: 5,
   slidesToScroll: 4,
   responsive: [
     {
@@ -84,11 +84,11 @@ export default function SliderOffers () {
           <div calssName="offers-container" style={{backgroundColor: '#F2EBFF', borderRadius: '1em'}}>
             <h1 style={{textAlign: 'center', fontStyle: 'italic', fontFamily: 'cursive', color: '#8c52ff'}}>Offers Available At Bella Fashion</h1>
             <Slider {...settings}>
-              {checkOffers()}
-            {obj.map((product) => (
-          <div>
-            <ProductInfoCard product = {product} />
-          </div>
+                {checkOffers()}
+                {obj.map((product) => (
+            <div>
+              <ProductInfoCard product = {product} />
+            </div>
             ))}
           </Slider>
           </div>

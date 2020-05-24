@@ -76,6 +76,7 @@ export default function SingleProduct({productId}) {
       return false;
     }
   };
+  
   const checkNew = (date) => {
     const msDiff = new Date().getTime() - new Date(date).getTime();   //Future date - current date
     const difference = Math.floor(msDiff / (1000 * 60 * 60 * 24));
@@ -86,7 +87,9 @@ export default function SingleProduct({productId}) {
 		} else {
 			return true;
 		}
-	}
+  }
+  
+
 	const totalPrice =(discount, price) => {
 		return price - discount;
   }
@@ -110,14 +113,14 @@ export default function SingleProduct({productId}) {
                 <div class="carousel-item active">
                   <img className="single-img" style={{maxHeight: '800px',maxWidth: '500px', borderRadius: '1em'}} src={selectedProduct.images[0]} class="d-block w-100" alt={selectedProduct.name} />
                 </div>
-
-                <div class="carousel-item">
+                {selectedProduct.images[1] ? <div class="carousel-item">
                   <img className="single-img" style={{maxHeight: '800px',maxWidth: '500px', borderRadius: '1em'}} src={selectedProduct.images[1]} class="d-block w-100" alt="..." />
-                </div>
-
-                <div class="carousel-item">
+                </div> : "" }
+               
+                {selectedProduct.images[2] ? <div class="carousel-item">
                   <img className="single-img"  style={{maxHeight: '800px',maxWidth: '500px' , borderRadius: '1em'}}src={selectedProduct.images[2]} class="d-block w-100" alt="..." /> 
-                </div>
+                </div> : ""}
+                
                   
                   
                 </div>
