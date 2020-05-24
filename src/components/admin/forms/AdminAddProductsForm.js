@@ -496,24 +496,8 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                     <ErrorMessage msg={errorMsg} />
 
                     : null
-}
-{
-                validInput !== null && validInput.length > 0 ?
-                    <SuccessMessage msg={validInput} />
-
-                    : null
                 }
-
-
-
-            {errorMsg.length > 0 ?
-                <ErrorMessage msg={errorMsg} />
-                : null
-            }
-            {successMsg.length > 0 ?
-                <SuccessMessage msg={successMsg} />
-                : null
-            }</div>
+            </div>
             </LoadingScreen>
             <hr />
             <AccentButton isLoading={loading} onButtonClick={submitForm} text="ADD" />

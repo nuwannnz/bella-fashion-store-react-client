@@ -48,7 +48,11 @@ export default function AdminProductPage() {
                               productData, history
 
                                 
-                            ))}
+                            )).then(success => {
+                                if(success) {
+                                    setOpen(false);
+                                }
+                            })}
                             
                             onAddBrandClick = {(bname) => dispatch(addBrandAsync(bname,history)) }/></div>
                     </Modal>

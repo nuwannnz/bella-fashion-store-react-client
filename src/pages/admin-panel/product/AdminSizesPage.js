@@ -33,7 +33,11 @@ export default function AdminSizesPage() {
                 <button className="button buttonAdd" onClick={onOpenModal}><i className="fa fa-plus-circle"></i> ADD NEW SIZE TO THE SYSTEM</button>
                 <Modal open={open} onClose={onCloseModal} center>
                     <div><AdminAddSizesForm
-                          onAddSizeClick = {(sizeData) => dispatch(addSizeAsync(sizeData,history)) }/></div>
+                          onAddSizeClick = {(sizeData) => dispatch(addSizeAsync(sizeData,history)).then(success => {
+                            if(success) {
+                                setOpen(false);
+                            }
+                        })}/></div>
                     </Modal>
                     <hr />
                     <br />
