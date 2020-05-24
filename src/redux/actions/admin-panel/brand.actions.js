@@ -49,12 +49,13 @@ export const BRAND_ACTION_TYPES = {
           dispatch(brandsAdded(result.data.addedEntry))
           dispatch(brandsLoading(false))
           dispatch(displayToastAsync(buildNotification("Brand Added Successfully", NOTIFICATION_TYPE.SUCCESS)))
+          return true;
         } else {
           // display error notification
           console.log("error");
           dispatch(brandsLoading(false))
           dispatch(displayToastAsync(buildNotification("Brand is add to delete", NOTIFICATION_TYPE.ERROR)))
-          return;
+          return false;
         }
       }
   }

@@ -72,10 +72,10 @@ export default function BrandList() {
                <table class="table table-bordered">
                 <thead class="thead-light">
                    <tr>
-                       <td>Brand ID</td>
-                       <td>Brand Logo</td>
-                        <td>Brand Name</td>
-                        <td>Actions</td>
+                       <td><b>Brand ID</b></td>
+                       <td><b>Brand Logo</b></td>
+                        <td><b>Brand Name</b></td>
+                        <td><b>Actions</b></td>
 
                      </tr>
 

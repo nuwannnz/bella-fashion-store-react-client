@@ -9,15 +9,12 @@ import { brandsLoadedAsync } from '../../../redux/actions/admin-panel/brand.acti
 import { categoriesAsync } from '../../../redux/actions/admin-panel/category.actions'
 import { clearProductsAddedSuccessMsg } from '../../../redux/actions/admin-panel/product.actions';
 import { ChromePicker } from 'react-color'
-import InputColor from 'react-input-color';
 import '../../../styles/common/SelectBox.css'
-import logo from '../../../assets/new-logo-cropped.png'
-
 import '../../../styles/common/IconButton.css'
 import SuccessMessage from '../../common/SuccessMessage';
 import { sizesLoadedAsync } from '../../../redux/actions/admin-panel/size.actions';
 import LoadingScreen from 'react-loading-screen';
-
+import '../../../styles/product.css'
 
 
 
@@ -25,19 +22,19 @@ import LoadingScreen from 'react-loading-screen';
 export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}) {
 
     const dispatch = useDispatch();
+    //redux state
     const brands = useSelector(state => state.brand.brands);
     const categories = useSelector(state => state.category.categories );
     const sizes = useSelector(state => state.size.sizes );
-    console.log(categories)
     const errorMsg = useSelector(state => state.product.errorMsg);
     const successMsg = useSelector(state => state.product.successMsg)
     const loading = useSelector(state => state.product.loading)
-
-    console.log(successMsg)
   
    const [showColorPicker, setshowColorPicker] = useState(false) 
    const [addSizes, setAddSizes] = useState([])
+   const [enteredSize, setEnteredSize] = useState("");
 
+   //form details
     const [name, setName] = useState("");
     const [size, setSize] = useState("");
     const [qty, setQty] = useState("");
@@ -50,11 +47,13 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
     const [tags, setTags] = useState("");
     const [description, setDescription] = useState("");
     const [sizeQty, setSizeQty] = useState([])
-    console.log(sizeQty)
     const [images, setImages] = useState([]);
-    const [subSelectedCategories, setSubCategories] = useState([{_id:'', subcategory:[{_id:'', name:''}], name: ''}]);
 
-    const [bname, setBrandname] = useState("");
+
+    //verifications
+    const [invalidInput, setInvalidInput] = useState("");
+    const [validInput, setValidInput] = useState("");
+
 
     
     const submitSizeQty = () => {
@@ -71,9 +70,9 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
         }
     }
 
-    console.log(addSizes)
 
-    const [enteredSize, setEnteredSize] = useState("");
+
+   
 
     const AddSizes = () => {
         if(isEmpty(enteredSize)) {
@@ -87,30 +86,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
         }
     }
 
-        const changeSubs = () => {
-            const id = category
-            console.log("id is "+id)
-            const _selectedProduct = categories.find(p => p._id === id);
-            setSubCategories(_selectedProduct);
-        
-        }
-        
-
-    const [invalidInput, setInvalidInput] = useState("");
-    const [validInput, setValidInput] = useState("");
-
-  
-
-    const submitBrand = () => {
-        if (isEmpty(bname)) {
-            setInvalidInput("brand name is required");
-        } else {
-            setInvalidInput("");
-            onAddBrandClick(bname);
-        }
-
-
-    }
+    //use effects
     useEffect(() => {
         dispatch(brandsLoadedAsync());
 
@@ -123,7 +99,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
     }, [])
 
 
-
+    //image handlers
     const handleImages = (image, index) => {
         if (index === images.length) {
             setImages([...images, ...image]);
@@ -142,7 +118,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
         console.log(error);
     }
 
-
+    //removing data from sizeQty array
     const removeData = (index) => {
         console.log(index)
         const newArray = sizeQty
@@ -154,7 +130,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
 
     }
 
-          
+         //submiting the form 
         const submitForm = async () => {  
          
         if (isEmpty(name)) {
@@ -363,7 +339,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                         <div className="select-box">
 
 
-                            <select onChange={e => { setCategory(e.target.value); console.log(e.target.value); changeSubs() }}>
+                            <select onChange={e => { setCategory(e.target.value); }}>
                             <option className="default-option"  value="-1">- pick a category -</option>
                                 {categories.map( category => (
                                     <option value={category._id}>{category.name}</option>
@@ -376,7 +352,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                     <div className="col-md-6">
                         <label>Select Sub-Category :</label>
                         <div className="select-box">
-                            <select onChange={e => { setSubCategory(e.target.value); console.log(e.target.value);  }}>
+                            <select onChange={e => { setSubCategory(e.target.value); }}>
                             <option className="default-option"  value="-1">- pick a sub category -</option>
 
                                 {
@@ -507,6 +483,7 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
 
                     </div>
                 </div>
+                <hr />
 
                 {
                     invalidInput !== null && invalidInput.length > 0 ?
@@ -519,26 +496,10 @@ export default function AdminAddProductsForm({onAddProductClick,onAddBrandClick}
                     <ErrorMessage msg={errorMsg} />
 
                     : null
-}
-{
-                validInput !== null && validInput.length > 0 ?
-                    <SuccessMessage msg={validInput} />
-
-                    : null
                 }
-
-
-
-            {errorMsg.length > 0 ?
-                <ErrorMessage msg={errorMsg} />
-                : null
-            }
-            {successMsg.length > 0 ?
-                <SuccessMessage msg={successMsg} />
-                : null
-            }</div>
-            {loading ? "Loading......" : ""}
+            </div>
             </LoadingScreen>
+            <hr />
             <AccentButton isLoading={loading} onButtonClick={submitForm} text="ADD" />
                 
             </div>
