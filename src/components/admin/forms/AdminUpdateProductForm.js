@@ -17,7 +17,7 @@ import '../../../styles/product.css'
 import LoadingScreen from 'react-loading-screen';
 
 
-export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrandClick,pid,model}) {
+export default function AdminUpdateProductForm({onUpdateProductClick,pid,model}) {
 
     const dispatch = useDispatch();
 
@@ -39,22 +39,15 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
     const [sizeQty, setSizeQty] = useState([])
     const [showColorPicker, setshowColorPicker] = useState(false) 
 
-    const [_id, setId] = useState("");
-    const [name, setName] = useState("");
     const [size, setSize] = useState("");
     const [qty, setQty] = useState("");
-    const [brand, setBrand] = useState("");
-    const [category, setCategory] = useState("");
-    const [subCategory, setSubCategory] = useState("");
-    const [price, setPrice] = useState("");
-    const [discount, setDiscount] = useState("");
+
     const [colors, setColors] = useState(model.colors);
-    const [tags, setTags] = useState("");
-    const [description, setDescription] = useState("");
+
     const [images, setImages] = useState(model.images.map(i=>({src:{base64:i}}))); 
     const [subSelectedCategories, setSubCategories] = useState([]);
 
-    const [bname, setBrandname] = useState("");
+
 
     const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -114,11 +107,6 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
         setProduct({...product});
     } 
 
-    const handleColorChanged = (color) => {
-        product.color = color
-        setProduct({...product});
-    } 
-
     const handleTagsChanged = (tags) => {
         product.tags = tags
         setProduct({...product});
@@ -141,7 +129,7 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
         }
 
     }
-        
+     //use effects   
     useEffect(()=>{
 		const id = pid;
 		const _selectedProduct = products.find(p => p._id === id);
@@ -180,7 +168,7 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
     useEffect(() => {
         dispatch(sizesLoadedAsync())
     }, [])
-   
+   //-------------------------------------------
 
 //Image handlers
     const handleImages = (image, index) => {
@@ -530,27 +518,8 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
                 </div>
                 <hr />
 
-{
-                invalidInput !== null && invalidInput.length > 0 ?
-                    <ErrorMessage msg={invalidInput} />
-                    : null
-            }
-            {
-                validInput !== null && validInput.length > 0 ?
-                    <SuccessMessage msg={validInput} />
-                    : null
-}
 
-            {errorMsg.length > 0 ?
-                <ErrorMessage msg={errorMsg} />
-                : null
-            }
-                       {successMsg.length > 0 ?
-                <SuccessMessage msg={successMsg} />
-                : null
-            }
-
-            <hr />
+    
             <AccentButton onButtonClick={submitForm} text="UPDATE" />
            
            
