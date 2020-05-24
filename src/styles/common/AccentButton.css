@@ -37,7 +37,7 @@
 }
 
 .bella-accent-btn.secondary {
-  border-color: #ddd;
+  border-color: #ddd !important;
   background-color: #ddd;
   color: #333;
 }
