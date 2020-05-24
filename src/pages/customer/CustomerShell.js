@@ -72,7 +72,7 @@ export default function CustomerShell() {
           <ForgotPwdEmailPage />
         </Route>
 
-        <Route path={ROUTE_PATHS.CUSTOMER_FORGOT_PWD_VERIFY}>
+        <Route path={`${ROUTE_PATHS.CUSTOMER_FORGOT_PWD_VERIFY}/:email`}>
           <ForgotPwdVerifyPage />
         </Route>
 

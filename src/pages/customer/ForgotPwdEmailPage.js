@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../styles/customer/ForgotPwdPage.css";
 import { FaEnvelope } from "react-icons/fa";
 import { getAssetUrl } from "../../helpers/assets.helper";
 import { useHistory } from "react-router-dom";
 import { ROUTE_PATHS } from "../../constants";
+import { checkHasCustomerAsync } from "../../redux/actions/customer/customer.actions";
+import { checkEmail } from "../../services/customer/customerForgotPassword.service";
 
 export default function ForgotPwdEmailPage() {
   const history = useHistory();
 
-  const handleForgotPwdEmail = () => {
-    history.push(ROUTE_PATHS.CUSTOMER_FORGOT_PWD_VERIFY);
+  const [email, setEmail] = useState("");
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleForgotPwdEmail = async () => {
+    const result = await checkEmail(email);
+
+    if (result.isResultOk()) {
+      history.push(ROUTE_PATHS.CUSTOMER_FORGOT_PWD_VERIFY + "/" + email);
+    }
   };
 
   return (
@@ -28,7 +40,7 @@ export default function ForgotPwdEmailPage() {
           <div>
             <FaEnvelope color="#8c52ff" />
           </div>
-          <input type="email" placeholder="Email" />
+          <input type="email" placeholder="Email" onChange={handleEmail} />
         </div>
 
         <div className="send-btn">

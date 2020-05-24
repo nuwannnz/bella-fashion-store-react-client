@@ -1,14 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/customer/ForgotPwdPage.css";
 import { getAssetUrl } from "../../helpers/assets.helper";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { ROUTE_PATHS } from "../../constants";
+import { checkCode } from "../../services/customer/customerForgotPassword.service";
+import ErrorMessage from "../../components/common/ErrorMessage";
 
 export default function ForgotPwdVerifyPage() {
   const history = useHistory();
 
-  const handleForgotPwdVerifyCode = () => {
-    history.push(ROUTE_PATHS.CUSTOMER_FORGOT_PWD_NEW_PWD);
+  const { email } = useParams();
+
+  const [code, setcode] = useState("");
+  const [error, setError] = useState(false);
+
+  const handleCode = (e) => {
+    setcode(e.target.value);
+  };
+
+  useEffect(() => {
+    console.log(email);
+  }, []);
+
+  const handleForgotPwdVerifyCode = async () => {
+    const result = await checkCode(email, code);
+
+    if (result) {
+      history.push(ROUTE_PATHS.CUSTOMER_FORGOT_PWD_NEW_PWD);
+    } else {
+      throw setError(true);
+    }
   };
 
   return (
@@ -25,8 +46,10 @@ export default function ForgotPwdVerifyPage() {
         </div>
 
         <div className="verify-code">
-          <input type="text" placeholder="Enter code" />
+          <input type="text" placeholder="Enter code" onChange={handleCode} />
         </div>
+
+        {error ? <ErrorMessage msg="Code does not match" /> : null}
 
         <div className="next-btn">
           <button onClick={handleForgotPwdVerifyCode}>Next</button>

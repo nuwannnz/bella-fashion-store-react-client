@@ -1,6 +1,7 @@
 import React from "react";
 import "../../styles/customer/ForgotPwdPage.css";
 import { getAssetUrl } from "../../helpers/assets.helper";
+import { useParams } from "react-router-dom";
 
 export default function ForgotPwdNewPwdPage() {
   return (
