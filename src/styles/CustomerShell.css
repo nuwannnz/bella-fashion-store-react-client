@@ -49,13 +49,9 @@
 }
 
 .inquiry-btn {
-  box-shadow: inset 0px 1px 0px 0px #bbdaf7;
-  background: linear-gradient(to bottom, #8c52ff 5%, rgb(185, 155, 247) 100%);
   background-color: #8c52ff;
   border-radius: 20px;
-  /* border:1px solid #8C52FF; */
   border: none;
-  display: inline-block;
   cursor: pointer;
   color: #ffffff;
   font-family: Arial;
@@ -63,15 +59,12 @@
   font-weight: bold;
   padding: 10px 24px;
   text-decoration: none;
-  text-shadow: 0px 1px 0px #8c52ff;
+  box-shadow: 0 -2px 15px 0px #8c52ff;
 }
+
 .inquiry-btn:hover {
-  background: linear-gradient(to bottom, rgb(185, 155, 247) 5%, #8c52ff 100%);
-  background-color: #8c52ff;
-}
-.inquiry-btn:active {
-  position: relative;
-  top: 1px;
+  background-color: rgb(152, 90, 209);
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
 }
 
 .bella-slider-item {

@@ -17,6 +17,7 @@ import Dashboard from "./Dashboard";
 import { usePopup } from "../../hooks/Popup.hooks";
 import { UserForm } from "./user-dashboard/UserForm";
 import ViewOrderForm from "./order-dashboard/ViewOrderForm";
+import ReplyCustomerInquiryForm from "../../components/customer/ReplyCustomerInquiryForm";
 import RoleForm from "./user-dashboard/RoleForm";
 import BannerForm from "./homepage-dashboard/BannerForm";
 
@@ -30,13 +31,13 @@ function PrivateRoute({ children, ...rest }) {
         token !== null ? (
           children
         ) : (
-            <Redirect
-              to={{
-                pathname: ROUTE_PATHS.ADMIN_LOGIN,
-                state: { from: location },
-              }}
-            />
-          )
+          <Redirect
+            to={{
+              pathname: ROUTE_PATHS.ADMIN_LOGIN,
+              state: { from: location },
+            }}
+          />
+        )
       }
     />
   );
@@ -76,12 +77,14 @@ export default function AdminPanelShell() {
   });
 
   useEffect(() => {
-
     registerPopup(POPUP_KEYS.USER_POPUP, UserForm);
+    registerPopup(POPUP_KEYS.ORDER_INFO_POPUP, ViewOrderForm);
+    registerPopup(POPUP_KEYS.REPLY_INQUIRY_POPUP, ReplyCustomerInquiryForm);
     registerPopup(POPUP_KEYS.ROLE_POPUP, RoleForm);
     registerPopup(POPUP_KEYS.ADD_BANNER_POPUP, BannerForm);
 
   }, [])
+
 
   return (
     <div id="adminPanelShell" className="admin-panel-wrap">
@@ -106,4 +109,3 @@ export default function AdminPanelShell() {
     </div>
   );
 }
-

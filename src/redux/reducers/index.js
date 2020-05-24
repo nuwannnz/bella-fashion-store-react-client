@@ -20,9 +20,13 @@ import { popup } from "./popup.reducer";
 import { toast } from "./toast.reducer";
 import { order } from "./customer/order.reducer";
 import { order as adminOrder } from "./admin-panel/order.reducer";
+
+import { inquiry } from "./inquiry.reducer";
+
 import { category as customerCat } from "./customer/customer.category.reducer"
 import { review } from "./customer/review.reducer"
 import { homepage } from "./homepage.reducer";
+
 
 
 export const customerReducer = combineReducers({
@@ -38,8 +42,12 @@ export const customerReducer = combineReducers({
   toast,
   order,
   category: customerCat,
+
+  inquiry,
+
   review,
   homepage
+
 
 });
 
@@ -55,7 +63,11 @@ export const adminPanelReducer = combineReducers({
   size,
   popup,
   toast,
-  homepage
+
+  inquiry,
+
+  homepage,
+
 
 });
 
