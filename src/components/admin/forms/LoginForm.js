@@ -60,7 +60,7 @@ export default function LoginForm({ onLoginClick, forgotPwdUrl, errorMsg = "", i
       <AccentButton
         text="Login"
         onButtonClick={submitForm}
-        isLoading={isLoading} />
+      />
 
     </div>
   );

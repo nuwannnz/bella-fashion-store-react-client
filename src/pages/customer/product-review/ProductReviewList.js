@@ -31,7 +31,7 @@ export default function ProductReviewList({ productId }) {
         const purchasedProducts = [];
         orders.forEach(o => {
             o.items.forEach(item => {
-                purchasedProducts.push(item.product._id)
+                purchasedProducts.push(item.product?._id)
             })
         });
         return purchasedProducts.includes(productId);

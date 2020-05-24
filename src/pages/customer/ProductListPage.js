@@ -3,12 +3,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
 import { productsLoadedAsync } from "../../redux/actions/customer/product.actions";
 import '../../styles/ProductListPage.css'
-import { Link, useParams, useHistory } from 'react-router-dom';
+import { Link, useParams, useHistory, useLocation } from 'react-router-dom';
 import { ROUTE_PATHS } from '../../constants';
 import AddToCartButton from '../../components/customer/AddToCartButton';
 import AddToWishlistButton from '../../components/customer/AddToWishlistButton';
 import { normalizeString } from '../../helpers/input-validation.helper';
-import ProductFilterBar from '../../components/customer/ProductFilterBar';
+import ProductFilterBar, { SORT_TYPE } from '../../components/customer/ProductFilterBar';
+import { getAssetUrl } from '../../helpers/assets.helper';
 
 
 
@@ -33,7 +34,7 @@ export const ProductInfoCard = ({ product }) => {
                 {/* IMPORTANT TODO: 
                     In here the size and qty is only given for testing, remove them in production   
                     */}
-                <AddToCartButton productId={product._id} size="S" qty={2} />
+                <AddToCartButton productId={product._id} expandedMode={false} />
 
             </div>
 
@@ -54,11 +55,16 @@ export const ProductInfoCard = ({ product }) => {
     )
 }
 
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
 
 export default function ProductListPage() {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const query = useQuery();
+    const location = useLocation();
 
     const products = useSelector(state => state.product.products);
     const categories = useSelector(state => state.category.categories)
@@ -73,6 +79,21 @@ export default function ProductListPage() {
         sort: null
     })
 
+    const [searchParam, setSearchParam] = useState('');
+
+    useEffect(() => {
+        if (query.has('q')) {
+
+
+            setSearchParam(query.get('q'));
+
+            console.log(query.get('q'));
+        } else if (searchParam.length > 0) {
+            window.location.reload();
+
+        }
+    }, [query])
+
     useEffect(() => {
         if (categories.length === 0) {
             return;
@@ -82,9 +103,12 @@ export default function ProductListPage() {
             return normalizedC === categoryName
         })
 
+        // if (!category) {
+        //     // navigate to homepage
+        //     history.push(ROUTE_PATHS.CUSTOMER_SHELL);
+        //     return;
+        // }
         if (!category) {
-            // navigate to homepage
-            history.push(ROUTE_PATHS.CUSTOMER_SHELL);
             return;
         }
 
@@ -102,6 +126,9 @@ export default function ProductListPage() {
     }, [])
 
     const filterProductForCategory = (product) => {
+        if (!categoryName) {
+            return true;
+        }
         if (subCategoryName) {
             if (product.category === categoryId && product.subCategory === subCategoryId) {
                 return true;
@@ -113,6 +140,15 @@ export default function ProductListPage() {
 
         }
         return false;
+    }
+
+    const filterProductsBySeachParam = (product) => {
+        if (!searchParam) {
+            return true;
+        }
+
+        return product.name.toLowerCase().search(searchParam.toLowerCase()) !== -1
+            || product.brand.toLowerCase().search(searchParam.toLowerCase()) !== -1;
     }
 
     const filterProductByColor = (product) => {
@@ -137,8 +173,21 @@ export default function ProductListPage() {
         return filter.brand.includes(product.brand);
     }
 
+    const sortProducts = (products) => {
+        if (!filter.sort) {
+            return products;
+        }
+
+        if (filter.sort === SORT_TYPE.PRICE_HIGH_TO_LOW) {
+            return products.sort((a, b) => b.price - a.price)
+        } else if (filter.sort === SORT_TYPE.PRICE_LOW_TO_HIGH) {
+            return products.sort((a, b) => a.price - b.price)
+        }
+    }
+
     const filterProduct = (product) => {
-        return filterProductForCategory(product)
+        return filterProductsBySeachParam(product)
+            && filterProductForCategory(product)
             && filterProductByColor(product)
             && filterProductBySize(product)
             && filterProductByBrand(product)
@@ -158,7 +207,14 @@ export default function ProductListPage() {
             <div className="product-list-wrapper flex">
 
                 {
-                    products && products.filter(p => filterProduct(p)).map((p, i) => <ProductInfoCard key={i} product={p} />)
+                    products && sortProducts(products).filter(p => filterProduct(p)).map((p, i) => <ProductInfoCard key={i} product={p} />)
+                }
+
+                {
+                    products && products.length === 0 &&
+                    < div className="d-flex w-100 justify-content-center" >
+                        <img src={getAssetUrl('no-reviews.png')} style={{ width: '100%' }} />
+                    </div>
                 }
             </div>
         </div>

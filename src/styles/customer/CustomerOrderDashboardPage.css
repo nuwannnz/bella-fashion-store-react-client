@@ -42,11 +42,17 @@
   border: none;
   background-color: #8c52ff;
   color: #ffffff;
-  padding: 10px 30px;
-  border-radius: 20px;
+  padding: 15px 39px;
+  border-radius: 50px;
   font-weight: bold;
   font-size: 17px;
   cursor: pointer;
+  box-shadow: 0 4px 15px 0px #8c52ff;
+}
+
+.empty-order-card .shop-btn button:hover {
+  background-color: rgb(152, 90, 209);
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
 }
 
 .customer-order-dashboard-card-wrapper {

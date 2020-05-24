@@ -11,45 +11,43 @@ import { clearProductsUpdatedSuccessMsg } from '../../../redux/actions/admin-pan
 import SuccessMessage from '../../common/SuccessMessage';
 import { ChromePicker } from 'react-color'
 import '../../../styles/common/SelectBox.css'
-import '../../../styles/product.css'
 import '../../../styles/common/IconButton.css'
 import { sizesLoadedAsync } from '../../../redux/actions/admin-panel/size.actions';
+import '../../../styles/product.css'
+import LoadingScreen from 'react-loading-screen';
 
 
-export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrandClick,pid,model}) {
+export default function AdminUpdateProductForm({onUpdateProductClick,pid,model}) {
 
     const dispatch = useDispatch();
+
+    //redux states
     const brands = useSelector(state => state.brand.brands);
     const categories = useSelector(state => state.category.categories );
     const sizes = useSelector(state => state.size.sizes );
     const products = useSelector(state => state.product.products);
     const errorMsg = useSelector(state => state.product.errorMsg);
     const successMsg = useSelector(state => state.product.successMsg);
+    const loading = useSelector(state => state.product.loading)
 
 
     const [product, setProduct] = useState({
-        id: pid, name: model.name, brand: model.brand, category: model.category, subCategory: "", price: model.price, discount: model.discount, colors: "", tags: model.tags, description: model.description
+        _id: pid, name: model.name, brand: model.brand, category: model.category, subCategory: model.subCategory, price: model.price, discount: model.discount, colors: model.color, tags: model.tags, description: model.description
     })
 
-    const [addSizes, setAddSizes] = useState([])
+ 
     const [sizeQty, setSizeQty] = useState([])
+    const [showColorPicker, setshowColorPicker] = useState(false) 
 
-    const [_id, setId] = useState("");
-    const [name, setName] = useState("");
     const [size, setSize] = useState("");
     const [qty, setQty] = useState("");
-    const [brand, setBrand] = useState("");
-    const [category, setCategory] = useState("");
-    const [subCategory, setSubCategory] = useState("");
-    const [price, setPrice] = useState("");
-    const [discount, setDiscount] = useState("");
-    const [colors, setColors] = useState("");
-    const [tags, setTags] = useState("");
-    const [description, setDescription] = useState("");
+
+    const [colors, setColors] = useState(model.colors);
+
     const [images, setImages] = useState(model.images.map(i=>({src:{base64:i}}))); 
     const [subSelectedCategories, setSubCategories] = useState([]);
 
-    const [bname, setBrandname] = useState("");
+
 
     const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -70,14 +68,6 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
             setSizeQty([...sizeQty, {size:size, qty:qty}]);
         }
     }
-
-        const changeSubs = () => {
-            const id = category
-            console.log("id is "+id)
-            const _selectedProduct = categories.find(p => p._id === id);
-            setSubCategories(_selectedProduct);
-        
-        }
 
     //form handles
     const handleIdChanged = (pid) => {
@@ -139,7 +129,7 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
         }
 
     }
-        
+     //use effects   
     useEffect(()=>{
 		const id = pid;
 		const _selectedProduct = products.find(p => p._id === id);
@@ -157,19 +147,6 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
         }
     },[selectedProduct])
 
-  
-   
-   
-     const submitBrand =() => {
-        if(isEmpty(bname)) {
-            setInvalidInput("brand name is required");
-        } else {
-            setInvalidInput("");
-            onAddBrandClick(bname);
-        }
-
-        
-    }
     useEffect(() => {
         dispatch(brandsLoadedAsync());
         dispatch(clearProductsUpdatedSuccessMsg());
@@ -191,7 +168,9 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
     useEffect(() => {
         dispatch(sizesLoadedAsync())
     }, [])
+   //-------------------------------------------
 
+//Image handlers
     const handleImages = (image, index) => {
         if (index === images.length) {
             setImages([...images, ...image]);
@@ -211,81 +190,90 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
     }
    
 
-
+    // form submit
     const submitForm = () => {
 
-        if (isEmpty(name)) {
-            setInvalidInput("product name is required");
-            setValidInput("");
-        } else if (isEmpty(sizeQty)) {
-            setInvalidInput("product qty and sizes are required");
-            setValidInput("");
+        // if (isEmpty(product.name)) {
+        //     setInvalidInput("product name is required");
+        //     setValidInput("");
+        // } else if (isEmpty(sizeQty)) {
+        //     setInvalidInput("product qty and sizes are required");
+        //     setValidInput("");
         
-        }else if (isEmpty(brand)) {
-            setInvalidInput("product brand is required");
-            setValidInput("");
+        // }else if (isEmpty(product.brand)) {
+        //     setInvalidInput("product brand is required");
+        //     setValidInput("");
 
-        } else if (isEmpty(category)) {
-            setInvalidInput("product category is required");
-            setValidInput("");
+        // } else if (isEmpty(product.category)) {
+        //     setInvalidInput("product category is required");
+        //     setValidInput("");
 
-        }else if (isEmpty(subCategory)) {
-            setInvalidInput("product category is required");
-            setValidInput("");
+        // }else if (isEmpty(product.subCategory)) {
+        //     setInvalidInput("product category is required");
+        //     setValidInput("");
 
-        } else if (isEmpty(price)) {
-            setInvalidInput("product price is required");
-            setValidInput("");
+        // } else if (isEmpty(product.price)) {
+        //     setInvalidInput("product price is required");
+        //     setValidInput("");
 
-        } else if (isEmpty(discount)) {
-            setInvalidInput("product discount is required");
-            setValidInput("");
+        // } else if (isEmpty(product.discount)) {
+        //     setInvalidInput("product discount is required");
+        //     setValidInput("");
 
-        } else if (isEmpty(colors)) {
-            setInvalidInput("product colors is required");
-            setValidInput("");
+        // } else if (isEmpty(product.colors)) {
+        //     setInvalidInput("product colors is required");
+        //     setValidInput("");
 
-        } else if (isEmpty(tags)) {
-            setInvalidInput("product tags is required");
-            setValidInput("");
+        // } else if (isEmpty(product.tags)) {
+        //     setInvalidInput("product tags is required");
+        //     setValidInput("");
 
-        } else if (isEmpty(description)) {
-            setInvalidInput("product description is required");
-            setValidInput("");
+        // } else if (isEmpty(product.description)) {
+        //     setInvalidInput("product description is required");
+        //     setValidInput("");
 
-        }
-         else {
+        // }
+        //  else {
             setInvalidInput("");
             const formData = new FormData();
-
-            formData.append('name', name)
+            formData.append('_id', product._id)
+            formData.append('name', product.name)
 
             formData.append('sizeQty', JSON.stringify(sizeQty));
 
-            formData.append('brand', brand)
-            formData.append('category', category)
-            formData.append('subCategory', subCategory)
-            formData.append('price', price)
-            formData.append('discount', discount)
+            formData.append('brand', product.brand)
+            formData.append('category', product.category)
+            formData.append('subCategory', product.subCategory)
+            formData.append('price', product.price)
+            formData.append('discount', product.discount)
             formData.append('colors', colors)
-            formData.append('tags', tags)
-            formData.append('description', description)
+            formData.append('tags', product.tags)
+            formData.append('description', product.description)
 
             images.forEach((image, i, a) => {
                 formData.append(`images[]`, image.src.file);
             })
+
+            console.log(formData.get('images[]'));
             onUpdateProductClick(
                formData
                 
             );
             setValidInput(successMsg);
-        }
+        // }
 
 
     }
    
         return (
-            <div className="model-style">
+            <div className="model-style" style={{minWidth: '700px'}}>
+                 <LoadingScreen
+                loading={loading}
+                spinnerColor='#8c52ff'
+                textColor='#8c52ff'
+                
+                text='Loading.. Please wait'
+            > 
 
          <div className="containerForm">
          <TextBox 
@@ -294,7 +282,7 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
              label="Prodcut ID"
              animateTitle={false}
              disabled="true"
-             value={product.id}
+             value={product._id}
              onTextChange={handleIdChanged} />
             
             <div className="row">
@@ -335,6 +323,7 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
                     <button class="iconBtn" onClick={submitSizeQty}><i class="fa fa-plus"></i></button>
                     </div>
                     </div>
+                    <hr />
                     <div className="row">
                         <div className="table-responsive">
                             <table className="table table-bordered">
@@ -362,6 +351,7 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
                             </table>
                         </div>
                     </div>
+                    <hr />
                 <div className="row">
                 <div className="col-md-12">  
                     <label>Brands :</label>
@@ -378,14 +368,14 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
                     </div>
                 </div>
                 
-            
+                <hr />
             <div className="row">
                 <div className="col-md-6"> 
                     <label>Category</label>
 
                     <div className="select-box">
 
-                    <select id="leave" value={product.category} onChange={handleCategoryChanged}>
+                    <select id="leave" onChange={handleCategoryChanged}>
                      
                         {categories.map(category => (
                                     <option value={category._id}>{category.name}</option>
@@ -409,6 +399,7 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
                     </div>
             </div>
             </div>
+            <hr />
             <div className="row">
                 <div className="col-md-6"> 
                     <TextBox 
@@ -431,15 +422,25 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
                     onTextChange={handleDiscountChanged} />
                 </div>
             </div>
+            <hr />
             <div className="row">
-                <div className="col-md-6"> 
-                    <TextBox 
-                    name="product_colors"
-                    placeholder="Enter Product colors here"
-                    label="Prodcut colors"
-                    value={product.tags}
-                    onTextChange={text => setColors(text)} />
-                </div>
+            <div className="row col-md-6 color-picker">
+                   <button className="button color-btn" onClick={() => setshowColorPicker(showColorPicker => ! showColorPicker)}>
+                       {showColorPicker ? 'Close color picker' : 'Pick a Color'}
+
+                   </button>
+                   {showColorPicker && (
+                       
+                       <ChromePicker 
+                            color={colors}
+                            onChange={updatedColor => setColors(updatedColor.hex)} />
+                            
+                   )}
+                    
+
+                    <div className="view-color" style={{backgroundColor: colors}}></div>
+                    
+                    </div>
                 <div className="col-md-6"> 
                     <TextBox 
                     name="product_tags"
@@ -458,8 +459,8 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
              type="textarea"
              value={product.description}
              onTextChange={handleDescriptionChanged} />
-
-<div className="row">
+            <hr />
+            <div className="row">
                     <div class="col">
 
                         <div>
@@ -515,35 +516,17 @@ export default function AdminUpdateProductForm({onUpdateProductClick, onAddBrand
 
                     </div>
                 </div>
-
-{
-                invalidInput !== null && invalidInput.length > 0 ?
-                    <ErrorMessage msg={invalidInput} />
-                    : null
-            }
-            {
-                validInput !== null && validInput.length > 0 ?
-                    <SuccessMessage msg={validInput} />
-                    : null
-}
-
-            {errorMsg.length > 0 ?
-                <ErrorMessage msg={errorMsg} />
-                : null
-            }
-                       {successMsg.length > 0 ?
-                <SuccessMessage msg={successMsg} />
-                : null
-            }
+                <hr />
 
 
+    
             <AccentButton onButtonClick={submitForm} text="UPDATE" />
            
            
 
                 
             </div>
-          
+          </LoadingScreen>
             </div>
                 
         )

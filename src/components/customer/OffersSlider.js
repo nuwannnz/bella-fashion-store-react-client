@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ItemsCarousel from "react-items-carousel";
+
 import { productsLoadedAsync } from "../../redux/actions/admin-panel/product.actions";
 import "../../styles/offers.css";
 import {ProductInfoCard} from "../../pages/customer/ProductListPage";
@@ -35,6 +36,8 @@ export default function OffersSlider() {
   const totalPrice = (discount, price) => {
     return price - discount;
   };
+
+  
 
   return (
     <div style={{ padding: `0 ${chevronWidth}px` }}>

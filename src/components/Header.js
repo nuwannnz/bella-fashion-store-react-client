@@ -19,6 +19,7 @@ const Logo = () => (
 
 const SearchBox = ({ onSearchSubmit }) => {
   const handleKeyUp = (e) => {
+    console.log(e);
     if (e.keyCode === 13) {
       // enter pressed
       onSearchSubmit(e.target.value);
@@ -27,9 +28,9 @@ const SearchBox = ({ onSearchSubmit }) => {
 
   return (
     <div id="search-box" className="search-box-wrap">
-      <input className="search-box" placeholder="Search for items and brands" />
+      <input className="search-box" placeholder="Search for items and brands" onKeyUp={handleKeyUp} />
       <span className="search-icon">
-        <i className="fas fa-search" onKeyUp={handleKeyUp}></i>
+        <i className="fas fa-search" ></i>
       </span>
     </div>
   );
@@ -147,14 +148,14 @@ const WishlistButton = () => {
   const token = useSelector((state) => state.customer.token);
 
   const onWishlistBtnClick = () => {
-    if(token === null) {
+    if (token === null) {
       // Customer is not logged in
       history.push(ROUTE_PATHS.CUSTOMER_LOGIN);
     }
     dispatch(toggleWishlistBar());
   }
 
-  return(
+  return (
     <button className="header-btn badge-btn" style={{ marginRight: "25px" }} onClick={onWishlistBtnClick}>
       <i className="far fa-heart"></i>
       {wishlistItems && (
@@ -198,11 +199,19 @@ const MobileNavBarBtn = () => {
 };
 
 export const Header = () => {
+
+  const history = useHistory();
+
+  const handleOnSearchSubmit = (searchText) => {
+    searchText = encodeURIComponent(searchText);
+    history.push(`${ROUTE_PATHS.CUSTOMER_PRODUCT_SEARCH}?q=${searchText}`)
+  }
+
   return (
     <div className="header-wrap flex">
       <MobileNavBarBtn />
       <Logo />
-      <SearchBox />
+      <SearchBox onSearchSubmit={handleOnSearchSubmit} />
 
       <HeaderButtonGroup />
     </div>

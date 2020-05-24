@@ -17,6 +17,7 @@
   min-width: 200px;
   margin: 5px 0px;
   animation: slide-top 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+  z-index: 9999 !important;
 }
 
 .bella-toast-hiding {

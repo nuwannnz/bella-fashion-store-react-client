@@ -16,15 +16,17 @@ export default function ProductList(){
     const dispatch = useDispatch();
     const history = useHistory();
 
+    //from react redux
     const products = useSelector(state => state.product.products);
     const loading = useSelector(state => state.product.loading);
 
-
+  //hooks
     const[open,setOpen] = useState("");
     const[openView,setOpenView] = useState("");
     const[selectedId, setSelectedId] = useState("");
     const[selectedProdcut, setSelectedProduct] = useState(null);
 
+    //delete products with confirm alerts
     const deleteProducts = (pid) => {
       
         confirmAlert({
@@ -43,7 +45,7 @@ export default function ProductList(){
         });
       };
   
-    
+    //model openers
     const onOpenUpdateModal = (id) => {
       setSelectedId(id)
       setSelectedProduct(products.find(p => p._id === id));
@@ -82,12 +84,12 @@ export default function ProductList(){
                <table class="table table-bordered">
                 <thead class="thead-light">
                    <tr>
-                       <td>Item ID</td>
-                        <td>ItemName</td>
+                       <td><b>Item ID</b></td>
+                        <td><b>Item Name</b></td>
                         
-                        <td colSpan="2">Sizes and quantites</td>
+                        <td colSpan="2"><b>Sizes and Quantites</b></td>
                      
-                        <td>Actions</td>
+                        <td><b>Actions</b></td>
 
                      </tr>
 
@@ -115,7 +117,7 @@ export default function ProductList(){
                                    <button className="button buttonEdit" onClick={() => onOpenUpdateModal(product._id)}><i className="fa fa-pencil"></i></button>
                              
 
-                                        <button class="button buttonDelete" onClick={() => deleteProducts(product._id)} ><i className="fa fa-trash"></i></button> 
+                                    <button class="button buttonDelete" onClick={() => deleteProducts(product._id)} ><i className="fa fa-trash"></i></button> 
                                         
                                           
                                     </td>
@@ -145,7 +147,7 @@ export default function ProductList(){
                                 model = {selectedProdcut}
 
 
-                                onAddBrandClick = {(bname) => dispatch(addBrandAsync(bname,history)) }/></div>
+                               /></div>
                                 </Modal>
                                 <Modal open={openView} onClose={onCloseViewModal} center>
                                      <div>

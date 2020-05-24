@@ -37,6 +37,11 @@
   height: auto;
 }
 
+.slick-prev:before,
+.slick-next:before {
+    font-family:initial!important;
+    color:yellow; 
+}
 
 
 .category-card .card-img:hover {
@@ -47,4 +52,9 @@
 .category-card h5,
 .category-card h6 {
   font-family: "Trebuchet MS";
+}
+
+.offers-container {
+  background-color: #8c52ff;
+
 }

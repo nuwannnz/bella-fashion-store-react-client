@@ -10,20 +10,18 @@ import LoadingScreen from 'react-loading-screen';
 export default function SizeList() {
 
     const dispatch = useDispatch();
-    const history = useHistory();
 
+    //from redux state
     const sizes = useSelector(state => state.size.sizes);
     const loading = useSelector(state => state.size.loading);
 
-    const[open,setOpen] = useState("");
-    const[openView,setOpenView] = useState("");
-    const[selectedId, setSelectedId] = useState("");
 
     useEffect(()=>{
       dispatch(sizesLoadedAsync())
-      console.log(sizes)
   },[])
-    const deleteSizes = (pid) => {
+
+    //delete sizes with confirm alert
+    const deleteSizes = (sid) => {
       
         confirmAlert({
           title: 'Confirm to Delete the brand',
@@ -31,7 +29,7 @@ export default function SizeList() {
           buttons: [
             {
               label: 'Yes',
-              onClick: () => {dispatch(deleteSizeByID(pid))}
+              onClick: () => {dispatch(deleteSizeByID(sid))}
             },
             {
               label: 'No',
@@ -56,10 +54,10 @@ export default function SizeList() {
                     <table class="table table-bordered">
                     <thead class="thead-light">
                 <tr>
-                    <td>Size ID</td>
-                    <td>Size Name</td>
-                     <td>Size Description</td>
-                     <td>Actions</td>
+                    <td><b>Size ID</b></td>
+                    <td><b>Size Name</b></td>
+                     <td><b>Size Description</b></td>
+                     <td><b>Actions</b></td>
 
                   </tr>
 
@@ -73,7 +71,7 @@ export default function SizeList() {
                                 <td>{sizes.description}</td>
                             
                                 <td>
-                                 <button class="button buttonDelete" onClick={() => deleteSizes(sizes._id)} ><i className="fa fa-trash"></i> DELETE</button>     
+                                 <button class="button buttonDelete" onClick={() => deleteSizes(sizes._id)} ><i className="fa fa-trash"></i></button>     
                                  </td>
                             </tr> 
                         ))

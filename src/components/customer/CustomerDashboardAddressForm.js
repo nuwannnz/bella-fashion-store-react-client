@@ -7,7 +7,7 @@ import ErrorMessage from "../common/ErrorMessage";
 
 export default function CustomerDashboardAddressForm({ addressToUpdate, closePopup }) {
 
-
+    const [submitting, setSubmitting] = useState(false)
     const customers = useSelector((state) => state.customer);
     const dispatch = useDispatch();
 
@@ -73,21 +73,23 @@ export default function CustomerDashboardAddressForm({ addressToUpdate, closePop
     };
 
     const handleFormSubmit = () => {
+        setSubmitting(true)
         if (addressToUpdate) {
             dispatch(updateCustomerAddressAsync(addressToUpdate._id, address)).then((success) => {
-               if(success) {
-                closePopup();
-               }
+                if (success) {
+                    closePopup();
+                }
             });
 
         } else {
 
-            dispatch(addAddressAsync(address)).then((success)=>{
-                if(success) {
+            dispatch(addAddressAsync(address)).then((success) => {
+                if (success) {
                     closePopup();
                 }
             });
         }
+        setSubmitting(false)
     };
 
     return (
@@ -102,7 +104,7 @@ export default function CustomerDashboardAddressForm({ addressToUpdate, closePop
                     primaryActionText={
                         addressToUpdate ? "Update Address" : "Add Address"
                     }
-                    isSubmitting={customers.addingAddress}
+                    isSubmitting={submitting}
 
                 >
                     <input
@@ -110,7 +112,7 @@ export default function CustomerDashboardAddressForm({ addressToUpdate, closePop
                         placeholder="First Name"
                         value={fName}
 
-                        onChange={handleFNameChanged} 
+                        onChange={handleFNameChanged}
 
                     />
                     <input

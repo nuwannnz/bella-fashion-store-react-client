@@ -60,9 +60,9 @@
 .button {
   background-color: var(--accent-color);
   border: none;
-  border-radius: 1em;
+  border-radius: 0.5em;
   color: white;
-  padding: 15px 32px;
+  padding: 12px 12px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -207,4 +207,31 @@
   width: 25px;
   height: 25px;
   cursor: pointer;
+}
+
+.wish-list-wrapper {
+  width: 150px;
+  margin: 10px 0px;
+}
+
+.wish-list-wrapper .wish-list-wrap-btn {
+  border: none;
+  padding: 8px;
+  background-color: #8c52ff;
+  color: white;
+  border-radius: 2px;
+}
+
+.wishlist-btn {
+  background-color: #8c52ff;
+  border: none;
+  color: white;
+}
+
+.wish-list-wrapper .wish-list-wrap-btn .wishlist-btn:hover {
+  background-color: #8c52ff;
+}
+
+.wish-list-wrapper .wish-list-wrap-btn .wishlist-btn .on-hover {
+  color: #fff;
 }

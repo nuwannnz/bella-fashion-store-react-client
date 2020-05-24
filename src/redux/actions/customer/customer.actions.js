@@ -41,7 +41,9 @@ export const CUSTOMER_ACTION_TYPES = {
 
     UPDATE_CUSTOMER_PASSWORD_REQUEST: "UPDATE_CUSTOMER_PASSWORD_REQUEST",
     UPDATE_CUSTOMER_PASSWORD_SUCCESS: "UPDATE_CUSTOMER_PASSWORD_SUCCESS",
-    UPDATE_CUSTOMER_PASSWORD_FAILURE: "UPDATE_CUSTOMER_PASSWORD_FAILURE" 
+    UPDATE_CUSTOMER_PASSWORD_FAILURE: "UPDATE_CUSTOMER_PASSWORD_FAILURE",
+    
+    
 };
 
 // action creators
@@ -208,11 +210,11 @@ export function addAddressAsync(addressDto) {
 
     if(result.isResultOk()) {
       dispatch(success(result.data));
-      dispatch(displayToastAsync(buildNotification("Added address successfully", NOTIFICATION_TYPE.SUCCESS)))
+      dispatch(displayToastAsync(buildNotification("Added address successfully", NOTIFICATION_TYPE.SUCCESS)));
       return true;
     } else {
       dispatch(failure(result.errorMessage));
-      dispatch(displayToastAsync(buildNotification("Failed to add address. Please try again.", NOTIFICATION_TYPE.ERROR)))
+      dispatch(displayToastAsync(buildNotification("Failed to add address. Please try again.", NOTIFICATION_TYPE.ERROR)));
       return false;
     }
   };
@@ -372,4 +374,5 @@ export function updateCustomerPasswordAsync(currentPwd, newPwd) {
       return;
     }
   };
-}
+};
+

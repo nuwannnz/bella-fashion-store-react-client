@@ -31,7 +31,11 @@ export default function AdminBrandPage() {
                 <button className="button buttonAdd" onClick={onOpenModal}><i className="fa fa-plus-circle"></i> ADD NEW BRAND TO THE SYSTEM</button>
                 <Modal open={open} onClose={onCloseModal} center>
                     <div><AdminAddBrandsForm
-                          onAddBrandClick = {(productData) => dispatch(addBrandAsync(productData,history)) }/></div>
+                          onAddBrandClick = {(productData) => dispatch(addBrandAsync(productData,history)).then(success => {
+                            if(success) {
+                                setOpen(false);
+                            }
+                        })}/></div>
                     </Modal>
                     <hr />
                     <br />
