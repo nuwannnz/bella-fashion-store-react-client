@@ -71,7 +71,7 @@ export default function SingleProduct({ productId }) {
       return false;
     }
   };
-  
+
   const checkNew = (date) => {
     const msDiff = new Date().getTime() - new Date(date).getTime(); //Future date - current date
     const difference = Math.floor(msDiff / (1000 * 60 * 60 * 24));
@@ -89,7 +89,7 @@ export default function SingleProduct({ productId }) {
   }
 
   return (
-    <div class="container-fluid" style={{position: 'relative'}}>
+    <div class="container-fluid" style={{ position: 'relative' }}>
 
       {selectedProduct && (
         <div>
@@ -101,17 +101,17 @@ export default function SingleProduct({ productId }) {
                 <div class="carousel-inner" >
 
 
-                <div class="carousel-item active">
-                  <img className="single-img" style={{maxHeight: '800px',maxWidth: '500px', borderRadius: '1em'}} src={selectedProduct.images[0]} class="d-block w-100" alt={selectedProduct.name} />
-                </div>
-                {selectedProduct.images[1] ? <div class="carousel-item">
-                  <img className="single-img" style={{maxHeight: '800px',maxWidth: '500px', borderRadius: '1em'}} src={selectedProduct.images[1]} class="d-block w-100" alt="..." />
-                </div> : "" }
-               
-                {selectedProduct.images[2] ? <div class="carousel-item">
-                  <img className="single-img"  style={{maxHeight: '800px',maxWidth: '500px' , borderRadius: '1em'}}src={selectedProduct.images[2]} class="d-block w-100" alt="..." /> 
-                </div> : ""}
-   
+                  <div class="carousel-item active">
+                    <img className="single-img" style={{ maxHeight: '800px', maxWidth: '500px', borderRadius: '1em' }} src={selectedProduct.images[0]} class="d-block w-100" alt={selectedProduct.name} />
+                  </div>
+                  {selectedProduct.images[1] ? <div class="carousel-item">
+                    <img className="single-img" style={{ maxHeight: '800px', maxWidth: '500px', borderRadius: '1em' }} src={selectedProduct.images[1]} class="d-block w-100" alt="..." />
+                  </div> : ""}
+
+                  {selectedProduct.images[2] ? <div class="carousel-item">
+                    <img className="single-img" style={{ maxHeight: '800px', maxWidth: '500px', borderRadius: '1em' }} src={selectedProduct.images[2]} class="d-block w-100" alt="..." />
+                  </div> : ""}
+
                 </div>
 
                 <a
@@ -144,8 +144,8 @@ export default function SingleProduct({ productId }) {
               {checkNew(selectedProduct.addedDate) ? (
                 <p class="newarrival text-center">NEW</p>
               ) : (
-                ""
-              )}
+                  ""
+                )}
 
               <h2 style={{ textTransform: "uppercase" }}>
                 {selectedProduct.name}
@@ -171,14 +171,14 @@ export default function SingleProduct({ productId }) {
                   )}
                 />
               ) : (
-                <CurrencyFormat
-                  value={selectedProduct.price}
-                  displayType={"text"}
-                  thousandSeparator={true}
-                  prefix={""}
-                  renderText={(value) => <p class="price">LKR. {value} </p>}
-                />
-              )}
+                  <CurrencyFormat
+                    value={selectedProduct.price}
+                    displayType={"text"}
+                    thousandSeparator={true}
+                    prefix={""}
+                    renderText={(value) => <p class="price">LKR. {value} </p>}
+                  />
+                )}
 
               <RadioGroup onChange={RadioOnChange} horizontal>
                 {selectedProduct.sizeQty.map((s) => (
@@ -192,7 +192,7 @@ export default function SingleProduct({ productId }) {
               <p>
 
                 <b>Availability : </b>{" "}
-                  {selectedSize === null ? <b>Please select a size</b> : <p>{selectedSize.qty > 0 ? <b style={{color: 'green'}}>{selectedSize && selectedSize.qty} In Stock</b> : <b style={{color: 'red'}}>Not Available</b>}</p> }
+                {selectedSize === null ? <b>Please select a size</b> : <p>{selectedSize.qty > 0 ? <b style={{ color: 'green' }}>{selectedSize && selectedSize.qty} In Stock</b> : <b style={{ color: 'red' }}>Not Available</b>}</p>}
 
               </p>
               <p>
@@ -207,13 +207,13 @@ export default function SingleProduct({ productId }) {
                 <b>Quantitiy : </b>{" "}
               </label>
               <div className="col-md-2">
-                  <TextBox 
+                <TextBox
                   type="number"
                   placeholder="QTY"
                   onChange={(e) => setQty(e.target.value)}
-                  />
-                </div>
-           
+                />
+              </div>
+
 
               <AddToCartButton
                 productId={selectedProduct._id}
@@ -221,13 +221,14 @@ export default function SingleProduct({ productId }) {
                 size={selectedSize?.size}
               />
               <div className="wish-list-wrapper">
-                <button className="wish-list-wrap-btn">
-                  <AddToWishlistButton
-                    className="wish-list"
-                    productId={selectedProduct._id}
-                  />
-                  {"Add to Wishlist"}
-                </button>
+
+                <AddToWishlistButton
+                  className="wish-list"
+                  expanded={true}
+                  productId={selectedProduct._id}
+                />
+
+
               </div>
             </div>
           </div>

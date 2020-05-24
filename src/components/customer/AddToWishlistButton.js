@@ -5,8 +5,9 @@ import { ROUTE_PATHS } from "../../constants";
 import { addProductToWishlistAsync } from "../../redux/actions/customer/wishlist.action";
 import { displayToastAsync } from "../../redux/actions/toast.actions";
 import { buildNotification, NOTIFICATION_TYPE } from "../../services/customer/notification.service";
+import AccentButton from "../common/AccentButton";
 
-export default function AddToWishlistButton({ productId }) {
+export default function AddToWishlistButton({ productId, expanded = false }) {
     const dispatch = useDispatch();
     const { token } = useSelector((state) => state.customer);
     const { items } = useSelector((state) => state.wishlist);
@@ -29,9 +30,15 @@ export default function AddToWishlistButton({ productId }) {
         dispatch(addProductToWishlistAsync(productId));
     };
     return (
-        <button className="wishlist-btn" onClick={onClickHandler}>
-            <i class="on-hover fas fa-heart"></i>
-            <i class="default far fa-heart"></i>
-        </button>
+        expanded ? (<AccentButton onButtonClick={onClickHandler}>
+            <div className="d-flex justify-space-between align-items-center">
+                <i class="on-hover fas fa-heart mr-1"></i>
+                <span>Add to wishlist</span>
+            </div>
+        </AccentButton>) :
+            (<button className="wishlist-btn" onClick={onClickHandler}>
+                <i class="on-hover fas fa-heart"></i>
+                <i class="default far fa-heart"></i>
+            </button>)
     );
 }
