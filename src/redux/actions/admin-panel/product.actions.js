@@ -115,12 +115,14 @@ export const productDeleted = (product) => ({
               dispatch(productsAdded(result.data.addedEntry))
               dispatch(productsLoading(false))
               dispatch(displayToastAsync(buildNotification("Product Added Successfully", NOTIFICATION_TYPE.SUCCESS)))
+              return true;
             } else {
               // display error notification
               dispatch(productsAddedSuccessMsg("Product is Failed to Add!!"))
               console.log("error");
               dispatch(displayToastAsync(buildNotification("Product is failed to Added", NOTIFICATION_TYPE.ERROR)))
               dispatch(productsLoading(false))
+              return false;
             }
            
 
@@ -181,7 +183,7 @@ export const productDeleted = (product) => ({
     formData) {
     return async (dispatch, getState) => {
   
-      console.log(formData)
+      console.log(formData.get('images[]'));
         dispatch(productsLoading(true))
       // get state from the state
       const { token } = getState().staffLogin.auth;
@@ -202,6 +204,7 @@ export const productDeleted = (product) => ({
          dispatch(productsUpdatedSuccessMsg("Product is Updated Successfully!!"));
          dispatch(productsLoading(false))
          dispatch(displayToastAsync(buildNotification("Product is updated Successfully", NOTIFICATION_TYPE.SUCCESS)))
+         return true;
         
       } else {
         // display error notification

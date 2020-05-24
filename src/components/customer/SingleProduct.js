@@ -8,12 +8,11 @@ import { productLoadedByIDAsync } from "../../redux/actions/admin-panel/product.
 import { brandsLoadedAsync } from "../../redux/actions/admin-panel/brand.actions";
 import AddToCartButton from "./AddToCartButton";
 import AddToWishlistButton from "./AddToWishlistButton";
-import "../../styles/common/SelectBox.css";
-import {
-  RadioGroup,
-  RadioButton,
-  ReversedRadioButton,
-} from "react-radio-buttons";
+
+import '../../styles/common/SelectBox.css';
+import { RadioGroup, RadioButton, ReversedRadioButton } from 'react-radio-buttons';
+import TextBox from '../common/TextBox';
+
 
 export default function SingleProduct({ productId }) {
   const [selected_size, setSize] = useState("");
@@ -23,9 +22,13 @@ export default function SingleProduct({ productId }) {
   const dispatch = useDispatch();
   const [id, setID] = useState("");
   const [brand, setBrand] = useState([]);
-  const [brandName, setBrandName] = useState("");
-  const [selectedSize, setSelectedSize] = useState([]);
-  const products = useSelector((state) => state.product.products);
+
+  const [brandName, setBrandName] = useState("")
+  const [selectedSize, setSelectedSize] = useState(null);
+  const products = useSelector(state => state.product.products);
+
+
+
 
   useEffect(() => {
     dispatch(productsLoadedAsync());
@@ -68,6 +71,7 @@ export default function SingleProduct({ productId }) {
       return false;
     }
   };
+  
   const checkNew = (date) => {
     const msDiff = new Date().getTime() - new Date(date).getTime(); //Future date - current date
     const difference = Math.floor(msDiff / (1000 * 60 * 60 * 24));
@@ -80,66 +84,34 @@ export default function SingleProduct({ productId }) {
   };
   const totalPrice = (discount, price) => {
     return price - discount;
-  };
+
+
+  }
 
   return (
-    <div class="container-fluid">
+    <div class="container-fluid" style={{position: 'relative'}}>
+
       {selectedProduct && (
         <div>
           <div class="row">
             <div class="col-md-5">
-              <div
-                id="carouselExampleControls"
-                class="carousel slide"
-                data-ride="carousel"
-                style={{
-                  maxHeight: "800px",
-                  maxWidth: "500px",
-                  borderRadius: "1em",
-                }}
-              >
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img
-                      className="single-img"
-                      style={{
-                        maxHeight: "800px",
-                        maxWidth: "500px",
-                        borderRadius: "1em",
-                      }}
-                      src={selectedProduct.images[0]}
-                      class="d-block w-100"
-                      alt={selectedProduct.name}
-                    />
-                  </div>
 
-                  <div class="carousel-item">
-                    <img
-                      className="single-img"
-                      style={{
-                        maxHeight: "800px",
-                        maxWidth: "500px",
-                        borderRadius: "1em",
-                      }}
-                      src={selectedProduct.images[1]}
-                      class="d-block w-100"
-                      alt="..."
-                    />
-                  </div>
 
-                  <div class="carousel-item">
-                    <img
-                      className="single-img"
-                      style={{
-                        maxHeight: "800px",
-                        maxWidth: "500px",
-                        borderRadius: "1em",
-                      }}
-                      src={selectedProduct.images[2]}
-                      class="d-block w-100"
-                      alt="..."
-                    />
-                  </div>
+              <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style={{ maxHeight: '800px', maxWidth: '500px', borderRadius: '1em' }}>
+                <div class="carousel-inner" >
+
+
+                <div class="carousel-item active">
+                  <img className="single-img" style={{maxHeight: '800px',maxWidth: '500px', borderRadius: '1em'}} src={selectedProduct.images[0]} class="d-block w-100" alt={selectedProduct.name} />
+                </div>
+                {selectedProduct.images[1] ? <div class="carousel-item">
+                  <img className="single-img" style={{maxHeight: '800px',maxWidth: '500px', borderRadius: '1em'}} src={selectedProduct.images[1]} class="d-block w-100" alt="..." />
+                </div> : "" }
+               
+                {selectedProduct.images[2] ? <div class="carousel-item">
+                  <img className="single-img"  style={{maxHeight: '800px',maxWidth: '500px' , borderRadius: '1em'}}src={selectedProduct.images[2]} class="d-block w-100" alt="..." /> 
+                </div> : ""}
+   
                 </div>
 
                 <a
@@ -218,34 +190,30 @@ export default function SingleProduct({ productId }) {
 
               <hr />
               <p>
-                <b>Availability : </b>
-                {selectedSize.qty > 0 ? (
-                  <b style={{ color: "green" }}>
-                    {selectedSize && selectedSize.qty} In Stock
-                  </b>
-                ) : (
-                  <b style={{ color: "red" }}>Not Available</b>
-                )}
+
+                <b>Availability : </b>{" "}
+                  {selectedSize === null ? <b>Please select a size</b> : <p>{selectedSize.qty > 0 ? <b style={{color: 'green'}}>{selectedSize && selectedSize.qty} In Stock</b> : <b style={{color: 'red'}}>Not Available</b>}</p> }
+
               </p>
               <p>
-                <b>Condition : </b>New
+                <b>Tags : </b>{" "}{selectedProduct.tags}
               </p>
               <p>
-                <b>Brand : </b>
+                <b>Brand : </b>{" "}
                 <img className="viewimg" src={brand && brand.images} />
                 {}
               </p>
               <label>
                 <b>Quantitiy : </b>{" "}
               </label>
-              <input
-                type="number"
-                value="1"
-                onChange={(e) => setQty(e.target.value)}
-              />
-              {/* <button type="button" class="btn btn-default cart">
-                Add to Cart
-              </button> */}
+              <div className="col-md-2">
+                  <TextBox 
+                  type="number"
+                  placeholder="QTY"
+                  onChange={(e) => setQty(e.target.value)}
+                  />
+                </div>
+           
 
               <AddToCartButton
                 productId={selectedProduct._id}

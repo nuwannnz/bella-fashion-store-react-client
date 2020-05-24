@@ -14,7 +14,7 @@ export const addProduct = async (
   productData
     ) => {
     const path = `${API_HOST}/products`;
-   
+    
     const config = getAuthHeader(token)
     config.headers['Content-Type'] = 'multipart/form-data'
 
@@ -55,18 +55,31 @@ export const addProduct = async (
     token,
     formData) => {
       
-      console.log(formData)
+      console.log(formData.get('_id'))
+      console.log(formData.get('name'))
+      console.log(formData.get('sizeQty'))
+      console.log(formData.get('brand'))
+      console.log(formData.get('category'))
+      console.log(formData.get('subCategory'))
+      console.log(formData.get('price'))
+      console.log(formData.get('discount'))
+      console.log(formData.get('colors'))
+      console.log(formData.get('tags'))
+      console.log(formData.get('description'))
+      console.log(formData.get('images[]'))
+
 
     const config = getAuthHeader(token)
+    config.headers['Content-Type'] = 'multipart/form-data'
     const path = `${API_HOST}/products`;
     const data = {formData};
     //const config = getAuthHeader(token);
       console.log(data)
     const result = new APIResult();
-    config.headers['Content-Type'] = 'multipart/form-data'
+   
   
     try {
-      const response = await axios.put(path, data, config);
+      const response = await axios.put(path, formData, config);
   
       result.data = response.data;
       return result;

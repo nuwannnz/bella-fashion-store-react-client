@@ -56,10 +56,10 @@ export default function SizeList() {
                     <table class="table table-bordered">
                     <thead class="thead-light">
                 <tr>
-                    <td>Size ID</td>
-                    <td>Size Name</td>
-                     <td>Size Description</td>
-                     <td>Actions</td>
+                    <td><b>Size ID</b></td>
+                    <td><b>Size Name</b></td>
+                     <td><b>Size Description</b></td>
+                     <td><b>Actions</b></td>
 
                   </tr>
 

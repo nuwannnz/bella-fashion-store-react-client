@@ -52,13 +52,14 @@ export const SIZE_ACTION_TYPES = {
           dispatch(sizesAdded(result.data.addedEntry))
           dispatch(sizesLoading(false))
           dispatch(displayToastAsync(buildNotification("Size Added Successfully", NOTIFICATION_TYPE.SUCCESS)))
+          return true;
         } else {
   
           // display error notification
           logger.info("sizes api error")
           dispatch(sizesLoading(false))
           dispatch(displayToastAsync(buildNotification("Size is fail to added", NOTIFICATION_TYPE.ERROR)))
-          return;
+          return false;
         }
       }
   }

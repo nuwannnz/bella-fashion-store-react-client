@@ -134,7 +134,7 @@ export default function AdminAddBrandsForm({onAddBrandClick}) {
                                     <div
 
                                     >
-                                        <p>Product images (Max 3 images)</p>
+                                        <p>Product images (Max one image)</p>
                                         <div className="image-upload-list">
                                             {images.map((image, index) => (
                                                 <li className="image-item"
